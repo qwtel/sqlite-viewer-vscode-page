@@ -1,6 +1,6 @@
 .hero {
 	text-align: center;
-  padding-top: 48px;
+    padding-top: 48px;
 	padding-bottom: 88px;
 }
 
@@ -89,7 +89,7 @@
 	transform: rotateZ(45deg);
 
 	&::before {
-		background: linear-gradient(to left, color(bg, 1) 0%, color-mix(in srgb, color(bg, 1) 0%, transparent) 60%);
+		background: linear-gradient(to left, color(bg, 1) 0%, rgba(color(bg, 1), 0) 60%);
 		transform: rotateZ(45deg) scale(1.5);
 	}
 }
@@ -103,7 +103,7 @@
 	transform: rotateZ(-45deg);
 
 	&::before {
-		background: linear-gradient(to top, color(bg, 1) 0%, color-mix(in srgb, color(bg, 1) 0%, transparent) 60%);
+		background: linear-gradient(to top, color(bg, 1) 0%, rgba(color(bg, 1), 0) 60%);
 		transform: rotateZ(-45deg) scale(1.5);
 	}
 }
@@ -116,7 +116,7 @@
 	background: linear-gradient(to left top, #00BFFB, rgba(#00BFFB, 0));
 
 	&::before {
-		background: linear-gradient(to left, color(bg, 1) 0%, color-mix(in srgb, color(bg, 1) 0%, transparent) 60%);
+		background: linear-gradient(to left, color(bg, 1) 0%, rgba(color(bg, 1), 0) 60%);
 		transform: rotateZ(45deg) scale(1.5);
 	}
 }

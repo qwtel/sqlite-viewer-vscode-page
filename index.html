@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="dark light">
     <title>Solid Template</title>
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
     <link rel="stylesheet" href="dist/css/style.css">
@@ -12,12 +11,6 @@
     <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
 </head>
 <body class="is-boxed has-animations">
-    <script>
-        const searchParams = new URLSearchParams(location.search);
-        document.head.querySelector('meta[name="color-scheme"]').content = searchParams.get('color-scheme') || 'dark light';
-        document.body.classList.add(searchParams.get('color-scheme'));
-        Object.entries(JSON.parse(searchParams.get('css-vars') ?? '{}')).forEach(([key, value]) => document.body.style.setProperty(key, value));
-    </script>
     <div class="body-wrap">
         <header class="site-header">
             <div class="container">
@@ -136,7 +129,7 @@
                                 <div class="pricing-table-inner is-revealing">
                                     <div class="pricing-table-main">
                                         <div class="pricing-table-header pb-24">
-                                            <div class="pricing-table-price"><span class="pricing-table-price-currency h2">$</span><span class="pricing-table-price-amount h1">49</span><span class="text-xs"> One Time Purchase</span></div>
+                                            <div class="pricing-table-price"><span class="pricing-table-price-currency h2">$</span><span class="pricing-table-price-amount h1">49</span><span class="text-xs">/month</span></div>
                                         </div>
 										<div class="pricing-table-features-title text-xs pt-24 pb-24">What you will get</div>
                                         <ul class="pricing-table-features list-reset text-xs">
