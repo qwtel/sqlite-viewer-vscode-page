@@ -57,13 +57,18 @@
 }
 
 @mixin shadow {
-	box-shadow: 0 24px 48px rgba(color(bg, 1), .24);
+	box-shadow: 0 24px 48px color-mix(in srgb, color(bg, 1) 76%, black);
 	mix-blend-mode: multiply;
 }
 
 @mixin shadow-sm {
-	box-shadow: 0 16px 24px rgba(color(bg, 1), .24);
+	box-shadow: 0 16px 24px color-mix(in srgb, color(bg, 1) 76%, black);
 	mix-blend-mode: multiply;
+}
+
+@mixin shadow-xxs {
+	box-shadow: 0 2px 3px color-mix(in srgb, color(bg, 1) 96%, black);
+	// mix-blend-mode: multiply;
 }
 
 @mixin divider-mix {

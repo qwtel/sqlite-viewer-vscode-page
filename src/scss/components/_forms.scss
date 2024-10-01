@@ -22,7 +22,7 @@
     }
 
     &:hover {
-        border-color: darken(color(bg, 3), 5%);
+        border-color: color-mix(in oklab, color(bg, 3) 95%, var(--darken) 5%);
     }
 
     &:active,
