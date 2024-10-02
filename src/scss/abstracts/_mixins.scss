@@ -67,7 +67,7 @@
 }
 
 @mixin shadow-xxs {
-	box-shadow: 0 2px 3px color-mix(in srgb, color(bg, 1) 96%, black);
+	box-shadow: 0 2px 3px color-mix(in srgb, color(bg, 1) 76%, #222);
 	// mix-blend-mode: multiply;
 }
 

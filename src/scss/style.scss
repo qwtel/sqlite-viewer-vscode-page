@@ -72,3 +72,171 @@
 # Footer
 --------------------------------------------------------------*/
 @import "layout/footer";
+
+
+.vscode-only {
+	display: none;
+}
+.vscode .vscode-only {
+	display: unset;
+}
+.vscode .web-only {
+	display: none;
+}
+
+:root {
+	--card-height: 40vw;
+	--card-margin: 6vw;
+	--card-top-offset: 1.5em;
+	--outline-width: 0px;
+
+  @media (max-aspect-ratio: 1/1) {
+    --card-height: 40vh;
+    --card-margin: 6vh;
+  }
+}
+
+#cards {
+	/* Make place at bottom, as items will slide to that position*/
+	padding-bottom: calc(var(--num-cards) * var(--card-top-offset));
+	/* Don't include the --card-margin in padding, as that will affect the scroll-timeline*/
+	margin-top: 88px;
+	margin-bottom: calc(var(--card-margin) + 88px);
+}
+
+#card_1 {
+	--index: 1;
+}
+
+#card_2 {
+	--index: 2;
+}
+
+#card_3 {
+	--index: 3;
+}
+
+#card_4 {
+	--index: 4;
+}
+
+/* --- */
+
+#cards {
+	list-style: none;
+	outline: calc(var(--outline-width) * 10) solid hotpink;
+
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(var(--num-cards), calc(var(--card-height) + var(--card-margin)));
+	gap: var(--card-margin);
+}
+
+.card {
+	outline: var(--outline-width) solid lime;
+	// scroll-margin-top: 64px;
+}
+
+.card__content {
+  @include shadow;
+  background: color(bg, 3);
+	color: color(typography, 1);
+	border-radius: 2px;
+  height: var(--card-height);
+	overflow: hidden;
+
+	display: grid;
+	grid-template-areas: "text img";
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: auto;
+
+	align-items: stretch;
+	outline: var(--outline-width) solid blue;
+}
+
+.card__content > div {
+	grid-area: text;
+	width: 80%;
+	place-self: center;
+	text-align: left;
+
+	display: grid;
+	gap: 1em;
+	place-items: start;
+}
+
+.card__content > figure {
+	grid-area: img;
+	overflow: hidden;
+}
+
+.card__content > figure > img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* --- */
+
+.card {
+	position: sticky;
+	top: 100px;
+	--card-hover-offset: 0px;
+	transition: transform 0.500s;
+	transform: translateY(calc(var(--index0) * var(--card-top-offset) + var(--card-hover-offset)));
+	scroll-margin-top: calc(60px + 10px + var(--index) * var(--card-top-offset));
+}
+
+.card__content {
+	transform-origin: 50% 0%;
+	will-change: transform;
+}
+
+a.card__header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: calc(1.5 * var(--card-top-offset));
+	opacity: 0.25;
+	background: color(bg, 4);
+}
+
+.card:has(a.card__header:hover) {
+	--card-hover-offset: calc(-0.125em * var(--index));
+	transition: transform 0.125s;
+}
+
+
+.card {
+	--index0: calc(var(--index) - 1); /* 0-based index */
+	--reverse-index: calc(var(--num-cards) - var(--index0)); /* reverse index */
+	--reverse-index0: calc(var(--reverse-index) - 1); /* 0-based reverse index */
+}
+
+#cards {
+  padding: 0;
+}
+
+#cards figure {
+  margin: 0;
+}
+
+@keyframes scale {
+	to {
+		transform: scale(calc(1.1 - calc(0.1 * var(--reverse-index))));
+	}
+}
+
+@supports (view-timeline-name: --cards-element-scrolls-in-body) {
+  #cards {
+    --num-cards: 4;
+    view-timeline-name: --cards-element-scrolls-in-body;
+  }
+
+  .card__content {
+    animation: linear scale forwards;
+    animation-timeline: --cards-element-scrolls-in-body;
+    animation-range: exit-crossing calc(var(--index0) / var(--num-cards) * 100%) exit-crossing calc((var(--index)) / var(--num-cards) * 100%);
+  }
+}

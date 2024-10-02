@@ -55,8 +55,8 @@
     padding: 24px;
     height: 100%;
     background: color-mix(in oklab, color(bg, 4) 67%, transparent);
-		-webkit-backdrop-filter: blur(10px);
-		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(20px);
+		backdrop-filter: blur(20px);
 
     > * {
 		position: relative; /* To display all elements above the box with shadow */
@@ -77,6 +77,10 @@
 .pricing-table-price {
 	@if ( get-font-family(heading) != get-font-family(base) ) {
 		@include font-family(heading);
+	}
+	del {
+		-webkit-filter: blur(1.5px);
+    filter: blur(1.5px);
 	}
 }
 

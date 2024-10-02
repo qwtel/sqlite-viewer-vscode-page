@@ -18,6 +18,7 @@ body {
 		--x-background: #ffffff;
 		--darken: rgb(144, 144, 144);
 		--lighten: #484848;
+		-webkit-font-smoothing: auto;
 	}
 }
 body.light {
@@ -25,6 +26,7 @@ body.light {
 		--x-background: #ffffff;
 		--darken: rgb(144, 144, 144);
 		--lighten: #484848;
+		-webkit-font-smoothing: auto;
 }
 $color: (
 	typography: (
@@ -92,7 +94,7 @@ $font__scale: (
 $font__weight: (
 	regular: 400, 	// font__weight(regular)
 	medium: 500,	// font__weight(medium)
-	semibold: 900,	// font__weight(semi-bold)
+	semibold: 700,	// font__weight(semi-bold)
 	bold: 900		// font__weight(bold)
 );
 

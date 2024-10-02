@@ -2,10 +2,10 @@
     position: sticky;
     top: 0;
     z-index: 2;
-    padding: 16px 0;
+    padding: 12px 0;
     background: color-mix(in srgb, var(--x-background) 50%, transparent);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     @include shadow-xxs;
 }
 
@@ -53,8 +53,7 @@
 		    background: linear-gradient(80deg, color-mix(in srgb, color(bg, 3) 50%, transparent) 0%, color-mix(in srgb, color(bg, 3) 0%, transparent) 100%);
 		    -webkit-transform-origin: 0;
 		    transform-origin: 0;
-		    -webkit-transform: skewY(-12deg);
-		    transform: skewY(-12deg);
+		    transform: translateY(-115px);
 		}
 	}
 }
