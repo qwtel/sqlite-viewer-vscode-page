@@ -84,9 +84,16 @@
 	display: none;
 }
 
+.proof-inner {
+	margin-top: 64px;
+	margin-bottom: 64px;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
 :root {
-	--card-height: 40vw;
-	--card-margin: 6vw;
+	--card-height: min(40vw, 540px);
+	--card-margin: min(6vw, 45px);
 	--card-top-offset: 1.5em;
 	--outline-width: 0px;
 
@@ -104,19 +111,19 @@
 	margin-bottom: calc(var(--card-margin) + 88px);
 }
 
-#card_1 {
+#card_1, #spy_1 {
 	--index: 1;
 }
 
-#card_2 {
+#card_2, #spy_2 {
 	--index: 2;
 }
 
-#card_3 {
+#card_3, #spy_3 {
 	--index: 3;
 }
 
-#card_4 {
+#card_4, #spy_4 {
 	--index: 4;
 }
 
@@ -134,14 +141,13 @@
 
 .card {
 	outline: var(--outline-width) solid lime;
-	// scroll-margin-top: 64px;
 }
 
 .card__content {
   @include shadow;
   background: color(bg, 3);
 	color: color(typography, 1);
-	border-radius: 2px;
+	border-radius: .5rem;
   height: var(--card-height);
 	overflow: hidden;
 
@@ -154,7 +160,7 @@
 	outline: var(--outline-width) solid blue;
 }
 
-.card__content > div {
+.card__content > div:not(.card__header) {
 	grid-area: text;
 	width: 80%;
 	place-self: center;
@@ -180,11 +186,14 @@
 
 .card {
 	position: sticky;
-	top: 100px;
+	top: calc(60px + 8vh);
 	--card-hover-offset: 0px;
 	transition: transform 0.500s;
 	transform: translateY(calc(var(--index0) * var(--card-top-offset) + var(--card-hover-offset)));
-	scroll-margin-top: calc(60px + 10px + var(--index) * var(--card-top-offset));
+}
+
+.card, .spy {
+	scroll-margin-top: calc(60px + 8vh);
 }
 
 .card__content {
@@ -192,17 +201,22 @@
 	will-change: transform;
 }
 
-a.card__header {
+.card__header {
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 	height: calc(1.5 * var(--card-top-offset));
-	opacity: 0.25;
-	background: color(bg, 4);
+	background-color: color-mix(in srgb, color(bg, 4) 25%, transparent);
+	cursor: pointer;
+	// backdrop-filter: blur(10px);
+	// --dot-color: color-mix(in oklab, var(--x-background) 75%, var(--lighten));
+  // --dot-size: 1px;
+  // --dot-spacing: 5px;
+	// background-image: paint(dot-grid);
 }
 
-.card:has(a.card__header:hover) {
+.card:has(.card__header:hover) {
 	--card-hover-offset: calc(-0.125em * var(--index));
 	transition: transform 0.125s;
 }
