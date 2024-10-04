@@ -24,7 +24,7 @@
         <div class="site-header-inner">
           <div class="brand header-brand">
             <h1 class="m-0" style="display:flex;align-items:center;font-size:18px;line-height:100%">
-							<a href="#">
+						  <a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' })">
 								<img class="header-logo-image" src="dist/images/logo_512_mac.png" alt="Logo" width="35" height="35">
               </a>
               <div style="margin-left:10px">
@@ -35,7 +35,7 @@
           <div>
             <!-- <a class="button button-sm vscode-only" href="https://vscode.sqliteviewer.app" target="_blank">Open in Browser</a> -->
             <a class="button button-sm vscode-only" href="http://localhost:3000" target="_blank">Open in Browser ↗</a>
-            <a class="button button-primary button-sm web-only" href="#">Buy Now</a>
+            <a class="button button-primary button-sm web-only" href="#">Buy Now ↗</a>
           </div>
         </div>
       </div>
@@ -54,8 +54,8 @@
               </script>
 	            <p class="hero-paragraph">Get work done without leaving VS Code. Unlock powerful <strong>editing</strong> and <strong>export</strong> features. Works anywhere, including <strong>SSH</strong> and <strong>WSL</strong>.</p>
 	            <div class="hero-cta">
-                <a class="button button-primary" href="#">Buy Now</a>
-                <a class="button" href="#card-four" onclick="event.preventDefault(); document.getElementById('spy_4').scrollIntoView({ block: 'start', behavior: 'smooth' })">Learn More</a>
+                <a class="button button-primary" href="#">Buy Now ↗</a>
+                <a class="button" href="#card-four" onclick="event.preventDefault(); document.getElementById('spy_4').scrollIntoView({ block: 'start', behavior: 'smooth' })">Learn More ↓</a>
               </div>
 						</div>
 						<div class="hero-figure anime-element">
@@ -68,8 +68,12 @@
 							<div class="hero-figure-box hero-figure-box-04" data-rotation="-135deg"></div>
 							<div class="hero-figure-box hero-figure-box-05">
                 <picture>
-                  <source media="(prefers-color-scheme: light)" srcset="dist/images/screenshot.png">
-                  <source media="(prefers-color-scheme: dark)" srcset="dist/images/screenshot-dark.png">
+                  <source media="(prefers-color-scheme: light)" type="image/avif" srcset="dist/images/screenshot.avif">
+                  <source media="(prefers-color-scheme: dark)" type="image/avif" srcset="dist/images/screenshot-dark.avif">
+                  <source media="(prefers-color-scheme: light)" type="image/webp" srcset="dist/images/screenshot.webp">
+                  <source media="(prefers-color-scheme: dark)" type="image/webp" srcset="dist/images/screenshot-dark.webp">
+                  <source media="(prefers-color-scheme: light)" type="image/png" srcset="dist/images/screenshot.png">
+                  <source media="(prefers-color-scheme: dark)" type="image/png" srcset="dist/images/screenshot-dark.png">
                   <img src="dist/images/screenshot-dark.png" alt="Screenshot" width="528" height="396">
                 </picture>
               </div>
@@ -85,6 +89,10 @@
 
       <section class="section">
         <div class="container">
+          <div class="features-header text-center mb-64">
+            <!-- <h2 class="section-title" style="color:unset">Includes powerful PRO features</h2> -->
+            <!-- <p class="section-paragraph mb-0">Check ou the card stack below.</p> -->
+          </div>
           <ul id="cards">
             <div style="grid-area: 1/1" class="spy" id="spy_1"></div>
             <li style="grid-area: 1/1" class="card" id="card_1">
@@ -149,10 +157,9 @@
       <section class="features section">
         <div class="container">
 					<div class="features-inner section-inner">
-            <!-- <div class="features-header">
-              <h2 class="section-title mt-0">And there's more...</h2>
-              <p class="section-paragraph"><strong>SQLite Viewer PRO</strong> includes everything you like about the free version.</p>
-            </div> -->
+            <div class="features-header text-center mb-64">
+              <p class="section-paragraph h3 mt-0" style="color:unset">…and everything you like about the free version:</p>
+            </div>
             <div class="features-wrap">
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
@@ -218,9 +225,9 @@
 					<div class="proof-inner section-inner has-top-divider has-bottom-divider p-0">
             <!-- <p class="section-paragraph mb-0 text-center">Behold the social proof</p> -->
             <div style="display:flex;align-items:center;justify-content:center" class="" >
-              <span class="h3 m-0" style="color:unset;line-height:1.6;"><a style="text-decoration:none" href="https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer" target="_blank">1M+ unique installs</a>.<br/>Used throughout the industry, including </span> 
+              <span class="h3 m-0" style="color:unset;line-height:1.6;"><a style="text-decoration:none" href="https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer" target="_blank">1M+ unique installs</a>.<br/>Used across the industry, including at</span> 
 <a href="https://x.com/qwtel/status/1841513261310869997" target="_blank">
-<svg class="ml-32" style="width:184px;height:220px;filter:grayscale(1);opacity:.85;transform:scale(0.85)" height="92" viewBox="0 0 110 92" width="110" xmlns="http://www.w3.org/2000/svg">
+<svg class="ml-32" style="width:184px;height:220px;filter:grayscale(1);opacity:.85;transform:scale(0.85);mix-blend-mode:luminosity;" height="92" viewBox="0 0 110 92" width="110" xmlns="http://www.w3.org/2000/svg">
 <title>NASA</title>
 <circle cx="50.049" cy="45" fill="#0b3d91" r="40.14"/>
 <g fill="#fff">
@@ -310,7 +317,7 @@
                     </ul>
                   </div>
                   <div class="pricing-table-cta mb-8">
-                    <a class="button button-primary button-shadow button-block" href="#">Buy Now</a>
+                    <a class="button button-primary button-shadow button-block" href="#">Buy Now ↗</a>
                   </div>
                 </div>
               </div>
@@ -324,7 +331,7 @@
 					<div class="cta-inner section-inner">
 						<h3 class="section-title mt-0">Purchasing for an Organization?</h3>
 						<div class="cta-cta">
-							<a class="button button-primary button-wide-mobile" href="mailto:sales@sqliteviewer.app">Get in touch</a>
+							<a class="button button-primary button-wide-mobile" href="mailto:sales@sqliteviewer.app">Get in touch @</a>
 						</div>
 					</div>
 				</div>
@@ -335,7 +342,7 @@
       <div class="container">
         <div class="site-footer-inner">
           <div class="brand footer-brand">
-						<a href="#">
+						<a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' })">
 							<img class="header-logo-image" src="dist/images/logo_512_mac.png" alt="Logo" width="35" height="35">
 						</a>
           </div>

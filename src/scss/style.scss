@@ -92,8 +92,9 @@
 }
 
 :root {
-	--card-height: min(40vw, 540px);
-	--card-margin: min(6vw, 45px);
+	--card-max-height: 540px;
+	--card-height: min(40vw, var(--card-max-height));
+	--card-margin: min(6vw, 50px);
 	--card-top-offset: 1.5em;
 	--outline-width: 0px;
 
@@ -139,6 +140,16 @@
 	gap: var(--card-margin);
 }
 
+@include media('>xxlarge') {
+	:root {
+		--card-max-height: 600px;
+	}
+	#cards {
+		margin-left: -3rem;
+		margin-right: -3rem;
+	}
+}
+
 .card {
 	outline: var(--outline-width) solid lime;
 }
@@ -155,6 +166,13 @@
 	grid-template-areas: "text img";
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: auto;
+
+  @media (max-width: 800px) {
+		grid-template-columns: auto;
+		grid-template-rows: 1fr 1fr;
+		grid-template-areas: "img"
+		                     "text";
+  }
 
 	align-items: stretch;
 	outline: var(--outline-width) solid blue;
