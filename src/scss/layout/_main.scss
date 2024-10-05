@@ -24,14 +24,14 @@ main {
 
 .section-inner {
     position: relative; /* To always display inner elements above pseudo decorative stuff */
-    padding-top: 48px;
-    padding-bottom: 48px;
+    margin-top: 48px;
+    margin-bottom: 48px;
 }
 
 @include media( '>medium' ) {
 
     .section-inner {
-        padding-top: 88px;
-        padding-bottom: 88px;
+        margin-top: 88px;
+        margin-bottom: 88px;
     }
 }
