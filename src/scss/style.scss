@@ -166,7 +166,7 @@
 	color: color(typography, 1);
 	border-radius: .5rem;
   height: var(--card-height);
-	overflow: hidden;
+	// overflow: hidden;
 
 	display: grid;
 	grid-template-areas: "text img";
@@ -198,6 +198,9 @@
 .card__content > figure {
 	grid-area: img;
 	overflow: hidden;
+	overflow: clip;
+	border-top-right-radius: .5rem;
+	border-bottom-right-radius: .5rem;
 }
 
 .card__content > figure > img {
