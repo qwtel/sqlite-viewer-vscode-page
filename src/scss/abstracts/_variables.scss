@@ -31,7 +31,11 @@ body.light {
 $color: (
 	typography: (
 		1: var(--x-color, #FFFFFF),
-		2: color-mix(in oklab, var(--x-color) 50%, var(--x-background)),
+		2: color-mix(
+				in oklab, 
+				color-mix(in oklab, var(--x-color) 60%, var(--x-background)) 100%,
+				#0270D7 12.5%
+			),
 		3: #3B404C
 	),
 	bg: (

@@ -474,3 +474,13 @@
 		}
 	}
 }
+
+.break-spaces {
+	white-space: break-spaces;
+}
+.content-after::after {
+	content: attr(data-content-after);
+}
+.content-before::before {
+	content: attr(data-content-before);
+}

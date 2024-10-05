@@ -56,7 +56,7 @@ h2,
 
 h3,
 .h3,
-blockquote {
+.blockquote {
 	@include font-size(3, mobile, true, true, true);
 	@if ( get-font-size(3, desktop) != get-font-size(3, mobile) ) {
 		@include media( '>medium' ) {
@@ -161,7 +161,7 @@ dfn, cite, em, i {
 	font-style: italic;
 }
 
-blockquote {
+.blockquote {
 	color: color(typography, 3);
 	font-style: italic;
 	margin-top: 24px;
