@@ -13,10 +13,11 @@
 <body class="is-boxed has-animations">
   <script>
     const searchParams = new URLSearchParams(location.search);
-    document.head.querySelector('meta[name="color-scheme"]').content = searchParams.get('color-scheme') || 'dark light';
+    const colorScheme = searchParams.get('color-scheme');
+    document.head.querySelector('meta[name="color-scheme"]').content = colorScheme || 'dark light';
     document.body.classList.toggle('vscode', searchParams.has('css-vars'));
-    document.body.classList.add(searchParams.get('color-scheme'));
-    Object.entries(JSON.parse(searchParams.get('css-vars') ?? '{}')).forEach(([key, value]) => document.body.style.setProperty(key, value));
+    document.body.classList.add(colorScheme);
+    Object.entries(JSON.parse(searchParams.get('css-vars') || '{}')).forEach(([key, value]) => document.body.style.setProperty(key, value));
   </script>
   <div class="body-wrap">
     <header class="site-header">
@@ -33,8 +34,7 @@
             </h1>
           </div>
           <div>
-            <!-- <a class="button button-sm vscode-only" href="https://vscode.sqliteviewer.app" target="_blank">Open in Browser</a> -->
-            <a class="button button-sm vscode-only" href="http://localhost:3000" target="_blank">Open in Browser ↗</a>
+            <script>searchParams.has('css-vars') && document.write(`<a class="button button-sm vscode-only" href="${location.origin}" target="_blank">Open in Browser ↗</a>`)</script>
             <a class="button button-primary button-sm web-only" href="#">Buy Now</a>
           </div>
         </div>
@@ -48,8 +48,10 @@
 						<div class="hero-copy">
 	            <h1 id="hero-title" class="hero-title mt-0">The Best SQLite Editor is the One in Your Editor</h1>
               <script>
+                let heroTitle;
                 if (searchParams.has('css-vars')) {
-                  document.getElementById('hero-title').textContent = document.title = 'Upgrade to Unlock PRO Features';
+                  heroTitle = document.getElementById('hero-title').textContent;
+                  document.getElementById('hero-title').textContent = 'Upgrade to Unlock PRO Features';
                 }
               </script>
 	            <p class="hero-paragraph">Get work done without leaving VS Code. Unlock powerful <strong>editing</strong> and <strong>export</strong> features. Works anywhere, including <strong>SSH</strong> and <strong>WSL</strong>.</p>
@@ -90,7 +92,12 @@
       <section class="section">
         <div class="container">
           <div class="text-center mb-64" style="position: sticky; top: 72px;">
-            <h2 class="cards-title section-title h3" style="color:unset">Upgrade to unlock powerful PRO features</h2>
+            <h2 id="cards-title" class="cards-title section-title h3" style="color:unset">Upgrade to unlock powerful PRO features</h2>
+            <script>
+              if (searchParams.has('css-vars')) {
+                document.getElementById('cards-title').textContent = heroTitle;
+              }
+            </script>
             <!-- <p class="section-paragraph mb-0">Check ou the card stack below.</p> -->
           </div>
           <ul id="cards">
@@ -386,6 +393,14 @@
       </div>
     </footer>
   </div>
+  <script>
+    if (colorScheme) {
+      const prefersColorScheme = new RegExp(`(prefers-color-scheme:\\s*${colorScheme})`);
+      document.querySelectorAll('source[media*="prefers-color-scheme"]').forEach(source => {
+        if (!source.media.match(prefersColorScheme)) source.remove();
+      });
+    }
+  </script>
   <script type="module">
     (async () => {
       if (document.body.classList.contains('vscode')) {

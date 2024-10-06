@@ -106,7 +106,7 @@
 
   @media (max-aspect-ratio: 1/1) {
     --card-height: min(48vh, var(--card-max-height));
-    --card-margin: 4vh;
+		--card-margin: min(4vh, 50px);
   }
 }
 
@@ -178,7 +178,7 @@
 
   @media (max-width: 800px) {
 		grid-template-columns: auto;
-		grid-template-rows: 1fr 1fr;
+		grid-template-rows: 50% 50%;
 		grid-template-areas: "img"
 		                     "text";
   }
@@ -201,6 +201,10 @@
 	overflow: clip;
 	border-top-right-radius: .5rem;
 	border-bottom-right-radius: .5rem;
+  @media (max-width: 800px) {
+		border-top-left-radius: .5rem;
+		border-bottom-right-radius: 0;
+  }
 }
 
 .card__content > figure > img {

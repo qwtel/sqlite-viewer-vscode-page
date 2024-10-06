@@ -147,7 +147,7 @@
 	left: 0%;
 	top: 0%;
 	width: 90%;
-	height: 90%;
+	height: calc(90% - 2px);
 	transform: perspective(500px) rotateY(-15deg) rotateX(8deg) rotateZ(-1deg);
 }
 
