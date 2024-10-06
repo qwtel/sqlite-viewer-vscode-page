@@ -25,13 +25,12 @@ main {
 .section-inner {
     position: relative; /* To always display inner elements above pseudo decorative stuff */
     margin-top: 48px;
-    margin-bottom: 48px;
+    margin-bottom: 88px;
 }
 
 @include media( '>medium' ) {
 
     .section-inner {
         margin-top: 88px;
-        margin-bottom: 88px;
     }
 }
