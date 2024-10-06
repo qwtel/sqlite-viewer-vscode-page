@@ -111,9 +111,8 @@
 }
 
 #cards {
-	/* Make place at bottom, as items will slide to that position*/
+  --num-cards: 4;
 	padding-bottom: calc(var(--num-cards) * var(--card-top-offset));
-	/* Don't include the --card-margin in padding, as that will affect the scroll-timeline*/
 	margin-top: 88px;
 	margin-bottom: calc(var(--card-margin) + 88px);
 }
@@ -274,7 +273,6 @@
 
 @supports (view-timeline-name: --cards-element-scrolls-in-body) {
   #cards {
-    --num-cards: 4;
     view-timeline-name: --cards-element-scrolls-in-body;
   }
 
