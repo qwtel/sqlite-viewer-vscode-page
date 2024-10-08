@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark light">
-  <title>Solid Template</title>
+  <title>SQLite Viewer for VS Code</title>
   <link rel="stylesheet" href="dist/css/style.css">
 	<script src="dist/anime.min.js"></script>
   <script src="dist/scrollreveal.min.js"></script>
@@ -23,7 +23,7 @@
     <header class="site-header">
       <div class="container">
         <div class="site-header-inner">
-          <div class="brand header-brand">
+          <div class="brand header-brand mr-8">
             <h1 class="m-0" style="display:flex;align-items:center;font-size:18px;line-height:100%">
 						  <a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' })">
 								<img class="header-logo-image" src="dist/images/logo_512_mac.png" alt="Logo" width="35" height="35">
@@ -54,7 +54,7 @@
                   document.getElementById('hero-title').textContent = 'Upgrade to Unlock PRO Features';
                 }
               </script>
-	            <p class="hero-paragraph">Get work done without leaving VS Code. Unlock powerful <strong>editing</strong> and <strong>export</strong> features. Works anywhere, including <strong>SSH</strong> and <strong>WSL</strong>.</p>
+	            <p class="hero-paragraph">Get work done without leaving VS Code. Unlock powerful <strong>editing and export</strong> features. Works anywhere, including <strong>SSH and WSL</strong>.</p>
 	            <div class="hero-cta">
                 <a class="button button-primary" href="#">Buy Now</a>
                 <a class="button" href="#card-four" onclick="event.preventDefault(); document.getElementById('spy_4').scrollIntoView({ block: 'start', behavior: 'smooth' })">Learn More ↓</a>
@@ -204,15 +204,6 @@
                   <p class="text-sm mb-0">Whether you're using VS Codium, VS Code for Web, GitPod, Google IDX, or any other VS Code fork, <strong>SQLite Viewer adopts to its environment</strong> and provides as many features as possible.</p>
                 </div>
               </div>
-							<!-- <div class="feature text-center is-revealing">
-                <div class="feature-inner">
-                  <div class="feature-icon">
-										<img src="dist/images/feature-icon-05.svg" alt="Feature 05">
-                  </div>
-                  <h4 class="feature-title mt-24">Be Productive</h4>
-                  <p class="text-sm mb-0">Fermentum posuere urna nec tincidunt praesent semper feugiat nibh. A arcu cursus vitae congue mauris. Nam at lectus urna duis convallis. Mauris rhoncus aenean vel elit scelerisque mauris.</p>
-                </div>
-              </div> -->
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
@@ -220,6 +211,15 @@
                   </div>
                   <h4 class="feature-title mt-24">Owner Operated</h4>
                   <p class="text-sm mb-0">SQLite Viewer is crafted by a single, dedicated developer and enjoys a <strong>coherent vision</strong> and <strong>attention to detail</strong> that is rarely found in purely commercial products.</p>
+                </div>
+              </div>
+							<div class="feature text-center is-revealing">
+                <div class="feature-inner">
+                  <div class="feature-icon">
+										<img src="dist/images/feature-icon-05.svg" alt="Feature 05">
+                  </div>
+                  <h4 class="feature-title mt-24">Ad-Free Experience</h4>
+                  <p class="text-sm mb-0">Enjoy an ad-free experience — <strong>perfect for screen sharing and recordings</strong>. Additionally, PRO customers get an exclusive PRO icon (<img width="18" height="18" src="dist/images/favicon-pro.png" style="display:inline-block"/>) in the bottom left corner.</p>
                 </div>
               </div>
             </div>
@@ -234,7 +234,7 @@
             <div style="display:flex;align-items:center;justify-content:center" class="" >
               <span class="h3 m-0" style="color:unset;line-height:1.6;"><a style="text-decoration:none" href="https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer" target="_blank">1M+ unique installs</a>.<br>Used across the industry, including at</span> 
 <a href="https://x.com/qwtel/status/1841513261310869997" target="_blank">
-<svg class="ml-32" style="width:184px;height:220px;filter:grayscale(1);opacity:.85;transform:scale(0.85);mix-blend-mode:luminosity;" height="92" viewBox="0 0 110 92" width="110" xmlns="http://www.w3.org/2000/svg">
+<svg class="ml-16" style="width:184px;height:220px;filter:grayscale(1);opacity:.85;transform:scale(0.85);mix-blend-mode:luminosity;" height="92" viewBox="0 0 110 92" width="110" xmlns="http://www.w3.org/2000/svg">
 <title>NASA</title>
 <circle cx="50.049" cy="45" fill="#0b3d91" r="40.14"/>
 <g fill="#fff">
@@ -297,7 +297,7 @@
           <div class="pricing-inner section-inner">
             <div class="pricing-header text-center">
               <h2 class="section-title mt-0">No Subscription, No Problem</h2>
-              <p class="section-paragraph mb-0">SQLite Viewer PRO is a one-time purchase that grants you a perpetual license that works for as long as VS Code does.<br><br><small><strong>Now generally available with limited-time launch discount:</strong></small></p>
+              <p class="section-paragraph mb-0">SQLite Viewer PRO is a one-time purchase that grants you a perpetual license that works for as long as VS Code does.<br><br><small><strong>Now generally available. Enjoy the limited-time launch discount:</strong></small></p>
             </div>
 						<div class="pricing-tables-wrap">
               <div class="pricing-table">
@@ -325,7 +325,7 @@
 												<span>Everything included in free version</span>
 											</li>
 											<li>
-												<span>Distinct logo badge (<img width="18" height="18" src="dist/images/favicon-pro.png" style="display:inline-block"/>)</span>
+												<span>Exclusive PRO icon (<img width="18" height="18" src="dist/images/favicon-pro.png" style="display:inline-block"/>)</span>
 											</li>
 											<li>
 												<span>Ad-free experience</span>
@@ -367,11 +367,14 @@
               <a href="/terms.html">Terms of Use</a>
             </li>
             <li>
-              <a href="/privacy.html">Privacy Policy</a>
+              <a href="/privacy.html">Privacy</a>
             </li>
             <li>
-              <a href="/refund.html">Refund Policy</a>
+              <a href="/refunds.html">Refunds</a>
             </li>
+            <!-- <li>
+              <a href="/changelog.html">Release Notes</a>
+            </li> -->
             <li>
               <a href="mailto:mail@sqliteviewer.app">Contact ↗</a>
             </li>
@@ -394,7 +397,7 @@
               </a>
             </li>
           </ul>
-          <div class="footer-copyright"><p>
+          <div class="footer-copyright"><p class="mr-16">
             &copy; 2024 Florian Klampfer. All rights reserved.<br><br>
             “SQLite” is a trademark of Hipp, Wyrick & Company, Inc. “Visual Studio Code” (VS Code) is a trademark of Microsoft Corporation. This extension is an independent product and is not affiliated with the respective trademark holders.<br><br>
             Design based on <a href="https://preview.cruip.com/solid">Solid</a>. Licensed under GPL-3.0.

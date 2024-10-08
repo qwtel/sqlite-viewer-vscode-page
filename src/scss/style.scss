@@ -114,7 +114,7 @@
   --num-cards: 4;
 	padding-bottom: calc(var(--num-cards) * var(--card-top-offset));
 	margin-top: 88px;
-	margin-bottom: calc(var(--card-margin) + 88px);
+	margin-bottom: calc(var(--card-margin) + 112px);
 }
 
 #card_1, #spy_1 {
@@ -294,7 +294,7 @@ div:has(> .section-title) {
 div:has(> .section-title)::after {
 	content: '';
 	position: absolute;
-	bottom: -12px;
+	bottom: -24px;
 	left: 0;
 	right: 0;
 	margin: auto;
