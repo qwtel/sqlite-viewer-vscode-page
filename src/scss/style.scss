@@ -101,7 +101,7 @@
 	--card-max-height: 540px;
 	--card-height: min(48vw, var(--card-max-height));
 	--card-margin: min(4vw, 50px);
-	--card-top-offset: 1.5em;
+	--card-top-offset: 1.25em;
 	--outline-width: 0px;
 
   @media (max-aspect-ratio: 1/1) {
@@ -111,26 +111,9 @@
 }
 
 #cards {
-  --num-cards: 4;
 	padding-bottom: calc(var(--num-cards) * var(--card-top-offset));
 	margin-top: 88px;
 	margin-bottom: calc(var(--card-margin) + 112px);
-}
-
-#card_1, #spy_1 {
-	--index: 1;
-}
-
-#card_2, #spy_2 {
-	--index: 2;
-}
-
-#card_3, #spy_3 {
-	--index: 3;
-}
-
-#card_4, #spy_4 {
-	--index: 4;
 }
 
 /* --- */
@@ -190,12 +173,12 @@
 	text-align: left;
 
 	display: grid;
-	gap: 1em;
 	place-items: start;
 }
 
 .card__content > figure {
 	grid-area: img;
+	height: var(--card-height);
 	overflow: hidden;
 	overflow: clip;
 	border-top-right-radius: .5rem;
@@ -228,6 +211,8 @@
 }
 
 .card, .spy {
+	grid-row: var(--index);
+	grid-column: 1;
 	scroll-margin-top: var(--card-top);
 }
 
@@ -244,6 +229,7 @@
 	height: calc(1.5 * var(--card-top-offset));
 	cursor: pointer;
 	background-color: color-mix(in srgb, color(bg, 4) 25%, transparent);
+	z-index: 1;
 	// backdrop-filter: blur(10px);
 	// --dot-color: color-mix(in oklab, var(--x-background) 75%, var(--lighten));
 	// --dot-size: 1px;

@@ -42,6 +42,12 @@
     </header>
 
     <main>
+      <script>
+        function scrollToLinkedCard(event) {
+          event.preventDefault(); 
+          document.querySelector(event.currentTarget.hash).scrollIntoView({ block: 'start', behavior: 'smooth' });
+        }
+      </script>
       <section class="hero">
         <div class="container">
           <div class="hero-inner">
@@ -57,7 +63,7 @@
 	            <p class="hero-paragraph">Get work done without leaving VS Code. Unlock powerful <strong>editing and export</strong> features. Works anywhere, including <strong>SSH and WSL</strong>.</p>
 	            <div class="hero-cta">
                 <a class="button button-primary" href="#">Buy Now</a>
-                <a class="button" href="#card-four" onclick="event.preventDefault(); document.getElementById('spy_4').scrollIntoView({ block: 'start', behavior: 'smooth' })">Learn More ↓</a>
+                <a class="button" href="#spy-4" onclick="scrollToLinkedCard(event)">Learn More ↓</a>
               </div>
 						</div>
 						<div class="hero-figure anime-element">
@@ -70,12 +76,12 @@
 							<div class="hero-figure-box hero-figure-box-04" data-rotation="-135deg"></div>
 							<div class="hero-figure-box hero-figure-box-05">
                 <picture>
-                  <source media="(prefers-color-scheme: light)" type="image/avif" srcset="dist/images/screenshot.avif">
-                  <source media="(prefers-color-scheme: dark)" type="image/avif" srcset="dist/images/screenshot-dark.avif">
-                  <source media="(prefers-color-scheme: light)" type="image/webp" srcset="dist/images/screenshot.webp">
-                  <source media="(prefers-color-scheme: dark)" type="image/webp" srcset="dist/images/screenshot-dark.webp">
-                  <source media="(prefers-color-scheme: light)" type="image/png" srcset="dist/images/screenshot.png">
-                  <source media="(prefers-color-scheme: dark)" type="image/png" srcset="dist/images/screenshot-dark.png">
+                  <source media="(prefers-color-scheme: light)" type="image/avif" src="dist/images/screenshot.avif">
+                  <source media="(prefers-color-scheme: dark)" type="image/avif" src="dist/images/screenshot-dark.avif">
+                  <source media="(prefers-color-scheme: light)" type="image/webp" src="dist/images/screenshot.webp">
+                  <source media="(prefers-color-scheme: dark)" type="image/webp" src="dist/images/screenshot-dark.webp">
+                  <source media="(prefers-color-scheme: light)" type="image/png" src="dist/images/screenshot.png">
+                  <source media="(prefers-color-scheme: dark)" type="image/png" src="dist/images/screenshot-dark.png">
                   <img src="dist/images/screenshot-dark.png" alt="Screenshot" width="528" height="396">
                 </picture>
               </div>
@@ -100,64 +106,112 @@
             </script>
             <!-- <p class="section-paragraph mb-0">Check ou the card stack below.</p> -->
           </div>
-          <ul id="cards">
-            <div style="grid-area: 1/1" class="spy" id="spy_1"></div>
-            <li style="grid-area: 1/1" class="card" id="card_1">
+          <ul id="cards" style="--num-cards: 4;">
+            <div class="spy" id="spy-1" style="--index: 1"></div>
+            <li class="card" id="card-1" style="--index: 1">
               <div class="card__content">
-                <a class="card__header" href="#spy_1" onclick="event.preventDefault(); document.getElementById('spy_1').scrollIntoView({ block: 'start', behavior: 'smooth' })"></a>
+                <a class="card__header" href="#spy-1" onclick="scrollToLinkedCard(event)"></a>
                 <div>
-                  <h3 id="card-one">Card One</h3>
-                  <p class="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                  <!-- <p><a href="#top" class="btn btn--accent">Read more</a></p> -->
+                  <h3>Update values in place</h3>
+                  <p class="text-sm">Update values from the sidebar or modal. A transaction is started when making changes and committed to disk when saving the file.</p>
                 </div>
                 <figure>
                   <img src="dist/images/img-1.jpg" alt="Image description">
                 </figure>
               </div>
             </li>
-            <div style="grid-area: 2/1" class="spy" id="spy_2"></div>
-            <li style="grid-area: 2/1" class="card" id="card_2">
+            <div class="spy" id="spy-2" style="--index: 2"></div>
+            <li class="card" id="card-2" style="--index: 2">
               <div class="card__content">
-                <a class="card__header" href="#spy_2" onclick="event.preventDefault(); document.getElementById('spy_2').scrollIntoView({ block: 'start', behavior: 'smooth' })"></a>
+                <a class="card__header" href="#spy-2" onclick="scrollToLinkedCard(event)"></a>
                 <div>
-                  <h3 id="card-two">Card Two</h3>
-                  <p class="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                  <!-- <p><a href="#top" class="btn btn--accent">Read more</a></p> -->
+                  <h3>Insert and delete rows</h3>
+                  <p class="text-sm">Insert one or more rows using the modal dialog. Delete one or more rows from the explorer. All inside a transaction.</p>
                 </div>
                 <figure>
                   <img src="dist/images/img-2.jpg" alt="Image description">
                 </figure>
               </div>
             </li>
-            <div style="grid-area: 3/1" class="spy" id="spy_3"></div>
-            <li style="grid-area: 3/1" class="card" id="card_3">
+            <div class="spy" id="spy-3" style="--index: 3"></div>
+            <li class="card" id="card-3" style="--index: 3">
               <div class="card__content">
-                <a class="card__header" href="#spy_3" onclick="event.preventDefault(); document.getElementById('spy_3').scrollIntoView({ block: 'start', behavior: 'smooth' })"></a>
+                <a class="card__header" href="#spy-3" onclick="scrollToLinkedCard(event)"></a>
                 <div>
-                  <h3 id="card-three">Card Three</h3>
-                  <p class="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                  <!-- <p><a href="#top" class="btn btn--accent">Read more</a></p> -->
+                  <h3>Undo and redo changes using VS Code</h3>
+                  <p class="text-sm">SQLite Viewer PRO integrates with VS Code's version history. Undo is implemented using <code>ROLLBACK</code> while a transaction is in progress, and by re-running SQL statements otherwise.</p>
                 </div>
                 <figure>
                   <img src="dist/images/img-3.jpg" alt="Image description">
                 </figure>
               </div>
             </li>
-            <div style="grid-area: 4/1" class="spy" id="spy_4"></div>
-            <div style="grid-area: 4/1" class="card" id="card_4">
+            <div class="spy" id="spy-4" style="--index: 4"></div>
+            <!-- <li class="card" id="card-4" style="--index: 4">
               <div class="card__content">
-                <a class="card__header" href="#card_4" onclick="event.preventDefault(); document.getElementById('spy_4').scrollIntoView({ block: 'start', behavior: 'smooth' })"></a>
+                <a class="card__header" href="#spy-4" onclick="scrollToLinkedCard(event)"></a>
                 <div>
-                  <h3 id="card-four">Card Four</h3>
-                  <p class="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                  <!-- <p><a href="#top" class="btn btn--accent">Read more</a></p> -->
+                  <h3>A native SQLite client</h3>
+                  <p class="text-sm">SQLite Viewer PRO uses the canonical SQLite implementation, which provides the same failover guarantees as other database clients. The readonly WebAssembly client remains as a fallback.</p>
                 </div>
                 <figure>
                   <img src="dist/images/img-2.jpg" alt="Image description">
                 </figure>
               </div>
+            </li> -->
+            <div class="spy" id="spy-4" style="--index: 4"></div>
+            <li class="card" id="card-4" style="--index: 4">
+              <div class="card__content">
+                <a class="card__header" href="#spy-4" onclick="scrollToLinkedCard(event)"></a>
+                <div>
+                  <h3>Use inside containers, SSH hosts, and WSL</h3>
+                  <p class="text-sm"><p>The available platforms are: <code>win32-x64</code>, <code>win32-arm64</code>, <code>linux-x64</code>, <code>linux-arm64</code>, <code>linux-armhf</code>, <code>alpine-x64</code>, <code>alpine-arm64</code>, <code>darwin-x64</code>, <code>darwin-arm64</code> and <code>web</code>.</p></p>
+                </div>
+                <figure>
+                  <img src="dist/images/img-1.jpg" alt="Image description">
+                </figure>
+              </div>
             </li>
           </ul>
+        </div>
+      </section>
+
+      <section class="features section">
+        <div class="container">
+					<div class="features-inner section-inner">
+            <div class="features-header text-center mb-64">
+              <p class="section-title h3 mt-0" style="color:unset">Key PRO differentiators</p>
+            </div>
+            <div class="features-wrap">
+              <div class="feature text-center is-revealing">
+                <div class="feature-inner">
+                  <div class="feature-icon">
+										<img src="dist/images/feature-icon-01.svg" alt="Feature 01">
+                  </div>
+                  <h4 class="feature-title mt-24">Native SQLite Client</h4>
+                  <p class="text-sm mb-0">The PRO version uses the canonical SQLite implementation, which provides the full set of failover guarantees. The readonly WebAssembly client remains as a fallback.</p>
+                </div>
+              </div>
+							<div class="feature text-center is-revealing">
+                <div class="feature-inner">
+                  <div class="feature-icon">
+										<img src="dist/images/feature-icon-02.svg" alt="Feature 02">
+                  </div>
+                  <h4 class="feature-title mt-24">Large File Support</h4>
+                  <p class="text-sm mb-0">When the native client is in use, all restrictions on file size are lifted — including in remote SSH sessions: SQLite Viewer will transfer only the visible rows to your local machine.</p>
+                </div>
+              </div>
+							<div class="feature text-center is-revealing">
+                <div class="feature-inner">
+                  <div class="feature-icon">
+										<img src="dist/images/feature-icon-05.svg" alt="Feature 05">
+                  </div>
+                  <h4 class="feature-title mt-24">Ad-Free Experience</h4>
+                  <p class="text-sm mb-0">PRO customers enjoy an ad-free experience — <strong>perfect for screen sharing and recordings</strong>. Additionally, PRO customers receive an exclusive PRO icon (<img width="18" height="18" src="dist/images/favicon-pro.png" style="display:inline-block"/>) in the UI.</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -183,7 +237,7 @@
 										<img src="dist/images/feature-icon-02.svg" alt="Feature 02">
                   </div>
                   <h4 class="feature-title mt-24">Matching Theme</h4>
-                  <p class="text-sm mb-0">Say goodbye to disjointed user interfaces. SQLite Viewer <strong>automatically adjusts to your VS Code theme</strong> and seamlessly blends into the existing VS Code user experience.</p>
+                  <p class="text-sm mb-0">Say goodbye to disjointed user interfaces. SQLite Viewer <strong>automatically adjusts to your VS Code theme</strong> and seamlessly blends into the existing VS Code experience.</p>
                 </div>
               </div>
               <div class="feature text-center is-revealing">
@@ -211,15 +265,6 @@
                   </div>
                   <h4 class="feature-title mt-24">Owner Operated</h4>
                   <p class="text-sm mb-0">SQLite Viewer is crafted by a single, dedicated developer and enjoys a <strong>coherent vision</strong> and <strong>attention to detail</strong> that is rarely found in purely commercial products.</p>
-                </div>
-              </div>
-							<div class="feature text-center is-revealing">
-                <div class="feature-inner">
-                  <div class="feature-icon">
-										<img src="dist/images/feature-icon-05.svg" alt="Feature 05">
-                  </div>
-                  <h4 class="feature-title mt-24">Ad-Free Experience</h4>
-                  <p class="text-sm mb-0">Enjoy an ad-free experience — <strong>perfect for screen sharing and recordings</strong>. Additionally, PRO customers get an exclusive PRO icon (<img width="18" height="18" src="dist/images/favicon-pro.png" style="display:inline-block"/>) in the bottom left corner.</p>
                 </div>
               </div>
             </div>
@@ -381,7 +426,7 @@
           </ul>
           <ul class="footer-social-links list-reset">
             <li>
-              <a href="https://github.com/qwtel/sqlite-viewer-vscode">
+              <a href="https://github.com/qwtel/sqlite-viewer-vscode/discussions">
                 <span class="screen-reader-text">GitHub</span>
                 <svg style="width: 16px; height: 16px;" viewBox="0 0 1024 1024" width="1024" height="1024" xmlns="http://www.w3.org/2000/svg">
                   <path fill="#0270D7" fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z" transform="scale(64)"/>
