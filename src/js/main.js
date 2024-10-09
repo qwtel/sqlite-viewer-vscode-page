@@ -25,9 +25,7 @@
           observer.unobserve(entry.target);
         }
       });
-    }, {
-      threshold: 0.25,
-    });
+    }, { threshold: 0.25 });
 
     document.querySelectorAll('.is-revealing').forEach(el => {
       el.style.opacity = '0';
@@ -35,6 +33,7 @@
     });
 
     root.classList.add('anime-ready')
+
     /* global anime */
     anime.timeline({
       targets: '.hero-figure-box-05'
@@ -85,37 +84,72 @@
     })
   }
 
-  const cards = document.getElementById('cards');
-  const videos = cards.querySelectorAll('video');
+  const cardsWrapper = document.getElementById('cards');
 
-  const inObserver = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (entry.isIntersecting) {
-        videos.forEach(video => video.pause());
-        const index = entry.target.style.getPropertyValue('--index');
-        const video = videos[index - 1];
-        video && video.play();
-      } 
-    }
-  }, {
-    threshold: 1.0,
-  });
+  // Handle View timeline based card animations
+  {
+    const cardContents = cardsWrapper.querySelectorAll('.card__content');
 
-  const outObserver = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) {
-        const index = entry.target.style.getPropertyValue('--index');
-        const video = videos[index - 1];
-        video && video.pause();
+    // Pass the number of cards to the CSS because it needs it to add some extra padding.
+    // Without this extra padding, the last card won’t move with the group but slide over it.
+    const numCards = cardContents.length;
+    cardsWrapper.style.setProperty('--num-cards', numCards);
+
+    // Each card should only shrink when it’s at the top.
+    // We can’t use exit on the els for this (as they are sticky)
+    // but can track $cardsWrapper instead.
+    const viewTimeline = new ViewTimeline({ subject: cardsWrapper, axis: 'block' });
+
+    cardContents.forEach((cardContent, index0) => {
+      const index = index0 + 1;
+      // const reverseIndex = numCards - index0;
+      const reverseIndex0 = numCards - index;
+
+      // Scroll-Linked Animation
+      cardContent.animate({
+        // Earlier cards shrink more than later cards
+        transform: [`scale(1)`, `scale(${1 - (0.1 * reverseIndex0)}`],
+      }, {
+        timeline: viewTimeline,
+        fill: 'forwards',
+        rangeStart: `exit-crossing ${CSS.percent(index0 / numCards * 100)}`,
+        rangeEnd: `exit-crossing ${CSS.percent(index / numCards * 100)}`,
+      });
+    });
+  }
+
+  // Handle scroll-based video playback
+  {
+    const cardVideos = cardsWrapper.querySelectorAll('video');
+    const inObserver = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          cardVideos.forEach(video => video.pause());
+          const index = entry.target.style.getPropertyValue('--index');
+          const video = cardVideos[index - 1];
+          video && video.play();
+        }
       }
-    }
-  }, {
-    threshold: 0.5,
-  });
+    }, {
+      threshold: 1.0,
+    });
 
-  document.querySelectorAll('.spy').forEach(div => {
-    inObserver.observe(div);
-    outObserver.observe(div);
-  });
+    const outObserver = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) {
+          const index = entry.target.style.getPropertyValue('--index');
+          const video = cardVideos[index - 1];
+          video && video.pause();
+        }
+      }
+    }, {
+      threshold: 0.5,
+    });
+
+    document.querySelectorAll('.spy').forEach(div => {
+      inObserver.observe(div);
+      outObserver.observe(div);
+    });
+  }
 })()
 

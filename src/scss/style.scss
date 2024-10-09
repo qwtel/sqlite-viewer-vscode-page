@@ -252,30 +252,31 @@
 	--reverse-index0: calc(var(--reverse-index) - 1); /* 0-based reverse index */
 }
 
+// @keyframes scale {
+// 	to {
+// 		transform: scale(calc(1.1 - calc(0.1 * var(--reverse-index))));
+// 	}
+// }
+
+// @supports (view-timeline-name: --cards-element-scrolls-in-body) {
+//   #cards {
+//     view-timeline-name: --cards-element-scrolls-in-body;
+//   }
+
+//   .card__content {
+//     animation: linear scale forwards;
+//     animation-timeline: --cards-element-scrolls-in-body;
+//     animation-range: exit-crossing calc(var(--index0) / var(--num-cards) * 100%) exit-crossing calc((var(--index)) / var(--num-cards) * 100%);
+//   }
+// }
+
+
 #cards {
   padding: 0;
 }
 
 #cards figure {
   margin: 0;
-}
-
-@keyframes scale {
-	to {
-		transform: scale(calc(1.1 - calc(0.1 * var(--reverse-index))));
-	}
-}
-
-@supports (view-timeline-name: --cards-element-scrolls-in-body) {
-  #cards {
-    view-timeline-name: --cards-element-scrolls-in-body;
-  }
-
-  .card__content {
-    animation: linear scale forwards;
-    animation-timeline: --cards-element-scrolls-in-body;
-    animation-range: exit-crossing calc(var(--index0) / var(--num-cards) * 100%) exit-crossing calc((var(--index)) / var(--num-cards) * 100%);
-  }
 }
 
 div:has(> .section-title) {
