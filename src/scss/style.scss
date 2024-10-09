@@ -99,15 +99,15 @@
 
 :root {
 	--card-max-height: 540px;
-	--card-height: min(48vw, var(--card-max-height));
+	--card-height: min(47vw, var(--card-max-height));
 	--card-margin: min(4vw, 50px);
 	--card-top-offset: 1.25em;
 	--outline-width: 0px;
 
-  @media (max-aspect-ratio: 1/1) {
-    --card-height: min(48vh, var(--card-max-height));
-		--card-margin: min(4vh, 50px);
-  }
+  // @media (max-aspect-ratio: 1/1) {
+  //   --card-height: min(48vh, var(--card-max-height));
+	// 	--card-margin: min(4vh, 50px);
+  // }
 }
 
 #cards {
@@ -152,7 +152,7 @@
 
 	display: grid;
 	grid-template-areas: "text img";
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 1fr 2fr;
 	grid-template-rows: auto;
 
 	align-items: stretch;
@@ -160,9 +160,10 @@
 
   @media (max-width: 640px) {
 		grid-template-columns: auto;
-		grid-template-rows: 50% 50%;
-		grid-template-areas: "img"
-		                     "text";
+		grid-template-rows: 67% 33%;
+		grid-template-areas:
+			"img"
+		  "text";
   }
 }
 
@@ -190,10 +191,12 @@
   }
 }
 
-.card__content > figure > img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
+.card__content > figure {
+	> img, > video {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
 }
 
 /* --- */
@@ -211,6 +214,7 @@
 }
 
 .card, .spy {
+	--index: attr(data-index);
 	grid-row: var(--index);
 	grid-column: 1;
 	scroll-margin-top: var(--card-top);

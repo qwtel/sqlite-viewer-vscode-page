@@ -76,12 +76,12 @@
 							<div class="hero-figure-box hero-figure-box-04" data-rotation="-135deg"></div>
 							<div class="hero-figure-box hero-figure-box-05">
                 <picture>
-                  <source media="(prefers-color-scheme: light)" type="image/avif" src="dist/images/screenshot.avif">
-                  <source media="(prefers-color-scheme: dark)" type="image/avif" src="dist/images/screenshot-dark.avif">
-                  <source media="(prefers-color-scheme: light)" type="image/webp" src="dist/images/screenshot.webp">
-                  <source media="(prefers-color-scheme: dark)" type="image/webp" src="dist/images/screenshot-dark.webp">
-                  <source media="(prefers-color-scheme: light)" type="image/png" src="dist/images/screenshot.png">
-                  <source media="(prefers-color-scheme: dark)" type="image/png" src="dist/images/screenshot-dark.png">
+                  <source media="(prefers-color-scheme: light)" type="image/avif" srcset="dist/images/screenshot.avif">
+                  <source media="(prefers-color-scheme: dark)" type="image/avif" srcset="dist/images/screenshot-dark.avif">
+                  <source media="(prefers-color-scheme: light)" type="image/webp" srcset="dist/images/screenshot.webp">
+                  <source media="(prefers-color-scheme: dark)" type="image/webp" srcset="dist/images/screenshot-dark.webp">
+                  <source media="(prefers-color-scheme: light)" type="image/png" srcset="dist/images/screenshot.png">
+                  <source media="(prefers-color-scheme: dark)" type="image/png" srcset="dist/images/screenshot-dark.png">
                   <img src="dist/images/screenshot-dark.png" alt="Screenshot" width="528" height="396">
                 </picture>
               </div>
@@ -116,7 +116,11 @@
                   <p class="text-sm">Update values from the sidebar or modal. A transaction is started when making changes and committed to disk when saving the file.</p>
                 </div>
                 <figure>
-                  <img src="dist/images/img-1.jpg" alt="Image description">
+                  <video autoplay muted loop playsinline>
+                    <source src="dist/images/card-1t.webm" type="video/webm">
+                    <source src="dist/images/card-1x.mp4" type="video/mp4">
+                  </video>
+                  <!-- <img src="dist/images/img-1.jpg" alt="Image description"> -->
                 </figure>
               </div>
             </li>
@@ -129,7 +133,10 @@
                   <p class="text-sm">Insert one or more rows using the modal dialog. Delete one or more rows from the explorer. All inside a transaction.</p>
                 </div>
                 <figure>
-                  <img src="dist/images/img-2.jpg" alt="Image description">
+                  <video autoplay muted loop playsinline>
+                    <source src="dist/images/card-2t.webm" type="video/webm">
+                    <source src="dist/images/card-2x.mp4" type="video/mp4">
+                  </video>
                 </figure>
               </div>
             </li>
@@ -146,7 +153,7 @@
                 </figure>
               </div>
             </li>
-            <div class="spy" id="spy-4" style="--index: 4"></div>
+            <!-- <div class="spy" id="spy-4" style="--index: 4"></div> -->
             <!-- <li class="card" id="card-4" style="--index: 4">
               <div class="card__content">
                 <a class="card__header" href="#spy-4" onclick="scrollToLinkedCard(event)"></a>
@@ -179,9 +186,9 @@
       <section class="features section">
         <div class="container">
 					<div class="features-inner section-inner">
-            <div class="features-header text-center mb-64">
+            <!-- <div class="features-header text-center mb-64">
               <p class="section-title h3 mt-0" style="color:unset">Key PRO differentiators</p>
-            </div>
+            </div> -->
             <div class="features-wrap">
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">

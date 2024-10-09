@@ -1,9 +1,8 @@
-(function () {
-  const win = window
-  const doc = document.documentElement
+(() => {
+  const root = document.documentElement;
 
-  doc.classList.remove('no-js')
-  doc.classList.add('js')
+  root.classList.remove('no-js')
+  root.classList.add('js')
 
   // Reveal animations
   if (document.body.classList.contains('has-animations')) {
@@ -18,7 +17,7 @@
       interval: 100
     })
 
-    doc.classList.add('anime-ready')
+    root.classList.add('anime-ready')
     /* global anime */
     anime.timeline({
       targets: '.hero-figure-box-05'
@@ -62,10 +61,32 @@
       targets: '.hero-figure-box-01, .hero-figure-box-02, .hero-figure-box-03, .hero-figure-box-04, .hero-figure-box-08, .hero-figure-box-09, .hero-figure-box-10',
       duration: anime.random(600, 800),
       delay: anime.random(600, 800),
-      rotate: [ anime.random(-360, 360), function (el) { return el.getAttribute('data-rotation') } ],
+      rotate: [ anime.random(-360, 360), (el) => el.getAttribute('data-rotation')],
       scale: [0.7, 1],
       opacity: [0, 1],
       easing: 'easeInOutExpo'
     })
   }
-}())
+
+  const cards = document.getElementById('cards');
+  const videos = cards.querySelectorAll('video');
+
+  const observer = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        videos.forEach(video => video.pause());
+        const index = entry.target.style.getPropertyValue('--index');
+        const video = videos[index - 1];
+        video && video.play();
+      }
+    }
+  }, {
+    rootMargin: "0px",
+    threshold: 1.0,
+  });
+
+  document.querySelectorAll('.spy').forEach(div => {
+    observer.observe(div)
+  });
+})()
+
