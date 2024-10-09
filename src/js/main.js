@@ -71,22 +71,34 @@
   const cards = document.getElementById('cards');
   const videos = cards.querySelectorAll('video');
 
-  const observer = new IntersectionObserver((entries) => {
+  const inObserver = new IntersectionObserver((entries) => {
     for (const entry of entries) {
       if (entry.isIntersecting) {
         videos.forEach(video => video.pause());
         const index = entry.target.style.getPropertyValue('--index');
         const video = videos[index - 1];
         video && video.play();
-      }
+      } 
     }
   }, {
-    rootMargin: "0px",
     threshold: 1.0,
   });
 
+  const outObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) {
+        const index = entry.target.style.getPropertyValue('--index');
+        const video = videos[index - 1];
+        video && video.pause();
+      }
+    }
+  }, {
+    threshold: 0.5,
+  });
+
   document.querySelectorAll('.spy').forEach(div => {
-    observer.observe(div)
+    inObserver.observe(div);
+    outObserver.observe(div);
   });
 })()
 
