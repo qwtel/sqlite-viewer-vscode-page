@@ -3,19 +3,36 @@
 
   root.classList.remove('no-js')
   root.classList.add('js')
+  root.classList.add('sr')
 
-  // Reveal animations
   if (document.body.classList.contains('has-animations')) {
-    /* global ScrollReveal */
-    const sr = window.sr = ScrollReveal()
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry, index) => {
+        const target = /** @type {HTMLElement} */(entry.target);
+        if (entry.isIntersecting) {
+          target.style.visibility = 'visible';
+          setTimeout(() => {
+            target.animate([
+              { opacity: 0, transform: 'translateY(20px)' },
+              { opacity: 1, transform: 'translateY(0)' }
+            ], {
+              duration: 600,
+              easing: 'cubic-bezier(0.5, -0.01, 0, 1.005)',
+              fill: 'forwards',
+            });
+          }, index * 100); // Stagger effect
 
-    sr.reveal('.feature, .pricing-table-inner', {
-      duration: 600,
-      distance: '20px',
-      easing: 'cubic-bezier(0.5, -0.01, 0, 1.005)',
-      origin: 'bottom',
-      interval: 100
-    })
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.25,
+    });
+
+    document.querySelectorAll('.is-revealing').forEach(el => {
+      el.style.opacity = '0';
+      revealObserver.observe(el);
+    });
 
     root.classList.add('anime-ready')
     /* global anime */
@@ -61,7 +78,7 @@
       targets: '.hero-figure-box-01, .hero-figure-box-02, .hero-figure-box-03, .hero-figure-box-04, .hero-figure-box-08, .hero-figure-box-09, .hero-figure-box-10',
       duration: anime.random(600, 800),
       delay: anime.random(600, 800),
-      rotate: [ anime.random(-360, 360), (el) => el.getAttribute('data-rotation')],
+      rotate: [ anime.random(-360, 360), (el) => el.dataset.rotation],
       scale: [0.7, 1],
       opacity: [0, 1],
       easing: 'easeInOutExpo'

@@ -76,7 +76,6 @@
 .text-center {
   text-align: center;
 }
-
 .text-right {
   text-align: right;
 }
@@ -483,4 +482,13 @@
 }
 .content-before::before {
 	content: attr(data-content-before);
+}
+
+.center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.color-unset {
+	color:unset;
 }
