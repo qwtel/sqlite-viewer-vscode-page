@@ -62,7 +62,7 @@
 	            <p class="hero-paragraph">Get work done without leaving VS Code. Unlock powerful <strong>editing and export</strong> features. Works anywhere, including <strong>SSH and WSL</strong>.</p>
 	            <div class="hero-cta">
                 <a class="button button-primary" href="#">Buy Now</a>
-                <a class="button" href="#spy-4" onclick="scrollToLinkedCard(event)">Learn More ↓</a>
+                <a class="button" href="#spy-5" onclick="scrollToLinkedCard(event)">Learn More ↓</a>
               </div>
 						</div>
 						<div class="hero-figure anime-element">
@@ -105,7 +105,7 @@
             </script>
             <!-- <p class="section-paragraph mb-0">Check ou the card stack below.</p> -->
           </div>
-          <ul id="cards" style="--num-cards: 4;">
+          <ul id="cards" style="--num-cards: 5;">
             <li class="spy" id="spy-1" style="--index: 1"></li>
             <li class="card" id="card-1" style="--index: 1">
               <div class="card__content">
@@ -115,7 +115,7 @@
                   <p class="text-sm">Update values from the sidebar or modal. A transaction is started when making changes and committed to disk when saving the file.</p>
                 </div>
                 <figure>
-                  <video autoplay muted loop playsinline>
+                  <video muted loop playsinline>
                     <source src="dist/images/card-1t.webm" type="video/webm">
                     <source src="dist/images/card-1x.mp4" type="video/mp4">
                   </video>
@@ -132,7 +132,7 @@
                   <p class="text-sm">Insert one or more rows using the modal dialog. Delete one or more rows from the explorer. All inside a transaction.</p>
                 </div>
                 <figure>
-                  <video autoplay muted loop playsinline>
+                  <video muted loop playsinline>
                     <source src="dist/images/card-2t.webm" type="video/webm">
                     <source src="dist/images/card-2x.mp4" type="video/mp4">
                   </video>
@@ -148,33 +148,33 @@
                   <p class="text-sm">SQLite Viewer PRO integrates with VS Code's version history. Changes are reverted through <code>ROLLBACK</code> before a file has been saved, and by running inverted SQL statements otherwise.</p>
                 </div>
                 <figure>
-                  <img src="dist/images/img-3.jpg" alt="Image description">
+                  <img src="dist/images/img-3.jpg" style="filter:invert(1)" alt="Image description">
                 </figure>
               </div>
             </li>
-            <!-- <li class="spy" id="spy-4" style="--index: 4"></li> -->
-            <!-- <li class="card" id="card-4" style="--index: 4">
-              <div class="card__content">
-                <a class="card__header" href="#spy-4" onclick="scrollToLinkedCard(event)"></a>
-                <div>
-                  <h3>A native SQLite client</h3>
-                  <p class="text-sm">SQLite Viewer PRO uses the canonical SQLite implementation, which provides the same failover guarantees as other database clients. The readonly WebAssembly client remains as a fallback.</p>
-                </div>
-                <figure>
-                  <img src="dist/images/img-2.jpg" alt="Image description">
-                </figure>
-              </div>
-            </li> -->
             <li class="spy" id="spy-4" style="--index: 4"></li>
             <li class="card" id="card-4" style="--index: 4">
               <div class="card__content">
                 <a class="card__header" href="#spy-4" onclick="scrollToLinkedCard(event)"></a>
                 <div>
+                  <h3>Export data in a variety of formats</h3>
+                  <p class="text-sm">You can copy & paste rows directly from the viewer in a variety of formats. Currently supported: TSV, CSV, SQLite Inserts, JSON (objects), JSON (array of arrays) and HTML.</p>
+                </div>
+                <figure>
+                  <img src="dist/images/img-2.jpg" style="filter:invert(1)" alt="Image description">
+                </figure>
+              </div>
+            </li>
+            <li class="spy" id="spy-5" style="--index: 5"></li>
+            <li class="card" id="card-5" style="--index: 5">
+              <div class="card__content">
+                <a class="card__header" href="#spy-5" onclick="scrollToLinkedCard(event)"></a>
+                <div>
                   <h3>Use inside containers, SSH hosts, and WSL</h3>
                   <p class="text-sm"><p>The available platforms are: <code>win32-x64</code>, <code>win32-arm64</code>, <code>linux-x64</code>, <code>linux-arm64</code>, <code>linux-armhf</code>, <code>alpine-x64</code>, <code>alpine-arm64</code>, <code>darwin-x64</code>, <code>darwin-arm64</code> and <code>web</code>.</p></p>
                 </div>
                 <figure>
-                  <img src="dist/images/img-1.jpg" alt="Image description">
+                  <img src="dist/images/img-1.jpg" style="filter:invert(1)" alt="Image description">
                 </figure>
               </div>
             </li>

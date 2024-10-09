@@ -101,7 +101,7 @@
 	--card-max-height: 540px;
 	--card-height: min(47vw, var(--card-max-height));
 	--card-margin: min(4vw, 50px);
-	--card-top-offset: 1.25em;
+	--card-top-offset: 1.125em;
 	--outline-width: 0px;
 
   // @media (max-aspect-ratio: 1/1) {
@@ -111,7 +111,7 @@
 }
 
 #cards {
-	padding-bottom: calc(var(--num-cards) * var(--card-top-offset));
+  padding: 0;
 	margin-top: 88px;
 	margin-bottom: calc(var(--card-margin) + 112px);
 }
@@ -182,6 +182,7 @@
 	height: var(--card-height);
 	overflow: hidden;
 	overflow: clip;
+  margin: 0;
 	border-top-right-radius: .5rem;
 	border-bottom-right-radius: .5rem;
 
@@ -206,11 +207,15 @@
 }
 
 .card {
-	--card-hover-offset: 0px;
+	--index0: calc(var(--index) - 1);
+	--reverse-index: calc(var(--num-cards) - var(--index0));
+	--reverse-index0: calc(var(--reverse-index) - 1);
+	--card-base-y: calc(var(--index0) * var(--card-top-offset));
+	--card-hover-y: 0px;
 	position: sticky;
 	top: var(--card-top);
 	transition: transform 0.500s;
-	transform: translateY(calc(var(--index0) * var(--card-top-offset) + var(--card-hover-offset)));
+	transform: translateY(calc(var(--card-base-y) - var(--card-hover-y)));
 }
 
 .card, .spy {
@@ -225,63 +230,46 @@
 	will-change: transform;
 }
 
-.card__header {
+a.card__header {
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
-	height: calc(1.5 * var(--card-top-offset));
+	height: calc((var(--card-top-offset) + 0.125em) * 1 / (1.1 - 0.1 * var(--num-cards)));
 	cursor: pointer;
 	background-color: color-mix(in srgb, color(bg, 4) 25%, transparent);
+	border-top-left-radius: .5rem;
+	border-top-right-radius: .5rem;
 	z-index: 1;
-	// backdrop-filter: blur(10px);
-	// --dot-color: color-mix(in oklab, var(--x-background) 75%, var(--lighten));
-	// --dot-size: 1px;
-	// --dot-spacing: 5px;
-	// background-image: paint(dot-grid);
 }
 
 .card:has(.card__header:hover) {
-	--card-hover-offset: calc(-0.125em * var(--index));
+	--card-hover-y: calc(0.125em * 1 / (1.1 - 0.1 * var(--reverse-index)));
 	transition: transform 0.125s;
 }
 
-.card {
-	--index0: calc(var(--index) - 1); /* 0-based index */
-	--reverse-index: calc(var(--num-cards) - var(--index0)); /* reverse index */
-	--reverse-index0: calc(var(--reverse-index) - 1); /* 0-based reverse index */
-}
+@supports (view-timeline-name: --cards-element-scrolls-in-body) {
+	@keyframes scale {
+		to {
+			transform: scale(calc(1.1 - 0.1 * var(--reverse-index)));
+		}
+	}
 
-// @keyframes scale {
-// 	to {
-// 		transform: scale(calc(1.1 - calc(0.1 * var(--reverse-index))));
-// 	}
-// }
+  #cards {
+    view-timeline-name: --cards-element-scrolls-in-body;
+  }
 
-// @supports (view-timeline-name: --cards-element-scrolls-in-body) {
-//   #cards {
-//     view-timeline-name: --cards-element-scrolls-in-body;
-//   }
-
-//   .card__content {
-//     animation: linear scale forwards;
-//     animation-timeline: --cards-element-scrolls-in-body;
-//     animation-range: exit-crossing calc(var(--index0) / var(--num-cards) * 100%) exit-crossing calc((var(--index)) / var(--num-cards) * 100%);
-//   }
-// }
-
-
-#cards {
-  padding: 0;
-}
-
-#cards figure {
-  margin: 0;
+  .card__content {
+    animation: linear scale forwards;
+    animation-timeline: --cards-element-scrolls-in-body;
+    animation-range: exit-crossing calc(var(--index0) / var(--num-cards) * 100%) exit-crossing calc((var(--index)) / var(--num-cards) * 100%);
+  }
 }
 
 div:has(> .section-title) {
 	position: relative;
 }
+
 div:has(> .section-title)::after {
 	content: '';
 	position: absolute;

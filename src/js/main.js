@@ -87,27 +87,19 @@
   const cardsWrapper = document.getElementById('cards');
 
   // Handle View timeline based card animations
-  {
+  if (!CSS.supports('view-timeline-name', '--cards-element-scrolls-in-body')) {
     const cardContents = cardsWrapper.querySelectorAll('.card__content');
 
-    // Pass the number of cards to the CSS because it needs it to add some extra padding.
-    // Without this extra padding, the last card won’t move with the group but slide over it.
     const numCards = cardContents.length;
     cardsWrapper.style.setProperty('--num-cards', numCards);
 
-    // Each card should only shrink when it’s at the top.
-    // We can’t use exit on the els for this (as they are sticky)
-    // but can track $cardsWrapper instead.
     const viewTimeline = new ViewTimeline({ subject: cardsWrapper, axis: 'block' });
 
     cardContents.forEach((cardContent, index0) => {
       const index = index0 + 1;
-      // const reverseIndex = numCards - index0;
       const reverseIndex0 = numCards - index;
 
-      // Scroll-Linked Animation
       cardContent.animate({
-        // Earlier cards shrink more than later cards
         transform: [`scale(1)`, `scale(${1 - (0.1 * reverseIndex0)}`],
       }, {
         timeline: viewTimeline,
@@ -124,7 +116,6 @@
     const inObserver = new IntersectionObserver((entries) => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
-          cardVideos.forEach(video => video.pause());
           const index = entry.target.style.getPropertyValue('--index');
           const video = cardVideos[index - 1];
           video && video.play();
@@ -143,7 +134,7 @@
         }
       }
     }, {
-      threshold: 0.5,
+      threshold: 0.8,
     });
 
     document.querySelectorAll('.spy').forEach(div => {
