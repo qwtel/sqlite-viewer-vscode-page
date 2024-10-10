@@ -92,6 +92,16 @@ $font__scale: (
 		6: map-get($font__sizes, zeta),    // Text small (e.g. faq's)
 		7: map-get($font__sizes, eta),     // Text smaller (e.g. pricing, testimonials)
 		8: map-get($font__sizes, theta)    // Footer area
+	),
+	print: (                              // i.e. $breakpoint__xs + $breakpoint__s (up to 600)
+		1: ( 32pt, 42pt, 0pt ),
+		2: ( 22pt, 30pt, 0pt ),
+		3: ( 16pt, 26pt, 0pt ),
+		4: ( 12pt, 18pt, 0pt ),
+		5: ( 12pt, 18pt, 0pt ),
+		6: ( 10pt, 16pt, 0pt ),
+		7: (  8pt, 14pt, 0pt ),
+		8: (  8pt, 14pt, 0pt )
 	)
 );
 

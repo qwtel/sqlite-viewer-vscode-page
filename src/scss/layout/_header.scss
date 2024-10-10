@@ -10,6 +10,12 @@
     @include shadow-xxs;
 }
 
+@media print {
+    .site-header {
+        display: none;
+    }
+}
+
 .site-header-inner {
     display: flex;
     justify-content: space-between;

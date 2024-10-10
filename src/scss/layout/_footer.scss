@@ -9,6 +9,9 @@
     a {
         @include anchor-aspect(footer);
     }
+    @media print {
+        display: none;
+    }
 }
 
 .site-footer-inner {

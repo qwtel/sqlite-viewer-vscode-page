@@ -5,6 +5,9 @@ html {
 			@include font-size(5, desktop, true, true, true);
 		}
 	}
+	@media print {
+		@include font-size(5, print, true, true, true);
+	}
 }
 
 body {
@@ -42,6 +45,9 @@ h1,
 			@include font-size(1, desktop, true, true, true);
 		}
 	}
+	@media print {
+		@include font-size(1, print, true, true, true);
+	}
 }
 
 h2,
@@ -51,6 +57,9 @@ h2,
 		@include media( '>medium' ) {
 			@include font-size(2, desktop, true, true, true);
 		}
+	}
+	@media print {
+		@include font-size(2, print, true, true, true);
 	}
 }
 
@@ -62,6 +71,9 @@ h3,
 		@include media( '>medium' ) {
 			@include font-size(3, desktop, true, true, true);
 		}
+	}
+	@media print {
+		@include font-size(3, print, true, true, true);
 	}
 }
 
@@ -76,6 +88,9 @@ h6,
 		@include media( '>medium' ) {
 			@include font-size(4, desktop, true, true, true);
 		}
+	}
+	@media print {
+		@include font-size(4, print, true, true, true);
 	}
 }
 
@@ -123,6 +138,9 @@ h6,
 			@include font-size(6, desktop, true, true, true);
 		}
 	}
+	@media print {
+		@include font-size(6, print, true, true, true);
+	}
 }
 
 .text-xs {
@@ -131,6 +149,9 @@ h6,
 		@include media( '>medium' ) {
 			@include font-size(7, desktop, true, true, true);
 		}
+	}
+	@media print {
+		@include font-size(7, print, true, true, true);
 	}
 }
 
@@ -218,12 +239,18 @@ pre {
 	padding: 24px;
 	margin-top: 24px;
 	margin-bottom: 24px;
+	@media print {
+		@include font-size(7, print, true, true);
+	}
 }
 
 code, kbd, tt, var {
 	@include font-family(code);
 	@include font-size(7, mobile, true);
 	padding: 2px 4px;
+	@media print {
+		@include font-size(7, print, true);
+	}
 }
 
 abbr, acronym {
@@ -236,6 +263,9 @@ mark, ins {
 
 small {
 	@include font-size(6, mobile, true, true, true);
+	@media print {
+		@include font-size(6, print, true, true, true);
+	}
 }
 
 b,
@@ -249,4 +279,7 @@ select,
 textarea,
 label {
 	@include font-size(5, mobile, true, true);
+	@media print {
+		@include font-size(5, print, true, true);
+	}
 }

@@ -89,7 +89,6 @@
   // Handle View timeline based card animations
   !CSS.supports('view-timeline-name', '--cards-element-scrolls-in-body') && (async () => {
     await import("/dist/scroll-timeline.min.js");
-    // await import("https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js");
 
     const cardContents = cardsWrapper.querySelectorAll('.card__content');
 
