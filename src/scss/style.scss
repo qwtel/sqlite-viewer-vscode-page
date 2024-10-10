@@ -123,7 +123,6 @@
   background: color(bg, 3);
 	color: color(typography, 1);
 	border-radius: .5rem;
-	height: 100%;
 
 	display: grid;
 	grid-template-areas: "text img";
@@ -157,6 +156,9 @@
 	// Headers take up space and mess up the layout. Easier to just hide them between the problematic breakpoints
 	& > h3 {
 		margin-top: 12px;
+		@media (max-width: 426px) {
+			display: none;
+		}
 		@media (min-width: 640px) {
 			display: none;
 		}
