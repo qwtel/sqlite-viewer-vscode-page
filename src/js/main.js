@@ -87,7 +87,10 @@
   const cardsWrapper = document.getElementById('cards');
 
   // Handle View timeline based card animations
-  if (!CSS.supports('view-timeline-name', '--cards-element-scrolls-in-body')) {
+  !CSS.supports('view-timeline-name', '--cards-element-scrolls-in-body') && (async () => {
+    await import("/dist/scroll-timeline.min.js");
+    // await import("https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js");
+
     const cardContents = cardsWrapper.querySelectorAll('.card__content');
 
     const numCards = cardContents.length;
@@ -108,7 +111,7 @@
         rangeEnd: `exit-crossing ${CSS.percent(index / numCards * 100)}`,
       });
     });
-  }
+  })();
 
   // Handle scroll-based video playback
   {
