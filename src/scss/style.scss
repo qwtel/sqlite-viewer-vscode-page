@@ -123,6 +123,7 @@
   background: color(bg, 3);
 	color: color(typography, 1);
 	border-radius: .5rem;
+	height: 100%;
 
 	display: grid;
 	grid-template-areas: "text img";
