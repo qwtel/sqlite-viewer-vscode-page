@@ -171,6 +171,8 @@
   margin: 0;
 	border-top-right-radius: .5rem;
 	border-bottom-right-radius: .5rem;
+	overflow: hidden;
+	overflow: clip;
 	aspect-ratio: 4 / 3;
 	position: relative;
 	width: 100%;
