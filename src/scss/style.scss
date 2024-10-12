@@ -278,3 +278,25 @@ div:has(> .section-title)::after {
   border-radius: 1px;
   background: color(bg, 4);
 }
+
+#nasa-svg {
+  width: 184px;
+  height: 220px;
+  filter: grayscale(1);
+  opacity: .85;
+  transform: scale(0.85);
+  mix-blend-mode: luminosity;
+  transition: filter 0.75s, opacity 0.75s;
+  &:hover {
+    filter: grayscale(0);
+    opacity: 1;
+    mix-blend-mode: normal;
+    transition: filter 0.125s, opacity 0.125s;
+  }
+}
+.hover-link {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}

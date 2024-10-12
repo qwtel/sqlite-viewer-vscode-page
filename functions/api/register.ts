@@ -12,6 +12,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const fd = new URLSearchParams(await context.request.text());
   const licenseKey = fd.get('license_key');
   if (!licenseKey) return badRequest('Missing license_key');
+  if (!/[A-Z0-9]{8}-[A-Z0-9]{8}-[A-Z0-9]{8}-[A-Z0-9]{8}/i.test(licenseKey)) return badRequest('Invalid license key format');
 
   let response: Response;
   try {
@@ -31,9 +32,12 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     return serviceUnavailable('No response from license validation service');
   }
 
-  if (!response.ok || response.headers.get('Content-Type')?.includes('application/json') === false) {
-    return serviceUnavailable('License validation request failed.');
+  if (!response.ok) {
+    if (response.status === 404) return badRequest(`Invalid license key.`);
+    return badRequest(`License validation request failed: ${response.status}`);
   }
+  if (response.headers.get('Content-Type')?.includes('application/json') === false)
+    return serviceUnavailable('Invalid response from license validation service');
 
   let data: ResponseData;
   try {
@@ -48,9 +52,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
   const { purchase } = data;
 
-  if (purchase.disputed || purchase.chargebacked || purchase.refunded) {
+  if (purchase.disputed || purchase.chargebacked || purchase.refunded)
     return paymentRequired('Purchase was disputed, chargebacked or refunded');
-  }
 
   const token = await new jose.SignJWT({ pid: purchase.id })
     .setProtectedHeader({ alg: 'ES256' })

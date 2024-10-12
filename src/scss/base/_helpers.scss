@@ -502,6 +502,14 @@
 	align-items: center;
 	justify-content: center;
 }
+
 .color-unset {
 	color:unset;
+}
+
+.hover-link {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }

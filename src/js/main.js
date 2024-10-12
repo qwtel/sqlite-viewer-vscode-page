@@ -116,7 +116,7 @@
   {
     const cardVideos = cardsWrapper.querySelectorAll('video');
     const inObserver = new IntersectionObserver((entries) => {
-      const windowHeight = window.innerHeight;
+      const windowHeight = window.innerHeight - 60 - 16 - 20; // 60px for header, 16px for padding, 20px for margin
       for (const entry of entries) {
         const isWindowTooSmall = entry.boundingClientRect.height > windowHeight;
         if (entry.isIntersecting && (entry.intersectionRatio >= 1 || isWindowTooSmall)) {
