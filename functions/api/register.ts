@@ -1,0 +1,111 @@
+/// <reference types="@cloudflare/workers-types/2023-07-01" />
+
+import * as jose from 'jose'
+import { badRequest, paymentRequired, serviceUnavailable, unsupportedMediaType } from '@worker-tools/response-creators'
+
+type Env = {
+  JWT_PRIVATE_KEY_PKCS8: string,
+}
+
+export const onRequestPost: PagesFunction<Env> = async (context) => {
+  if (context.request.headers.get('Content-Type') !== 'application/x-www-form-urlencoded') return unsupportedMediaType(); 
+  const fd = new URLSearchParams(await context.request.text());
+  const licenseKey = fd.get('license_key');
+  if (!licenseKey) return badRequest('Missing license_key');
+
+  let response: Response;
+  try {
+    response = await fetch('https://api.gumroad.com/v2/licenses/verify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded', 
+        'User-Agent': navigator.userAgent,
+      },
+      body: new URLSearchParams({
+        'product_id': 'O3j61n0DOPGGLAHxnYkvXw==',
+        'license_key': licenseKey,
+        'increment_uses_count': 'true',
+      }),
+    });
+  } catch {
+    return serviceUnavailable('No response from license validation service');
+  }
+
+  if (!response.ok || response.headers.get('Content-Type')?.includes('application/json') === false) {
+    return serviceUnavailable('License validation request failed.');
+  }
+
+  let data: ResponseData;
+  try {
+    data = await response.json() as any;
+  } catch {
+    return serviceUnavailable('Failed to parse response');
+  }
+
+  if (!data.success) {
+    return paymentRequired(`Invalid validation failed: ${data.message}`);
+  }
+
+  const { purchase } = data;
+
+  if (purchase.disputed || purchase.chargebacked || purchase.refunded) {
+    return paymentRequired('Purchase was disputed, chargebacked or refunded');
+  }
+
+  const token = await new jose.SignJWT({ pid: purchase.id })
+    .setProtectedHeader({ alg: 'ES256' })
+    .setIssuedAt()
+    .setExpirationTime('15d')
+    .sign(await jose.importPKCS8(context.env.JWT_PRIVATE_KEY_PKCS8, 'ES256'))
+  
+  return Response.json({ token }, { headers: [['Authorization', `Bearer ${token}`]] });
+}
+
+type Purchase = {
+  seller_id: string;
+  product_id: string;
+  product_name: string;
+  permalink: string;
+  product_permalink: string;
+  short_product_id: string;
+  email: string;
+  price: number;
+  gumroad_fee: number;
+  currency: string;
+  quantity: number;
+  discover_fee_charged: boolean;
+  can_contact: boolean;
+  referrer: string;
+  card: {
+      visual: string | null;
+      type: string | null;
+      bin: string | null;
+      expiry_month: string | null;
+      expiry_year: string | null;
+  };
+  order_number: number;
+  sale_id: string;
+  sale_timestamp: string;  // ISO date string
+  purchaser_id: string;
+  variants: string;
+  test: boolean;
+  license_key: string;
+  ip_country: string;
+  is_gift_receiver_purchase: boolean;
+  refunded: boolean;
+  disputed: boolean;
+  dispute_won: boolean;
+  id: string;
+  created_at: string;  // ISO date string
+  custom_fields: any[];  // Assuming custom fields can vary
+  chargebacked: boolean;
+};
+
+type ResponseData = {
+  success: true;
+  uses: number;
+  purchase: Purchase;
+}|{
+  success: false;
+  message: string;
+};
