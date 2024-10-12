@@ -116,20 +116,28 @@
   {
     const cardVideos = cardsWrapper.querySelectorAll('video');
     const inObserver = new IntersectionObserver((entries) => {
+      const windowHeight = window.innerHeight;
       for (const entry of entries) {
-        if (entry.isIntersecting) {
+        const isWindowTooSmall = entry.boundingClientRect.height > windowHeight;
+        if (entry.isIntersecting && (entry.intersectionRatio >= 1 || isWindowTooSmall)) {
           const index = entry.target.style.getPropertyValue('--index');
           const video = cardVideos[index - 1];
           video && video.play();
+        } 
+        if (!entry.isIntersecting && isWindowTooSmall) {
+          const index = entry.target.style.getPropertyValue('--index');
+          const video = cardVideos[index - 1];
+          video && video.pause();
         }
       }
     }, {
-      threshold: 0.8,
+      threshold: [0.01, 1],
     });
 
     const outObserver = new IntersectionObserver((entries) => {
+      const windowHeight = window.innerHeight;
       for (const entry of entries) {
-        if (!entry.isIntersecting) {
+        if (!entry.isIntersecting && entry.boundingClientRect.height < windowHeight) {
           const index = entry.target.style.getPropertyValue('--index');
           const video = cardVideos[index - 1];
           video && video.pause();

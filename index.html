@@ -57,7 +57,7 @@
                   document.getElementById('hero-title').textContent = 'Upgrade to Unlock PRO Features';
                 }
               </script>
-	            <p class="hero-paragraph">Get work done without leaving VS Code. Unlock powerful <strong>editing and export</strong> features. Works anywhere, including <strong>SSH and WSL</strong>.</p>
+	            <p class="hero-paragraph">Get work done without leaving VS Code. Unlock powerful <strong>editing</strong> and <strong>export</strong> features. Works anywhere, including <strong>SSH and WSL</strong>.</p>
 	            <div class="hero-cta">
                 <a class="button button-primary" href="https://qwtel.gumroad.com/l/smzwr/z8acasd">Buy Now</a>
                 <a class="button" href="#spy-5" onclick="scrollToHash(event)">Learn More ↓</a>
@@ -114,10 +114,11 @@
                 </div>
                 <figure>
                   <video muted loop playsinline>
+                    <source media="(prefers-color-scheme: light)" src="dist/images/card-1-light.webm" type="video/webm">
+                    <source media="(prefers-color-scheme: light)" src="dist/images/card-1-light.mp4" type="video/mp4">
                     <source src="dist/images/card-1.webm" type="video/webm">
                     <source src="dist/images/card-1.mp4" type="video/mp4">
                   </video>
-                  <!-- <img src="dist/images/img-1.jpg" alt="Image description"> -->
                 </figure>
               </div>
             </li>
@@ -131,6 +132,8 @@
                 </div>
                 <figure>
                   <video muted loop playsinline>
+                    <source media="(prefers-color-scheme: light)" src="dist/images/card-2-light.webm" type="video/webm">
+                    <source media="(prefers-color-scheme: light)" src="dist/images/card-2-light.mp4" type="video/mp4">
                     <source src="dist/images/card-2.webm" type="video/webm">
                     <source src="dist/images/card-2.mp4" type="video/mp4">
                   </video>
@@ -200,7 +203,7 @@
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-										<img src="dist/images/feature-icon-01.svg" alt="PRO exclusive 1" style="filter:hue-rotate(105deg)">
+										<img src="dist/images/feature-icon-01.svg" alt="PRO exclusive 1">
                   </div>
                   <h4 class="feature-title mt-24">Native SQLite Client</h4>
                   <p class="text-sm mb-0">The PRO version uses the canonical SQLite implementation, which provides the full set of failover guarantees. The readonly WebAssembly client remains as a fallback.</p>
@@ -209,7 +212,7 @@
 							<div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-										<img src="dist/images/feature-icon-02.svg" alt="PRO exclusive 2" style="filter:hue-rotate(105deg)">
+										<img src="dist/images/feature-icon-02.svg" alt="PRO exclusive 2">
                   </div>
                   <h4 class="feature-title mt-24">Large File Support</h4>
                   <p class="text-sm mb-0">When the native client is in use, all restrictions on file size are lifted — including in remote SSH sessions: SQLite Viewer will transfer only the visible rows to your local machine.</p>
@@ -218,7 +221,7 @@
 							<div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-										<img src="dist/images/feature-icon-05.svg" alt="PRO exclusive 3" style="filter:hue-rotate(105deg)">
+										<img src="dist/images/feature-icon-05.svg" alt="PRO exclusive 3">
                   </div>
                   <h4 class="feature-title mt-24">Ad-Free Experience</h4>
                   <p class="text-sm mb-0">PRO customers enjoy an ad-free experience — <strong>perfect for screen sharing and recordings</strong>. Additionally, PRO customers receive an exclusive PRO icon (<img width="18" height="18" src="dist/images/favicon-pro.png" style="display:inline-block"/>) in the UI.</p>

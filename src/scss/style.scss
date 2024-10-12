@@ -91,13 +91,10 @@
   padding-bottom: 0;
 }
 
-:root {
+#cards {
   --card-margin: 64px;
   --card-top-offset: 1em;
   --outline-width: 0px;
-}
-
-#cards {
   padding: 0;
   margin-top: 88px;
   padding-bottom: calc((var(--num-cards) - 1) * var(--card-top-offset));
@@ -109,6 +106,7 @@
   grid-template-rows: repeat(var(--num-cards), 1fr);
 
   @media (max-height: 800px) {
+    --card-margin: 32px;
     grid-template-rows: repeat(var(--num-cards), auto);
   }
 
@@ -126,7 +124,7 @@
   @include shadow;
   background: color(bg, 3);
   color: color(typography, 1);
-  border-radius: .5rem;
+  border-radius: .25rem;
 
   display: grid;
   grid-template-areas: "text img";
@@ -175,8 +173,8 @@
 .card__content > figure {
   grid-area: img;
   margin: 0;
-  border-top-right-radius: .5rem;
-  border-bottom-right-radius: .5rem;
+  border-top-right-radius: .25rem;
+  border-bottom-right-radius: .25rem;
   overflow: hidden;
   overflow: clip;
   aspect-ratio: 4 / 3;
@@ -190,7 +188,7 @@
   }
 
   @media (max-width: 768px) {
-    border-top-left-radius: .5rem;
+    border-top-left-radius: .25rem;
     border-bottom-right-radius: 0;
   }
 }
@@ -198,7 +196,7 @@
 /* --- */
 
 #cards {
-  --card-top: calc(60px + var(--card-top-offset));
+  --card-top: calc(60px + 16px + var(--card-top-offset));
 }
 
 .card {
@@ -236,8 +234,8 @@ a.card__header {
   height: calc((var(--card-top-offset) + 0.125em) * 1 / (1.1 - 0.1 * var(--num-cards)));
   cursor: pointer;
   background-color: color-mix(in srgb, color(bg, 4) 25%, transparent);
-  border-top-left-radius: .5rem;
-  border-top-right-radius: .5rem;
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
   z-index: 1;
 }
 
@@ -253,16 +251,14 @@ a.card__header {
     }
   }
 
-  @media (min-height: 800px) {
-    #cards {
-      view-timeline-name: --cards-element-scrolls-in-body;
-    }
+  #cards {
+    view-timeline-name: --cards-element-scrolls-in-body;
+  }
 
-    .card__content {
-      animation: linear scale forwards;
-      animation-timeline: --cards-element-scrolls-in-body;
-      animation-range: exit-crossing calc(var(--index0) / var(--num-cards) * 100%) exit-crossing calc((var(--index)) / var(--num-cards) * 100%);
-    }
+  .card__content {
+    animation: linear scale forwards;
+    animation-timeline: --cards-element-scrolls-in-body;
+    animation-range: exit-crossing calc(var(--index0) / var(--num-cards) * 100%) exit-crossing calc((var(--index)) / var(--num-cards) * 100%);
   }
 }
 
