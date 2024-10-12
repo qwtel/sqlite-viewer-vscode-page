@@ -20,7 +20,7 @@
     "uglify": "mkdirp dist/js -p && uglifyjs src/js/*.js -m -c -o dist/js/main.min.js",
     "imagemin": "imagemin src/images/* -o dist/images",
     "bs": "browser-sync start --config ./bs-config.js",
-    "serve": "serve",
+    "serve": "wrangler pages dev . --compatibility-date=2024-08-21",
     "build:css": "run-s lint-scss scss autoprefixer",
     "build:js": "run-s lint uglify",
     "build:images": "run-s imagemin",
@@ -34,6 +34,7 @@
     "dev": "run-s build watch"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241011.0",
     "autoprefixer": "^9.0.1",
     "browser-sync": "^2.12.8",
     "eslint": "^5.2.0",
@@ -53,5 +54,9 @@
     "uglify-es": "^3.3.10"
   },
   "homepage": "https://bitbucket.org/pasqualevitiello/solid#readme",
-  "main": ".eslintrc.js"
+  "main": ".eslintrc.js",
+  "dependencies": {
+    "@worker-tools/response-creators": "1.2.0-pre.6",
+    "jose": "^5.9.4"
+  }
 }

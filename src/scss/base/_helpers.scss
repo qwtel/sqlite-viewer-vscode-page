@@ -28,6 +28,11 @@
     }
 }
 
+.ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 /* Text meant only for screen readers. */
 .screen-reader-text {
 	clip: rect(1px, 1px, 1px, 1px);
@@ -482,6 +487,14 @@
 }
 .content-before::before {
 	content: attr(data-content-before);
+}
+
+.flex {
+	display: flex;
+}
+
+.min-w-0 {
+	min-width: 0;
 }
 
 .center {
