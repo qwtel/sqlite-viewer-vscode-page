@@ -1,67 +1,71 @@
 /// <reference types="@cloudflare/workers-types/2023-07-01" />
 
 import * as jose from 'jose'
-import { badRequest, paymentRequired, serviceUnavailable, unsupportedMediaType } from '@worker-tools/response-creators'
+import { badRequest, internalServerError, paymentRequired, serviceUnavailable, unsupportedMediaType } from '@worker-tools/response-creators'
 
 type Env = {
   JWT_PRIVATE_KEY_PKCS8: string,
 }
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
-  if (context.request.headers.get('Content-Type') !== 'application/x-www-form-urlencoded') return unsupportedMediaType(); 
-  const fd = new URLSearchParams(await context.request.text());
-  const licenseKey = fd.get('license_key');
-  if (!licenseKey) return badRequest('Missing license_key');
-  if (!/[A-Z0-9]{8}-[A-Z0-9]{8}-[A-Z0-9]{8}-[A-Z0-9]{8}/i.test(licenseKey)) return badRequest('Invalid license key format');
-
-  let response: Response;
   try {
-    response = await fetch('https://api.gumroad.com/v2/licenses/verify', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded', 
-        'User-Agent': navigator.userAgent,
-      },
-      body: new URLSearchParams({
-        'product_id': 'O3j61n0DOPGGLAHxnYkvXw==',
-        'license_key': licenseKey,
-        'increment_uses_count': 'true',
-      }),
-    });
-  } catch {
-    return serviceUnavailable('No response from license validation service');
+    if (context.request.headers.get('Content-Type') !== 'application/x-www-form-urlencoded') return unsupportedMediaType(); 
+    const fd = new URLSearchParams(await context.request.text());
+    const licenseKey = fd.get('license_key');
+    if (!licenseKey) return badRequest('Missing license_key');
+    if (!/[A-Z0-9]{8}-[A-Z0-9]{8}-[A-Z0-9]{8}-[A-Z0-9]{8}/i.test(licenseKey)) return badRequest('Invalid license key format');
+
+    let response: Response;
+    try {
+      response = await fetch('https://api.gumroad.com/v2/licenses/verify', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded', 
+          'User-Agent': navigator.userAgent,
+        },
+        body: new URLSearchParams({
+          'product_id': 'O3j61n0DOPGGLAHxnYkvXw==',
+          'license_key': licenseKey,
+          'increment_uses_count': 'true',
+        }),
+      });
+    } catch {
+      return serviceUnavailable('No response from license validation service');
+    }
+
+    if (!response.ok) {
+      if (response.status === 404) return badRequest(`Invalid license key.`);
+      return badRequest(`License validation request failed: ${response.status}`);
+    }
+    if (response.headers.get('Content-Type')?.includes('application/json') === false)
+      return serviceUnavailable('Invalid response from license validation service');
+
+    let data: ResponseData;
+    try {
+      data = await response.json() as any;
+    } catch {
+      return serviceUnavailable('Failed to parse response');
+    }
+
+    if (!data.success) {
+      return paymentRequired(`Invalid validation failed: ${data.message}`);
+    }
+
+    const { purchase } = data;
+
+    if (purchase.disputed || purchase.chargebacked || purchase.refunded)
+      return paymentRequired('Purchase was disputed, chargebacked or refunded');
+
+    const token = await new jose.SignJWT({ pid: purchase.id })
+      .setProtectedHeader({ alg: 'ES256' })
+      .setIssuedAt()
+      .setExpirationTime('15d')
+      .sign(await jose.importPKCS8(context.env.JWT_PRIVATE_KEY_PKCS8, 'ES256'))
+    
+    return Response.json({ token }, { headers: [['Authorization', `Bearer ${token}`]] });
+  } catch (err) {
+    return internalServerError(`Unexpected service error: ${err.message}`);
   }
-
-  if (!response.ok) {
-    if (response.status === 404) return badRequest(`Invalid license key.`);
-    return badRequest(`License validation request failed: ${response.status}`);
-  }
-  if (response.headers.get('Content-Type')?.includes('application/json') === false)
-    return serviceUnavailable('Invalid response from license validation service');
-
-  let data: ResponseData;
-  try {
-    data = await response.json() as any;
-  } catch {
-    return serviceUnavailable('Failed to parse response');
-  }
-
-  if (!data.success) {
-    return paymentRequired(`Invalid validation failed: ${data.message}`);
-  }
-
-  const { purchase } = data;
-
-  if (purchase.disputed || purchase.chargebacked || purchase.refunded)
-    return paymentRequired('Purchase was disputed, chargebacked or refunded');
-
-  const token = await new jose.SignJWT({ pid: purchase.id })
-    .setProtectedHeader({ alg: 'ES256' })
-    .setIssuedAt()
-    .setExpirationTime('15d')
-    .sign(await jose.importPKCS8(context.env.JWT_PRIVATE_KEY_PKCS8, 'ES256'))
-  
-  return Response.json({ token }, { headers: [['Authorization', `Bearer ${token}`]] });
 }
 
 type Purchase = {
