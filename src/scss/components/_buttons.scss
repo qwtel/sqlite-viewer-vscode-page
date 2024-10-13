@@ -22,7 +22,7 @@
     white-space: nowrap;
 
 	&:hover {
-		background: color-mix(in oklab, color(bg, 3) 99%, var(--lighten) 1%);
+		background: color-mix(in oklab, color(bg, 3) 99%, var(--lighten) 2%);
 	}
 
     &:active {
@@ -41,12 +41,18 @@
 
 .button-primary {
     color: #fff;
-	background: mix(color(primary, 1), color(primary, 2));
-    background: linear-gradient(65deg, color(primary, 1) 0, color(primary, 2) 100%);
+	background-color: color-mix(in oklab, color(primary, 1), color(primary, 2));
+    background-image: linear-gradient(65deg, color(primary, 1) 0%, color(primary, 2) 100%);
 
     &:hover {
-		background: lighten(mix(color(primary, 1), color(primary, 2)), 2%);
-        background: linear-gradient(65deg, lighten(color(primary, 1), 2%) 0, lighten(color(primary, 2), 2%) 100%);
+        background-color: color-mix(
+            in srgb, 
+            color-mix(in oklab, color(primary, 1), color(primary, 2)), 
+            white 4%);
+        background-image: linear-gradient(
+            65deg, 
+            color-mix(in srgb, color(primary, 1), white 4%) 0%, 
+            color-mix(in srgb, color(primary, 2), white 4%) 100%);
     }
 }
 

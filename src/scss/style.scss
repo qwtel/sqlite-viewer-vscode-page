@@ -137,9 +137,8 @@
   @media (max-width: 768px) {
     grid-template-columns: 100%;
     grid-template-rows: auto 1fr;
-    grid-template-areas:
-      "img"
-      "text";
+    grid-template-areas: "img"
+                         "text";
   }
 }
 
@@ -292,11 +291,5 @@ div:has(> .section-title)::after {
     opacity: 1;
     mix-blend-mode: normal;
     transition: filter 0.125s, opacity 0.125s;
-  }
-}
-.hover-link {
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
   }
 }
