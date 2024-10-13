@@ -4,6 +4,7 @@ import * as jose from 'jose'
 import { badRequest, internalServerError, paymentRequired, serviceUnavailable, unsupportedMediaType } from '@worker-tools/response-creators'
 
 type Env = {
+  PRODUCT_ID: string,
   JWT_PRIVATE_KEY_PKCS8: string,
 }
 
@@ -24,7 +25,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
           'User-Agent': navigator.userAgent,
         },
         body: new URLSearchParams({
-          'product_id': 'O3j61n0DOPGGLAHxnYkvXw==',
+          'product_id': context.env.PRODUCT_ID,
           'license_key': licenseKey,
           'increment_uses_count': 'true',
         }),
@@ -56,11 +57,12 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     if (purchase.disputed || purchase.chargebacked || purchase.refunded)
       return paymentRequired('Purchase was disputed, chargebacked or refunded');
 
+    const jwtKey = await jose.importSPKI(context.env.JWT_PRIVATE_KEY_PKCS8, 'ES256');
     const token = await new jose.SignJWT({ pid: purchase.id })
       .setProtectedHeader({ alg: 'ES256' })
       .setIssuedAt()
       .setExpirationTime('15d')
-      .sign(await jose.importPKCS8(context.env.JWT_PRIVATE_KEY_PKCS8, 'ES256'))
+      .sign(jwtKey)
     
     return Response.json({ token }, { headers: [['Authorization', `Bearer ${token}`]] });
   } catch (err) {
