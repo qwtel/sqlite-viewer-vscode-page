@@ -49,7 +49,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     }
 
     if (!data.success) {
-      return paymentRequired(`Invalid validation failed: ${data.message}`);
+      return paymentRequired(`License validation failed: ${data.message}`);
     }
 
     const { purchase } = data;
@@ -57,7 +57,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     if (purchase.disputed || purchase.chargebacked || purchase.refunded)
       return paymentRequired('Purchase was disputed, chargebacked or refunded');
 
-    const jwtKey = await jose.importSPKI(context.env.JWT_PRIVATE_KEY_PKCS8, 'ES256');
+    const jwtKey = await jose.importPKCS8(context.env.JWT_PRIVATE_KEY_PKCS8, 'ES256');
     const token = await new jose.SignJWT({ pid: purchase.id })
       .setProtectedHeader({ alg: 'ES256' })
       .setIssuedAt()
