@@ -8,7 +8,14 @@ type Env = {
   JWT_PRIVATE_KEY_PKCS8: string,
 }
 
-export const onRequestPost: PagesFunction<Env> = async (context) => {
+const corsMiddleware: PagesFunction = async (context) => {
+  const response = await context.next();
+  response.headers.set('Access-Control-Allow-Origin', '*');
+  response.headers.set('Access-Control-Max-Age', '86400');
+  return response;
+};
+
+export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (context) => {
   try {
     if (context.request.headers.get('Content-Type') !== 'application/x-www-form-urlencoded') return unsupportedMediaType(); 
     const fd = new URLSearchParams(await context.request.text());
@@ -68,7 +75,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   } catch (err) {
     return internalServerError(`Unexpected service error: ${err.message}`);
   }
-}
+}];
 
 type Purchase = {
   seller_id: string;
@@ -117,14 +124,6 @@ type ResponseData = {
 }|{
   success: false;
   message: string;
-};
-
-// Set CORS to all /api responses
-export const onRequest: PagesFunction = async (context) => {
-  const response = await context.next();
-  response.headers.set('Access-Control-Allow-Origin', '*');
-  response.headers.set('Access-Control-Max-Age', '86400');
-  return response;
 };
 
 // Respond to OPTIONS method

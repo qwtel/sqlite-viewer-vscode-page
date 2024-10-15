@@ -15,7 +15,14 @@ hixfUOoecMEXQ2c2wy95T/JgmiRh9MxPTdRwoSO1Ub1nVFII2s1d8E2RCw==
 -----END PUBLIC KEY-----
 `.trim();
 
-export const onRequestPost: PagesFunction<Env> = async (context) => {
+const corsMiddleware: PagesFunction = async (context) => {
+  const response = await context.next();
+  response.headers.set('Access-Control-Allow-Origin', '*');
+  response.headers.set('Access-Control-Max-Age', '86400');
+  return response;
+};
+
+export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (context) => {
   try {
     if (context.request.headers.get('Content-Type') !== 'application/x-www-form-urlencoded') return unsupportedMediaType(); 
     const fd = new URLSearchParams(await context.request.text());
@@ -41,15 +48,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   } catch (err) {
     return internalServerError(`Unexpected service error: ${err.message}`);
   }
-}
-
-// Set CORS to all /api responses
-export const onRequest: PagesFunction = async (context) => {
-  const response = await context.next();
-  response.headers.set('Access-Control-Allow-Origin', '*');
-  response.headers.set('Access-Control-Max-Age', '86400');
-  return response;
-};
+}];
 
 // Respond to OPTIONS method
 export const onRequestOptions: PagesFunction = async () => {
