@@ -112,7 +112,7 @@
                 <a class="card__header" href="#spy-1" onclick="scrollToHash(event)"></a>
                 <div>
                   <h3>Update values in place</h3>
-                  <p class="text-sm">Update values from the sidebar or modal. A transaction is started when making changes and committed to disk when saving the file.</p>
+                  <p class="text-sm">Update values from the sidebar or modal. All changes are automatically wrapped in a transaction and committed to disk when the file is saved.</p>
                 </div>
                 <figure>
                   <video muted loop playsinline>
@@ -130,7 +130,7 @@
                 <a class="card__header" href="#spy-2" onclick="scrollToHash(event)"></a>
                 <div>
                   <h3>Insert and delete rows</h3>
-                  <p class="text-sm">Insert one or more rows using the modal dialog. Delete one or more rows from the explorer and using keyboard shortcuts.</p>
+                  <p class="text-sm">Insert one or more rows using the modal dialog. Delete one or more rows from the explorer or using keyboard shortcuts.</p>
                 </div>
                 <figure>
                   <video muted loop playsinline>
@@ -148,7 +148,7 @@
                 <a class="card__header" href="#spy-3" onclick="scrollToHash(event)"></a>
                 <div>
                   <h3>Undo and redo changes using VS Code</h3>
-                  <p class="text-sm">SQLite Viewer PRO integrates with VS Code's version history. Changes are reverted through <code>ROLLBACK</code> before a file has been saved, and by running inverted SQL statements otherwise.</p>
+                  <p class="text-sm">SQLite Viewer PRO integrates with VS Code's undo/redo history. Changes are reverted through <code>ROLLBACK</code> statements before a file has been saved, and by running (inverted) SQL statements afterwards.</p>
                 </div>
                 <figure>
                   <video muted loop playsinline>
@@ -166,7 +166,7 @@
                 <a class="card__header" href="#spy-4" onclick="scrollToHash(event)"></a>
                 <div>
                   <h3>Export data in a variety of formats</h3>
-                  <p class="text-sm">You can copy & paste rows directly from the viewer in a variety of formats. Currently supported: TSV, CSV, SQLite Inserts, JSON (objects), JSON (array of arrays) and HTML.</p>
+                  <p class="text-sm">You can copy rows directly from the viewer in a variety of formats. Supported formats are: TSV, CSV, SQLite inserts, JSON objects, JSON arrays and HTML.</p>
                 </div>
                 <figure>
                   <video muted loop playsinline>
@@ -183,11 +183,16 @@
               <div class="card__content">
                 <a class="card__header" href="#spy-5" onclick="scrollToHash(event)"></a>
                 <div>
-                  <h3>Use inside containers, SSH hosts, and WSL</h3>
-                  <p class="text-sm">The available platforms are: <code>win32-x64</code>, <code>win32-arm64</code>, <code>linux-x64</code>, <code>linux-arm64</code>, <code>linux-armhf</code>, <code>alpine-x64</code>, <code>alpine-arm64</code>, <code>darwin-x64</code>, <code>darwin-arm64</code> and <code>web</code>.</p>
+                  <h3>Works in containers, SSH, and WSL</h3>
+                  <p class="text-sm">SQLite Viewer PRO can be installed inside containers, SSH hosts and WSL instances. A native SQLite instance runs alongside the database in the remote workspace, while only the webview remains on the local machine.</p>
                 </div>
                 <figure>
-                  <img src="dist/images/img-1.jpg" style="filter:invert(1)" alt="Image description">
+                  <video muted loop playsinline>
+                    <source media="(prefers-color-scheme: light)" src="dist/images/card-5-light.webm" type="video/webm">
+                    <source media="(prefers-color-scheme: light)" src="dist/images/card-5-light.mp4" type="video/mp4">
+                    <source src="dist/images/card-5.webm" type="video/webm">
+                    <source src="dist/images/card-5.mp4" type="video/mp4">
+                  </video>
                 </figure>
               </div>
             </li>
