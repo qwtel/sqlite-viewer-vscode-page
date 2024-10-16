@@ -43,7 +43,7 @@ export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (conte
 
     if (!response.ok) {
       if (response.status === 404) return badRequest(`Invalid license key.`);
-      return badRequest(`License validation request failed: ${response.status}`);
+      return new Response(`License validation request failed: ${response.status}`, { status: response.status });
     }
     if (response.headers.get('Content-Type')?.includes('application/json') === false)
       return serviceUnavailable('Invalid response from license validation service');

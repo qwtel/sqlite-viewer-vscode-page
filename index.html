@@ -15,8 +15,10 @@
     const colorScheme = searchParams.get('color-scheme');
     document.head.querySelector('meta[name="color-scheme"]').content = colorScheme || 'dark light';
     document.body.classList.toggle('vscode', searchParams.has('css-vars'));
-    document.body.classList.add(colorScheme);
-    Object.entries(JSON.parse(searchParams.get('css-vars') || '{}')).forEach(([key, value]) => document.body.style.setProperty(key, value));
+    document.body.classList.toggle(colorScheme, !!colorScheme);
+    try { Object.entries(JSON.parse(searchParams.get('css-vars') || '{}')).forEach(([key, value]) => document.body.style.setProperty(key, value)) } catch {}
+  </script>
+  <script>
     function scrollToHash(event) {
       event.preventDefault(); 
       document.querySelector(event.currentTarget.hash).scrollIntoView({ block: 'start', behavior: 'smooth' });
@@ -28,8 +30,8 @@
         <div class="site-header-inner">
           <div class="brand header-brand mr-8">
             <h1 class="m-0" style="display:flex;align-items:center;font-size:18px;line-height:100%">
-						  <a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' })">
-								<img class="header-logo-image" src="dist/images/logo_512_mac.png" alt="Logo" width="35" height="35">
+              <a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' })">
+                <img class="header-logo-image" src="dist/images/logo_512_mac.png" alt="Logo" width="35" height="35">
               </a>
               <div style="margin-left:10px">
                 SQLite Viewer for VS Code
@@ -48,8 +50,8 @@
       <section class="hero">
         <div class="container">
           <div class="hero-inner">
-						<div class="hero-copy">
-	            <h1 id="hero-title" class="hero-title mt-0">The Best SQLite Editor is the One in Your Editor</h1>
+            <div class="hero-copy">
+              <h1 id="hero-title" class="hero-title mt-0">The Best SQLite Editor is the One in Your Editor</h1>
               <script>
                 let heroTitle;
                 if (searchParams.has('css-vars')) {
@@ -57,21 +59,21 @@
                   document.getElementById('hero-title').textContent = 'Upgrade to Unlock PRO Features';
                 }
               </script>
-	            <p class="hero-paragraph">Get work done without leaving VS Code. Unlock powerful <strong>editing</strong> and <strong>export</strong> features. Works anywhere, including <strong>SSH and WSL</strong>.</p>
-	            <div class="hero-cta">
+              <p class="hero-paragraph">Get work done without leaving VS Code. Unlock powerful <strong>editing</strong> and <strong>export</strong> features. Works anywhere, including <strong>SSH and WSL</strong>.</p>
+              <div class="hero-cta">
                 <a class="button button-primary" href="https://qwtel.gumroad.com/l/smzwr/z8acasd">Buy Now</a>
                 <a class="button" href="#spy-5" onclick="scrollToHash(event)">Learn More ↓</a>
               </div>
-						</div>
-						<div class="hero-figure anime-element">
-							<svg class="placeholder" width="528" height="396" viewBox="0 0 528 396">
-								<rect width="528" height="396" style="fill:transparent;" />
-							</svg>
-							<div class="hero-figure-box hero-figure-box-01" data-rotation="45deg"></div>
-							<div class="hero-figure-box hero-figure-box-02" data-rotation="-45deg"></div>
-							<div class="hero-figure-box hero-figure-box-03" data-rotation="0deg"></div>
-							<div class="hero-figure-box hero-figure-box-04" data-rotation="-135deg"></div>
-							<div class="hero-figure-box hero-figure-box-05">
+            </div>
+            <div class="hero-figure anime-element">
+              <svg class="placeholder" width="528" height="396" viewBox="0 0 528 396">
+                <rect width="528" height="396" style="fill:transparent;" />
+              </svg>
+              <div class="hero-figure-box hero-figure-box-01" data-rotation="45deg"></div>
+              <div class="hero-figure-box hero-figure-box-02" data-rotation="-45deg"></div>
+              <div class="hero-figure-box hero-figure-box-03" data-rotation="0deg"></div>
+              <div class="hero-figure-box hero-figure-box-04" data-rotation="-135deg"></div>
+              <div class="hero-figure-box hero-figure-box-05">
                 <picture>
                   <source media="(prefers-color-scheme: light)" type="image/avif" srcset="dist/images/screenshot.avif">
                   <source media="(prefers-color-scheme: dark)" type="image/avif" srcset="dist/images/screenshot-dark.avif">
@@ -82,12 +84,12 @@
                   <img src="dist/images/screenshot-dark.png" alt="Screenshot" width="528" height="396">
                 </picture>
               </div>
-							<div class="hero-figure-box hero-figure-box-06"></div>
-							<div class="hero-figure-box hero-figure-box-07"></div>
-							<div class="hero-figure-box hero-figure-box-08" data-rotation="-22deg"></div>
-							<div class="hero-figure-box hero-figure-box-09" data-rotation="-52deg"></div>
-							<div class="hero-figure-box hero-figure-box-10" data-rotation="-50deg"></div>
-						</div>
+              <div class="hero-figure-box hero-figure-box-06"></div>
+              <div class="hero-figure-box hero-figure-box-07"></div>
+              <div class="hero-figure-box hero-figure-box-08" data-rotation="-22deg"></div>
+              <div class="hero-figure-box hero-figure-box-09" data-rotation="-52deg"></div>
+              <div class="hero-figure-box hero-figure-box-10" data-rotation="-50deg"></div>
+            </div>
           </div>
         </div>
       </section>
@@ -95,7 +97,7 @@
       <section class="section">
         <div class="container">
           <div class="text-center mb-64">
-            <h2 id="cards-title" class="cards-title section-title h3 color-unset">Upgrade to unlock powerful PRO features</h2>
+            <h2 id="cards-title" class="cards-title section-title h3 color-unset">Upgrade to unlock exclusive PRO workflows:</h2>
             <script>
               if (searchParams.has('css-vars')) {
                 document.getElementById('cards-title').textContent = heroTitle;
@@ -195,33 +197,33 @@
 
       <section class="features section">
         <div class="container">
-					<div class="features-inner section-inner">
-            <!-- <div class="features-header text-center mb-64">
-              <p class="section-title h3 mt-0 color-unset">Key PRO differentiators</p>
-            </div> -->
+          <div class="features-inner section-inner">
+            <div class="features-header text-center mb-64">
+              <p class="section-title h3 mt-0 color-unset">Enjoy these exclusive PRO features…</p>
+            </div>
             <div class="features-wrap">
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-										<img src="dist/images/feature-icon-01.svg" alt="PRO exclusive 1">
+                    <img src="dist/images/feature-icon-01.svg" alt="PRO exclusive 1">
                   </div>
                   <h4 class="feature-title mt-24">Native SQLite Client</h4>
                   <p class="text-sm mb-0">The PRO version uses the canonical SQLite implementation, which provides the full set of failover guarantees. The readonly WebAssembly client remains as a fallback.</p>
                 </div>
               </div>
-							<div class="feature text-center is-revealing">
+              <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-										<img src="dist/images/feature-icon-02.svg" alt="PRO exclusive 2">
+                    <img src="dist/images/feature-icon-02.svg" alt="PRO exclusive 2">
                   </div>
                   <h4 class="feature-title mt-24">Large File Support</h4>
-                  <p class="text-sm mb-0">When the native client is in use, all restrictions on file size are lifted — including in remote SSH sessions: SQLite Viewer will transfer only the visible rows to your local machine.</p>
+                  <p class="text-sm mb-0">All restrictions on file size are lifted, even during remote sessions. Only data needed to display UI components will be transferred to your local machine. Powered by VS Code Server.</p>
                 </div>
               </div>
-							<div class="feature text-center is-revealing">
+              <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-										<img src="dist/images/feature-icon-05.svg" alt="PRO exclusive 3">
+                    <img src="dist/images/feature-icon-05.svg" alt="PRO exclusive 3">
                   </div>
                   <h4 class="feature-title mt-24">Ad-Free Experience</h4>
                   <p class="text-sm mb-0">PRO customers enjoy an ad-free experience — <strong>perfect for screen sharing and recordings</strong>. Additionally, PRO customers receive an exclusive PRO icon (<img width="18" height="18" src="dist/images/favicon-pro.png" style="display:inline-block"/>) in the UI.</p>
@@ -234,24 +236,24 @@
 
       <section class="features section">
         <div class="container">
-					<div class="features-inner section-inner">
+          <div class="features-inner section-inner">
             <div class="features-header text-center mb-64">
-              <p class="section-title h3 mt-0 color-unset">Includes everything you like about the free version</p>
+              <p class="section-title h3 mt-0 color-unset">…and everything you like about the free version</p>
             </div>
             <div class="features-wrap">
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-										<img src="dist/images/feature-icon-01.svg" alt="Feature 01">
+                    <img src="dist/images/feature-icon-01.svg" alt="Feature 01">
                   </div>
                   <h4 class="feature-title mt-24">Performant UI</h4>
-                  <p class="text-sm mb-0">SQLite Viewer is built with performance in mind. It <strong>built with the best tools</strong> the web stack has to offer and <strong>routinely tested on old hardware</strong> to ensure performance remains top-notch.</p>
+                  <p class="text-sm mb-0">SQLite Viewer is built with performance in mind. It uses the best tools the web stack has to offer and is <strong>routinely tested on older hardware</strong> to ensure performance remains top-notch.</p>
                 </div>
               </div>
-							<div class="feature text-center is-revealing">
+              <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-										<img src="dist/images/feature-icon-02.svg" alt="Feature 02">
+                    <img src="dist/images/feature-icon-02.svg" alt="Feature 02">
                   </div>
                   <h4 class="feature-title mt-24">Matching Theme</h4>
                   <p class="text-sm mb-0">Say goodbye to disjointed user interfaces. SQLite Viewer <strong>automatically adjusts to your VS Code theme</strong> and seamlessly blends into the existing VS Code experience.</p>
@@ -260,7 +262,7 @@
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-										<img src="dist/images/feature-icon-03.svg" alt="Feature 03">
+                    <img src="dist/images/feature-icon-03.svg" alt="Feature 03">
                   </div>
                   <h4 class="feature-title mt-24">One-Click Setup</h4>
                   <p class="text-sm mb-0">SQLite Viewer doesn't rely on binaries on your machine — or worse, inside a container, SSH host, or WSL instance. It ships its own, so that <strong>simply clicking 'Install' is enough</strong> to get started.</p>
@@ -269,16 +271,16 @@
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-										<img src="dist/images/feature-icon-04.svg" alt="Feature 04">
+                    <img src="dist/images/feature-icon-04.svg" alt="Feature 04">
                   </div>
                   <h4 class="feature-title mt-24">Works Anywhere</h4>
-                  <p class="text-sm mb-0">Whether you're using VS Codium, VS Code for Web, GitPod, Google IDX, or any other VS Code fork, <strong>SQLite Viewer adopts to its environment</strong> and provides as many features as possible.</p>
+                  <p class="text-sm mb-0">Whether you're using VS Codium, VS Code for Web, GitPod, Google IDX, or any other VS Code fork, <strong>SQLite Viewer adapts to its environment</strong> and provides as many features as possible.</p>
                 </div>
               </div>
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-										<img src="dist/images/feature-icon-06.svg" alt="Feature 06">
+                    <img src="dist/images/feature-icon-06.svg" alt="Feature 06">
                   </div>
                   <h4 class="feature-title mt-24">Owner Operated</h4>
                   <p class="text-sm mb-0">SQLite Viewer is crafted by a single, dedicated developer and enjoys a <strong>coherent vision</strong> and <strong>attention to detail</strong> that is rarely found in purely commercial products.</p>
@@ -291,10 +293,14 @@
 
       <section class="proof section">
         <div class="container">
-					<div class="proof-inner section-inner has-top-divider has-bottom-divider p-0">
+          <div class="proof-inner section-inner has-top-divider has-bottom-divider p-0">
             <!-- <p class="section-paragraph mb-0 text-center">Behold the social proof</p> -->
             <div class="center is-revealing">
-              <span class="h3 m-0 color-unset" style="line-height:1.6;"><a class="hover-link" href="https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer" target="_blank">1M+ unique installs</a>.<br>Used across the industry, including at</span> 
+              <span class="h3 m-0 color-unset" style="line-height:1.6;">
+                <a class="hover-link" href="https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer" target="_blank">1M+ unique installs</a>,
+                <a class="hover-link" href="https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer&ssr=false#review-details" target="_blank" title="rated 5/5">★★★★★</a>.<br>
+                Used across the industry, including at
+            </span> 
 <a class="is-revealing" href="https://x.com/qwtel/status/1841513261310869997" target="_blank">
 <svg id="nasa-svg" class="ml-16" height="92" viewBox="0 0 110 92" width="110" xmlns="http://www.w3.org/2000/svg">
 <title>NASA</title>
@@ -361,7 +367,7 @@
               <h2 class="section-title mt-0">No Subscription, No Problem</h2>
               <p class="section-paragraph mb-0">SQLite Viewer PRO is a one-time purchase that grants you a perpetual license that works for as long as VS Code does.<br><br><small><strong>Now generally available. Enjoy the limited-time launch discount:</strong></small></p>
             </div>
-						<div class="pricing-tables-wrap">
+            <div class="pricing-tables-wrap">
               <div class="pricing-table">
                 <div class="pricing-table-inner is-revealing">
                   <div class="pricing-table-main">
@@ -369,7 +375,7 @@
                       <div class="pricing-table-price"><del class="pricing-table-price-currency h2" style="opacity:.5">$</del><del style="opacity:.5" class="pricing-table-price-amount h1">69</del> <span class="pricing-table-price-currency h2">$</span><span class="pricing-table-price-amount h1">49</span><span class="text-xs"> One-Time</span></div>
                       <!-- <div><span class="">Launch Discount!</span></div> -->
                     </div>
-										<div class="pricing-table-features-title text-xs pt-24 pb-24">What you will get</div>
+                    <div class="pricing-table-features-title text-xs pt-24 pb-24">What you will get</div>
                     <ul class="pricing-table-features list-reset text-xs">
                       <!-- <li>
                         <span>Insert, edit, and delete rows</span>
@@ -380,18 +386,18 @@
                       <li>
                         <span>Undo history integration</span>
                       </li> -->
-											<li>
-												<span>Powerful PRO features</span>
-											</li>
-											<li>
-												<span>Everything included in free version</span>
-											</li>
-											<li>
-												<span>Exclusive PRO icon (<img width="18" height="18" src="dist/images/favicon-pro.png" style="display:inline-block"/>)</span>
-											</li>
-											<li>
-												<span>Ad-free experience</span>
-											</li>
+                      <li>
+                        <span>Exclusive PRO features</span>
+                      </li>
+                      <li>
+                        <span>Everything included in free version</span>
+                      </li>
+                      <li>
+                        <span>Ad-free experience</span>
+                      </li>
+                      <li>
+                        <span>Exclusive PRO icon (<img width="18" height="18" src="dist/images/favicon-pro.png" style="display:inline-block"/>)</span>
+                      </li>
                     </ul>
                   </div>
                   <div class="pricing-table-cta mb-8">
@@ -404,25 +410,25 @@
         </div>
       </section>
 
-			<section class="cta section">
-				<div class="container">
-					<div class="cta-inner section-inner">
-						<h3 class="section-title mt-0">Looking to purchase in bulk? Questions?</h3>
-						<div class="cta-cta">
-							<a class="button button-primary button-wide-mobile" href="mailto:sales@sqliteviewer.app">Get in touch ↗</a>
-						</div>
-					</div>
-				</div>
-			</section>
+      <section class="cta section">
+        <div class="container">
+          <div class="cta-inner section-inner">
+            <h3 class="section-title mt-0">Looking to purchase in bulk? Questions?</h3>
+            <div class="cta-cta">
+              <a class="button button-primary button-wide-mobile" href="mailto:sales@sqliteviewer.app">Get in touch ↗</a>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
       <div class="container">
         <div class="site-footer-inner">
           <div class="brand footer-brand">
-						<a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' })">
-							<img class="header-logo-image" src="dist/images/logo_512_mac.png" alt="Logo" width="35" height="35">
-						</a>
+            <a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' })">
+              <img class="header-logo-image" src="dist/images/logo_512_mac.png" alt="Logo" width="35" height="35">
+            </a>
           </div>
           <ul id="footer-links" class="footer-links list-reset">
             <li><a href="/terms.html">Terms of Use</a></li>
@@ -489,7 +495,7 @@
       }
     })();
   </script>
-	<script src="dist/anime.min.js"></script>
+  <script src="dist/anime.min.js"></script>
   <script src="dist/js/main.min.js"></script>
 </body>
 </html>
