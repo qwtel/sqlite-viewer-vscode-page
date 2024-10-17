@@ -9,7 +9,12 @@
   <link rel="icon" type="image/png" href="favicon.ico">
   <link rel="stylesheet" href="dist/css/style.css">
   <script>(function () { window.counterscale = { q: [["set", "siteId", "vscode.sqliteviewer.app"], ["trackPageview"]] } })()</script>
-  <script defer id="counterscale-script" src="https://counterscale.sqliteviewer.app/tracker.js"></script>
+  <script>
+    function scrollToHash(event) {
+      event.preventDefault(); 
+      document.querySelector(event.currentTarget.hash).scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }
+  </script>
 </head>
 <body class="is-boxed has-animations">
   <script>
@@ -19,12 +24,6 @@
     document.body.classList.toggle('vscode', searchParams.has('css-vars'));
     document.body.classList.toggle(colorScheme, !!colorScheme);
     try { Object.entries(JSON.parse(searchParams.get('css-vars') || '{}')).forEach(([key, value]) => document.body.style.setProperty(key, value)) } catch {}
-  </script>
-  <script>
-    function scrollToHash(event) {
-      event.preventDefault(); 
-      document.querySelector(event.currentTarget.hash).scrollIntoView({ block: 'start', behavior: 'smooth' });
-    }
   </script>
   <div class="body-wrap">
     <header class="site-header">
@@ -504,5 +503,6 @@
   </script>
   <script src="dist/anime.min.js"></script>
   <script src="dist/js/main.min.js"></script>
+  <script defer id="counterscale-script" src="https://counterscale.sqliteviewer.app/tracker.js"></script>
 </body>
 </html>
