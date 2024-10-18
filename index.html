@@ -40,7 +40,7 @@
             </h1>
           </div>
           <div class="flex min-w-0">
-            <script>searchParams.has('css-vars') && document.write(`<a class="button button-sm vscode-only ellipsis" href="${location.origin}" target="_blank" title="Open in Browser ↗">Open in Browser ↗</a>`)</script>
+            <script>searchParams.has('css-vars') && document.currentScript.insertAdjacentHTML('afterend', `<a class="button button-sm vscode-only ellipsis" href="${location.origin}" target="_blank" title="Open in Browser ↗">Open in Browser ↗</a>`);</script>
             <a class="button button-primary button-sm web-only" href="https://qwtel.gumroad.com/l/smzwr/z8acasd">Buy Now</a>
           </div>
         </div>
