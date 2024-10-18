@@ -1,3 +1,7 @@
+@use "../abstracts/functions";
+@use "../abstracts/include-media";
+@use "../abstracts/mixins";
+
 .pricing-header {
 	margin-bottom: 48px;
 }
@@ -45,7 +49,7 @@
 .pricing-table-header,
 .pricing-table-features-title,
 .pricing-table-features li {
-	border-bottom: 1px solid color-mix(in srgb, color(typography, 2) 24%, transparent);
+	border-bottom: 1px solid color-mix(in srgb, functions.color(typography, 2) 24%, transparent);
 }
 
 .pricing-table-inner {
@@ -54,7 +58,7 @@
     flex-wrap: wrap;
     padding: 24px;
     height: 100%;
-    background: color-mix(in oklab, color(bg, 4) 67%, transparent);
+    background: color-mix(in oklab, functions.color(bg, 4) 67%, transparent);
 		-webkit-backdrop-filter: blur(20px);
 		backdrop-filter: blur(20px);
 
@@ -70,13 +74,13 @@
         right: 0;
         bottom: 0;
         left: 0;
-        @include shadow;
+        @include mixins.shadow;
     }
 }
 
 .pricing-table-price {
-	@if ( get-font-family(heading) != get-font-family(base) ) {
-		@include font-family(heading);
+	@if ( functions.get-font-family(heading) != functions.get-font-family(base) ) {
+		@include mixins.font-family(heading);
 	}
 	del {
 		-webkit-filter: blur(1.5px);
@@ -85,12 +89,12 @@
 }
 
 .pricing-table-price-currency {
-	color: color(typography, 2);
+	color: functions.color(typography, 2);
 }
 
 .pricing-table-features-title {
-	color: color(typography, 1);
-	@include font-weight(bold);
+	color: functions.color(typography, 1);
+	@include mixins.font-weight(bold);
 }
 
 .pricing-table-features {
@@ -115,7 +119,7 @@
     align-self: flex-end;
 }
 
-@include media( '>medium' ) {
+@include include-media.media( '>medium' ) {
 
 	.pricing {
 

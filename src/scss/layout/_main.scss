@@ -1,9 +1,13 @@
+@use "../abstracts/functions";
+@use "../abstracts/include-media";
+@use "../abstracts/mixins";
+
 .is-boxed {
-    background: color(bg, 3);
+    background: functions.color(bg, 3);
 }
 
 .body-wrap {
-    background: color(bg, 2);
+    background: functions.color(bg, 2);
     overflow: clip;
     /* Sticky footer */
     display: flex;
@@ -14,7 +18,7 @@
 .boxed-container {
     max-width: 1440px;
     margin: 0 auto;
-    @include shadow;
+    @include mixins.shadow;
     mix-blend-mode: normal;
 }
 
@@ -28,7 +32,7 @@ main {
     margin-bottom: 88px;
 }
 
-@include media( '>medium' ) {
+@include include-media.media( '>medium' ) {
 
     .section-inner {
         margin-top: 88px;

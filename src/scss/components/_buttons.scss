@@ -1,17 +1,21 @@
+@use "../abstracts/functions";
+@use "../abstracts/include-media";
+@use "../abstracts/mixins";
+
 .button {
     display: inline-flex;
-    @include font-size(8, mobile, true, false, true);
-    @if ( get-font-size(8, desktop) != get-font-size(8, mobile) ) {
-        @include media( '>medium' ) {
-            @include font-size(8, desktop, true, false, true);
+    @include mixins.font-size(8, mobile, true, false, true);
+    @if ( functions.get-font-size(8, desktop) != functions.get-font-size(8, mobile) ) {
+        @include include-media.media( '>medium' ) {
+            @include mixins.font-size(8, desktop, true, false, true);
         }
     }
-    @include font-weight(semibold);
+    @include mixins.font-weight(semibold);
     line-height: 16px;
     text-decoration: none !important;
 	text-transform: uppercase;
-    background-color: color(bg, 3);
-    color: color(typography, 1);
+    background-color: functions.color(bg, 3);
+    color: functions.color(typography, 1);
     border: none;
     border-radius: 2px;
     cursor: pointer;
@@ -22,7 +26,7 @@
     white-space: nowrap;
 
 	&:hover {
-		background: color-mix(in oklab, color(bg, 3) 99%, var(--lighten) 2%);
+		background: color-mix(in oklab, functions.color(bg, 3) 99%, var(--lighten) 2%);
 	}
 
     &:active {
@@ -41,18 +45,18 @@
 
 .button-primary {
     color: #fff;
-	background-color: color-mix(in oklab, color(primary, 1), color(primary, 2));
-    background-image: linear-gradient(65deg, color(primary, 1) 0%, color(primary, 2) 100%);
+	background-color: color-mix(in oklab, functions.color(primary, 1), functions.color(primary, 2));
+    background-image: linear-gradient(65deg, functions.color(primary, 1) 0%, functions.color(primary, 2) 100%);
 
     &:hover {
         background-color: color-mix(
             in srgb, 
-            color-mix(in oklab, color(primary, 1), color(primary, 2)), 
+            color-mix(in oklab, functions.color(primary, 1), functions.color(primary, 2)), 
             white 4%);
         background-image: linear-gradient(
             65deg, 
-            color-mix(in srgb, color(primary, 1), white 4%) 0%, 
-            color-mix(in srgb, color(primary, 2), white 4%) 100%);
+            color-mix(in srgb, functions.color(primary, 1), white 4%) 0%, 
+            color-mix(in srgb, functions.color(primary, 2), white 4%) 100%);
     }
 }
 
@@ -65,7 +69,7 @@
 	width: 100%;
 }
 
-@include media( '<=medium' ) {
+@include include-media.media( '<=medium' ) {
 
 	.button-wide-mobile {
 		width: 100%;

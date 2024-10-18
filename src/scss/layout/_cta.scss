@@ -1,3 +1,6 @@
+@use "../abstracts/functions";
+@use "../abstracts/include-media";
+
 .cta {
 	text-align: center;
 
@@ -12,7 +15,7 @@
 
 .cta-inner {
 	position: relative;
-	background: color(bg, 1);
+	background: functions.color(bg, 1);
 	overflow: hidden;
 
 	&::before {
@@ -31,7 +34,7 @@
 	}
 }
 
-@include media( '>medium') {
+@include include-media.media( '>medium') {
 
 	.cta {
 		text-align: left;

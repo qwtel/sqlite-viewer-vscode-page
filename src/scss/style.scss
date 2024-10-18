@@ -1,77 +1,77 @@
 /*--------------------------------------------------------------
 # Variables, functions and mixins
 --------------------------------------------------------------*/
-@import "abstracts/variables",
-        "abstracts/functions",
-        "abstracts/mixins",
-        'abstracts/include-media';
+@use "abstracts/variables";
+@use "abstracts/functions";
+@use "abstracts/mixins";
+@use 'abstracts/include-media';
 
 /*--------------------------------------------------------------
 1.0 Normalize
   * normalize.css v7.0.0 | MIT License
   * github.com/necolas/normalize.css
 --------------------------------------------------------------*/
-@import "normalize";
+@use "normalize";
 
 /*--------------------------------------------------------------
 # Base
 --------------------------------------------------------------*/
-@import "base/base";
+@use "base/base";
 
 /*--------------------------------------------------------------
 # Typography
 --------------------------------------------------------------*/
-@import "base/typography";
+@use "base/typography";
 
 /*--------------------------------------------------------------
 # Helpers
 --------------------------------------------------------------*/
-@import "base/helpers";
+@use "base/helpers";
 
 /*--------------------------------------------------------------
 # Forms
 --------------------------------------------------------------*/
-@import "components/forms";
+@use "components/forms";
 
 /*--------------------------------------------------------------
 # Buttons
 --------------------------------------------------------------*/
-@import "components/buttons";
+@use "components/buttons";
 
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
-@import "layout/header";
+@use "layout/header";
 
 /*--------------------------------------------------------------
 # Hero
 --------------------------------------------------------------*/
-@import "layout/hero";
+@use "layout/hero";
 
 /*--------------------------------------------------------------
 # Features
 --------------------------------------------------------------*/
-@import "layout/features";
+@use "layout/features";
 
 /*--------------------------------------------------------------
 # Pricing
 --------------------------------------------------------------*/
-@import "layout/pricing";
+@use "layout/pricing";
 
 /*--------------------------------------------------------------
 # CTA
 --------------------------------------------------------------*/
-@import "layout/cta";
+@use "layout/cta";
 
 /*--------------------------------------------------------------
 # Site content
 --------------------------------------------------------------*/
-@import "layout/main";
+@use "layout/main";
 
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
-@import "layout/footer";
+@use "layout/footer";
 
 
 .vscode-only {
@@ -110,7 +110,7 @@
     grid-template-rows: repeat(var(--num-cards), auto);
   }
 
-  @include media('>xxlarge') {
+  @include include-media.media('>xxlarge') {
     margin-left: -2rem;
     margin-right: -2rem;
   }
@@ -121,9 +121,9 @@
 }
 
 .card__content {
-  @include shadow;
-  background: color(bg, 3);
-  color: color(typography, 1);
+  @include mixins.shadow;
+  background: functions.color(bg, 3);
+  color: functions.color(typography, 1);
   border-radius: .25rem;
 
   display: grid;
@@ -232,7 +232,7 @@ a.card__header {
   right: 0;
   height: calc((var(--card-top-offset) + 0.125em) * 1 / (1.1 - 0.1 * var(--num-cards)));
   cursor: pointer;
-  background-color: color-mix(in srgb, color(bg, 4) 25%, transparent);
+  background-color: color-mix(in srgb, functions.color(bg, 4) 25%, transparent);
   border-top-left-radius: .25rem;
   border-top-right-radius: .25rem;
   z-index: 1;
@@ -275,7 +275,7 @@ div:has(> .section-title)::after {
   width: 8vw;
   height: 2px;
   border-radius: 1px;
-  background: color(bg, 4);
+  background: functions.color(bg, 4);
 }
 
 #nasa-svg {

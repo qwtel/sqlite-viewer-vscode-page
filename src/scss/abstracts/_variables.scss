@@ -1,3 +1,4 @@
+@use "sass:map";
 // --------------------------------------------
 // Colors -------------------------------------
 // Usage example: color(primary, main)
@@ -74,24 +75,24 @@ $font__sizes: (
 
 $font__scale: (
 	desktop: (                             // i.e. $breakpoint__m + $breakpoint__l (600 - 1024)
-		1: map-get($font__sizes, alpha),   // H1
-		2: map-get($font__sizes, beta),    // H2
-		3: map-get($font__sizes, gamma),   // H3
-		4: map-get($font__sizes, delta),   // H4, H5, H6
-		5: map-get($font__sizes, epsilon), // Body
-		6: map-get($font__sizes, zeta),    // Text small (e.g. faq's)
-		7: map-get($font__sizes, eta),     // Text smaller (e.g. pricing, testimonials)
-		8: map-get($font__sizes, theta)    // Footer area
+		1: map.get($font__sizes, alpha),   // H1
+		2: map.get($font__sizes, beta),    // H2
+		3: map.get($font__sizes, gamma),   // H3
+		4: map.get($font__sizes, delta),   // H4, H5, H6
+		5: map.get($font__sizes, epsilon), // Body
+		6: map.get($font__sizes, zeta),    // Text small (e.g. faq's)
+		7: map.get($font__sizes, eta),     // Text smaller (e.g. pricing, testimonials)
+		8: map.get($font__sizes, theta)    // Footer area
 	),
 	mobile: (                              // i.e. $breakpoint__xs + $breakpoint__s (up to 600)
-		1: map-get($font__sizes, beta),    // H1
-		2: map-get($font__sizes, gamma),   // H2
-		3: map-get($font__sizes, delta),   // H3
-		4: map-get($font__sizes, epsilon), // H4, H5, H6
-		5: map-get($font__sizes, epsilon), // Body
-		6: map-get($font__sizes, zeta),    // Text small (e.g. faq's)
-		7: map-get($font__sizes, eta),     // Text smaller (e.g. pricing, testimonials)
-		8: map-get($font__sizes, theta)    // Footer area
+		1: map.get($font__sizes, beta),    // H1
+		2: map.get($font__sizes, gamma),   // H2
+		3: map.get($font__sizes, delta),   // H3
+		4: map.get($font__sizes, epsilon), // H4, H5, H6
+		5: map.get($font__sizes, epsilon), // Body
+		6: map.get($font__sizes, zeta),    // Text small (e.g. faq's)
+		7: map.get($font__sizes, eta),     // Text smaller (e.g. pricing, testimonials)
+		8: map.get($font__sizes, theta)    // Footer area
 	),
 	print: (                              // i.e. $breakpoint__xs + $breakpoint__s (up to 600)
 		1: ( 32pt, 42pt, 0pt ),

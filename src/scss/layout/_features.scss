@@ -1,3 +1,5 @@
+@use "../abstracts/include-media";
+
 .features-wrap {
     display: flex;
     flex-wrap: wrap;
@@ -30,7 +32,7 @@
     justify-content: center;
 }
 
-@include media( '>medium' ) {
+@include include-media.media( '>medium' ) {
 
     .features-wrap {
 
