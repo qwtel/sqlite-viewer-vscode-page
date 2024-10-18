@@ -487,7 +487,7 @@
   <script type="module">
     (async () => {
       if (document.body.classList.contains('vscode')) {
-        const Comlink = await import("https://unpkg.com/comlink/dist/esm/comlink.mjs");
+        const Comlink = await import("/dist/comlink.js");
         const parentEndpoint = Comlink.windowEndpoint(self.parent);
         const wrappedParent = Comlink.wrap(parentEndpoint);
         document.querySelectorAll('a[href]:not([href^="#"]').forEach(a => {
