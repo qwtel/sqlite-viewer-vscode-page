@@ -63,7 +63,7 @@
               <p class="hero-paragraph">Get work done without leaving VS Code. Unlock powerful <strong>editing</strong> and <strong>export</strong> features. Works anywhere, including <strong>SSH and WSL</strong>.</p>
               <div class="hero-cta">
                 <a class="button button-primary" href="https://qwtel.gumroad.com/l/smzwr/z8acasd">Buy Now</a>
-                <a class="button" href="#spy-5" onclick="scrollToHash(event)">Learn More ↓</a>
+                <a class="button" href="#card-5" onclick="scrollToHash(event)">Learn More ↓</a>
               </div>
             </div>
             <div class="hero-figure anime-element">
@@ -106,11 +106,11 @@
             </script>
             <!-- <p class="section-paragraph mb-0">Check ou the card stack below.</p> -->
           </div>
-          <ul id="cards" style="--num-cards: 5;">
-            <li class="spy" id="spy-1" style="--index: 1"></li>
-            <li class="card" id="card-1" style="--index: 1">
+          <div id="cards" style="--num-cards: 5;">
+            <div class="spy" id="card-1" style="--index: 1"></div>
+            <div class="card" style="--index: 1">
               <div class="card__content">
-                <a class="card__header" href="#spy-1" onclick="scrollToHash(event)"></a>
+                <a class="card__header" href="#card-1" onclick="scrollToHash(event)"></a>
                 <div>
                   <h3>Update values in place</h3>
                   <p class="text-sm">Update values from the sidebar or modal. All changes are automatically wrapped in a transaction and committed to disk when the file is saved.</p>
@@ -124,11 +124,11 @@
                   </video>
                 </figure>
               </div>
-            </li>
-            <li class="spy" id="spy-2" style="--index: 2"></li>
-            <li class="card" id="card-2" style="--index: 2">
+            </div>
+            <div class="spy" id="card-2" style="--index: 2"></div>
+            <div class="card" style="--index: 2">
               <div class="card__content">
-                <a class="card__header" href="#spy-2" onclick="scrollToHash(event)"></a>
+                <a class="card__header" href="#card-2" onclick="scrollToHash(event)"></a>
                 <div>
                   <h3>Insert and delete rows</h3>
                   <p class="text-sm">Insert one or more rows using the modal dialog. Delete one or more rows from the explorer or using keyboard shortcuts.</p>
@@ -142,11 +142,11 @@
                   </video>
                 </figure>
               </div>
-            </li>
-            <li class="spy" id="spy-3" style="--index: 3"></li>
-            <li class="card" id="card-3" style="--index: 3">
+            </div>
+            <div class="spy" id="card-3" style="--index: 3"></div>
+            <div class="card"  style="--index: 3">
               <div class="card__content">
-                <a class="card__header" href="#spy-3" onclick="scrollToHash(event)"></a>
+                <a class="card__header" href="#card-3" onclick="scrollToHash(event)"></a>
                 <div>
                   <h3>Undo and redo changes using VS Code</h3>
                   <p class="text-sm">SQLite Viewer PRO integrates with VS Code's undo/redo history. Changes are reverted through <code>ROLLBACK</code> statements before a file has been saved, and by running (inverted) SQL statements afterwards.</p>
@@ -160,11 +160,11 @@
                   </video>
                 </figure>
               </div>
-            </li>
-            <li class="spy" id="spy-4" style="--index: 4"></li>
-            <li class="card" id="card-4" style="--index: 4">
+            </div>
+            <div class="spy" id="card-4" style="--index: 4"></div>
+            <div class="card" style="--index: 4">
               <div class="card__content">
-                <a class="card__header" href="#spy-4" onclick="scrollToHash(event)"></a>
+                <a class="card__header" href="#card-4" onclick="scrollToHash(event)"></a>
                 <div>
                   <h3>Export data in a variety of formats</h3>
                   <p class="text-sm">You can copy rows directly from the viewer in a variety of formats. Supported formats are: TSV, CSV, SQLite inserts, JSON objects, JSON arrays and HTML.</p>
@@ -178,11 +178,11 @@
                   </video>
                 </figure>
               </div>
-            </li>
-            <li class="spy" id="spy-5" style="--index: 5"></li>
-            <li class="card" id="card-5" style="--index: 5">
+            </div>
+            <div class="spy" id="card-5" style="--index: 5"></div>
+            <div class="card" style="--index: 5">
               <div class="card__content">
-                <a class="card__header" href="#spy-5" onclick="scrollToHash(event)"></a>
+                <a class="card__header" href="#card-5" onclick="scrollToHash(event)"></a>
                 <div>
                   <h3>Works in containers, SSH, and WSL</h3>
                   <p class="text-sm">SQLite Viewer PRO can be installed inside containers, SSH hosts and WSL instances. A native SQLite instance runs alongside the database in the remote workspace, while only the webview remains on the local machine.</p>
@@ -196,8 +196,8 @@
                   </video>
                 </figure>
               </div>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
       </section>
 
