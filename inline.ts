@@ -20,7 +20,7 @@ async function inlineStuff() {
         el.replace(`<style>${style}</style>`, { html: true }); 
       },
     })
-    .on('script[src^="dist"]:not([data-no-inline])', {
+    .on('script[src^="dist"]:not([defer]):not([data-no-inline])', {
       async element(el) {
         const src = el.getAttribute('src') ?? '';
         const type = el.getAttribute('type') ?? '';
@@ -34,10 +34,15 @@ async function inlineStuff() {
         const stat = await fs.stat(src).catch(() => null);
         const file = stat && stat.size < 50 * 1024 && Bun.file(src);
         if (file) {
-          const enc = file.type !== 'image/svg+xml' ? 'base64' : 'utf8';
-          let data = Buffer.from(await file.arrayBuffer()).toString(enc);
-          if (enc === 'utf8') data = encodeURIComponent(data);
-          el.setAttribute('src', `data:${file.type};${enc},${data}`);
+          if (file.type === 'image/svg+xml') {
+            const dataBase64 = Buffer.from(await file.arrayBuffer()).toString('base64');
+            const dataUtf8 = encodeURIComponent(await file.text());
+            const [enc, data] = dataUtf8.length < dataBase64.length ? ['utf8', dataUtf8] : ['base64', dataBase64];
+            el.setAttribute('src', `data:image/svg+xml;${enc},${data}`);
+          } else {
+            const data = Buffer.from(await file.arrayBuffer()).toString('base64');
+            el.setAttribute('src', `data:${file.type};base64,${data}`);
+          }
         }
       },
     })
