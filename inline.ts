@@ -7,7 +7,7 @@ import path from 'path'
 
 const __filename = URL.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const resolve = (...args) => path.resolve(__dirname, ...args);
+const resolve = (...args: string[]) => path.resolve(__dirname, ...args);
 
 async function inlineStuff() {
   const html = Bun.file(resolve("src/index.html"))
