@@ -16,7 +16,7 @@ async function inlineStuff() {
       async element(el) {
         const href = el.getAttribute('href') ?? '';
         let style = href && await Bun.file(href).text();
-        style = style.replace(/\/\*[\s\S]*?\*\//g, '')
+        style = style.replace(/\/\*[\s\S]*?\*\//g, '').trim();
         el.replace(`<style>${style}</style>`, { html: true }); 
       },
     })
@@ -24,7 +24,8 @@ async function inlineStuff() {
       async element(el) {
         const src = el.getAttribute('src') ?? '';
         const type = el.getAttribute('type') ?? '';
-        const script = src && await Bun.file(src).text();
+        let script = src && await Bun.file(src).text();
+        script = script.replace(/\/\*[\s\S]*?\*\//g, '').trim();
         el.replace(`<script${type === "module" ? ' type="module"' : ""}>${script}</script>`, { html: true });
       },
     })
@@ -32,7 +33,7 @@ async function inlineStuff() {
       async element(el) {
         const src = el.getAttribute('src') ?? '';
         const stat = await fs.stat(src).catch(() => null);
-        const file = stat && stat.size < 50 * 1024 && Bun.file(src);
+        const file = stat && stat.size < 25 * 1024 && Bun.file(src);
         if (file) {
           if (file.type === 'image/svg+xml') {
             const dataBase64 = Buffer.from(await file.arrayBuffer()).toString('base64');
@@ -46,9 +47,9 @@ async function inlineStuff() {
         }
       },
     })
-    .on('[data-no-inline]', {
-      element(el) { el.removeAttribute('data-no-inline'); }
-    })
+    // .on('[data-no-inline]', {
+    //   element(el) { el.removeAttribute('data-no-inline'); }
+    // })
     .transform(new Response(html));
 
   await Bun.write(resolve('index.html'), newHtml);
