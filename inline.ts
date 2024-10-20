@@ -47,9 +47,9 @@ async function inlineStuff() {
         }
       },
     })
-    // .on('[data-no-inline]', {
-    //   element(el) { el.removeAttribute('data-no-inline'); }
-    // })
+    .on('[data-no-inline]', {
+      element(el) { el.removeAttribute('data-no-inline'); }
+    })
     .transform(new Response(html));
 
   await Bun.write(resolve('index.html'), newHtml);

@@ -65,6 +65,6 @@ export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (conte
     
     return Response.json({ token }, { headers: [['Authorization', `Bearer ${token}`]] });
   } catch (err) {
-    return internalServerError(`Unexpected service error: ${err.message}`);
+    return internalServerError(`Unexpected service error: ${err instanceof Error ? err.message: err}`);
   }
 }];
