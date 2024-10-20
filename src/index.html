@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark light">
+  <link rel="canonical" href="https://vscode.sqliteviewer.app">
   <title>SQLite Viewer PRO</title>
   <link rel="icon" type="image/png" href="favicon.ico">
   <link rel="stylesheet" href="dist/css/style.css">
@@ -82,7 +83,7 @@
                   <source media="(prefers-color-scheme: dark)" type="image/webp" srcset="dist/images/screenshot-dark.webp">
                   <source media="(prefers-color-scheme: light)" type="image/png" srcset="dist/images/screenshot.png">
                   <source media="(prefers-color-scheme: dark)" type="image/png" srcset="dist/images/screenshot-dark.png">
-                  <img src="dist/images/screenshot-dark.png" data-no-inline alt="Screenshot" width="528" height="396">
+                  <img src="dist/images/screenshot-dark.png" data-no-inline alt="Screenshot" width="528" height="396" fetchpriority="high">
                 </picture>
               </div>
               <div class="hero-figure-box hero-figure-box-06"></div>
@@ -433,7 +434,7 @@
         <div class="site-footer-inner">
           <div class="brand footer-brand">
             <a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' })">
-              <img data-no-inline class="header-logo-image" src="dist/images/logo_512_mac.png" alt="Logo" width="35" height="35">
+              <img class="header-logo-image" src="dist/images/logo_512_mac.png" alt="Logo" width="35" height="35" fetchpriority="low">
             </a>
           </div>
           <ul id="footer-links" class="footer-links list-reset">
