@@ -10,6 +10,8 @@ const __dirname = path.dirname(__filename);
 const resolve = (...args: string[]) => path.resolve(__dirname, ...args);
 
 async function inlineStuff() {
+  let inPicture = false;
+
   const html = Bun.file(resolve("src/index.html"))
   const newHtml = new HTMLRewriter()
     .on('link[rel="stylesheet"][href^="dist"]:not([data-no-inline])', {
@@ -29,16 +31,23 @@ async function inlineStuff() {
         el.replace(`<script${type === "module" ? ' type="module"' : ""}>${script}</script>`, { html: true });
       },
     })
+    .on('picture', { 
+      element(el) { 
+        inPicture = true; 
+        el.onEndTag(() => { inPicture = false }) 
+      } 
+    })
     .on('img[src^="dist"]:not([data-no-inline])', {
       async element(el) {
+        if (inPicture) return; // skip images inside <picture> because there's usually multiple <source> tags
         const src = el.getAttribute('src') ?? '';
         const stat = await fs.stat(src).catch(() => null);
         const file = stat && stat.size < 25 * 1024 && Bun.file(src);
         if (file) {
           if (file.type === 'image/svg+xml') {
             const dataBase64 = Buffer.from(await file.arrayBuffer()).toString('base64');
-            const dataUtf8 = encodeURIComponent(await file.text());
-            const [enc, data] = dataUtf8.length < dataBase64.length ? ['utf8', dataUtf8] : ['base64', dataBase64];
+            const dataUriEnc = encodeURIComponent(await file.text());
+            const [enc, data] = dataUriEnc.length < dataBase64.length ? ['utf8', dataUriEnc] : ['base64', dataBase64];
             el.setAttribute('src', `data:image/svg+xml;${enc},${data}`);
           } else {
             const data = Buffer.from(await file.arrayBuffer()).toString('base64');
