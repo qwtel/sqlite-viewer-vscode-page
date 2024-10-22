@@ -13,7 +13,7 @@ async function inlineStuff() {
   let inPicture = false;
 
   const rewriter = new HTMLRewriter()
-    .on('link[rel="stylesheet"]:not([href^="http"]):not([data-no-inline])', {
+    .on('link[rel="stylesheet"][href]:not([href^="http"]):not([data-no-inline])', {
       async element(el) {
         const href = el.getAttribute('href') ?? '';
         let style = href && await Bun.file(href).text();
@@ -21,7 +21,7 @@ async function inlineStuff() {
         el.replace(`<style>${style}</style>`, { html: true }); 
       },
     })
-    .on('script:not([href^="http"]):not([defer]):not([data-no-inline])', {
+    .on('script[href]:not([href^="http"]):not([defer]):not([data-no-inline])', {
       async element(el) {
         const src = el.getAttribute('src') ?? '';
         const type = el.getAttribute('type') ?? '';
@@ -36,7 +36,7 @@ async function inlineStuff() {
         el.onEndTag(() => { inPicture = false }) 
       } 
     })
-    .on('img:not([href^="http"]):not([data-no-inline])', {
+    .on('img[href]:not([href^="http"]):not([data-no-inline])', {
       async element(el) {
         if (inPicture) return; // skip images inside <picture> because there's usually multiple <source> tags
         const src = el.getAttribute('src') ?? '';
