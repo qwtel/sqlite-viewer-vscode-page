@@ -12,9 +12,8 @@ const resolve = (...args: string[]) => path.resolve(__dirname, ...args);
 async function inlineStuff() {
   let inPicture = false;
 
-  const html = Bun.file(resolve("src/index.html"))
-  const newHtml = new HTMLRewriter()
-    .on('link[rel="stylesheet"][href^="dist"]:not([data-no-inline])', {
+  const rewriter = new HTMLRewriter()
+    .on('link[rel="stylesheet"]:not([href^="http"]):not([data-no-inline])', {
       async element(el) {
         const href = el.getAttribute('href') ?? '';
         let style = href && await Bun.file(href).text();
@@ -22,7 +21,7 @@ async function inlineStuff() {
         el.replace(`<style>${style}</style>`, { html: true }); 
       },
     })
-    .on('script[src^="dist"]:not([defer]):not([data-no-inline])', {
+    .on('script:not([href^="http"]):not([defer]):not([data-no-inline])', {
       async element(el) {
         const src = el.getAttribute('src') ?? '';
         const type = el.getAttribute('type') ?? '';
@@ -37,7 +36,7 @@ async function inlineStuff() {
         el.onEndTag(() => { inPicture = false }) 
       } 
     })
-    .on('img[src^="dist"]:not([data-no-inline])', {
+    .on('img:not([href^="http"]):not([data-no-inline])', {
       async element(el) {
         if (inPicture) return; // skip images inside <picture> because there's usually multiple <source> tags
         const src = el.getAttribute('src') ?? '';
@@ -59,8 +58,9 @@ async function inlineStuff() {
     .on('[data-no-inline]', {
       element(el) { el.removeAttribute('data-no-inline'); }
     })
-    .transform(new Response(html));
 
+  const html = Bun.file(resolve("src/index.html"))
+  const newHtml = rewriter.transform(new Response(html));
   await Bun.write(resolve('index.html'), newHtml);
 }
 
