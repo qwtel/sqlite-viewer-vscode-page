@@ -119,21 +119,21 @@ h6,
 	}
 }
 
-.text-light {
-	color: functions.color(typography, 2i);
+// .text-light {
+// 	color: functions.color(typography, 2i);
 
-	a {
-		color: functions.color(typography, 2i);
-	}
-}
+// 	a {
+// 		color: functions.color(typography, 2i);
+// 	}
+// }
 
-.text-light {
+// .text-light {
 
-	h1, h2, h3, h4, h5, h6,
-	.h1, .h2, .h3, .h4, .h5, .h6 {
-		color: functions.color(typography, 1i) !important;
-	}
-}
+// 	h1, h2, h3, h4, h5, h6,
+// 	.h1, .h2, .h3, .h4, .h5, .h6 {
+// 		color: functions.color(typography, 1i) !important;
+// 	}
+// }
 
 .text-sm {
 	@include mixins.font-size(6, mobile, true, true, true);
