@@ -48,6 +48,8 @@
   },
   "homepage": "https://bitbucket.org/pasqualevitiello/solid#readme",
   "dependencies": {
+    "@worker-tools/html": "2.0.0-pre.13",
+    "@worker-tools/middleware": "0.1.0-pre.36",
     "@worker-tools/response-creators": "1.2.0-pre.6",
     "jose": "^5.9.4"
   }
