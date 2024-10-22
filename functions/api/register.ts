@@ -71,7 +71,7 @@ export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (conte
       return new HTMLResponse(html`<html>
         <body>
           <h1>Access Token Generated</h1>
-          <textarea readonly rows="8" cols="60">${token}</textarea>
+          <textarea readonly rows="8" cols="60" style="word-break:break-all">${token}</textarea>
         </body>
       </html>`);
     } else {
