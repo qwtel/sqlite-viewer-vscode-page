@@ -474,9 +474,10 @@
   </div>
   <script>
     if (colorScheme) {
-      const prefersColorScheme = new RegExp(`(prefers-color-scheme:\\s*${colorScheme})`);
+      const prefersColorScheme = new RegExp(`\\(prefers-color-scheme:\\s*${colorScheme}\\)`);
       document.querySelectorAll('source[media*="prefers-color-scheme"]').forEach(source => {
         if (!source.media.match(prefersColorScheme)) source.remove();
+        else source.removeAttribute('media');
       });
     }
     if (!searchParams.has('css-vars')) {
