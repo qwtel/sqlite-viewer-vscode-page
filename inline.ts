@@ -68,16 +68,12 @@ async function inlineStuff() {
         el.onEndTag(() => { inPicture = false }) 
       } 
     })
-    .on('img[href]:not([href^="http"]):not([href^="data"]):not([data-no-inline])', {
+    .on('img[src]:not([src^="http"]):not([src^="data"]):not([data-no-inline])', {
       async element(el) {
         if (inPicture) return; // skip images inside <picture> because there's usually multiple <source> tags
         const src = el.getAttribute('src') ?? '';
-        const stat = await fs.stat(src).catch(() => null);
-        const file = stat && stat.size < 25 * 1024 && Bun.file(src);
-        if (file) {
-          const dataUrl = await inlineImage(src);
-          dataUrl && el.setAttribute('src', dataUrl);
-        }
+        const dataUrl = await inlineImage(src);
+        dataUrl && el.setAttribute('src', dataUrl);
       },
     })
     .on('[data-no-inline]', {
