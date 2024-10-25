@@ -14,6 +14,7 @@ export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (conte
     if (context.request.headers.get('Content-Type') !== 'application/x-www-form-urlencoded') return unsupportedMediaType(); 
     const fd = new URLSearchParams(await context.request.text());
     const licenseKey = fd.get('license_key');
+    const machineId = fd.get('machine_id');
     if (!licenseKey) return badRequest('Missing license_key');
     if (!/[A-Z0-9]{8}-[A-Z0-9]{8}-[A-Z0-9]{8}-[A-Z0-9]{8}/i.test(licenseKey)) return badRequest('Invalid license key format');
 
@@ -58,20 +59,42 @@ export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (conte
     if (purchase.disputed || purchase.chargebacked || purchase.refunded)
       return paymentRequired('Purchase was disputed, chargebacked or refunded');
 
-    const includeKey = fd.get('include_key') != null;
+    const isOffline = fd.get('offline') != null;
+    const isEnt = purchase.variants?.includes('Enterprise Edition');
 
     const jwtKey = await jose.importPKCS8(context.env.JWT_PRIVATE_KEY_PKCS8, 'ES256');
-    const token = await new jose.SignJWT({ pid: purchase.id, ...includeKey ? { licenseKey } : {} })
+
+    let jwt = new jose.SignJWT({
+      ...machineId ? { mid: machineId } : {},
+      ...isOffline && isEnt ? { ent: 1 } : {},
+      ...isOffline && !isEnt ? { key: licenseKey, licenseKey } : {},
+      // ...isOffline && isEnt ? { for: purchase.email } : {},
+    })
       .setProtectedHeader({ alg: 'ES256' })
       .setIssuedAt()
-      .setExpirationTime(includeKey ? '12weeks' : '15d')
-      .sign(jwtKey);
+    
+    if (!isEnt || (isEnt && !isOffline)) {
+      jwt = jwt.setExpirationTime('15d');
+    }
+    
+    const token = await jwt.sign(jwtKey);
 
     if (type === 'text/html') {
       return new HTMLResponse(html`<html>
         <body>
           <h1>Access Token Generated</h1>
-          <textarea readonly rows="8" cols="60" style="word-break:break-all">${token}</textarea>
+          <textarea readonly rows="8" cols="60" style="font-family:ui-monospace,monospace;word-break:break-all">${token}</textarea>
+          <h3>Payload</h3>
+          <pre>${JSON.stringify(Object.fromEntries(Object.entries(jose.decodeJwt(token)).map(([k, v]) => {
+            if (k === 'mid') return ['machineId', v];
+            if (k === 'for') return ['email', v];
+            if (k === 'ent') return ['enterprise', true];
+            if (k === 'key') return ['licenseKey', v];
+            if (k === 'iat') return ['issuedAt', new Date(Number(v) * 1000).toLocaleString()];
+            if (k === 'exp') return ['expireAt', new Date(Number(v) * 1000).toLocaleString()];
+            if (k === 'licenseKey') return [];
+            return [k, v];
+          })), null, 2)}</pre>
         </body>
       </html>`);
     } else {
@@ -83,13 +106,15 @@ export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (conte
 })(context.request)];
 
 export const onRequestGet: PagesFunction<Env>[] = [corsMiddleware, async (context) => {
+  const { searchParams } = new URL(context.request.url);
   return new HTMLResponse(html`<html>
     <body>
-      <h1>License Key to Access Token</h1>
+      <h1>Offline Activation</h1>
       <form method="post">
-        <input type="text" name="license_key" placeholder="Enter license key">
-        <input type="hidden" name="include_key" value="">
-        <input type="submit" value="Generate">
+        <input type="text" name="license_key" placeholder="Enter license key" autocomplete="off">
+        <input type="hidden" name="machine_id" value="${searchParams.get("machine_id") || searchParams.get("id") || ''}">
+        <input type="hidden" name="offline" value="">
+        <input type="submit" value="Activate">
       </form>
     </body>
   </html>`)

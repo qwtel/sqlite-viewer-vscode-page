@@ -13,11 +13,12 @@ export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (conte
     const fd = new URLSearchParams(await context.request.text());
     const accessToken = fd.get('access_token');
     const licenseKey = fd.get('license_key');
+    const machineId = fd.get('machine_id');
     if (!accessToken) return badRequest('Missing access_token');
     if (!licenseKey) return badRequest('Missing license_key');
     if (!/[A-Z0-9]{8}-[A-Z0-9]{8}-[A-Z0-9]{8}-[A-Z0-9]{8}/i.test(licenseKey)) return badRequest('Invalid license key format');
 
-    let payload: Record<string, any>;
+    let payload;
     try {
       const jwtKey = await jose.importSPKI(JWTPublicKeySPKI, 'ES256');
       const { payload: { iat, exp, ...rest } } = await jose.jwtVerify(accessToken, jwtKey);
@@ -25,6 +26,7 @@ export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (conte
     } catch {
       return badRequest('Invalid access_token');
     }
+    if (!payload) return badRequest('Invalid access_token');
 
     let response: Response;
     try {
@@ -68,7 +70,10 @@ export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (conte
       return paymentRequired('Purchase was disputed, chargebacked or refunded');
 
     const jwtKey = await jose.importPKCS8(context.env.JWT_PRIVATE_KEY_PKCS8, 'ES256');
-    const token = await new jose.SignJWT({ pid: purchase.id })
+    const token = await new jose.SignJWT({ 
+      ...payload, 
+      ...machineId && !payload.mid ? { mid: machineId } : {} 
+    })
       .setProtectedHeader({ alg: 'ES256' })
       .setIssuedAt()
       .setExpirationTime('15d')
