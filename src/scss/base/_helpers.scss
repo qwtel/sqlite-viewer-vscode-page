@@ -506,6 +506,14 @@
 	min-width: 0;
 }
 
+.column {
+	flex-direction: column;
+}
+
+.o-50 {
+	opacity: 0.5;
+}
+
 .center {
 	display: flex;
 	align-items: center;

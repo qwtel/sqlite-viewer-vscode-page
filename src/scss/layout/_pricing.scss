@@ -2,6 +2,10 @@
 @use "../abstracts/include-media";
 @use "../abstracts/mixins";
 
+#pricing {
+	scroll-margin-top: calc(60px + 1rem);
+}
+
 .pricing-header {
 	margin-bottom: 48px;
 }
@@ -9,6 +13,7 @@
 .pricing-tables-wrap {
     display: flex;
     flex-wrap: wrap;
+		gap: 1rem;
     justify-content: center;
     margin-right: -12px;
     margin-left: -12px;
@@ -26,15 +31,15 @@
 	position: relative;
     padding: 12px;
     width: 368px;
-    max-width: 368px;
+    max-width: 420px;
     flex-grow: 1;
 
-	&::before {
+	&:first-of-type:before {
 		content: '';
 		position: absolute;
 		left: 50%;
-		width: 200%;
-		max-width: 200%;
+		width: 175%;
+		max-width: 175%;
 		height: 435px;
 		background-repeat: no-repeat;
 		background-position: center;

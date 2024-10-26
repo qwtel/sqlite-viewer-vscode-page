@@ -59,8 +59,9 @@ export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (conte
     if (purchase.disputed || purchase.chargebacked || purchase.refunded)
       return paymentRequired('Purchase was disputed, chargebacked or refunded');
 
-    const isOffline = fd.get('offline') != null;
-    const isEnt = purchase.variants?.includes('Enterprise Edition');
+    const isOffline = fd.get('offline') === 'on';
+    const isEval = fd.get('evaluation') === 'on';
+    const isEnt = purchase.variants?.toLowerCase().includes('business edition');
 
     const jwtKey = await jose.importPKCS8(context.env.JWT_PRIVATE_KEY_PKCS8, 'ES256');
 
@@ -73,7 +74,7 @@ export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (conte
       .setProtectedHeader({ alg: 'ES256' })
       .setIssuedAt()
     
-    if (!isEnt || (isEnt && !isOffline)) {
+    if (isEval || !isEnt || (isEnt && !isOffline)) {
       jwt = jwt.setExpirationTime('15d');
     }
     
@@ -84,6 +85,7 @@ export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (conte
         <body>
           <h1>Access Token Generated</h1>
           <textarea readonly rows="8" cols="60" style="font-family:ui-monospace,monospace;word-break:break-all">${token}</textarea>
+          <p>Copy the token above and return to VS Code. There will be an input box at the top of the window. Paste the token and hit enter. The activation will be confirmed instantly.</p>
           <h3>Payload</h3>
           <pre>${JSON.stringify(Object.fromEntries(Object.entries(jose.decodeJwt(token)).map(([k, v]) => {
             if (k === 'mid') return ['machineId', v];
@@ -109,11 +111,18 @@ export const onRequestGet: PagesFunction<Env>[] = [corsMiddleware, async (contex
   const { searchParams } = new URL(context.request.url);
   return new HTMLResponse(html`<html>
     <body>
-      <h1>Offline Activation</h1>
+      <h1>SQLite Viewer PRO Offline Activation</h1>
+      <p>Enter your license key to generate an access token for offline use.</p>
+      <p>This is intended for Business Edition customers who have purchased a license for offline use.<br>PRO customers can use it to gain 14 days of offline use (same as regular activation).</p>
       <form method="post">
-        <input type="text" name="license_key" placeholder="Enter license key" autocomplete="off">
+        <label for="license_key">Enter License Key:</label>
+        <input type="text" name="license_key" id="license_key" placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX" autocomplete="off" style="width:320px">
+        <br>
         <input type="hidden" name="machine_id" value="${searchParams.get("machine_id") || searchParams.get("id") || ''}">
-        <input type="hidden" name="offline" value="">
+        <input type="hidden" name="offline" value="on">
+          <input type="checkbox" name="evaluation" id="evaluation">
+          <label for="evaluation">Business Edition evaluation</label>
+          <p><strong>If you have a Business Edition key, check the evaluation box to generate a 14-day evaluation token.<br>Generating a permanent token will void the 14-day refund guarantee.</strong></p>
         <input type="submit" value="Activate">
       </form>
     </body>

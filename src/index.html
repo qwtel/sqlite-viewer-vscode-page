@@ -42,7 +42,7 @@
           </div>
           <div class="flex min-w-0">
             <script>searchParams.has('css-vars') && document.currentScript.insertAdjacentHTML('afterend', `<a class="button button-sm vscode-only ellipsis" href="${location.origin}" target="_blank" title="Open in Browser ↗">Open in Browser ↗</a>`);</script>
-            <a class="button button-primary button-sm web-only" href="https://qwtel.gumroad.com/l/smzwr/z8acasd">Buy Now</a>
+            <a class="button button-primary button-sm web-only" href="#pricing">Pricing</a>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
               </script>
               <p class="hero-paragraph">Get work done without leaving VS Code. Unlock powerful <strong>editing</strong> and <strong>export</strong> features. Works anywhere, including <strong>SSH and WSL</strong>.</p>
               <div class="hero-cta">
-                <a class="button button-primary" href="https://qwtel.gumroad.com/l/smzwr/z8acasd">Buy Now</a>
+                <a class="button button-primary" href="#pricing">Pricing</a>
                 <a class="button" href="#card-5" onclick="scrollToHash(event)">Learn More ↓</a>
               </div>
             </div>
@@ -367,7 +367,7 @@
         </div>
       </section>
 
-      <section class="pricing section">
+      <section id="pricing" class="pricing section">
         <div class="container-sm">
           <div class="pricing-inner section-inner">
             <div class="pricing-header text-center">
@@ -379,25 +379,15 @@
                 <div class="pricing-table-inner is-revealing">
                   <div class="pricing-table-main">
                     <div class="pricing-table-header pb-24">
-                      <div class="pricing-table-price"><del class="pricing-table-price-currency h2" style="opacity:.5">$</del><del style="opacity:.5" class="pricing-table-price-amount h1">69</del> <span class="pricing-table-price-currency h2">$</span><span class="pricing-table-price-amount h1">49</span><span class="text-xs"> One-Time</span></div>
-                      <!-- <div><span class="">Launch Discount!</span></div> -->
+                      <div class="pricing-table-price">
+                        <del class="pricing-table-price-currency h2 o-50">$</del><del class="pricing-table-price-amount h1 o-50">69</del>
+                        <span class="pricing-table-price-currency h2">$</span><span class="pricing-table-price-amount h1">49</span><span class="text-xs"> One-Time</span>
+                      </div>
                     </div>
-                    <div class="pricing-table-features-title text-xs pt-24 pb-24">What you will get</div>
+                    <div class="pricing-table-features-title pt-24 pb-24">PRO Edition</div>
                     <ul class="pricing-table-features list-reset text-xs">
-                      <!-- <li>
-                        <span>Insert, edit, and delete rows</span>
-                      </li>
-                      <li>
-                        <span>Export data in multiple formats</span>
-                      </li>
-                      <li>
-                        <span>Undo history integration</span>
-                      </li> -->
                       <li>
                         <span>Exclusive PRO features</span>
-                      </li>
-                      <li>
-                        <span>Everything included in free version</span>
                       </li>
                       <li>
                         <span>Ad-free experience</span>
@@ -412,6 +402,42 @@
                   </div>
                 </div>
               </div>
+              <div class="pricing-table">
+                <div class="pricing-table-inner is-revealing">
+                  <div class="pricing-table-main">
+                    <div class="pricing-table-header pb-24">
+                      <div class="pricing-table-price">
+                        <del class="pricing-table-price-currency h2 o-50">$</del><del class="pricing-table-price-amount h1 o-50">249</del>
+                        <span class="pricing-table-price-currency h2">$</span><span class="pricing-table-price-amount h1">229</span><span class="text-xs"> One-Time</span>
+                      </div>
+                    </div>
+                    <div class="pricing-table-features-title pt-24 pb-24">Business Edition</div>
+                    <ul class="pricing-table-features list-reset text-xs">
+                      <li>
+                        <span>Exclusive PRO features</span>
+                      </li>
+                      <li>
+                        <span>Ad-free experience</span>
+                      </li>
+                      <li>
+                        <span>Exclusive PRO icon (<img width="18" height="18" src="dist/images/favicon-pro.png" style="display:inline-block"/>)</span>
+                      </li>
+                      <li>
+                        <span>Offline license activation<sup class="o-50">1</sup></span>
+                      </li>
+                      <li>
+                        <span>No online requirement<sup class="o-50">2</sup></span>
+                      </li>
+                      <li>
+                        <span>14-days email support<sup class="o-50">3</sup></span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="pricing-table-cta mb-8">
+                    <a class="button button-primary button-shadow button-block" href="https://qwtel.gumroad.com/l/smzwr/z8acasd?option=lFAu5YJXnIoi7WmG79HCsQ%3D%3D">Buy Now</a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -420,7 +446,7 @@
       <section class="cta section">
         <div class="container">
           <div class="cta-inner section-inner">
-            <h3 class="section-title mt-0">Looking to purchase in bulk? Questions?</h3>
+            <h3 class="section-title mt-0">Looking to purchase more than 10 licenses?</h3>
             <div class="cta-cta">
               <a class="button button-primary button-wide-mobile" href="mailto:mail@sqliteviewer.app">Get in touch ↗</a>
             </div>
@@ -451,6 +477,18 @@
           </div>
         </div>
       </section>
+
+      <section class="section">
+        <div class="container text-xxs">
+          <hr/>
+          <ol>
+            <li>Offline Activation is required if a company firewall prevents the extension from connecting to the license server.</li>
+            <li>When a device is enrolled through Offline Activation, the extension can be used without ever needing to reconnect to the license server.<br>Note that activating a device this way voids the 14-day refund guarantee. See <a href="refunds.html">Refunds</a> for details.</li>
+            <li>Provided on a best-effort basis. See <a href="terms-be.html">Terms of Use (Business Edition)</a> for details.</li>
+          </ol>
+          <hr/>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
@@ -462,10 +500,10 @@
             </a>
           </div>
           <ul id="footer-links" class="footer-links list-reset">
-            <li><a href="/terms.html">Terms of Use</a></li>
+            <li><a href="/terms.html">Terms</a></li>
             <li><a href="/privacy.html">Privacy</a></li>
             <li><a href="/refunds.html">Refunds</a></li>
-            <!-- <li><a href="/changelog.html">Release Notes</a></li> -->
+            <li><a href="https://marketplace.visualstudio.com/items/qwtel.sqlite-viewer/changelog">Changelog ↗</a></li>
             <li><a href="mailto:mail@sqliteviewer.app">Contact ↗</a></li>
           </ul>
           <ul class="footer-social-links list-reset">
@@ -486,11 +524,10 @@
               </a>
             </li>
           </ul>
-          <div class="footer-copyright"><p class="mr-16">
+          <div class="footer-copyright column"><p class="mr-16">
             &copy; 2024 Florian Klampfer. All rights reserved.<br><br>
             “SQLite” is a trademark of Hipp, Wyrick & Company, Inc. “Visual Studio Code” (VS Code) is a trademark of Microsoft Corporation. This extension is an independent product and is not affiliated with the respective trademark holders.<br><br>
-            Design based on <a href="https://preview.cruip.com/solid">Solid</a>. Licensed under <a href="https://github.com/qwtel/sqlite-viewer-vscode-page">GPL-3.0</a>.
-            </p>
+            Design based on <a href="https://preview.cruip.com/solid">Solid</a>. Licensed under <a href="https://github.com/qwtel/sqlite-viewer-vscode-page">GPL-3.0</a>.</p>
           </div>
         </div>
       </div>
