@@ -4,12 +4,12 @@ import * as jose from 'jose'
 import { badRequest, internalServerError, paymentRequired, serviceUnavailable, unsupportedMediaType } from '@worker-tools/response-creators'
 import { corsMiddleware, corsOptions, Env, ResponseData } from './#shared';
 import { html } from '@worker-tools/html';
-import { contentTypes, withMiddleware as applyMiddleware } from "@worker-tools/middleware"
+import { contentTypes, withMiddleware } from "@worker-tools/middleware"
 
 // Respond to OPTIONS method
 export const onRequestOptions = corsOptions;
 
-export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (context) => applyMiddleware(contentTypes(['text/html', 'application/json', '*/*']), async (_req, { type }) => {
+export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (context) => withMiddleware(contentTypes(['text/html', 'application/json', '*/*']), async (_req, { type }) => {
   try {
     if (context.request.headers.get('Content-Type') !== 'application/x-www-form-urlencoded') return unsupportedMediaType(); 
     const fd = new URLSearchParams(await context.request.text());
