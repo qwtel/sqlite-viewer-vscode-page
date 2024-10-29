@@ -398,7 +398,7 @@
                     </ul>
                   </div>
                   <div class="pricing-table-cta mb-8">
-                    <a class="button button-primary button-shadow button-block" href="https://qwtel.gumroad.com/l/smzwr/z8acasd">Buy Now</a>
+                    <a class="button button-primary button-shadow button-block" href="https://buy.polar.sh/polar_cl_EFqb6PkmN70VXyivEBMhO6Yh6gYF46LYvsxmHmmanJo" data-polar-checkout target="_blank">Purchase</a>
                   </div>
                 </div>
               </div>
@@ -434,7 +434,7 @@
                     </ul>
                   </div>
                   <div class="pricing-table-cta mb-8">
-                    <a class="button button-primary button-shadow button-block" href="https://qwtel.gumroad.com/l/smzwr/z8acasd?option=lFAu5YJXnIoi7WmG79HCsQ%3D%3D">Buy Now</a>
+                    <a class="button button-primary button-shadow button-block" href="https://buy.polar.sh/polar_cl_kFbgM18zwWdfKDwucc63rf6hthR7kzAAhBDD2dCPNcc" data-polar-checkout target="_blank">Purchase</a>
                   </div>
                 </div>
               </div>
@@ -534,6 +534,8 @@
     </footer>
   </div>
   <script>
+    const theme = colorScheme || window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.querySelectorAll('[data-polar-checkout]').forEach(el => el.setAttribute('data-polar-checkout-theme', theme));
     if (colorScheme) {
       const prefersColorScheme = new RegExp(`\\(prefers-color-scheme:\\s*${colorScheme}\\)`);
       document.querySelectorAll('source[media*="prefers-color-scheme"]').forEach(source => {
@@ -542,9 +544,14 @@
       });
     }
     if (!searchParams.has('css-vars')) {
-      var script = document.createElement('script');
-      script.src = "https://gumroad.com/js/gumroad.js";
-      document.body.appendChild(script);
+      function addScript(src, { dataset = {} } = {}) {
+        const script = document.createElement('script');
+        Object.assign(script.dataset, dataset);
+        script.src = src;
+        document.body.appendChild(script);
+        return script;
+      }
+      addScript("https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.1/dist/embed.global.js", { dataset: { autoInit: true } });
     }
   </script>
   <script type="module">
