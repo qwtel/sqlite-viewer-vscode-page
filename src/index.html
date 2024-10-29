@@ -543,16 +543,6 @@
         else source.removeAttribute('media');
       });
     }
-    if (!searchParams.has('css-vars')) {
-      function addScript(src, { dataset = {} } = {}) {
-        const script = document.createElement('script');
-        Object.assign(script.dataset, dataset);
-        script.src = src;
-        document.body.appendChild(script);
-        return script;
-      }
-      addScript("https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.1/dist/embed.global.js", { dataset: { autoInit: true } });
-    }
   </script>
   <script type="module">
     (async () => {

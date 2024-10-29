@@ -1,13 +1,4 @@
 (() => {
-  if (location.hostname === 'localhost') {
-    document.querySelectorAll('a[href="https://buy.polar.sh/polar_cl_EFqb6PkmN70VXyivEBMhO6Yh6gYF46LYvsxmHmmanJo"]').forEach(el => {
-      el.setAttribute('href', 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_6UZUT7AMFnMuxYbwQFGA4shpYnByJYNrbUGlysKk5IM/redirect');
-    });
-    document.querySelectorAll('a[href="https://buy.polar.sh/polar_cl_kFbgM18zwWdfKDwucc63rf6hthR7kzAAhBDD2dCPNcc"]').forEach(el => {
-      el.setAttribute('href', 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_BbK-Xv1yzZaLjCBoW3mYPAm4q5mKD7sC59pK9NVOTyk/redirect');
-    });
-  }
-
   const root = document.documentElement;
 
   root.classList.remove('no-js')
