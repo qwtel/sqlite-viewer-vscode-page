@@ -1,8 +1,8 @@
 /// <reference types="@cloudflare/workers-types/2023-07-01" />
 
 import * as jose from 'jose'
-import { badRequest, internalServerError, paymentRequired, serviceUnavailable, unsupportedMediaType } from '@worker-tools/response-creators'
-import { corsMiddleware, corsOptions, Env, JWTPublicKeySPKI, ResponseData } from './#shared';
+import { badRequest, internalServerError, unsupportedMediaType } from '@worker-tools/response-creators'
+import { corsMiddleware, corsOptions, Env, JWTPublicKeySPKI, legacyLicenseKeyRegex, licenseKeyRegex, validate, validateLegacy } from './#shared';
 
 // Respond to OPTIONS method
 export const onRequestOptions = corsOptions;
@@ -16,7 +16,7 @@ export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (conte
     const machineId = fd.get('machine_id');
     if (!accessToken) return badRequest('Missing access_token');
     if (!licenseKey) return badRequest('Missing license_key');
-    if (!/[A-Z0-9]{8}-[A-Z0-9]{8}-[A-Z0-9]{8}-[A-Z0-9]{8}/i.test(licenseKey)) return badRequest('Invalid license key format');
+    if (!licenseKeyRegex.test(licenseKey) && !legacyLicenseKeyRegex.test(licenseKey)) return badRequest('Invalid license key format');
 
     let payload;
     try {
@@ -28,46 +28,17 @@ export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (conte
     }
     if (!payload) return badRequest('Invalid access_token');
 
-    let response: Response;
+    let purchase;
     try {
-      response = await fetch('https://api.gumroad.com/v2/licenses/verify', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded', 
-          'User-Agent': navigator.userAgent,
-        },
-        body: new URLSearchParams({
-          'product_id': context.env.PRODUCT_ID,
-          'license_key': licenseKey,
-          'increment_uses_count': 'false',
-        }),
-      });
-    } catch {
-      return serviceUnavailable('No response from license validation service');
+      const validateFn = licenseKeyRegex.test(licenseKey) ? validate : validateLegacy;
+      purchase = await validateFn(context, licenseKey, { incrementUsage: false });
+    } catch (err) {
+      if (err instanceof Response) {
+        return err;
+      } else {
+        return internalServerError(`Unexpected service error: ${err instanceof Error ? err.message: err}`);
+      }
     }
-
-    if (!response.ok) {
-      if (response.status === 404) return badRequest(`Invalid license key.`);
-      return new Response(`License validation request failed: ${response.status}`, { status: response.status });
-    }
-    if (response.headers.get('Content-Type')?.includes('application/json') === false)
-      return serviceUnavailable('Invalid response from license validation service');
-
-    let data: ResponseData;
-    try {
-      data = await response.json() as any;
-    } catch {
-      return serviceUnavailable('Failed to parse response');
-    }
-
-    if (!data.success) {
-      return paymentRequired(`License validation failed: ${data.message}`);
-    }
-
-    const { purchase } = data;
-
-    if (purchase.disputed || purchase.chargebacked || purchase.refunded)
-      return paymentRequired('Purchase was disputed, chargebacked or refunded');
 
     const jwtKey = await jose.importPKCS8(context.env.JWT_PRIVATE_KEY_PKCS8, 'ES256');
     const token = await new jose.SignJWT({ 
