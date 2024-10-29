@@ -1,8 +1,14 @@
+/// <reference types="@cloudflare/workers-types/2023-07-01" />
+
+import { badRequest, paymentRequired, serviceUnavailable } from '@worker-tools/response-creators'
 
 export type Env = {
   PRODUCT_ID: string,
   JWT_PRIVATE_KEY_PKCS8: string,
+  ORGANIZATION_ID: string,
 }
+
+export type EnvEventContext = EventContext<Env, any, Record<string, unknown>>
 
 export const JWTPublicKeySPKI = `
 -----BEGIN PUBLIC KEY-----
@@ -10,6 +16,9 @@ MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEFK3xjgL1y4OazahxzcvxUVcRPfYY
 hixfUOoecMEXQ2c2wy95T/JgmiRh9MxPTdRwoSO1Ub1nVFII2s1d8E2RCw==
 -----END PUBLIC KEY-----
 `.trim();
+
+export const licenseKeyRegex = /[A-Z0-9]{8}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{12}/i;
+export const legacyLicenseKeyRegex = /[A-Z0-9]{8}-[A-Z0-9]{8}-[A-Z0-9]{8}-[A-Z0-9]{8}/i;
 
 export const corsMiddleware: PagesFunction = async (context) => {
   const response = await context.next();
@@ -31,7 +40,139 @@ export const corsOptions: PagesFunction = async () => {
   });
 };
 
-export type Purchase = {
+export async function validateLegacy(ctx: EnvEventContext, licenseKey: string, { incrementUsage = false } = {}) {
+  let response: Response;
+  try {
+    response = await fetch('https://api.gumroad.com/v2/licenses/verify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded', 
+        'User-Agent': navigator.userAgent,
+      },
+      body: new URLSearchParams({
+        'product_id': ctx.env.PRODUCT_ID,
+        'license_key': licenseKey,
+        'increment_uses_count': incrementUsage ? 'true' : 'false',
+      }),
+    });
+  } catch {
+    throw serviceUnavailable('No response from license validation service');
+  }
+
+  if (!response.ok) {
+    if (response.status === 404)
+      throw badRequest(`Invalid license key`);
+    throw new Response(`License validation request failed: ${response.status}`, { status: response.status });
+  }
+  if (response.headers.get('Content-Type')?.includes('application/json') === false)
+    throw serviceUnavailable('Invalid response from license validation service');
+
+  let data;
+  try {
+    data = await response.json() as LegacyResponseData;
+  } catch {
+    throw serviceUnavailable('Failed to parse response');
+  }
+
+  if (!data.success) {
+    throw paymentRequired(`License validation failed: ${data.message}`);
+  }
+
+  const { purchase } = data;
+
+  if (purchase.disputed || purchase.chargebacked || purchase.refunded) {
+    throw paymentRequired('Purchase was disputed, chargebacked or refunded');
+  }
+
+  const isEnt = purchase.variants?.toLowerCase().includes('business edition');
+
+  return { email: purchase.email, enterprise: isEnt };
+}
+
+
+export async function validate(ctx: EnvEventContext, licenseKey: string, { incrementUsage = false } = {}) {
+  const url = new URL(ctx.request.url);
+  const isLocalhost = url.hostname === 'localhost';
+  console.log({ isLocalhost })
+  const baseURL = isLocalhost ? 'https://sandbox-api.polar.sh' : 'https://api.polar.sh';
+  let response: Response;
+  try {
+    response = await fetch(new URL('/v1/users/license-keys/validate', baseURL), {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json', 
+        'Content-Type': 'application/json', 
+        'User-Agent': navigator.userAgent,
+      },
+      body: JSON.stringify({
+        'key': licenseKey,
+        'organization_id': ctx.env.ORGANIZATION_ID,
+        'increment_usage': incrementUsage ? 1 : 0, 
+      }),
+    });
+  } catch {
+    throw serviceUnavailable('No response from license validation service');
+  }
+
+  if (!response.ok) {
+    if (response.status === 404)
+      throw badRequest(`Invalid license key`);
+    throw new Response(`License validation request failed: ${response.status}`, { status: response.status });
+  }
+
+  if (response.headers.get('Content-Type')?.includes('application/json') === false)
+    throw serviceUnavailable('Invalid response from license validation service');
+
+  let data;
+  try {
+    data = await response.json() as LicenseKeyResponse;
+  } catch {
+    throw serviceUnavailable('Failed to parse response');
+  }
+
+  if (data.status !== 'granted')
+    throw paymentRequired(`License validation failed: ${data.status}`);
+
+  console.log(data);
+
+  const isEnt = false //data.benefit_id === env.BUSINESS_EDITION_BENEFIT_ID;
+
+  return { email: data.user?.email, enterprise: isEnt };
+}
+
+export type LicenseKeyResponse = {
+  id: string;
+  organization_id: string;
+  user_id: string;
+  user?: {
+    id: string,
+    public_name: string,
+    email: string,
+    avatar_url: string|null
+  },
+  benefit_id: string;
+  key: string;
+  display_key: string;
+  status: string;
+  limit_activations: number;
+  usage: number;
+  limit_usage: number;
+  validations: number;
+  last_validated_at: string;
+  expires_at: string;
+  activation?: {
+    id: string;
+    license_key_id: string;
+    label: string;
+    meta: {
+      ip: string;
+    };
+    created_at: string;
+    modified_at: string | null;
+  };
+};
+
+export type LegacyPurchase = {
   seller_id: string;
   product_id: string;
   product_name: string;
@@ -71,10 +212,10 @@ export type Purchase = {
   chargebacked: boolean;
 };
 
-export type ResponseData = {
+export type LegacyResponseData = {
   success: true;
   uses: number;
-  purchase: Purchase;
+  purchase: LegacyPurchase;
 }|{
   success: false;
   message: string;
