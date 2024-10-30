@@ -2,13 +2,18 @@
 
 import { Env } from "./api/#shared"
 
-const DevCountryOverride = '';
-const UnsupportedCountries = new Set(['IN', 'BR', 'RU']);
+const DevCountryOverride = 'BR';
+const V2Countries = new Set([
+  "US",
+  "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE",
+  "JP", "KR", "SG", "HK", "TW", "AE", "QA",
+  "AU", "NZ",
+]);
 
 const PROEditionHref = 'https://buy.polar.sh/polar_cl_EFqb6PkmN70VXyivEBMhO6Yh6gYF46LYvsxmHmmanJo'
 const BusinessEditionHref = 'https://buy.polar.sh/polar_cl_kFbgM18zwWdfKDwucc63rf6hthR7kzAAhBDD2dCPNcc'
 
-// const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
+const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const url = new URL(context.request.url);
@@ -18,24 +23,24 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const response = await context.env.ASSETS.fetch(context.request);
 
   const country = (dev && DevCountryOverride) || context.request.headers.get('cf-ipcountry') || 'US';
-  const unsupportedCountry = UnsupportedCountries.has(country);
+  const unsupportedCountry = !V2Countries.has(country);
 
   const searchParams = url.searchParams;
-  // const colorScheme = lightDark(searchParams.get('color-scheme'))
+  const colorScheme = lightDark(searchParams.get('color-scheme'))
+  const vscode = searchParams.has('css-vars')
 
   let rewriter = new HTMLRewriter()
 
-  if (!searchParams.has('css-vars')) {
+  if (!vscode) {
     rewriter = rewriter
-      // .on('meta[name="color-scheme"]', { element(el) { el.setAttribute('content', colorScheme || 'dark light') } })
+      .on('meta[name="color-scheme"]', { element(el) { el.setAttribute('content', colorScheme || 'dark light') } })
       .on('body', {
         element(el) {
-          if (!searchParams.has('css-vars')) {
-            if (!unsupportedCountry) {
-              // el.append(`<script defer src="https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.1/dist/embed.global.js" data-auto-init></script>`, { html: true });
-            } else {
-              el.append('<script defer src="https://gumroad.com/js/gumroad.js"></script>', { html: true });
-            }
+          if (!unsupportedCountry) {
+            // The polar overlay is not nice, prefer opening in a new tab instead, so we omit the script
+            // el.append(`<script defer src="https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.1/dist/embed.global.js" data-auto-init></script>`, { html: true });
+          } else {
+            el.append('<script defer src="https://gumroad.com/js/gumroad.js"></script>', { html: true });
           }
         }
       })
@@ -91,10 +96,13 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     })
   }
 
+  let transformedResponse;
   if (dev && response.status === 200) {
     const buf = await rewriter.transform(response).arrayBuffer()
-    return new Response(buf, { headers: response.headers, status: response.status });
+    transformedResponse = new Response(buf, { headers: response.headers, status: response.status });
   } else {
-    return rewriter.transform(response)
+    transformedResponse = rewriter.transform(response);
   }
+  transformedResponse.headers.append('vary', 'cf-ipcountry');
+  return transformedResponse;
 }
