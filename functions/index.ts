@@ -2,7 +2,7 @@
 
 import { Env } from "./api/#shared"
 
-const DevCountryOverride = 'IN';
+const DevCountryOverride = '';
 const UnsupportedCountries = new Set(['IN', 'BR', 'RU']);
 
 const PROEditionHref = 'https://buy.polar.sh/polar_cl_EFqb6PkmN70VXyivEBMhO6Yh6gYF46LYvsxmHmmanJo'
@@ -32,7 +32,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         element(el) {
           if (!searchParams.has('css-vars')) {
             if (!unsupportedCountry) {
-              el.append(`<script defer src="https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.1/dist/embed.global.js" data-auto-init></script>`, { html: true });
+              // el.append(`<script defer src="https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.1/dist/embed.global.js" data-auto-init></script>`, { html: true });
             } else {
               el.append('<script defer src="https://gumroad.com/js/gumroad.js"></script>', { html: true });
             }
@@ -66,7 +66,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
             break;
         }
         el.setAttribute('href', newHref);
-      }
+      },
+      text(txt) {
+        if (txt.lastInTextNode) txt.replace('Buy Now'); else txt.remove();
+      },
     })
   }
 
@@ -88,7 +91,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     })
   }
 
-  if (dev) {
+  if (dev && response.status === 200) {
     const buf = await rewriter.transform(response).arrayBuffer()
     return new Response(buf, { headers: response.headers, status: response.status });
   } else {
