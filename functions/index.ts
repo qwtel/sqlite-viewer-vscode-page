@@ -83,7 +83,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
             newHref = 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_6UZUT7AMFnMuxYbwQFGA4shpYnByJYNrbUGlysKk5IM/redirect';
             break;
           case BusinessEditionHref:
-            newHref = 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_BbK-Xv1yzZaLjCBoW3mYPAm4q5mKD7sC59pK9NVOTyk/redirect';
+            newHref = 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_c9mw1Pg7SkDXVf3J7kvCcZ5aAiRxHBNdX2MqIKTDSPA/redirect';
             break;
         }
         el.setAttribute('href', newHref);
