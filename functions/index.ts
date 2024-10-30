@@ -2,7 +2,7 @@
 
 import { Env } from "./api/#shared"
 
-const DevCountryOverride = 'BR';
+const DevCountryOverride = '';
 const V2Countries = new Set([
   "US",
   "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE",
@@ -103,6 +103,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   } else {
     transformedResponse = rewriter.transform(response);
   }
-  transformedResponse.headers.append('vary', 'cf-ipcountry');
+  if (response.status === 200)
+    transformedResponse.headers.append('vary', 'cf-ipcountry');
   return transformedResponse;
 }
