@@ -52,8 +52,8 @@
 }
 
 .pricing-table-header,
-.pricing-table-features-title,
-.pricing-table-features li {
+// .pricing-table-features-title,
+.pricing-table-features li:not(:last-child) {
 	border-bottom: 1px solid color-mix(in srgb, functions.color(typography, 2) 24%, transparent);
 }
 
