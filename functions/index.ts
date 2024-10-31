@@ -10,18 +10,27 @@ const V2Countries = new Set([
   "AU", "NZ",
 ]);
 
-const PROEditionHref = 'https://buy.polar.sh/polar_cl_EFqb6PkmN70VXyivEBMhO6Yh6gYF46LYvsxmHmmanJo'
-const BusinessEditionHref = 'https://buy.polar.sh/polar_cl_kFbgM18zwWdfKDwucc63rf6hthR7kzAAhBDD2dCPNcc'
+const PROEditionHrefs = {
+  live: 'https://buy.polar.sh/polar_cl_EFqb6PkmN70VXyivEBMhO6Yh6gYF46LYvsxmHmmanJo',
+  dev: 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_6UZUT7AMFnMuxYbwQFGA4shpYnByJYNrbUGlysKk5IM/redirect',
+  legacy: 'https://qwtel.gumroad.com/l/smzwr/z8acasd',
+};
+
+const BusinessEditionHrefs = {
+  live: 'https://buy.polar.sh/polar_cl_GEJ6WHF_FZ2g4735f1DVr6MnrOz2Ju7CV-BOvn1HbxE',
+  dev: 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_TEQMFIqXaPovjSTvU4k09OYV2HU-i0qSH4IOo1-9KEI/redirect',
+  legacy: 'https://qwtel.gumroad.com/l/smzwr/z8acasd?option=lFAu5YJXnIoi7WmG79HCsQ%3D%3D',
+};
 
 const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const url = new URL(context.request.url);
-  const dev = url.hostname === 'localhost'
 
   // const request = context.request;
   const response = await context.env.ASSETS.fetch(context.request);
 
+  const dev = context.env.DEV;
   const country = (dev && DevCountryOverride) || context.request.headers.get('cf-ipcountry') || 'US';
   const unsupportedCountry = !V2Countries.has(country);
 
@@ -30,6 +39,22 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const vscode = searchParams.has('css-vars')
 
   let rewriter = new HTMLRewriter()
+    .on('a[href^="#purchase"]', {
+      element(el) {
+        const href = el.getAttribute('href')!;
+        let newHref = '';
+        switch (href) {
+          case '#purchase':
+            newHref = unsupportedCountry ? PROEditionHrefs.legacy : dev ? PROEditionHrefs.dev : PROEditionHrefs.live;
+            break;
+          case '#purchase-be':
+            newHref = unsupportedCountry ? BusinessEditionHrefs.legacy : dev ? BusinessEditionHrefs.dev : BusinessEditionHrefs.live;
+            break;
+        }
+        el.setAttribute('href', newHref);
+      },
+      text: unsupportedCountry ? (txt) => { txt.lastInTextNode && txt.replace('Buy Now') || txt.remove() } : undefined,
+    });
 
   if (!vscode) {
     rewriter = rewriter
@@ -56,45 +81,6 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   //     }
   //   });
   // }
-
-  if (unsupportedCountry) {
-    rewriter = rewriter.on('a[href^="https://buy.polar.sh"]', {
-      element(el) {
-        const href = el.getAttribute('href')!;
-        let newHref = href;
-        switch (href) {
-          case PROEditionHref:
-            newHref = 'https://qwtel.gumroad.com/l/smzwr/z8acasd';
-            break;
-          case BusinessEditionHref:
-            newHref = 'https://qwtel.gumroad.com/l/smzwr/z8acasd?option=lFAu5YJXnIoi7WmG79HCsQ%3D%3D';
-            break;
-        }
-        el.setAttribute('href', newHref);
-      },
-      text(txt) {
-        if (txt.lastInTextNode) txt.replace('Buy Now'); else txt.remove();
-      },
-    })
-  }
-
-  if (dev) {
-    rewriter = rewriter.on('a[href^="https://buy.polar.sh"]', {
-      element(el) {
-        const href = el.getAttribute('href')!;
-        let newHref = href;
-        switch (href) {
-          case PROEditionHref:
-            newHref = 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_6UZUT7AMFnMuxYbwQFGA4shpYnByJYNrbUGlysKk5IM/redirect';
-            break;
-          case BusinessEditionHref:
-            newHref = 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_c9mw1Pg7SkDXVf3J7kvCcZ5aAiRxHBNdX2MqIKTDSPA/redirect';
-            break;
-        }
-        el.setAttribute('href', newHref);
-      }
-    })
-  }
 
   let transformedResponse;
   if (dev && response.status === 200) {
