@@ -3,9 +3,11 @@
 import { badRequest, paymentRequired, serviceUnavailable } from '@worker-tools/response-creators'
 
 export type Env = {
+  DEV: string,
   PRODUCT_ID: string,
   JWT_PRIVATE_KEY_PKCS8: string,
   ORGANIZATION_ID: string,
+  BE_BENEFIT_ID: string,
 }
 
 export type EnvEventContext = EventContext<Env, any, Record<string, unknown>>
@@ -40,7 +42,7 @@ export const corsOptions: PagesFunction = async () => {
   });
 };
 
-export async function validateLegacy(ctx: EnvEventContext, licenseKey: string, { incrementUsage = false } = {}) {
+export async function validateLegacy(context: EnvEventContext, licenseKey: string, { incrementUsage = false } = {}) {
   let response: Response;
   try {
     response = await fetch('https://api.gumroad.com/v2/licenses/verify', {
@@ -50,7 +52,7 @@ export async function validateLegacy(ctx: EnvEventContext, licenseKey: string, {
         'User-Agent': navigator.userAgent,
       },
       body: new URLSearchParams({
-        'product_id': ctx.env.PRODUCT_ID,
+        'product_id': context.env.PRODUCT_ID,
         'license_key': licenseKey,
         'increment_uses_count': incrementUsage ? 'true' : 'false',
       }),
@@ -90,11 +92,8 @@ export async function validateLegacy(ctx: EnvEventContext, licenseKey: string, {
 }
 
 
-export async function validate(ctx: EnvEventContext, licenseKey: string, { incrementUsage = false } = {}) {
-  const url = new URL(ctx.request.url);
-  const isLocalhost = url.hostname === 'localhost';
-  console.log({ isLocalhost })
-  const baseURL = isLocalhost ? 'https://sandbox-api.polar.sh' : 'https://api.polar.sh';
+export async function validate(context: EnvEventContext, licenseKey: string, { incrementUsage = false } = {}) {
+  const baseURL = context.env.DEV ? 'https://sandbox-api.polar.sh' : 'https://api.polar.sh';
   let response: Response;
   try {
     response = await fetch(new URL('/v1/users/license-keys/validate', baseURL), {
@@ -106,7 +105,7 @@ export async function validate(ctx: EnvEventContext, licenseKey: string, { incre
       },
       body: JSON.stringify({
         'key': licenseKey,
-        'organization_id': ctx.env.ORGANIZATION_ID,
+        'organization_id': context.env.ORGANIZATION_ID,
         'increment_usage': incrementUsage ? 1 : 0, 
       }),
     });
@@ -133,9 +132,7 @@ export async function validate(ctx: EnvEventContext, licenseKey: string, { incre
   if (data.status !== 'granted')
     throw paymentRequired(`License validation failed: ${data.status}`);
 
-  console.log(data);
-
-  const isEnt = false //data.benefit_id === env.BUSINESS_EDITION_BENEFIT_ID;
+  const isEnt = data.benefit_id === context.env.BE_BENEFIT_ID;
 
   return { email: data.user?.email, enterprise: isEnt };
 }

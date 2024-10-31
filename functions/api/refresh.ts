@@ -18,10 +18,10 @@ export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (conte
     if (!licenseKey) return badRequest('Missing license_key');
     if (!licenseKeyRegex.test(licenseKey) && !legacyLicenseKeyRegex.test(licenseKey)) return badRequest('Invalid license key format');
 
+    const jwtPubKey = await jose.importSPKI(JWTPublicKeySPKI, 'ES256');
     let payload;
     try {
-      const jwtKey = await jose.importSPKI(JWTPublicKeySPKI, 'ES256');
-      const { payload: { iat, exp, ...rest } } = await jose.jwtVerify(accessToken, jwtKey);
+      const { payload: { iat, exp, ...rest } } = await jose.jwtVerify(accessToken, jwtPubKey);
       payload = rest;
     } catch {
       return badRequest('Invalid access_token');
@@ -41,15 +41,15 @@ export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (conte
     }
 
     const jwtKey = await jose.importPKCS8(context.env.JWT_PRIVATE_KEY_PKCS8, 'ES256');
-    const token = await new jose.SignJWT({ 
+    const jwt = new jose.SignJWT({ 
       ...payload, 
       ...machineId && !payload.mid ? { mid: machineId } : {} 
     })
       .setProtectedHeader({ alg: 'ES256' })
       .setIssuedAt()
       .setExpirationTime('15d')
-      .sign(jwtKey)
     
+    const token = await jwt.sign(jwtKey);
     return Response.json({ token }, { headers: [['Authorization', `Bearer ${token}`]] });
   } catch (err) {
     return internalServerError(`Unexpected service error: ${err instanceof Error ? err.message: err}`);

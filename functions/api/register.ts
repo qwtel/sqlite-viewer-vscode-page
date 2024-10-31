@@ -65,7 +65,7 @@ export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (conte
               <pre>${JSON.stringify(Object.fromEntries(Object.entries(jose.decodeJwt(token)).map(([k, v]) => {
                 if (k === 'mid') return ['machineId', v];
                 if (k === 'for') return ['email', v];
-                if (k === 'ent') return ['enterprise', true];
+                if (k === 'ent') return ['businessEdition', true];
                 if (k === 'key') return ['licenseKey', v];
                 if (k === 'iat') return ['issuedAt', new Date(Number(v) * 1000).toLocaleString()];
                 if (k === 'exp') return ['expireAt', new Date(Number(v) * 1000).toLocaleString()];
@@ -98,7 +98,7 @@ export const onRequestGet: PagesFunction<Env>[] = [corsMiddleware, async (contex
           <form method="post">
             <div>
               <label for="license_key">License Key:</label>
-              <input class="input" type="text" name="license_key" id="license_key" placeholder="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" autocomplete="off" style="width:420px">
+              <input class="input" type="text" name="license_key" id="license_key" placeholder="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" autocomplete="off" style="width:420px" autofocus>
             </div>
             <input type="hidden" name="machine_id" value="${searchParams.get("machine_id") || searchParams.get("id") || ''}">
             <input type="hidden" name="offline" value="on">
