@@ -12,13 +12,13 @@ const V2Countries = new Set([
 
 const PROEditionHrefs = {
   live: 'https://buy.polar.sh/polar_cl_EFqb6PkmN70VXyivEBMhO6Yh6gYF46LYvsxmHmmanJo',
-  dev: 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_6UZUT7AMFnMuxYbwQFGA4shpYnByJYNrbUGlysKk5IM/redirect',
+  sandbox: 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_6UZUT7AMFnMuxYbwQFGA4shpYnByJYNrbUGlysKk5IM/redirect',
   legacy: 'https://qwtel.gumroad.com/l/smzwr/z8acasd',
 };
 
 const BusinessEditionHrefs = {
-  live: 'https://buy.polar.sh/polar_cl_GEJ6WHF_FZ2g4735f1DVr6MnrOz2Ju7CV-BOvn1HbxE',
-  dev: 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_TEQMFIqXaPovjSTvU4k09OYV2HU-i0qSH4IOo1-9KEI/redirect',
+  live: 'https://buy.polar.sh/polar_cl_mHZpusLjhIoitewRz4bjc2NC1AMyixkH46RimwVqa-Q',
+  sandbox: 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_ydGFTF7KnKS0U5UP23Yi2GhRxUlr-OqSBNBvng40kYE/redirect',
   legacy: 'https://qwtel.gumroad.com/l/smzwr/z8acasd?option=lFAu5YJXnIoi7WmG79HCsQ%3D%3D',
 };
 
@@ -45,10 +45,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         let newHref = '';
         switch (href) {
           case '#purchase':
-            newHref = unsupportedCountry ? PROEditionHrefs.legacy : dev ? PROEditionHrefs.dev : PROEditionHrefs.live;
+            newHref = unsupportedCountry ? PROEditionHrefs.legacy : dev ? PROEditionHrefs.sandbox : PROEditionHrefs.live;
             break;
           case '#purchase-be':
-            newHref = unsupportedCountry ? BusinessEditionHrefs.legacy : dev ? BusinessEditionHrefs.dev : BusinessEditionHrefs.live;
+            newHref = unsupportedCountry ? BusinessEditionHrefs.legacy : dev ? BusinessEditionHrefs.sandbox : BusinessEditionHrefs.live;
             break;
         }
         el.setAttribute('href', newHref);
@@ -62,8 +62,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       .on('body', {
         element(el) {
           if (!unsupportedCountry) {
-            // The polar overlay is not nice, prefer opening in a new tab instead, so we omit the script
-            // el.append(`<script defer src="https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.1/dist/embed.global.js" data-auto-init></script>`, { html: true });
+            el.append(`<script defer src="https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.1/dist/embed.global.js" data-auto-init></script>`, { html: true });
           } else {
             el.append('<script defer src="https://gumroad.com/js/gumroad.js"></script>', { html: true });
           }
