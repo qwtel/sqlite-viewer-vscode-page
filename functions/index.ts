@@ -14,13 +14,13 @@ const V2Countries = new Set([
 const PROEditionHrefs = {
   live: 'https://buy.polar.sh/polar_cl_zWrh5cQnCfn0WQtRjoKdN4hL_5uIMaFuKh8kazgiOaA',
   sandbox: 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_6UZUT7AMFnMuxYbwQFGA4shpYnByJYNrbUGlysKk5IM/redirect',
-  legacy: 'https://qwtel.gumroad.com/l/smzwr/z8acasd',
+  legacy: 'https://qwtel.gumroad.com/l/smzwr',
 };
 
 const BusinessEditionHrefs = {
   live: 'https://buy.polar.sh/polar_cl_mHZpusLjhIoitewRz4bjc2NC1AMyixkH46RimwVqa-Q',
   sandbox: 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_ydGFTF7KnKS0U5UP23Yi2GhRxUlr-OqSBNBvng40kYE/redirect',
-  legacy: 'https://qwtel.gumroad.com/l/smzwr/z8acasd?option=lFAu5YJXnIoi7WmG79HCsQ%3D%3D',
+  legacy: 'https://qwtel.gumroad.com/l/smzwr?option=lFAu5YJXnIoi7WmG79HCsQ%3D%3D',
 };
 
 const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
