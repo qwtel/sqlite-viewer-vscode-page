@@ -4,8 +4,9 @@ import { Env } from "./api/#shared"
 
 const DevCountryOverride = '';
 const V2Countries = new Set([
-  "US",
+  "US", "CA",
   "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE",
+  "CH", "NO", "IS", "LI", "MC", "SM", "AD", "GB", "IL",
   "JP", "KR", "SG", "HK", "TW", "AE", "QA",
   "AU", "NZ",
 ]);
