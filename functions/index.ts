@@ -12,7 +12,7 @@ const V2Countries = new Set([
 ]);
 
 const PROEditionHrefs = {
-  live: 'https://buy.polar.sh/polar_cl_EFqb6PkmN70VXyivEBMhO6Yh6gYF46LYvsxmHmmanJo',
+  live: 'https://buy.polar.sh/polar_cl_zWrh5cQnCfn0WQtRjoKdN4hL_5uIMaFuKh8kazgiOaA',
   sandbox: 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_6UZUT7AMFnMuxYbwQFGA4shpYnByJYNrbUGlysKk5IM/redirect',
   legacy: 'https://qwtel.gumroad.com/l/smzwr/z8acasd',
 };
