@@ -32,7 +32,7 @@
         <div class="site-header-inner">
           <div class="brand header-brand mr-8">
             <h1 class="m-0" style="display:flex;align-items:center;font-size:18px;line-height:100%">
-              <a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' })">
+              <a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' });">
                 <img class="header-logo-image" src="dist/images/logo_70_mac.png" alt="Logo" width="35" height="35">
               </a>
               <div style="margin-left:10px">
@@ -42,7 +42,7 @@
           </div>
           <div class="flex min-w-0">
             <script>searchParams.has('css-vars') && document.currentScript.insertAdjacentHTML('afterend', `<a class="button button-sm vscode-only ellipsis" href="${location.origin}" target="_blank" title="Open in Browser ↗">Open in Browser ↗</a>`);</script>
-            <a class="button button-primary button-sm web-only" href="#pricing">Pricing</a>
+            <a class="button button-primary button-sm web-only" href="#pricing" onclick="scrollToHash(event)">Buy Now</a>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
               </script>
               <p class="hero-paragraph">Get work done without leaving VS Code. Unlock powerful <strong>editing</strong> and <strong>export</strong> features. Works anywhere, including <strong>SSH and WSL</strong>.</p>
               <div class="hero-cta">
-                <a class="button button-primary" href="#pricing">Pricing</a>
+                <a class="button button-primary" href="#pricing" onclick="scrollToHash(event)">Buy Now</a>
                 <a class="button" href="#card-5" onclick="scrollToHash(event)">Learn More ↓</a>
               </div>
             </div>
@@ -372,7 +372,9 @@
           <div class="pricing-inner section-inner">
             <div class="pricing-header text-center">
               <h2 class="section-title mt-0">No Subscription, No Problem</h2>
-              <p class="section-paragraph mb-0">SQLite Viewer PRO is a one-time purchase that grants you a perpetual license that works for as long as VS Code does.<br><br><small><strong>Now generally available. Enjoy the limited-time launch discount:</strong><br>(ends Nov 1st)</small></p>
+              <p class="section-paragraph mb-0">SQLite Viewer PRO is a one-time purchase that grants you a perpetual license that works for as long as VS Code does.
+              <!-- <br><br><small><strong>Now generally available. Enjoy the limited-time launch discount:</strong><br>(ends Nov 1st)</small> -->
+            </p>
             </div>
             <div class="pricing-tables-wrap">
               <div class="pricing-table">
@@ -380,11 +382,12 @@
                   <div class="pricing-table-main">
                     <div class="pricing-table-header pb-24">
                       <div class="pricing-table-price">
-                        <del class="pricing-table-price-currency h2 o-50">$</del><del class="pricing-table-price-amount h1 o-50">69</del>
-                        <span class="pricing-table-price-currency h2">$</span><span class="pricing-table-price-amount h1">49</span><span class="text-xs"> One-Time</span>
+                        <!-- <del class="pricing-table-price-currency h2 o-50">$</del><del class="pricing-table-price-amount h1 o-50">69</del> -->
+                        <span class="pricing-table-price-currency h2">$</span><span class="pricing-table-price-amount h1">69</span><span class=""> + VAT</span>
                       </div>
+                      <small class="text-xs">One-Time-Purchase</small>
                     </div>
-                    <div class="pricing-table-features-title pt-24 pb-24">PRO Edition</div>
+                    <div class="pricing-table-features-title pt-16 pb-8">PRO Edition</div>
                     <ul class="pricing-table-features list-reset text-xs">
                       <li>
                         <span>Exclusive PRO features</span>
@@ -398,7 +401,7 @@
                     </ul>
                   </div>
                   <div class="pricing-table-cta mb-8">
-                    <a class="button button-primary button-shadow button-block" href="https://qwtel.gumroad.com/l/smzwr/z8acasd">Buy Now</a>
+                    <a class="button button-primary button-shadow button-block" href="#purchase" data-polar-checkout target="_blank">Purchase ↗</a>
                   </div>
                 </div>
               </div>
@@ -407,11 +410,12 @@
                   <div class="pricing-table-main">
                     <div class="pricing-table-header pb-24">
                       <div class="pricing-table-price">
-                        <del class="pricing-table-price-currency h2 o-50">$</del><del class="pricing-table-price-amount h1 o-50">249</del>
-                        <span class="pricing-table-price-currency h2">$</span><span class="pricing-table-price-amount h1">229</span><span class="text-xs"> One-Time</span>
+                        <!-- <del class="pricing-table-price-currency h2 o-50">$</del><del class="pricing-table-price-amount h1 o-50">199</del> -->
+                        <span class="pricing-table-price-currency h2">$</span><span class="pricing-table-price-amount h1">179</span><span class=""> + VAT</span>
                       </div>
+                      <small class="text-xs">One-Time-Purchase</small>
                     </div>
-                    <div class="pricing-table-features-title pt-24 pb-24">Business Edition</div>
+                    <div class="pricing-table-features-title pt-16 pb-8">Business Edition</div>
                     <ul class="pricing-table-features list-reset text-xs">
                       <li>
                         <span>Exclusive PRO features</span>
@@ -434,7 +438,7 @@
                     </ul>
                   </div>
                   <div class="pricing-table-cta mb-8">
-                    <a class="button button-primary button-shadow button-block" href="https://qwtel.gumroad.com/l/smzwr/z8acasd?option=lFAu5YJXnIoi7WmG79HCsQ%3D%3D">Buy Now</a>
+                    <a class="button button-primary button-shadow button-block" href="#purchase-be" data-polar-checkout target="_blank">Purchase ↗</a>
                   </div>
                 </div>
               </div>
@@ -446,10 +450,14 @@
       <section class="cta section">
         <div class="container">
           <div class="cta-inner section-inner">
-            <h3 class="section-title mt-0">Looking to purchase more than 10 licenses?</h3>
-            <div class="cta-cta">
-              <a class="button button-primary button-wide-mobile" href="mailto:mail@sqliteviewer.app">Get in touch ↗</a>
+            <div class="cta-inner-x">
+              <h3 class="cta-title mt-0 h5">Want to try it first? Use the 14-day refund guarantee</h3>
+              <!-- <div class="cta-cta">
+                <a class="button button-default button-wide-mobile" href="/refunds.html">Refund Policy</a>
+              </div> -->
             </div>
+            <p class="mt-24 mb-0">You can evaluate SQLite Viewer PRO for up to two weeks by making use of the 14-day refund guarantee.<br>
+              To request a refund, contact <a class="hover-link" href="mailto:refunds@sqliteviewer.app">refunds@sqliteviewer.app</a> with the email used at checkout — no explanation needed.</p>
           </div>
         </div>
       </section>
@@ -460,7 +468,7 @@
             <details name="faq" class="mb-16">
               <summary class="mb-16"><strong>How do I install the PRO version after the purchase?</strong></summary>
               <span class="text-sm">You already have the PRO version installed! All that's required is to activate it.
-              After the purchase is complete, you will receive an email with a license key. 
+              After the purchase is complete, you will receive an email from the merchant of record with instructions on how claim the license key.
               <strong>Activation happens within VS Code itself and only takes a couple of seconds</strong>:<br><br>
               Open the Command Palette and type "Activate License Key". 
               Alternatively, you can open the "Upgrade to PRO" dialog within a SQLite Viewer tab, scroll to the bottom of the page and click "Enter License Key". 
@@ -468,12 +476,16 @@
               Paste the license key and hit enter. A system dialog will confirm the activation within a few seconds.<span>
               <br><br>
             </details>
-            <details name="faq" class="mb-16">
+            <!-- <details name="faq" class="mb-16">
               <summary class="mb-16"><strong>Can I have a purchasing power parity discount?</strong></summary>
               <span class="text-sm">Certainly! Click "<a href="https://qwtel.gumroad.com/l/smzwr/z8acasd">Buy Now</a>" to open Gumroad and an appropriate discount will be applied automatically. 
                 Beware that in some locations the PPP adjustment may be less than the ongoing launch discount, in which case the launch discount will be applied instead.</span>
               <br><br>
-            </details>
+            </details> -->
+            <!-- <details name="faq" class="mb-16">
+              <summary class="mb-16"><strong>Can SQLite Viewer PRO replace my existing tools?</strong></summary>
+              <span class="text-sm">Like the base version, SQLite Viewer PRO is intended to handle the most frequent tasks in the most convenient way possible. It cannot replace </span>
+            </details> -->
           </div>
         </div>
       </section>
@@ -503,7 +515,7 @@
             <li><a href="/terms.html">Terms</a></li>
             <li><a href="/privacy.html">Privacy</a></li>
             <li><a href="/refunds.html">Refunds</a></li>
-            <li><a href="https://marketplace.visualstudio.com/items/qwtel.sqlite-viewer/changelog">Changelog ↗</a></li>
+            <li><a href="https://marketplace.visualstudio.com/items/qwtel.sqlite-viewer/changelog" target="_blank">Changelog ↗</a></li>
             <li><a href="mailto:mail@sqliteviewer.app">Contact ↗</a></li>
           </ul>
           <ul class="footer-social-links list-reset">
@@ -534,17 +546,14 @@
     </footer>
   </div>
   <script>
+    const theme = colorScheme || window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.querySelectorAll('[data-polar-checkout]').forEach(el => el.setAttribute('data-polar-checkout-theme', theme));
     if (colorScheme) {
       const prefersColorScheme = new RegExp(`\\(prefers-color-scheme:\\s*${colorScheme}\\)`);
       document.querySelectorAll('source[media*="prefers-color-scheme"]').forEach(source => {
         if (!source.media.match(prefersColorScheme)) source.remove();
         else source.removeAttribute('media');
       });
-    }
-    if (!searchParams.has('css-vars')) {
-      var script = document.createElement('script');
-      script.src = "https://gumroad.com/js/gumroad.js";
-      document.body.appendChild(script);
     }
   </script>
   <script type="module">
