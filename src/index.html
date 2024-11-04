@@ -212,25 +212,25 @@
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-                    <img src="dist/images/feature-icon-01.svg" alt="PRO exclusive 1">
+                    <img src="dist/images/native.webp" alt="Native SQLite Client" style="height:100px;transform:scale(0.85)">
                   </div>
                   <h4 class="feature-title mt-24">Native SQLite Client</h4>
-                  <p class="text-sm mb-0">The PRO version uses the canonical SQLite implementation, which provides the full set of failover guarantees. The readonly WebAssembly client remains as a fallback.</p>
+                  <p class="text-sm mb-0">The PRO version uses the <strong>canonical SQLite implementation</strong>, which provides the full set of failover guarantees. The old readonly client remains as a fallback.</p>
                 </div>
               </div>
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-                    <img src="dist/images/feature-icon-02.svg" alt="PRO exclusive 2">
+                    <img src="dist/images/lfs.webp" alt="Large File Support" style="height:100px">
                   </div>
                   <h4 class="feature-title mt-24">Large File Support</h4>
-                  <p class="text-sm mb-0">All restrictions on file size are lifted, even during remote sessions. Only data needed to display UI components will be transferred to your local machine. Powered by VS Code Server.</p>
+                  <p class="text-sm mb-0">All restrictions on file size are lifted, <strong>even during remote sessions</strong>. Only the data needed to render the UI is transferred to your local machine. Powered by VS Code Server.</p>
                 </div>
               </div>
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-                    <img src="dist/images/feature-icon-05.svg" alt="PRO exclusive 3">
+                    <img src="dist/images/adblock.webp" alt="Ad-Free Experience" style="height:100px;transform:scale(0.85)">
                   </div>
                   <h4 class="feature-title mt-24">Ad-Free Experience</h4>
                   <p class="text-sm mb-0">PRO customers enjoy an ad-free experience — <strong>perfect for screen sharing and recordings</strong>. Additionally, PRO customers receive an exclusive PRO icon (<img width="18" height="18" src="dist/images/favicon-pro.png" style="display:inline-block"/>) in the UI.</p>
@@ -251,7 +251,7 @@
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-                    <img src="dist/images/feature-icon-01.svg" alt="Feature 01">
+                    <img src="dist/images/perf.webp" alt="Performant UI" style="height:100px;transform:scale(0.85)">
                   </div>
                   <h4 class="feature-title mt-24">Performant UI</h4>
                   <p class="text-sm mb-0">SQLite Viewer is built with performance in mind. It uses the best tools the web stack has to offer and is <strong>routinely tested on older hardware</strong> to ensure performance remains top-notch.</p>
@@ -260,7 +260,7 @@
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-                    <img src="dist/images/feature-icon-02.svg" alt="Feature 02">
+                    <img src="dist/images/autotheme.webp" alt="Matching Theme" width="100" height="100" style="mask-image: radial-gradient(circle, black 36%, transparent 72%); mask-size: cover;" >
                   </div>
                   <h4 class="feature-title mt-24">Matching Theme</h4>
                   <p class="text-sm mb-0">Say goodbye to disjointed user interfaces. SQLite Viewer <strong>automatically adjusts to your VS Code theme</strong> and seamlessly blends into the existing VS Code experience.</p>
@@ -269,28 +269,32 @@
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-                    <img src="dist/images/feature-icon-03.svg" alt="Feature 03">
+                    <picture>
+                      <source media="(prefers-color-scheme: light)" srcset="dist/images/install-dark.webp">
+                      <source media="(prefers-color-scheme: dark)" srcset="dist/images/install-light.webp">
+                      <img src="dist/images/install-light.webp" alt="One-Click Setup" width="100" height="100" style="mask-image: radial-gradient(circle, black 36%, transparent 72%); mask-size: cover;">
+                    </picture>
                   </div>
                   <h4 class="feature-title mt-24">One-Click Setup</h4>
-                  <p class="text-sm mb-0">SQLite Viewer doesn't rely on binaries on your machine — or worse, inside a container, SSH host, or WSL instance. It ships its own, so that <strong>simply clicking 'Install' is enough</strong> to get started.</p>
+                  <p class="text-sm mb-0">SQLite Viewer doesn't rely on binaries on your machine. It ships its own, so that <strong>simply clicking 'Install' completes the setup</strong>. The entire extension packs only 2.5 MB.</p>
                 </div>
               </div>
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-                    <img src="dist/images/feature-icon-04.svg" alt="Feature 04">
+                    <img src="dist/images/openvsx.webp" alt="Works Anywhere" style="height:100px;transform:scale(0.72)">
                   </div>
                   <h4 class="feature-title mt-24">Works Anywhere</h4>
-                  <p class="text-sm mb-0">Whether you're using VS Codium, VS Code for Web, GitPod, Google IDX, or any other VS Code fork, <strong>SQLite Viewer adapts to its environment</strong> and provides as many features as possible.</p>
+                  <p class="text-sm mb-0">Whether you're using VS Codium, CodeSandbox, GitPod, Google IDX or other VS Code forks, <strong>SQLite Viewer adapts to its environment</strong> and provides as many features as possible.</p>
                 </div>
               </div>
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-                    <img src="dist/images/feature-icon-06.svg" alt="Feature 06">
+                    <img src="dist/images/owner.webp" alt="Owner Operated" style="height:100px;transform:scale(0.85)" alt="Feature 06">
                   </div>
                   <h4 class="feature-title mt-24">Owner Operated</h4>
-                  <p class="text-sm mb-0">SQLite Viewer is crafted by a single, dedicated developer and enjoys a <strong>coherent vision</strong> and <strong>attention to detail</strong> that is rarely found in purely commercial products.</p>
+                  <p class="text-sm mb-0">SQLite Viewer is crafted by a single, dedicated developer. It enjoys a <strong>coherent vision and attention to detail</strong> that is rarely found in purely commercial products.</p>
                 </div>
               </div>
             </div>
@@ -457,7 +461,8 @@
               </div> -->
             </div>
             <p class="mt-24 mb-0">You can evaluate SQLite Viewer PRO for up to two weeks by making use of the 14-day refund guarantee.<br>
-              To request a refund, contact <a class="hover-link" href="mailto:refunds@sqliteviewer.app">refunds@sqliteviewer.app</a> with the email used at checkout — no explanation needed.</p>
+              To request a refund, contact <a class="hover-link" href="mailto:refunds@sqliteviewer.app">refunds@sqliteviewer.app</a> with the email used at checkout — no explanation needed.<br>
+            </p>
           </div>
         </div>
       </section>

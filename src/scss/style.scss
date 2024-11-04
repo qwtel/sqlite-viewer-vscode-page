@@ -272,7 +272,7 @@ div:has(> .section-title)::after {
   left: 0;
   right: 0;
   margin: auto;
-  width: 8vw;
+  width: min(8vw, 100px);
   height: 2px;
   border-radius: 1px;
   background: functions.color(bg, 4);
