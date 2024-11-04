@@ -153,9 +153,8 @@ async function getProduct(env: Env, waitUntil: (promise: Promise<any>) => void) 
       product = productWrapper.product;
 
       env.KV && waitUntil(env.KV.put(LegacyProductId, JSON.stringify(product), { expirationTtl: 300 }));
-
-      return product;
     }
+    return product;
   } catch (err) { 
     console.error('Error fetching product', err);
     return null;
