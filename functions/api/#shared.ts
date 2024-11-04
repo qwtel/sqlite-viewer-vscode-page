@@ -8,6 +8,8 @@ export type Env = {
   JWT_PRIVATE_KEY_PKCS8: string,
   ORGANIZATION_ID: string,
   BE_BENEFIT_ID: string,
+  GUMROAD_ACCESS_TOKEN: string
+  KV?: KVNamespace
 }
 
 export type EnvEventContext = EventContext<Env, any, Record<string, unknown>>
