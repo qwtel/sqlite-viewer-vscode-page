@@ -65,7 +65,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       .on('body', {
         element(el) {
           if (!unsupportedCountry) {
-            el.append(html`<script defer src="https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.1/dist/embed.global.js" data-auto-init></script>`, { html: true });
+            // el.append(html`<script defer src="https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.1/dist/embed.global.js" data-auto-init></script>`, { html: true });
           } else {
             el.append(html`<script defer src="https://gumroad.com/js/gumroad.js"></script>`, { html: true });
           }
