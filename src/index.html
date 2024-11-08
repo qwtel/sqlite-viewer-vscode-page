@@ -41,8 +41,8 @@
             </h1>
           </div>
           <div class="flex min-w-0">
-            <script>searchParams.has('css-vars') && document.currentScript.insertAdjacentHTML('afterend', `<a class="button button-sm vscode-only ellipsis" href="${location.origin}" target="_blank" title="Open in Browser ↗">Open in Browser ↗</a>`);</script>
-            <a class="button button-primary button-sm web-only" href="#pricing" onclick="scrollToHash(event, window.innerHeight < 800 ? 'end' : undefined)">Buy Now</a>
+            <script>searchParams.has('css-vars') && document.currentScript.insertAdjacentHTML('afterend', `<a class="button button-sm vscode-only ellipsis mr-8" href="${location.origin}" target="_blank" title="Open in Browser ↗">Open in Browser ↗</a>`);</script>
+            <a class="button button-primary button-sm" href="#pricing" onclick="scrollToHash(event, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)">Buy Now</a>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
               </script> -->
               <p class="hero-paragraph">Get work done without leaving VS Code. Unlock powerful <strong>editing</strong> and <strong>export</strong> features. Works anywhere, including <strong>SSH and WSL</strong>.</p>
               <div class="hero-cta">
-                <a class="button button-primary" href="#pricing" onclick="scrollToHash(event, window.innerHeight < 800 ? 'end' : undefined)">Buy Now</a>
+                <a class="button button-primary" href="#pricing" onclick="scrollToHash(event, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)">Buy Now</a>
                 <a class="button" href="#card-5" onclick="scrollToHash(event)">Learn More ↓</a>
               </div>
             </div>
