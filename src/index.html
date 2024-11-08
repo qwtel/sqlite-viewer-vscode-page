@@ -11,9 +11,9 @@
   <link rel="stylesheet" href="dist/css/style.css">
   <script>(function () { window.counterscale = { q: [["set", "siteId", "vscode.sqliteviewer.app"], ["trackPageview"]] } })()</script>
   <script>
-    function scrollToHash(event) {
+    function scrollToHash(event, block) {
       event.preventDefault(); 
-      document.querySelector(event.currentTarget.hash).scrollIntoView({ block: 'start', behavior: 'smooth' });
+      document.querySelector(event.currentTarget.hash).scrollIntoView({ block: block || 'start', behavior: 'smooth' });
     }
   </script>
 </head>
@@ -42,7 +42,7 @@
           </div>
           <div class="flex min-w-0">
             <script>searchParams.has('css-vars') && document.currentScript.insertAdjacentHTML('afterend', `<a class="button button-sm vscode-only ellipsis" href="${location.origin}" target="_blank" title="Open in Browser ↗">Open in Browser ↗</a>`);</script>
-            <a class="button button-primary button-sm web-only" href="#pricing" onclick="scrollToHash(event)">Buy Now</a>
+            <a class="button button-primary button-sm web-only" href="#pricing" onclick="scrollToHash(event, window.innerHeight < 800 ? 'end' : undefined)">Buy Now</a>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
               </script> -->
               <p class="hero-paragraph">Get work done without leaving VS Code. Unlock powerful <strong>editing</strong> and <strong>export</strong> features. Works anywhere, including <strong>SSH and WSL</strong>.</p>
               <div class="hero-cta">
-                <a class="button button-primary" href="#pricing" onclick="scrollToHash(event)">Buy Now</a>
+                <a class="button button-primary" href="#pricing" onclick="scrollToHash(event, window.innerHeight < 800 ? 'end' : undefined)">Buy Now</a>
                 <a class="button" href="#card-5" onclick="scrollToHash(event)">Learn More ↓</a>
               </div>
             </div>
@@ -376,7 +376,7 @@
           <div class="pricing-inner section-inner">
             <div class="pricing-header text-center">
               <h2 class="section-title mt-0">No Subscription, No Problem</h2>
-              <p class="section-paragraph mb-0">SQLite Viewer PRO is a one-time purchase that grants you a perpetual license that works for as long as VS Code does.
+              <p class="section-paragraph mb-0">SQLite Viewer PRO is a <strong>one-time purchase</strong> that grants you a <strong>perpetual license</strong>. It works for as long as VS Code does.
               <!-- <br><br><small><strong>Now generally available. Enjoy the limited-time launch discount:</strong><br>(ends Nov 1st)</small> -->
             </p>
             </div>

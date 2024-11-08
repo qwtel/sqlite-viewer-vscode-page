@@ -4,6 +4,7 @@
 
 #pricing {
 	scroll-margin-top: calc(60px + 1rem);
+	scroll-margin-bottom: 1rem;
 }
 
 .pricing-header {
@@ -63,7 +64,7 @@
     flex-wrap: wrap;
     padding: 24px;
     height: 100%;
-    background: color-mix(in oklab, functions.color(bg, 4) 67%, transparent);
+    background: color-mix(in oklab, functions.color(bg, 4) 76%, transparent);
 		-webkit-backdrop-filter: blur(20px);
 		backdrop-filter: blur(20px);
 
@@ -103,21 +104,22 @@
 }
 
 .pricing-table-features {
-
-    li {
-        display: flex;
-        align-items: center;
-        padding: 14px 0;
-
-        &::before {
+	li {
+		display: flex;
+		align-items: center;
+		padding: 14px 0;
+		&::before {
 			content: '';
-		    width: 16px;
-		    height: 12px;
-		    margin-right: 16px;
-		    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTUuNiA2LjRMMS42IDQgMCA1LjYgNS42IDEyIDE2IDEuNiAxNC40IDB6IiBmaWxsPSIjMDJDQkIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=);
-		    background-repeat: no-repeat;
+			width: 16px;
+			height: 12px;
+			margin-right: 16px;
+			background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTUuNiA2LjRMMS42IDQgMCA1LjYgNS42IDEyIDE2IDEuNiAxNC40IDB6IiBmaWxsPSIjMDJDQkIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=);
+			background-repeat: no-repeat;
 		}
-    }
+		@media (max-height: 800px) {
+			padding: 10px 0;
+		}
+	}
 }
 
 .pricing-table-cta {
