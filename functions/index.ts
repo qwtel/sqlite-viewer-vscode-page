@@ -73,16 +73,16 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       })
   }
 
-  // if (colorScheme) {
-  //   const prefersColorScheme = new RegExp(`\\(prefers-color-scheme:\\s*${colorScheme}\\)`);
-  //   rewriter = rewriter.on('source[media*="prefers-color-scheme"]', {
-  //     element(source) {
-  //       const media = source.getAttribute('media')!;
-  //       if (!media.match(prefersColorScheme)) source.remove();
-  //       else source.removeAttribute('media');
-  //     }
-  //   });
-  // }
+  if (colorScheme) {
+    const prefersColorScheme = new RegExp(`\\(prefers-color-scheme:\\s*${colorScheme}\\)`);
+    rewriter = rewriter.on('source[media*="prefers-color-scheme"]', {
+      element(source) {
+        const media = source.getAttribute('media')!;
+        if (!media.match(prefersColorScheme)) source.remove();
+        else source.removeAttribute('media');
+      }
+    });
+  }
 
   if (unsupportedCountry) {
     let productP: Promise<any>|null = null;
