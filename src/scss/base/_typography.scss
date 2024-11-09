@@ -20,10 +20,10 @@ body {
 }
 
 body,
-button,
-input,
-select,
-textarea {
+.button,
+.input,
+.select,
+.textarea {
 	@include mixins.font-family(base);
 }
 
@@ -277,7 +277,7 @@ mark, ins {
 	text-decoration: none;
 }
 
-small {
+.small {
 	@include mixins.font-size(6, mobile, true, true, true);
 	@media print {
 		@include mixins.font-size(6, print, true, true, true);
@@ -289,11 +289,11 @@ strong {
 	@include mixins.font-weight(semibold);
 }
 
-button,
-input,
-select,
-textarea,
-label {
+.button,
+.input,
+.select,
+.textarea,
+.label {
 	@include mixins.font-size(5, mobile, true, true);
 	@media print {
 		@include mixins.font-size(5, print, true, true);

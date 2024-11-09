@@ -29,7 +29,7 @@ async function asyncReplace(str: string, regex: RegExp, asyncFn: (x: RegExpMatch
   return result;
 }
 
-async function inlineStuff() {
+async function inlineHtml(inFile: string, outFile: string) {
   let inPicture = false;
 
   const rewriter = new HTMLRewriter()
@@ -80,9 +80,10 @@ async function inlineStuff() {
       element(el) { el.removeAttribute('data-no-inline'); }
     })
 
-  const html = Bun.file(resolve("src/index.html"))
+  const html = Bun.file(resolve(inFile))
   const newHtml = rewriter.transform(new Response(html));
-  await Bun.write(resolve('index.html'), newHtml);
+  const exists = await fs.exists(resolve(outFile)).catch(() => null);
+  exists && await Bun.write(resolve(outFile), newHtml);
 }
 
 async function inlineImage(src: string) {
@@ -102,4 +103,8 @@ async function inlineImage(src: string) {
   return null;
 }
 
-await inlineStuff();
+await Promise.all([
+  inlineHtml("src/index.html", "index.html"),
+  inlineHtml("src/app.html", "../sqlite-viewer-core/web/index.html"),
+]);
+

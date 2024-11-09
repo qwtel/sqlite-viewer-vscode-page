@@ -41,7 +41,7 @@
             </h1>
           </div>
           <div class="flex min-w-0">
-            <script>searchParams.has('css-vars') && document.currentScript.insertAdjacentHTML('afterend', `<a class="button button-sm vscode-only ellipsis mr-8" href="${location.origin}" target="_blank" title="Open in Browser ↗">Open in Browser ↗</a>`);</script>
+            <script>searchParams.has('css-vars') && document.currentScript.insertAdjacentHTML('afterend', `<a class="button button-sm vscode-only ellipsis mr-8" href="${location.origin}" target="_blank" title="Open in Browser&nbsp;↗">Open in Browser&nbsp;↗</a>`);</script>
             <a class="button button-primary button-sm" href="#pricing" onclick="scrollToHash(event, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)">Buy Now</a>
           </div>
         </div>
@@ -49,10 +49,10 @@
     </header>
 
     <main>
-      <section class="hero">
+      <section class="hero hero-bg">
         <div class="container">
           <div class="hero-inner">
-            <div class="hero-copy">
+            <div class="hero-copy hero-left">
               <h1 id="hero-title" class="hero-title mt-0">The Best SQLite Editor is the One in Your Editor</h1>
               <!-- <script>
                 let heroTitle;
@@ -64,7 +64,7 @@
               <p class="hero-paragraph">Get work done without leaving VS Code. Unlock powerful <strong>editing</strong> and <strong>export</strong> features. Works anywhere, including <strong>SSH and WSL</strong>.</p>
               <div class="hero-cta">
                 <a class="button button-primary" href="#pricing" onclick="scrollToHash(event, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)">Buy Now</a>
-                <a class="button" href="#card-5" onclick="scrollToHash(event)">Learn More ↓</a>
+                <a class="button" href="#card-5" onclick="scrollToHash(event)">Learn More&nbsp;↓</a>
               </div>
             </div>
             <div class="hero-figure anime-element">
@@ -107,7 +107,7 @@
             </script> -->
             <!-- <p class="section-paragraph mb-0">Check ou the card stack below.</p> -->
           </div>
-          <div id="cards" style="--num-cards: 5;">
+          <div id="cards" class="cards" style="--num-cards: 5;">
             <div class="spy" id="card-1" style="--index: 1"></div>
             <div class="card" style="--index: 1">
               <div class="card__content">
@@ -233,7 +233,7 @@
                     <img src="dist/images/adblock.webp" alt="Ad-Free Experience" style="height:100px;transform:scale(0.85)">
                   </div>
                   <h4 class="feature-title mt-24">Ad-Free Experience</h4>
-                  <p class="text-sm mb-0">PRO customers enjoy an ad-free experience — <strong>perfect for screen sharing and recordings</strong>. Additionally, PRO customers receive an exclusive PRO icon (<img width="18" height="18" src="dist/images/favicon-pro.png" style="display:inline-block"/>) in the UI.</p>
+                  <p class="text-sm mb-0">PRO customers enjoy an ad-free experience — <strong>perfect for screen sharing and recordings</strong>. Additionally, PRO customers receive an exclusive PRO icon (<img class="img inline-block" width="18" height="18" src="dist/images/favicon-pro.png" />) in the UI.</p>
                 </div>
               </div>
             </div>
@@ -400,12 +400,12 @@
                         <span>Ad-free experience</span>
                       </li>
                       <li>
-                        <span>Exclusive PRO icon (<img width="18" height="18" src="dist/images/favicon-pro.png" style="display:inline-block"/>)</span>
+                        <span>Exclusive PRO icon (<img class="img inline-block" width="18" height="18" src="dist/images/favicon-pro.png" />)</span>
                       </li>
                     </ul>
                   </div>
                   <div class="pricing-table-cta mb-8">
-                    <a class="button button-primary button-shadow button-block" href="#purchase" data-polar-checkout target="_blank">Purchase ↗</a>
+                    <a class="button button-primary button-shadow button-block" href="#purchase" data-polar-checkout target="_blank">Purchase&nbsp;↗</a>
                   </div>
                 </div>
               </div>
@@ -428,7 +428,7 @@
                         <span>Ad-free experience</span>
                       </li>
                       <li>
-                        <span>Exclusive PRO icon (<img width="18" height="18" src="dist/images/favicon-pro.png" style="display:inline-block"/>)</span>
+                        <span>Exclusive PRO icon (<img class="img inline-block" width="18" height="18" src="dist/images/favicon-pro.png" />)</span>
                       </li>
                       <li>
                         <span>Offline license activation<sup class="o-50">1</sup></span>
@@ -442,7 +442,7 @@
                     </ul>
                   </div>
                   <div class="pricing-table-cta mb-8">
-                    <a class="button button-primary button-shadow button-block" href="#purchase-be" data-polar-checkout target="_blank">Purchase ↗</a>
+                    <a class="button button-primary button-shadow button-block" href="#purchase-be" data-polar-checkout target="_blank">Purchase&nbsp;↗</a>
                   </div>
                 </div>
               </div>
@@ -520,8 +520,8 @@
             <li><a href="/terms.html">Terms</a></li>
             <li><a href="/privacy.html">Privacy</a></li>
             <li><a href="/refunds.html">Refunds</a></li>
-            <li><a href="https://marketplace.visualstudio.com/items/qwtel.sqlite-viewer/changelog" target="_blank">Changelog ↗</a></li>
-            <li><a href="mailto:mail@sqliteviewer.app">Contact ↗</a></li>
+            <li><a href="https://marketplace.visualstudio.com/items/qwtel.sqlite-viewer/changelog" target="_blank">Changelog&nbsp;↗</a></li>
+            <li><a href="mailto:mail@sqliteviewer.app">Contact&nbsp;↗</a></li>
           </ul>
           <ul class="footer-social-links list-reset">
             <li>
@@ -566,7 +566,7 @@
             wrappedParent.openLink(a.href);
           });
         });
-        document.getElementById('footer-links').insertAdjacentHTML('afterbegin', '<li><a id="license-key" href="#">Enter License Key ↑</a></li>');
+        document.getElementById('footer-links').insertAdjacentHTML('afterbegin', '<li><a id="license-key" href="#">Enter License Key&nbsp;↑</a></li>');
         document.getElementById('license-key').addEventListener('click', event => (event.preventDefault(), wrappedParent.enterLicenseKey()));
       }
     })();
