@@ -82,7 +82,8 @@ async function inlineHtml(inFile: string, outFile: string) {
 
   const html = Bun.file(resolve(inFile))
   const newHtml = rewriter.transform(new Response(html));
-  const exists = await fs.exists(resolve(outFile)).catch(() => null);
+  const outFileDir = path.dirname(resolve(outFile));
+  const exists = await fs.exists(resolve(outFileDir)).catch(() => null);
   exists && await Bun.write(resolve(outFile), newHtml);
 }
 
