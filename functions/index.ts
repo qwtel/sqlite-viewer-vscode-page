@@ -19,7 +19,7 @@ const PROEditionHrefs = {
 };
 
 const BusinessEditionHrefs = {
-  live: 'https://buy.polar.sh/polar_cl_mHZpusLjhIoitewRz4bjc2NC1AMyixkH46RimwVqa-Q',
+  live: 'https://buy.polar.sh/polar_cl_1nt1xmGrmwZCRfex_41LcNHEnrGI3IRpry7ofTaJACQ',
   sandbox: 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_ydGFTF7KnKS0U5UP23Yi2GhRxUlr-OqSBNBvng40kYE/redirect',
   legacy: 'https://qwtel.gumroad.com/l/smzwr?option=lFAu5YJXnIoi7WmG79HCsQ%3D%3D',
 };
