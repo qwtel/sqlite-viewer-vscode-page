@@ -343,3 +343,4 @@ div:has(> .section-title)::after {
     padding: 0;
   }
 }
+body:not(.app) .scroller { overscroll-behavior: initial!important; }
