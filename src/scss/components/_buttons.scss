@@ -25,9 +25,13 @@
     text-align: center;
     white-space: nowrap;
 
-	&:hover {
+	&:not(:disabled):hover {
 		background: color-mix(in oklab, functions.color(bg, 3) 99%, var(--lighten) 2%);
 	}
+
+    &:disabled {
+        cursor: not-allowed;
+    }
 
     &:active {
         outline: 0;
@@ -48,7 +52,7 @@
 	background-color: color-mix(in oklab, functions.color(primary, 1), functions.color(primary, 2));
     background-image: linear-gradient(65deg, functions.color(primary, 1) 0%, functions.color(primary, 2) 100%);
 
-    &:hover {
+    &:not(:disabled):hover {
         background-color: color-mix(
             in srgb, 
             color-mix(in oklab, functions.color(primary, 1), functions.color(primary, 2)), 
