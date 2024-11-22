@@ -47,16 +47,16 @@ li > ol {
 	margin-bottom: 0;
 }
 
-dl {
+.dl {
 	margin-top: 0;
 	margin-bottom: 24px;
 }
 
-dt {
+.dt {
 	@include mixins.font-weight(semibold);
 }
 
-dd {
+.dd {
 	margin-left: 24px;
 	margin-bottom: 24px;
 }
