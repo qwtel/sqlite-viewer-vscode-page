@@ -20,9 +20,9 @@
   <link rel="stylesheet" href="dist/css/style.css">
   <script>(function () { window.counterscale = { q: [["set", "siteId", "vscode.sqliteviewer.app"], ["trackPageview"]] } })()</script>
   <script>
-    function scrollToHash(event, block) {
+    function scrollToHash(event, hash, block) {
       event.preventDefault(); 
-      document.querySelector(event.currentTarget.hash).scrollIntoView({ block: block || 'start', behavior: 'smooth' });
+      document.querySelector(hash || event.currentTarget.hash).scrollIntoView({ block: block || 'start', behavior: 'smooth' });
     }
   </script>
 </head>
@@ -51,7 +51,7 @@
           </div>
           <div class="flex min-w-0">
             <script>searchParams.has('css-vars') && document.currentScript.insertAdjacentHTML('afterend', `<a class="button button-sm vscode-only ellipsis mr-8" href="${location.origin}" target="_blank" title="Open in Browser&nbsp;↗">Open in Browser&nbsp;↗</a>`);</script>
-            <a class="button button-primary button-sm" href="#pricing" onclick="scrollToHash(event, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)">See Pricing&nbsp;<span style="text-shadow: 0px 0px 6px white;">🍁</span></a>
+            <a class="button button-primary button-sm" href="#pricing" onclick="scrollToHash(event, null, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)">See Pricing&nbsp;<span style="text-shadow: 0px 0px 6px white;">🍁</span></a>
           </div>
         </div>
       </div>
@@ -72,8 +72,8 @@
               </script> -->
               <p class="hero-paragraph">Get work done without leaving VS Code. Unlock powerful <strong>editing</strong> and <strong>export</strong> features. Works anywhere, including <strong>SSH and WSL</strong>.</p>
               <div class="hero-cta">
-                <a class="button button-primary" href="#pricing" onclick="scrollToHash(event, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)">See Pricing&nbsp;<span style="text-shadow: 0px 0px 6px white;">🍁</span></a>
-                <a class="button" href="#card-5" onclick="scrollToHash(event)">Learn More&nbsp;↓</a>
+                <a class="button button-primary" href="#pricing" onclick="scrollToHash(event, null, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)">See Pricing&nbsp;<span style="text-shadow: 0px 0px 6px white;">🍁</span></a>
+                <a class="button" href="#card-5" onclick="scrollToHash(event, window.innerHeight < 800 ? '#card-1' : '#card-5')">Learn More&nbsp;↓</a>
               </div>
               <span class="text-xs"><strong>🍁&nbsp;Autumn Sale 2024: -35% on all purchases&nbsp;🍂</strong></span>
             </div>
@@ -109,7 +109,7 @@
       <section class="section">
         <div class="container">
           <div class="text-center mb-64">
-            <h2 id="cards-title" class="cards-title section-title h3 color-unset">Upgrade to unlock exclusive PRO workflows:</h2>
+            <h2 id="cards-title" class="cards-title section-title h3 color-unset">Upgrade to Unlock Exclusive PRO Workflows</h2>
             <!-- <script>
               if (searchParams.has('css-vars')) {
                 document.getElementById('cards-title').textContent = heroTitle;
@@ -216,7 +216,7 @@
         <div class="container">
           <div class="features-inner section-inner">
             <div class="features-header text-center mt-128 mb-64">
-              <p class="section-title h3 mt-0 color-unset">Includes these exclusive PRO features…</p>
+              <p class="section-title h3 mt-0 color-unset">Includes these exclusive PRO features:</p>
             </div>
             <div class="features-wrap">
               <div class="feature text-center is-revealing">
@@ -386,7 +386,7 @@
           <div class="pricing-inner section-inner">
             <div class="pricing-header text-center">
               <h2 class="section-title mt-0">No Subscription, No Problem</h2>
-              <p class="section-paragraph mb-0">SQLite Viewer PRO is a <strong>one-time purchase</strong> that grants you a <strong>perpetual license</strong>. It works for as long as VS Code does.
+              <p class="section-paragraph mb-0">SQLite Viewer PRO is a <strong>One-Time Purchase</strong> that grants you a <strong>Perpetual License</strong>. It works for as long as VS Code does.
               <!-- <br><br><small><strong>Now generally available. Enjoy the limited-time launch discount:</strong><br>(ends Nov 1st)</small> -->
               <br><br><span><strong>🍁&nbsp;Autumn Sale 2024: -35% on all purchases&nbsp;🍂</strong></span>
             </p>
@@ -400,7 +400,7 @@
                         <del class="pricing-table-price-currency h2 o-50">$</del><del class="pricing-table-price-amount h1 o-50">69</del>
                         <span class="pricing-table-price-currency h2">$</span><span class="pricing-table-price-amount h1">44.85</span><small class="text-xxs">&nbsp;+&nbsp;VAT</small>
                       </div>
-                      <em class="text-xs">One-Time Purchase</em>
+                      <em class="text-xs"><strong>One-Time Purchase</strong></em>
                     </div>
                     <div class="pricing-table-features-title pt-16 pb-8">PRO Edition</div>
                     <ul class="pricing-table-features list-reset text-xs">
@@ -428,7 +428,7 @@
                         <del class="pricing-table-price-currency h2 o-50">$</del><del class="pricing-table-price-amount h1 o-50">149</del>
                         <span class="pricing-table-price-currency h2">$</span><span class="pricing-table-price-amount h1">96.85</span><small class="text-xxs">&nbsp;+&nbsp;VAT</small>
                       </div>
-                      <em class="text-xs">One-Time Purchase</em>
+                      <em class="text-xs"><strong>One-Time Purchase</strong></em>
                     </div>
                     <div class="pricing-table-features-title pt-16 pb-8">Business Edition</div>
                     <ul class="pricing-table-features list-reset text-xs">
