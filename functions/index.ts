@@ -4,7 +4,7 @@ import { Env } from "./api/#shared"
 
 const DevCountryOverride = '';
 
-const V2Countries = new Set([
+const PolarCountries = new Set([
   "US", "CA",
   "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE",
   "CH", "NO", "IS", "LI", "MC", "SM", "AD", "GB", "IL",
@@ -35,7 +35,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   const dev = context.env.DEV;
   const country = (dev && DevCountryOverride) || context.request.headers.get('cf-ipcountry') || 'US';
-  const unsupportedCountry = !V2Countries.has(country);
+  const unsupportedCountry = !PolarCountries.has(country);
 
   const searchParams = url.searchParams;
   const colorScheme = lightDark(searchParams.get('color-scheme'))

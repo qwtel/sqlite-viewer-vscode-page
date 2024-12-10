@@ -44,7 +44,8 @@
     "postcss-cli": "^11.0.0",
     "rimraf": "^6.0.1",
     "sass": "^1.80.2",
-    "uglify-es": "^3.3.10"
+    "uglify-es": "^3.3.10",
+    "wrangler": "^3.94.0"
   },
   "homepage": "https://bitbucket.org/pasqualevitiello/solid#readme",
   "dependencies": {
