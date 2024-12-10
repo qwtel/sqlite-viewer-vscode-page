@@ -13,13 +13,13 @@ const PolarCountries = new Set([
 ]);
 
 const PROEditionHrefs = {
-  live: 'https://buy.polar.sh/polar_cl_APgU21Sk252aLVwxe2Zzb3OtpQTRb23_-cd2z0nxY5c',
+  live: 'https://buy.polar.sh/polar_cl_ZJmWDQWsuSeoEfq1vOBq2qfOWDu1CG6RQwATUXzxmTU',
   sandbox: 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_oZZ0E-0oiRaoD6Uv4RaZbGS5USgOFzOSzAYjNcCv88A/redirect',
   legacy: 'https://qwtel.gumroad.com/l/smzwr',
 };
 
 const BusinessEditionHrefs = {
-  live: 'https://buy.polar.sh/polar_cl_kVbzAjb0WrWpaIO6YQkmoLQGK-jXTe5cSW3t9kyktIU',
+  live: 'https://buy.polar.sh/polar_cl_ovP1dFnpOLrK3q2_9WLtt1CIfF8GHMKKwgwxtmYOclo',
   sandbox: 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl__kwPKYyg4LrSAeWV1zpZvnpoY4Aqlh0toxs6W0tjTII/redirect',
   legacy: 'https://qwtel.gumroad.com/l/smzwr?option=lFAu5YJXnIoi7WmG79HCsQ%3D%3D',
 };
