@@ -538,3 +538,9 @@
 .b {
 	font-weight: bold;
 }
+
+@media print {
+	.hide-print {
+		display: none;
+	}
+}
