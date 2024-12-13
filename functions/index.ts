@@ -2,7 +2,7 @@
 
 import { Env } from "./api/#shared"
 
-const DevCountryOverride = 'VN';
+const DevCountryOverride = '';
 
 const DGToTier = Object.freeze({ 0: 0, 20: 1, 40: 2, 60: 3 });
 
