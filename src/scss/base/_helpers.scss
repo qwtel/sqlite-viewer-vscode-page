@@ -38,6 +38,10 @@
 	text-overflow: ellipsis;
 }
 
+.nowrap {
+	white-space: nowrap;
+}
+
 /* Text meant only for screen readers. */
 .screen-reader-text {
 	clip: rect(1px, 1px, 1px, 1px);

@@ -10,6 +10,8 @@ export type Env = {
   BE_BENEFIT_ID: string,
   GUMROAD_ACCESS_TOKEN: string
   KV?: KVNamespace
+  PRO_HREFS: string,
+  BE_HREFS: string,
 }
 
 export type EnvEventContext = EventContext<Env, any, Record<string, unknown>>

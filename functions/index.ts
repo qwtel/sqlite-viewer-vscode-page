@@ -2,29 +2,9 @@
 
 import { Env } from "./api/#shared"
 
-const DevCountryOverride = '';
+const DevCountryOverride = 'VN';
 
-const PolarCountries = new Set([
-  "US", "CA",
-  "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE",
-  "CH", "NO", "IS", "LI", "MC", "SM", "AD", "GB", "IL",
-  "JP", "KR", "SG", "HK", "TW", "AE", "QA",
-  "AU", "NZ",
-]);
-
-const PROEditionHrefs = {
-  live: 'https://buy.polar.sh/polar_cl_ZJmWDQWsuSeoEfq1vOBq2qfOWDu1CG6RQwATUXzxmTU',
-  sandbox: 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl_oZZ0E-0oiRaoD6Uv4RaZbGS5USgOFzOSzAYjNcCv88A/redirect',
-  legacy: 'https://qwtel.gumroad.com/l/smzwr',
-};
-
-const BusinessEditionHrefs = {
-  live: 'https://buy.polar.sh/polar_cl_ovP1dFnpOLrK3q2_9WLtt1CIfF8GHMKKwgwxtmYOclo',
-  sandbox: 'https://sandbox-api.polar.sh/v1/checkout-links/polar_cl__kwPKYyg4LrSAeWV1zpZvnpoY4Aqlh0toxs6W0tjTII/redirect',
-  legacy: 'https://qwtel.gumroad.com/l/smzwr?option=lFAu5YJXnIoi7WmG79HCsQ%3D%3D',
-};
-
-const LegacyProductId = 'smzwr';
+const DGToTier = Object.freeze({ 0: 0, 20: 1, 40: 2, 60: 3 });
 
 const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
 
@@ -34,12 +14,18 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const response = await context.env.ASSETS.fetch(context.request);
 
   const dev = context.env.DEV;
-  const country = (dev && DevCountryOverride) || context.request.headers.get('cf-ipcountry') || 'US';
-  const unsupportedCountry = !PolarCountries.has(country);
+  const PROHrefByTier = context.env.PRO_HREFS.trim().split('\n');
+  const BEHrefByTier = context.env.BE_HREFS.trim().split('\n');
+
+  const country = ((dev && DevCountryOverride) || context.request.headers.get('cf-ipcountry') || 'US') as keyof typeof PPP;
+  const discountGroup = PPP[country] ?? 0;
+  const tier = DGToTier[discountGroup];
 
   const searchParams = url.searchParams;
   const colorScheme = lightDark(searchParams.get('color-scheme'))
   const vscode = searchParams.has('css-vars')
+
+  console.log(PROHrefByTier, BEHrefByTier);
 
   let rewriter = new HTMLRewriter()
     .on('a[href^="#purchase"]', {
@@ -48,13 +34,12 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         let newHref = '';
         switch (href) {
           case '#purchase':
-            newHref = unsupportedCountry ? PROEditionHrefs.legacy : dev ? PROEditionHrefs.sandbox : PROEditionHrefs.live;
+            newHref = PROHrefByTier[tier];
             break;
           case '#purchase-be':
-            newHref = unsupportedCountry ? BusinessEditionHrefs.legacy : dev ? BusinessEditionHrefs.sandbox : BusinessEditionHrefs.live;
+            newHref = BEHrefByTier[tier];
             break;
         }
-        if (unsupportedCountry) el.setInnerContent('Buy Now');
         el.setAttribute('href', newHref);
       },
     });
@@ -62,15 +47,11 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   if (!vscode) {
     rewriter = rewriter
       .on('meta[name="color-scheme"]', { element(el) { el.setAttribute('content', colorScheme || 'dark light') } })
-      .on('body', {
-        element(el) {
-          if (!unsupportedCountry) {
-            // el.append(html`<script defer src="https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.1/dist/embed.global.js" data-auto-init></script>`, { html: true });
-          } else {
-            el.append(html`<script defer src="https://gumroad.com/js/gumroad.js"></script>`, { html: true });
-          }
-        }
-      })
+      // .on('body', {
+      //   element(el) {
+      //     el.append(html`<script defer src="https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.1/dist/embed.global.js" data-auto-init></script>`, { html: true });
+      //   }
+      // })
   }
 
   if (colorScheme) {
@@ -84,27 +65,23 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     });
   }
 
-  if (unsupportedCountry) {
-    let productP: Promise<any>|null = null;
+  if (discountGroup) {
     rewriter = rewriter
       .on(".pricing-table-price", {
-        async element(element) {
-          const variant = Number(element.getAttribute('data-i') ?? 0);
-          productP ??= getProduct(context.env, context.waitUntil);
-          const prices = await getPrices(productP, country, variant);
-          if (prices == null) return;
-          let { defaultPrice, price } = prices;
-          if (price == defaultPrice) {
-            element.setInnerContent(html`
-              <span class="pricing-table-price-currency h2">$</span><span data-i="0" class="pricing-table-price-amount h1">${formatPrice(price)}</span><span class=""> + VAT</span>
-            `, { html: true });
-          } else {
-            element.setInnerContent(html`
-              <del class="pricing-table-price-currency h2 o-50">$</del><del data-i="0" class="pricing-table-price-amount h1 o-50">${formatPrice(defaultPrice)}</del>
-              <span class="pricing-table-price-currency h2">$</span><span data-i="0" class="pricing-table-price-amount h1">${formatPrice(price)}</span><span class=""> + VAT</span>
-            `, { html: true });
-          }
-        }
+        element(element) {
+          const price = Number(element.getAttribute('data-price') ?? 0);
+          if (!price || Number.isNaN(price)) return;
+          element.setInnerContent(html`
+            <del class="pricing-table-price-currency h2 o-50">$</del><del class="pricing-table-price-amount h1 o-50">${price}</del>
+            <span class="pricing-table-price-currency h2">$</span><span class="pricing-table-price-amount h1">${formatPrice(price * (1 - discountGroup/100))}</span><small class="text-xxs">&nbsp;+&nbsp;VAT</small>
+          `, { html: true });
+        },
+      })
+      .on(".price-hint", { 
+        element(el) { 
+          const [countryName, flag] = CountryInfo[country]; 
+          el.replace(html`<span class="price-hint text-xxs nowrap">${discountGroup}% off for all visitors from ${countryName} ${flag}</span>`, { html: true })
+        } 
       })
   }
 
@@ -121,80 +98,9 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 }
 
 const formatPrice = (price: number) => {
-  return price % 100 === 0
-    ? (price / 100).toString()
-    : (price / 100).toFixed(2);
-}
-
-async function getProduct(env: Env, waitUntil: (promise: Promise<any>) => void) {
-  let product: any;
-  try {
-    const cachedProduct = await env.KV?.get(LegacyProductId, 'json') as any;
-    if (cachedProduct) {
-      console.debug('Using cached product');
-      product = cachedProduct;
-    } else {
-      console.debug('Not using cached product');
-      const productUrl = new URL(`https://api.gumroad.com/v2/products/${LegacyProductId}`);
-      productUrl.searchParams.append('access_token', env.GUMROAD_ACCESS_TOKEN);
-
-      const productResponse = await fetch(productUrl, { method: 'GET', headers: [[ 'user-agent', navigator.userAgent ]] });
-      if (!productResponse.ok) {
-        console.error('Product response not ok', productResponse.status);
-        return null;
-      }
-
-      const productWrapper = await productResponse.clone().json() as any;
-      if (productWrapper?.success !== true) {
-        console.error('Product response not ok', productWrapper);
-        return null
-      }
-
-      product = productWrapper.product;
-
-      env.KV && waitUntil(env.KV.put(LegacyProductId, JSON.stringify(product), { expirationTtl: 300 }));
-    }
-    return product;
-  } catch (err) { 
-    console.error('Error fetching product', err);
-    return null;
-  }
-}
-
-async function getPrices(productP: Promise<any>, countryH: string, variant = 0) {
-  let product: any;
-  try {
-    product = await productP;
-  } catch (err) { 
-    console.error('Error fetching product', err);
-    return null;
-  }
-
-  console.debug('Has Product:', !!product);
-
-  const country = DevCountryOverride || countryH;
-  if (!country) {
-    console.error('No country code');
-    return null;
-  }
-
-  console.debug('Country:', country);
-
-  const productVar = product.variants[0]?.options[variant]
-  const ppppp = productVar?.purchasing_power_parity_prices as Record<string, number>;
-  if (!ppppp) {
-    console.error('No prices', product);
-    return null;
-  }
-
-  const defaultPrice = productVar?.purchasing_power_parity_prices['US'];
-  const price = ppppp[country] ?? defaultPrice;
-
-  if (!(country in ppppp)) {
-    console.warn('No price for country', country, ppppp);
-  }
-
-  return { defaultPrice, price };
+  if (Math.floor(price) === price) return price.toString();
+  const [a, b] = price.toFixed(2).split('.');
+  return html`<span>${a}</span><span class="h2">.${b}</span>`;
 }
 
 function html(strings: TemplateStringsArray, ...values: any[]) {
@@ -202,3 +108,410 @@ function html(strings: TemplateStringsArray, ...values: any[]) {
   for (const string of strings) str += string + (values[i++] || '');
   return str.trim();
 }
+
+const PPP = Object.freeze({
+  AF: 60,
+  AL: 40,
+  DZ: 60,
+  AD: 0,
+  AO: 60,
+  AG: 20,
+  AR: 40,
+  AM: 60,
+  AU: 0,
+  AT: 0,
+  AZ: 60,
+  BS: 0,
+  BH: 20,
+  BD: 60,
+  BB: 0,
+  BY: 60,
+  BE: 0,
+  BZ: 40,
+  BJ: 60,
+  BT: 60,
+  BO: 60,
+  BA: 40,
+  BW: 40,
+  BR: 40,
+  BN: 20,
+  BG: 40,
+  BF: 60,
+  BI: 60,
+  CV: 40,
+  KH: 60,
+  CM: 60,
+  CA: 0,
+  CF: 60,
+  TD: 60,
+  CL: 20,
+  CN: 40,
+  CO: 40,
+  KM: 40,
+  CD: 40,
+  CG: 40,
+  CR: 20,
+  HR: 20,
+  CU: 20,
+  CY: 0,
+  CZ: 0,
+  DK: 0,
+  DJ: 40,
+  DM: 20,
+  DO: 40,
+  EC: 20,
+  EG: 60,
+  SV: 20,
+  GQ: 40,
+  ER: 60,
+  EE: 0,
+  SZ: 40,
+  ET: 60,
+  FJ: 40,
+  FI: 0,
+  FR: 0,
+  GA: 40,
+  GM: 60,
+  GE: 60,
+  DE: 0,
+  GH: 60,
+  GR: 0,
+  GD: 20,
+  GT: 20,
+  GN: 60,
+  GW: 60,
+  GY: 40,
+  HT: 60,
+  HN: 40,
+  HU: 0,
+  IS: 0,
+  IN: 60,
+  ID: 60,
+  IR: 60,
+  IQ: 40,
+  IE: 0,
+  IL: 0,
+  IT: 0,
+  JM: 40,
+  JP: 0,
+  JO: 40,
+  KZ: 60,
+  KE: 60,
+  KI: 40,
+  KP: 60,
+  KR: 0,
+  XK: 40,
+  KW: 20,
+  KG: 60,
+  LA: 60,
+  LV: 0,
+  LB: 60,
+  LS: 40,
+  LR: 60,
+  LY: 40,
+  LI: 0,
+  LT: 0,
+  LU: 0,
+  MG: 60,
+  MW: 60,
+  MY: 40,
+  MV: 40,
+  ML: 60,
+  MT: 0,
+  MH: 40,
+  MR: 60,
+  MU: 40,
+  MX: 20,
+  FM: 40,
+  MD: 60,
+  MC: 0,
+  MN: 60,
+  ME: 40,
+  MA: 60,
+  MZ: 60,
+  MM: 60,
+  NA: 40,
+  NR: 40,
+  NP: 60,
+  NL: 0,
+  NZ: 0,
+  NI: 40,
+  NE: 60,
+  NG: 60,
+  MK: 40,
+  NO: 0,
+  OM: 20,
+  PK: 60,
+  PW: 40,
+  PS: 60,
+  PA: 20,
+  PG: 60,
+  PY: 40,
+  PE: 40,
+  PH: 60,
+  PL: 0,
+  PT: 0,
+  QA: 20,
+  RO: 20,
+  RU: 40,
+  RW: 60,
+  KN: 20,
+  LC: 20,
+  VC: 20,
+  WS: 40,
+  SM: 0,
+  ST: 60,
+  SA: 20,
+  SN: 60,
+  RS: 40,
+  SC: 20,
+  SL: 60,
+  SG: 0,
+  SK: 0,
+  SI: 0,
+  SB: 40,
+  SO: 60,
+  ZA: 40,
+  SS: 60,
+  ES: 0,
+  LK: 60,
+  SD: 60,
+  SR: 40,
+  SE: 0,
+  CH: 0,
+  SY: 60,
+  TW: 20,
+  TJ: 60,
+  TZ: 60,
+  TH: 40,
+  TL: 60,
+  TG: 60,
+  TO: 40,
+  TT: 20,
+  TN: 40,
+  TR: 40,
+  TM: 60,
+  TV: 40,
+  UG: 60,
+  UA: 40,
+  AE: 20,
+  GB: 0,
+  US: 0,
+  UY: 40,
+  UZ: 60,
+  VU: 40,
+  VA: 0,
+  VE: 40,
+  VN: 60,
+  XX: 0,
+  YE: 60,
+  ZM: 60,
+  ZW: 60,
+});
+
+const CountryInfo = Object.freeze({
+  AF: ["Afghanistan", "🇦🇫"],
+  AL: ["Albania", "🇦🇱"],
+  DZ: ["Algeria", "🇩🇿"],
+  AS: ["American Samoa", "🇦🇸"],
+  AD: ["Andorra", "🇦🇩"],
+  AO: ["Angola", "🇦🇴"],
+  AI: ["Anguilla", "🇦🇮"],
+  AQ: ["Antarctica", "🇦🇶"],
+  AG: ["Antigua and Barbuda", "🇦🇬"],
+  AR: ["Argentina", "🇦🇷"],
+  AM: ["Armenia", "🇦🇲"],
+  AW: ["Aruba", "🇦🇼"],
+  AU: ["Australia", "🇦🇺"],
+  AT: ["Austria", "🇦🇹"],
+  AZ: ["Azerbaijan", "🇦🇿"],
+  BS: ["Bahamas", "🇧🇸"],
+  BH: ["Bahrain", "🇧🇭"],
+  BD: ["Bangladesh", "🇧🇩"],
+  BB: ["Barbados", "🇧🇧"],
+  BY: ["Belarus", "🇧🇾"],
+  BE: ["Belgium", "🇧🇪"],
+  BZ: ["Belize", "🇧🇿"],
+  BJ: ["Benin", "🇧🇯"],
+  BM: ["Bermuda", "🇧🇲"],
+  BT: ["Bhutan", "🇧🇹"],
+  BO: ["Bolivia", "🇧🇴"],
+  BA: ["Bosnia and Herzegovina", "🇧🇦"],
+  BW: ["Botswana", "🇧🇼"],
+  BR: ["Brazil", "🇧🇷"],
+  BN: ["Brunei", "🇧🇳"],
+  BG: ["Bulgaria", "🇧🇬"],
+  BF: ["Burkina Faso", "🇧🇫"],
+  BI: ["Burundi", "🇧🇮"],
+  CV: ["Cape Verde", "🇨🇻"],
+  KH: ["Cambodia", "🇰🇭"],
+  CM: ["Cameroon", "🇨🇲"],
+  CA: ["Canada", "🇨🇦"],
+  KY: ["Cayman Islands", "🇰🇾"],
+  CF: ["Central African Republic", "🇨🇫"],
+  TD: ["Chad", "🇹🇩"],
+  CL: ["Chile", "🇨🇱"],
+  CN: ["China", "🇨🇳"],
+  CO: ["Colombia", "🇨🇴"],
+  KM: ["Comoros", "🇰🇲"],
+  CG: ["Congo", "🇨🇬"],
+  CD: ["Congo (DRC)", "🇨🇩"],
+  CR: ["Costa Rica", "🇨🇷"],
+  CI: ["Côte d'Ivoire", "🇨🇮"],
+  HR: ["Croatia", "🇭🇷"],
+  CU: ["Cuba", "🇨🇺"],
+  CY: ["Cyprus", "🇨🇾"],
+  CZ: ["Czech Republic", "🇨🇿"],
+  DK: ["Denmark", "🇩🇰"],
+  DJ: ["Djibouti", "🇩🇯"],
+  DM: ["Dominica", "🇩🇲"],
+  DO: ["Dominican Republic", "🇩🇴"],
+  EC: ["Ecuador", "🇪🇨"],
+  EG: ["Egypt", "🇪🇬"],
+  SV: ["El Salvador", "🇸🇻"],
+  GQ: ["Equatorial Guinea", "🇬🇶"],
+  ER: ["Eritrea", "🇪🇷"],
+  EE: ["Estonia", "🇪🇪"],
+  SZ: ["Eswatini", "🇸🇿"],
+  ET: ["Ethiopia", "🇪🇹"],
+  FJ: ["Fiji", "🇫🇯"],
+  FI: ["Finland", "🇫🇮"],
+  FR: ["France", "🇫🇷"],
+  GA: ["Gabon", "🇬🇦"],
+  GM: ["Gambia", "🇬🇲"],
+  GE: ["Georgia", "🇬🇪"],
+  DE: ["Germany", "🇩🇪"],
+  GH: ["Ghana", "🇬🇭"],
+  GR: ["Greece", "🇬🇷"],
+  GD: ["Grenada", "🇬🇩"],
+  GT: ["Guatemala", "🇬🇹"],
+  GN: ["Guinea", "🇬🇳"],
+  GW: ["Guinea-Bissau", "🇬🇼"],
+  GY: ["Guyana", "🇬🇾"],
+  HT: ["Haiti", "🇭🇹"],
+  HN: ["Honduras", "🇭🇳"],
+  HU: ["Hungary", "🇭🇺"],
+  IS: ["Iceland", "🇮🇸"],
+  IN: ["India", "🇮🇳"],
+  ID: ["Indonesia", "🇮🇩"],
+  IR: ["Iran", "🇮🇷"],
+  IQ: ["Iraq", "🇮🇶"],
+  IE: ["Ireland", "🇮🇪"],
+  IL: ["Israel", "🇮🇱"],
+  IT: ["Italy", "🇮🇹"],
+  JM: ["Jamaica", "🇯🇲"],
+  JP: ["Japan", "🇯🇵"],
+  JO: ["Jordan", "🇯🇴"],
+  KZ: ["Kazakhstan", "🇰🇿"],
+  KE: ["Kenya", "🇰🇪"],
+  KI: ["Kiribati", "🇰🇮"],
+  KP: ["North Korea", "🇰🇵"],
+  KR: ["South Korea", "🇰🇷"],
+  XK: ["Kosovo", "🇽🇰"],
+  KW: ["Kuwait", "🇰🇼"],
+  KG: ["Kyrgyzstan", "🇰🇬"],
+  LA: ["Laos", "🇱🇦"],
+  LV: ["Latvia", "🇱🇻"],
+  LB: ["Lebanon", "🇱🇧"],
+  LS: ["Lesotho", "🇱🇸"],
+  LR: ["Liberia", "🇱🇷"],
+  LY: ["Libya", "🇱🇾"],
+  LI: ["Liechtenstein", "🇱🇮"],
+  LT: ["Lithuania", "🇱🇹"],
+  LU: ["Luxembourg", "🇱🇺"],
+  MG: ["Madagascar", "🇲🇬"],
+  MW: ["Malawi", "🇲🇼"],
+  MY: ["Malaysia", "🇲🇾"],
+  MV: ["Maldives", "🇲🇻"],
+  ML: ["Mali", "🇲🇱"],
+  MT: ["Malta", "🇲🇹"],
+  MH: ["Marshall Islands", "🇲🇭"],
+  MR: ["Mauritania", "🇲🇷"],
+  MU: ["Mauritius", "🇲🇺"],
+  MX: ["Mexico", "🇲🇽"],
+  FM: ["Micronesia", "🇫🇲"],
+  MD: ["Moldova", "🇲🇩"],
+  MC: ["Monaco", "🇲🇨"],
+  MN: ["Mongolia", "🇲🇳"],
+  ME: ["Montenegro", "🇲🇪"],
+  MA: ["Morocco", "🇲🇦"],
+  MZ: ["Mozambique", "🇲🇿"],
+  MM: ["Myanmar", "🇲🇲"],
+  NA: ["Namibia", "🇳🇦"],
+  NR: ["Nauru", "🇳🇷"],
+  NP: ["Nepal", "🇳🇵"],
+  NL: ["Netherlands", "🇳🇱"],
+  NZ: ["New Zealand", "🇳🇿"],
+  NI: ["Nicaragua", "🇳🇮"],
+  NE: ["Niger", "🇳🇪"],
+  NG: ["Nigeria", "🇳🇬"],
+  MK: ["North Macedonia", "🇲🇰"],
+  NO: ["Norway", "🇳🇴"],
+  OM: ["Oman", "🇴🇲"],
+  PK: ["Pakistan", "🇵🇰"],
+  PW: ["Palau", "🇵🇼"],
+  PS: ["Palestine", "🇵🇸"],
+  PA: ["Panama", "🇵🇦"],
+  PG: ["Papua New Guinea", "🇵🇬"],
+  PY: ["Paraguay", "🇵🇾"],
+  PE: ["Peru", "🇵🇪"],
+  PH: ["Philippines", "🇵🇭"],
+  PL: ["Poland", "🇵🇱"],
+  PT: ["Portugal", "🇵🇹"],
+  QA: ["Qatar", "🇶🇦"],
+  RO: ["Romania", "🇷🇴"],
+  RU: ["Russia", "🇷🇺"],
+  RW: ["Rwanda", "🇷🇼"],
+  KN: ["Saint Kitts and Nevis", "🇰🇳"],
+  LC: ["Saint Lucia", "🇱🇨"],
+  VC: ["Saint Vincent and the Grenadines", "🇻🇨"],
+  WS: ["Samoa", "🇼🇸"],
+  SM: ["San Marino", "🇸🇲"],
+  ST: ["Sao Tome and Principe", "🇸🇹"],
+  SA: ["Saudi Arabia", "🇸🇦"],
+  SN: ["Senegal", "🇸🇳"],
+  RS: ["Serbia", "🇷🇸"],
+  SC: ["Seychelles", "🇸🇨"],
+  SL: ["Sierra Leone", "🇸🇱"],
+  SG: ["Singapore", "🇸🇬"],
+  SK: ["Slovakia", "🇸🇰"],
+  SI: ["Slovenia", "🇸🇮"],
+  SB: ["Solomon Islands", "🇸🇧"],
+  SO: ["Somalia", "🇸🇴"],
+  ZA: ["South Africa", "🇿🇦"],
+  SS: ["South Sudan", "🇸🇸"],
+  ES: ["Spain", "🇪🇸"],
+  LK: ["Sri Lanka", "🇱🇰"],
+  SD: ["Sudan", "🇸🇩"],
+  SR: ["Suriname", "🇸🇷"],
+  SE: ["Sweden", "🇸🇪"],
+  CH: ["Switzerland", "🇨🇭"],
+  SY: ["Syria", "🇸🇾"],
+  TW: ["Taiwan", "🇹🇼"],
+  TJ: ["Tajikistan", "🇹🇯"],
+  TZ: ["Tanzania", "🇹🇿"],
+  TH: ["Thailand", "🇹🇭"],
+  TL: ["Timor-Leste", "🇹🇱"],
+  TG: ["Togo", "🇹🇬"],
+  TO: ["Tonga", "🇹🇴"],
+  TT: ["Trinidad and Tobago", "🇹🇹"],
+  TN: ["Tunisia", "🇹🇳"],
+  TR: ["Turkey", "🇹🇷"],
+  TM: ["Turkmenistan", "🇹🇲"],
+  TV: ["Tuvalu", "🇹🇻"],
+  UG: ["Uganda", "🇺🇬"],
+  UA: ["Ukraine", "🇺🇦"],
+  AE: ["United Arab Emirates", "🇦🇪"],
+  GB: ["United Kingdom", "🇬🇧"],
+  US: ["United States", "🇺🇸"],
+  UY: ["Uruguay", "🇺🇾"],
+  UZ: ["Uzbekistan", "🇺🇿"],
+  VU: ["Vanuatu", "🇻🇺"],
+  VA: ["Vatican City", "🇻🇦"],
+  VE: ["Venezuela", "🇻🇪"],
+  VN: ["Vietnam", "🇻🇳"],
+  XX: ["Unknown", "🏴‍☠️"],
+  YE: ["Yemen", "🇾🇪"],
+  ZM: ["Zambia", "🇿🇲"],
+  ZW: ["Zimbabwe", "🇿🇼"]
+});
