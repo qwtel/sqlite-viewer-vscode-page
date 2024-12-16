@@ -251,6 +251,9 @@ a.card__header {
   border-top-left-radius: .25rem;
   border-top-right-radius: .25rem;
   z-index: 1;
+  @media (max-height: 800px) {
+    display: none;
+  }
 }
 
 .card:has(.card__header:hover) {
