@@ -25,8 +25,6 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const colorScheme = lightDark(searchParams.get('color-scheme'))
   const vscode = searchParams.has('css-vars')
 
-  console.log(PROHrefByTier, BEHrefByTier);
-
   let rewriter = new HTMLRewriter()
     .on('a[href^="#purchase"]', {
       element(el) {
