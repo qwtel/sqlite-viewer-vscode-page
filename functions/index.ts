@@ -13,11 +13,11 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   const response = await context.env.ASSETS.fetch(context.request);
 
-  const dev = context.env.DEV;
+  const DEV = context.env.DEV;
   const PROHrefByTier = context.env.PRO_HREFS.trim().split('\n');
   const BEHrefByTier = context.env.BE_HREFS.trim().split('\n');
 
-  const country = ((dev && DevCountryOverride) || context.request.headers.get('cf-ipcountry') || 'US') as keyof typeof PPP;
+  const country = ((DEV && DevCountryOverride) || context.request.headers.get('cf-ipcountry') || 'US') as keyof typeof PPP;
   const discountGroup = PPP[country] ?? 0;
   const tier = DGToTier[discountGroup];
 
@@ -84,7 +84,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   }
 
   let transformedResponse;
-  if (dev && response.status === 200) {
+  if (DEV && response.status === 200) {
     const buf = await rewriter.transform(response).arrayBuffer()
     transformedResponse = new Response(buf, { headers: response.headers, status: response.status });
   } else {
