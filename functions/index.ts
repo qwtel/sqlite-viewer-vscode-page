@@ -13,7 +13,7 @@ const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const url = new URL(context.request.url);
 
-  if (!url.pathname.match(/\/(en|de|fr)\//)) {
+  if (!url.pathname.match(/\/(en|de|fr)/)) {
     const langHeader = context.request.headers.get('accept-language') || '';
     const lang = languageParser.pick(['en', 'de', 'fr'], langHeader);
     url.pathname = `/${lang}${url.pathname}`;
