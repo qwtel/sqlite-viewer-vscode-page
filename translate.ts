@@ -1,7 +1,7 @@
 /// <reference types="bun-types" />
 
 // @ts-ignore
-import translations from "./translations.jsonc" with { type: "json" };
+import translations from './translations.jsonc' with { type: 'json' };
 
 import * as fs from 'fs/promises';
 import { marked } from 'marked';
@@ -19,22 +19,22 @@ const ikon = html`<img class="img inline-block" width="18" height="18" src="/dis
 
 async function translateHtml(inFile: string, lang: string, outFile: string) {
   const rewriter = new HTMLRewriter()
-    .on("html[lang]", {
+    .on('html[lang]', {
       element(el) {
-        el.setAttribute("lang", lang);
+        el.setAttribute('lang', lang);
       }
     })
-    .on("[data-i18n-key]", {
+    .on('[data-i18n-key]', {
       element(el) {
-        const key = el.getAttribute("data-i18n-key")!;
+        const key = el.getAttribute('data-i18n-key')!;
         const value = translations[lang][dashToCamelCase(key)];
         // console.log(key, dashToCamelCase(key))
         if (value) {
           let html = marked.parseInline('' + value, { gfm: true, breaks: true }) as string;
-          html = html.replaceAll("()", `(${ikon})`);
+          html = html.replaceAll('()', `(${ikon})`);
           el.setInnerContent(html, { html: true });
         }
-        el.removeAttribute("data-i18n-key");
+        el.removeAttribute('data-i18n-key');
       }
     })
 
@@ -45,10 +45,11 @@ async function translateHtml(inFile: string, lang: string, outFile: string) {
   exists && await Bun.write(resolve(outFile), newHtmlStr);
 }
 
-await Promise.all([
-  translateHtml("./index.html", "de", "./de/index.html"),
-  translateHtml("./index.html", "en", './en/index.html'),
-]);
+await Promise.all(
+  Object.keys(translations).map(lang => 
+    translateHtml('./index.html', lang, `./${lang}/index.html`)
+  ),
+);
 
 // function extractNumbers(str: string) {
 //   return (str.match(/\d*\.?\d+/g) || []).map(Number);

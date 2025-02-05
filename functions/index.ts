@@ -1,5 +1,7 @@
 /// <reference types="@cloudflare/workers-types/2023-07-01" />
 
+import languageParser from 'accept-language-parser';
+
 import { Env } from "./api/#shared"
 
 const DevCountryOverride = '';
@@ -11,7 +13,13 @@ const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const url = new URL(context.request.url);
 
-  const response = await context.env.ASSETS.fetch(context.request);
+  if (!url.pathname.match(/\/(en|de|fr)\//)) {
+    const langHeader = context.request.headers.get('accept-language') || '';
+    const lang = languageParser.pick(['en', 'de', 'fr'], langHeader);
+    url.pathname = `/${lang}${url.pathname}`;
+  }
+
+  const response = await context.env.ASSETS.fetch(url);
 
   const DEV = context.env.DEV;
   const PROHrefByTier = context.env.PRO_HREFS.trim().split('\n');
@@ -90,8 +98,11 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   } else {
     transformedResponse = rewriter.transform(response);
   }
-  if (response.status === 200)
+
+  if (response.status === 200) {
+    transformedResponse.headers.append('vary', 'accept-language');
     transformedResponse.headers.append('vary', 'cf-ipcountry');
+  }
   return transformedResponse;
 }
 

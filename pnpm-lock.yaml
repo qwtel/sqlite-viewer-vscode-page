@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@types/accept-language-parser':
+        specifier: ^1.5.6
+        version: 1.5.6
       '@worker-tools/html':
         specifier: 2.0.0-pre.13
         version: 2.0.0-pre.13
@@ -17,6 +20,9 @@ importers:
       '@worker-tools/response-creators':
         specifier: 1.2.0-pre.6
         version: 1.2.0-pre.6
+      accept-language-parser:
+        specifier: ^1.5.0
+        version: 1.5.0
       jose:
         specifier: ^5.9.6
         version: 5.9.6
@@ -468,6 +474,9 @@ packages:
   '@tusbar/cache-control@0.6.1':
     resolution: {integrity: sha512-lVONHkx/OviQ8yIJu6sGmdBJVWMKQm7EDtpvM3s2VihmaqHQocFixMd/9rfAqK5IxFL7XQMVzkpRrKjQ/JBS+Q==}
 
+  '@types/accept-language-parser@1.5.6':
+    resolution: {integrity: sha512-lhSQUsAhAtbKjYgaw3f0c4EQKNQHFXhX87+OXUIqDHMkycvHGaqGskSRtnzysIUiqHPqNJ4BqI5SE++drsxx6A==}
+
   '@types/keyv@3.1.4':
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
 
@@ -503,6 +512,9 @@ packages:
 
   '@worker-tools/stream-response@0.1.0-pre.4':
     resolution: {integrity: sha512-PHMaXNbaavvtPWuPTjslNMmbFX0Wv4iKsa9ZiL+KkcTuXwSh5okMShYxt0st0bx4C137kIK/bBQqw/JBEKlP9Q==}
+
+  accept-language-parser@1.5.0:
+    resolution: {integrity: sha512-QhyTbMLYo0BBGg1aWbeMG4ekWtds/31BrEU+DONOg/7ax23vxpL03Pb7/zBmha2v7vdD3AyzZVWBVGEZxKOXWw==}
 
   acorn-walk@8.3.4:
     resolution: {integrity: sha512-ueEepnujpqee2o5aIYnvHU6C0A42MNdsIDeqy5BydrkuC5R1ZuUFnm27EeFJGoEHJQgn3uleRvmTXaJgfXbt4g==}
@@ -2857,6 +2869,8 @@ snapshots:
 
   '@tusbar/cache-control@0.6.1': {}
 
+  '@types/accept-language-parser@1.5.6': {}
+
   '@types/keyv@3.1.4':
     dependencies:
       '@types/node': 22.7.4
@@ -2923,6 +2937,8 @@ snapshots:
     dependencies:
       typed-array-utils: 0.3.0-pre.0
       whatwg-stream-to-async-iter: 0.6.2
+
+  accept-language-parser@1.5.0: {}
 
   acorn-walk@8.3.4:
     dependencies:
