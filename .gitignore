@@ -171,3 +171,5 @@ dist
 .wrangler
 .dev.vars
 /index.html
+/de/index.html
+/en/index.html

@@ -11,6 +11,12 @@ const resolve = (...args: string[]) => path.resolve(__dirname, ...args);
 
 const IMG_CUTOFF_KB = 25;
 
+function getAttribute(el: HTMLRewriterTypes.Element, name: string) {
+  const attr = el.getAttribute(name) ?? '';
+  if (attr.startsWith('/')) return '.' + attr;
+  return attr;
+}
+
 async function asyncReplace(str: string, regex: RegExp, asyncFn: (x: RegExpMatchArray) => string|Promise<string>) {
   const matches = [...str.matchAll(regex)];
 
@@ -35,7 +41,7 @@ async function inlineHtml(inFile: string, outFile: string) {
   const rewriter = new HTMLRewriter()
     .on('link[rel="stylesheet"][href]:not([href^="http"]):not([data-no-inline])', {
       async element(el) {
-        const href = el.getAttribute('href') ?? '';
+        const href = getAttribute(el, 'href') ?? '';
         let style = href && await Bun.file(href).text();
         style = style.replace(/\/\*[\s\S]*?\*\//g, '').trim();
         style = await asyncReplace(style, /url\(\s*['"]?([^'")]+)(['"]?)\s*\)/g, async match => {
@@ -55,7 +61,7 @@ async function inlineHtml(inFile: string, outFile: string) {
     })
     .on('script[href]:not([href^="http"]):not([defer]):not([data-no-inline])', {
       async element(el) {
-        const src = el.getAttribute('src') ?? '';
+        const src = getAttribute(el, 'src') ?? '';
         const type = el.getAttribute('type') ?? '';
         let script = src && await Bun.file(src).text();
         script = script.replace(/\/\*[\s\S]*?\*\//g, '').trim();
@@ -71,7 +77,7 @@ async function inlineHtml(inFile: string, outFile: string) {
     .on('img[src]:not([src^="http"]):not([src^="data"]):not([data-no-inline])', {
       async element(el) {
         if (inPicture) return; // skip images inside <picture> because there's usually multiple <source> tags
-        const src = el.getAttribute('src') ?? '';
+        const src = getAttribute(el, 'src') ?? '';
         const dataUrl = await inlineImage(src);
         dataUrl && el.setAttribute('src', dataUrl);
       },

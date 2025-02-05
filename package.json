@@ -23,20 +23,22 @@
     "build:js": "run-s uglify",
     "build:images": "run-s imagemin",
     "build:vendor": "cp -r src/vendor/* dist",
-    "build:html": "npx bun run inline.ts",
+    "build:inline-html": "npx bun run inline.ts",
+    "build:translate-html": "npx bun run translate.ts",
     "build": "run-s build:*",
     "watch:css": "onchange 'src/scss' -- run-s build:css",
     "watch:js": "onchange 'src/js' -- run-s build:js",
     "watch:images": "onchange 'src/images' -- run-s build:images",
     "watch:vendor": "onchange 'src/vendor' -- run-s build:vendor",
-    "watch:html": "onchange 'src/*.html' 'dist/**' -- run-s build:html",
+    "watch:inline-html": "onchange 'src/*.html' 'dist/**' -- run-s build:inline-html",
+    "watch:translate-html": "onchange '*.html' 'translations.*' -- run-s build:translate-html",
     "watch": "run-p serve watch:*",
     "dev": "run-s build watch"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250129.0",
     "autoprefixer": "^10.4.20",
-    "bun": "^1.2.1",
+    "bun": "^1.2.2",
     "imagemin-cli": "^8.0.0",
     "mkdirp": "^3.0.1",
     "npm-run-all": "^4.1.5",
@@ -45,13 +47,14 @@
     "rimraf": "^6.0.1",
     "sass": "^1.83.4",
     "uglify-es": "^3.3.10",
-    "wrangler": "^3.106.0"
+    "wrangler": "^3.107.2"
   },
   "homepage": "https://bitbucket.org/pasqualevitiello/solid#readme",
   "dependencies": {
     "@worker-tools/html": "2.0.0-pre.13",
     "@worker-tools/middleware": "0.1.0-pre.36",
     "@worker-tools/response-creators": "1.2.0-pre.6",
-    "jose": "^5.9.6"
+    "jose": "^5.9.6",
+    "marked": "^15.0.6"
   }
 }

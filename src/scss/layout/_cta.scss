@@ -33,6 +33,13 @@
 	> * {
 		position: relative; /* To display elements above hero illustrations */
 	}
+
+	a {
+		text-decoration: none;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 }
 
 @include include-media.media( '>medium') {
