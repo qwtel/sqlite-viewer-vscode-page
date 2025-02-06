@@ -29,6 +29,9 @@ importers:
       marked:
         specifier: ^15.0.6
         version: 15.0.6
+      yaml:
+        specifier: ^2.7.0
+        version: 2.7.0
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20250129.0
@@ -2584,8 +2587,8 @@ packages:
   yallist@2.1.2:
     resolution: {integrity: sha512-ncTzHV7NvsQZkYe1DW7cbDLm0YpzHmZF5r/iyP3ZnQtMiJ+pjzisCiMNI+Sj+xQF5pXhSHxSB3uDbsBTzY/c2A==}
 
-  yaml@2.6.0:
-    resolution: {integrity: sha512-a6ae//JvKDEra2kdi1qzCyrJW/WZCgFi8ydDV+eXExl95t+5R+ijnqHJbz9tmMh8FUjx3iv2fCQ4dclAQlO2UQ==}
+  yaml@2.7.0:
+    resolution: {integrity: sha512-+hSoy/QHluxmC9kCIJyL/uyFmLmc+e5CFR5Wa+bpIhIj85LVb9ZH2nVnqrHoSvKogwODv0ClqZkmiSSaIH5LTA==}
     engines: {node: '>= 14'}
     hasBin: true
 
@@ -4743,7 +4746,7 @@ snapshots:
   postcss-load-config@5.1.0(postcss@7.0.39):
     dependencies:
       lilconfig: 3.1.2
-      yaml: 2.6.0
+      yaml: 2.7.0
     optionalDependencies:
       postcss: 7.0.39
 
@@ -5438,7 +5441,7 @@ snapshots:
   yallist@2.1.2:
     optional: true
 
-  yaml@2.6.0: {}
+  yaml@2.7.0: {}
 
   yargs-parser@21.1.1: {}
 

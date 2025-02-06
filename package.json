@@ -57,6 +57,7 @@
     "@worker-tools/response-creators": "1.2.0-pre.6",
     "accept-language-parser": "^1.5.0",
     "jose": "^5.9.6",
-    "marked": "^15.0.6"
+    "marked": "^15.0.6",
+    "yaml": "^2.7.0"
   }
 }

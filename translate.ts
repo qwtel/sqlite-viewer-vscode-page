@@ -1,10 +1,8 @@
 /// <reference types="bun-types" />
 
-// @ts-ignore
-import translations from './translations.jsonc' with { type: 'json' };
-
 import * as fs from 'fs/promises';
 import { marked } from 'marked';
+import * as yaml from 'yaml'
 
 import URL from 'url';
 import path from 'path'
@@ -14,6 +12,8 @@ const __dirname = path.dirname(__filename);
 const resolve = (...args: string[]) => path.resolve(__dirname, ...args);
 
 const dashToCamelCase = (x: string) => x.replace(/-(\w)/g, (_, c) => c.toUpperCase());
+
+const translations = yaml.parse(await Bun.file(resolve('./translations.yaml')).text()) as Record<string, Record<string, string>>;
 
 const ikon = html`<img class="img inline-block" width="18" height="18" src="/dist/images/favicon-pro.png" />`
 
