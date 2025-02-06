@@ -90,7 +90,7 @@ de:
     Sie haben die PRO-Version bereits installiert! Alles, was benötigt wird, ist die Aktivierung. Nach Abschluss des Kaufs erhalten Sie eine E-Mail vom
     Merchant of Record mit Anweisungen, wie Sie den Lizenzschlüssel einlösen können. __Die Aktivierung erfolgt direkt in VS Code selbst und dauert nur
     wenige Sekunden__:<br><br>
-    Öffnen Sie die __Befehlspalette__ und geben Sie __"Activate License Key"__ ein. Alternativ können Sie den Dialog __"Upgrade to PRO"__
+    Öffnen Sie die __Befehlspalette__ und geben Sie __"Lizenzschlüssel aktivieren"__ ein. Alternativ können Sie den Dialog __"Upgrade to PRO"__
     in einem SQLite Viewer-Tab öffnen, zum unteren Ende der Seite scrollen und auf __"Enter License Key"__ klicken. Ein Eingabefeld wird am oberen Rand des
     VS Code-Fensters geöffnet. Fügen Sie den Lizenzschlüssel ein und drücken Sie die Eingabetaste. Ein Systemdialog bestätigt die Aktivierung innerhalb weniger Sekunden.
   footnote1: "Die Offline-Aktivierung ist erforderlich, wenn eine Unternehmens-Firewall die Verbindung zur Lizenzserver verhindert."
@@ -110,8 +110,8 @@ en:
   forVsCode: "for VS Code"
   heroTitle: "The Best SQLite Editor is the One in Your Editor"
   heroParagraph: >
-    Get work done without leaving VS Code. Unlock powerful **editing** and **export** features.
-    Works anywhere, including **SSH** and **WSL**.
+    Get work done without leaving VS Code. Unlock powerful __editing__ and __export__ features.
+    Works anywhere, including __SSH__ and __WSL__.
   cardsTitle: "Upgrade to unlock exclusive PRO workflows:"
   seePricing: "See Pricing"
   learnMore: "Learn More"
@@ -138,43 +138,43 @@ en:
   sectionTitleI: "Includes these exclusive PRO features:"
   feat1H: "Native SQLite Client"
   feat1P: >
-    The PRO version uses the **official SQLite implementation**, which provides the full set of failover guarantees.
+    The PRO version uses the __official SQLite implementation__, which provides the full set of failover guarantees.
     The old readonly client remains as a fallback.
   feat2H: "Unlimited File Size"
   feat2P: >
-    All restrictions on file size are lifted, **even during remote sessions**. Only the data needed to render the UI
+    All restrictions on file size are lifted, __even during remote sessions__. Only the data needed to render the UI
     is transferred to your local machine.
   feat3H: "Ad-Free Experience"
   feat3P: >
-    PRO customers enjoy an ad-free experience — **perfect for screen sharing and recordings**. Additionally, PRO customers
+    PRO customers enjoy an ad-free experience — __perfect for screen sharing and recordings__. Additionally, PRO customers
     receive an exclusive PRO icon () in the UI.
   sectionTitleIi: "...and everything you like about the free version:"
   free1H: "Performant UI"
   free1P: >
-    SQLite Viewer is built with performance in mind. It uses the best tools the web stack has to offer and is **routinely
-    tested on older hardware** to ensure performance remains top-notch.
+    SQLite Viewer is built with performance in mind. It uses the best tools the web stack has to offer and is __routinely
+    tested on older hardware__ to ensure performance remains top-notch.
   free2H: "Matching Theme"
   free2P: >
-    Say goodbye to disjointed user interfaces. SQLite Viewer **automatically adjusts to your VS Code theme** and seamlessly
+    Say goodbye to disjointed user interfaces. SQLite Viewer __automatically adjusts to your VS Code theme__ and seamlessly
     blends into the existing VS Code experience.
   free3H: "One-Click Setup"
   free3P: >
-    SQLite Viewer doesn't rely on binaries on your machine. It ships its own, so that **simply clicking 'Install' completes
-    the setup**. The entire extension weighs only 2.5 MB.
+    SQLite Viewer doesn't rely on binaries on your machine. It ships its own, so that __simply clicking 'Install' completes
+    the setup__. The entire extension weighs only 2.5 MB.
   free4H: "Works Anywhere"
   free4P: >
-    Whether you're using VS Codium, CodeSandbox, GitPod, Google IDX or other VS Code forks, **SQLite Viewer adapts to its environment**
+    Whether you're using VS Codium, CodeSandbox, GitPod, Google IDX or other VS Code forks, __SQLite Viewer adapts to its environment__
     and provides as many features as possible.
   free5H: "Owner Operated"
   free5P: >
-    SQLite Viewer is crafted by a single, dedicated developer. It enjoys a **coherent vision and attention to detail** that is rarely
+    SQLite Viewer is crafted by a single, dedicated developer. It enjoys a __coherent vision and attention to detail__ that is rarely
     found in purely commercial products.
   nMInstalls: "1+ million installs"
   rated55: "Rated ★★★★★"
   usedAcrossIndustry: "Used across the industry, including at"
   pricingTitle: "No Subscription, No Problem"
   pricingContent: >
-    SQLite Viewer PRO is a **One-Time Purchase** and grants you a **Perpetual License**. It works for as long as VS Code does.
+    SQLite Viewer PRO is a __One-Time Purchase__ and grants you a __Perpetual License__. It works for as long as VS Code does.
   oneTimePurchase: "One-Time Purchase"
   sameAsCalc1: "Same as $6.58/month for 12 months"
   sameAsCalc2: "Same as $12.42/month for 12 months"
@@ -189,12 +189,12 @@ en:
   ctaP: >
     You can evaluate SQLite Viewer PRO for up to two weeks by making use of the [14-day refund guarantee](/refunds.html).
     To request a refund, contact [refunds@sqliteviewer.app](mailto:refunds@sqliteviewer.app) with the email used at checkout — no explanation needed.
-  faq1Summary: "**How do I install the PRO version after the purchase?**"
+  faq1Summary: "__How do I install the PRO version after the purchase?__"
   faq1Content: >
     You already have the PRO version installed! All that's required is to activate it. After the purchase is complete, you will receive an email from the
-    merchant of record with instructions on how claim the license key. **Activation happens within VS Code itself and only takes a couple of seconds**:<br><br>
-    Open the **Command Palette** and type **"Activate License Key"**. Alternatively, you can open the **"Upgrade to PRO"** dialog within a SQLite Viewer tab,
-    scroll to the bottom of the page and click **"Enter License Key"**. An input field will open at the top of the VS Code window. Paste the license key and hit enter.
+    merchant of record with instructions on how claim the license key. __Activation happens within VS Code itself and only takes a couple of seconds__:<br><br>
+    Open the __Command Palette__ and type __"Activate License Key"__. Alternatively, you can open the __"Upgrade to PRO"__ dialog within a SQLite Viewer tab,
+    scroll to the bottom of the page and click __"Enter License Key"__. An input field will open at the top of the VS Code window. Paste the license key and hit enter.
     A system dialog will confirm the activation within a few seconds.
   footnote1: "Offline Activation is required if a company firewall prevents the extension from connecting to the license server."
   footnote2: "When a device is enrolled through offline activation, the extension can be used without ever needing to reconnect to the license server."
@@ -213,8 +213,8 @@ fr:
   forVsCode: "pour VS Code"
   heroTitle: "Le meilleur éditeur SQLite est celui dans votre éditeur"
   heroParagraph: >
-    Réalisez votre travail sans quitter VS Code. Débloquez des fonctionnalités puissantes d'**édition** et d'**exportation**.
-    Fonctionne partout, y compris sur **SSH** et **WSL**.
+    Réalisez votre travail sans quitter VS Code. Débloquez des fonctionnalités puissantes d'__édition__ et d'__exportation__.
+    Fonctionne partout, y compris sur __SSH__ et __WSL__.
   cardsTitle: "Mettez à niveau pour débloquer des flux de travail PRO exclusifs :"
   seePricing: "Voir les prix"
   learnMore: "En savoir plus"
@@ -241,43 +241,43 @@ fr:
   sectionTitleI: "Inclut ces fonctionnalités PRO exclusives :"
   feat1H: "Client SQLite natif"
   feat1P: >
-    La version PRO utilise l'**implémentation officielle de SQLite**, ce qui fournit l'ensemble complet des garanties de reprise après échec.
+    La version PRO utilise l'__implémentation officielle de SQLite__, ce qui fournit l'ensemble complet des garanties de reprise après échec.
     L'ancien client en lecture seule reste comme solution de repli.
   feat2H: "Taille de fichier illimitée"
   feat2P: >
-    Toutes les restrictions concernant la taille des fichiers sont levées, **même pendant les sessions à distance**. Seules les données nécessaires
+    Toutes les restrictions concernant la taille des fichiers sont levées, __même pendant les sessions à distance__. Seules les données nécessaires
     à l'affichage de l'interface sont transférées sur votre machine locale.
   feat3H: "Expérience sans publicité"
   feat3P: >
-    Les clients PRO bénéficient d'une expérience sans publicité — **parfaite pour le partage d'écran et les enregistrements**. De plus, les clients PRO
+    Les clients PRO bénéficient d'une expérience sans publicité — __parfaite pour le partage d'écran et les enregistrements__. De plus, les clients PRO
     reçoivent une icône PRO exclusive () dans l'interface utilisateur.
   sectionTitleIi: "...et tout ce que vous appréciez dans la version gratuite :"
   free1H: "Interface performante"
   free1P: >
-    SQLite Viewer est conçu avec la performance à l'esprit. Il utilise les meilleurs outils disponibles sur la pile web et est **régulièrement testé sur
-    du matériel plus ancien** pour garantir des performances de pointe.
+    SQLite Viewer est conçu avec la performance à l'esprit. Il utilise les meilleurs outils disponibles sur la pile web et est __régulièrement testé sur
+    du matériel plus ancien__ pour garantir des performances de pointe.
   free2H: "Thème adapté"
   free2P: >
-    Finies les interfaces utilisateur incohérentes. SQLite Viewer **s'ajuste automatiquement à votre thème VS Code**
+    Finies les interfaces utilisateur incohérentes. SQLite Viewer __s'ajuste automatiquement à votre thème VS Code__
     et s'intègre de manière transparente dans l'expérience VS Code existante.
   free3H: "Installation en un clic"
   free3P: >
-    SQLite Viewer ne dépend pas de binaires sur votre machine. Il apporte ses propres, de sorte que **cliquer simplement
-    sur 'Installer' complète la configuration**. L'extension entière ne pèse que 2,5 MB.
+    SQLite Viewer ne dépend pas de binaires sur votre machine. Il apporte ses propres, de sorte que __cliquer simplement
+    sur 'Installer' complète la configuration__. L'extension entière ne pèse que 2,5 MB.
   free4H: "Fonctionne partout"
   free4P: >
-    Que vous utilisiez VS Codium, CodeSandbox, GitPod, Google IDX ou d'autres forks de VS Code, **SQLite Viewer s'adapte
-    à son environnement** et offre autant de fonctionnalités que possible.
+    Que vous utilisiez VS Codium, CodeSandbox, GitPod, Google IDX ou d'autres forks de VS Code, __SQLite Viewer s'adapte
+    à son environnement__ et offre autant de fonctionnalités que possible.
   free5H: "Géré par le propriétaire"
   free5P: >
-    SQLite Viewer est fabriqué par un seul développeur dédié. Il bénéficie d'une **vision cohérente et d'une attention
-    aux détails** rarement trouvée dans des produits purement commerciaux.
+    SQLite Viewer est fabriqué par un seul développeur dédié. Il bénéficie d'une __vision cohérente et d'une attention
+    aux détails__ rarement trouvée dans des produits purement commerciaux.
   nMInstalls: "Plus d'un million d'installations"
   rated55: "Évalué ★★★★★"
   usedAcrossIndustry: "Utilisé dans toute l'industrie, y compris chez"
   pricingTitle: "Pas d'abonnement, pas de problème"
   pricingContent: >
-    SQLite Viewer PRO est un **achat unique** et vous accorde une **licence perpétuelle**. Il fonctionne aussi longtemps
+    SQLite Viewer PRO est un __achat unique__ et vous accorde une __licence perpétuelle__. Il fonctionne aussi longtemps
     que VS Code le fait.
   oneTimePurchase: "Achat unique"
   sameAsCalc1: "Équivalent à 6,58$/mois sur 12 mois"
@@ -293,12 +293,12 @@ fr:
   ctaP: >
     Vous pouvez évaluer SQLite Viewer PRO pendant jusqu'à deux semaines en utilisant la [garantie de remboursement de 14 jours](/refunds.html).
     Pour demander un remboursement, contactez [refunds@sqliteviewer.app](mailto:refunds@sqliteviewer.app) avec l'email utilisé lors de l'achat — aucune explication nécessaire.
-  faq1Summary: "**Comment installer la version PRO après l'achat ?**"
+  faq1Summary: "__Comment installer la version PRO après l'achat ?__"
   faq1Content: >
     Vous avez déjà la version PRO installée ! Tout ce qui est nécessaire est de l'activer. Après l'achat, vous recevrez un email du marchand
-    avec des instructions sur comment réclamer la clé de licence. **L'activation se fait directement dans VS Code et ne prend que quelques secondes**:<br><br>
-    Ouvrez la **Palette de commandes** et tapez **"Activer la clé de licence"**. Sinon, vous pouvez ouvrir le dialogue **"Mise à niveau vers PRO"**
-    dans un onglet SQLite Viewer, faites défiler jusqu'en bas de la page et cliquez sur **"Saisir la clé de licence"**. Un champ d'entrée s'ouvrira
+    avec des instructions sur comment réclamer la clé de licence. __L'activation se fait directement dans VS Code et ne prend que quelques secondes__:<br><br>
+    Ouvrez la __Palette de commandes__ et tapez __"Activer la clé de licence"__. Sinon, vous pouvez ouvrir le dialogue __"Upgrade to PRO"__
+    dans un onglet SQLite Viewer, faites défiler jusqu'en bas de la page et cliquez sur __"Enter License Key"__. Un champ d'entrée s'ouvrira
     en haut de la fenêtre VS Code. Collez la clé de licence et appuyez sur entrée. Une boîte de dialogue système confirmera l'activation en quelques secondes.
   footnote1: >
     L'activation hors ligne est nécessaire si un pare-feu d'entreprise empêche l'extension de se connecter au serveur de licence.
@@ -319,8 +319,8 @@ pt-BR:
   forVsCode: "para VS Code"
   heroTitle: "O melhor editor SQLite é aquele no seu editor"
   heroParagraph: >
-    Faça seu trabalho sem sair do VS Code. Desbloqueie poderosos recursos de **edição** e **exportação**.
-    Funciona em qualquer lugar, incluindo **SSH** e **WSL**.
+    Faça seu trabalho sem sair do VS Code. Desbloqueie poderosos recursos de __edição__ e __exportação__.
+    Funciona em qualquer lugar, incluindo __SSH__ e __WSL__.
   cardsTitle: "Atualize para desbloquear fluxos de trabalho PRO exclusivos:"
   seePricing: "Ver Preços"
   learnMore: "Saiba Mais"
@@ -347,43 +347,43 @@ pt-BR:
   sectionTitleI: "Inclui esses recursos PRO exclusivos:"
   feat1H: "Cliente SQLite Nativo"
   feat1P: >
-    A versão PRO usa a **implementação oficial do SQLite**, que fornece o conjunto completo de garantias de failover.
+    A versão PRO usa a __implementação oficial do SQLite__, que fornece o conjunto completo de garantias de failover.
     O antigo cliente somente leitura permanece como fallback.
   feat2H: "Tamanho de Arquivo Ilimitado"
   feat2P: >
-    Todas as restrições de tamanho de arquivo são removidas, **mesmo durante sessões remotas**. Apenas os dados necessários para renderizar a interface
+    Todas as restrições de tamanho de arquivo são removidas, __mesmo durante sessões remotas__. Apenas os dados necessários para renderizar a interface
     são transferidos para sua máquina local.
   feat3H: "Experiência Sem Anúncios"
   feat3P: >
-    Clientes PRO desfrutam de uma experiência sem anúncios — **perfeita para compartilhamento de tela e gravações**. Além disso, clientes PRO
+    Clientes PRO desfrutam de uma experiência sem anúncios — __perfeita para compartilhamento de tela e gravações__. Além disso, clientes PRO
     recebem um ícone PRO exclusivo () na interface.
   sectionTitleIi: "...e tudo o que você gosta na versão gratuita:"
   free1H: "Interface Performática"
   free1P: >
-    O SQLite Viewer é construído com foco em desempenho. Ele usa as melhores ferramentas que a pilha web tem a oferecer e é **rotineiramente
-    testado em hardware mais antigo** para garantir que o desempenho permaneça de primeira linha.
+    O SQLite Viewer é construído com foco em desempenho. Ele usa as melhores ferramentas que a pilha web tem a oferecer e é __rotineiramente
+    testado em hardware mais antigo__ para garantir que o desempenho permaneça de primeira linha.
   free2H: "Tema Correspondente"
   free2P: >
-    Diga adeus às interfaces de usuário desarticuladas. O SQLite Viewer **ajusta-se automaticamente ao tema do VS Code** e se integra
+    Diga adeus às interfaces de usuário desarticuladas. O SQLite Viewer __ajusta-se automaticamente ao tema do VS Code__ e se integra
     perfeitamente à experiência existente do VS Code.
   free3H: "Configuração com Um Clique"
   free3P: >
-    O SQLite Viewer não depende de binários na sua máquina. Ele traz os seus próprios, de modo que **simplesmente clicar em 'Instalar' completa
-    a configuração**. A extensão inteira pesa apenas 2,5 MB.
+    O SQLite Viewer não depende de binários na sua máquina. Ele traz os seus próprios, de modo que __simplesmente clicar em 'Instalar' completa
+    a configuração__. A extensão inteira pesa apenas 2,5 MB.
   free4H: "Funciona em Qualquer Lugar"
   free4P: >
-    Quer você esteja usando VS Codium, CodeSandbox, GitPod, Google IDX ou outros forks do VS Code, **o SQLite Viewer adapta-se ao seu ambiente**
+    Quer você esteja usando VS Codium, CodeSandbox, GitPod, Google IDX ou outros forks do VS Code, __o SQLite Viewer adapta-se ao seu ambiente__
     e fornece o máximo de recursos possível.
   free5H: "Operado pelo Proprietário"
   free5P: >
-    O SQLite Viewer é desenvolvido por um único desenvolvedor dedicado. Ele desfruta de uma **visão coerente e atenção aos detalhes** que raramente
+    O SQLite Viewer é desenvolvido por um único desenvolvedor dedicado. Ele desfruta de uma __visão coerente e atenção aos detalhes__ que raramente
     é encontrada em produtos puramente comerciais.
   nMInstalls: "Mais de 1 milhão de instalações"
   rated55: "Avaliado como ★★★★★"
   usedAcrossIndustry: "Usado em toda a indústria, incluindo em"
   pricingTitle: "Sem Assinatura, Sem Problema"
   pricingContent: >
-    O SQLite Viewer PRO é uma **Compra Única** e concede a você uma **Licença Perpétua**. Funciona enquanto o VS Code funcionar.
+    O SQLite Viewer PRO é uma __Compra Única__ e concede a você uma __Licença Perpétua__. Funciona enquanto o VS Code funcionar.
   oneTimePurchase: "Compra Única"
   sameAsCalc1: "Equivalente a $6,58/mês por 12 meses"
   sameAsCalc2: "Equivalente a $12,42/mês por 12 meses"
@@ -398,12 +398,12 @@ pt-BR:
   ctaP: >
     Você pode avaliar o SQLite Viewer PRO por até duas semanas usando a [garantia de reembolso de 14 dias](/refunds.html).
     Para solicitar um reembolso, entre em contato com [refunds@sqliteviewer.app](mailto:refunds@sqliteviewer.app) com o e-mail usado na compra — sem necessidade de explicação.
-  faq1Summary: "**Como instalo a versão PRO após a compra?**"
+  faq1Summary: "__Como instalo a versão PRO após a compra?__"
   faq1Content: >
     Você já tem a versão PRO instalada! Tudo o que é necessário é ativá-la. Após a compra, você receberá um e-mail do comerciante
-    com instruções sobre como reivindicar a chave de licença. **A ativação ocorre diretamente no VS Code e leva apenas alguns segundos**:<br><br>
-    Abra a **Paleta de Comandos** e digite **"Ativar Chave de Licença"**. Alternativamente, você pode abrir o diálogo **"Atualizar para PRO"**
-    em uma aba do SQLite Viewer, rolar até o final da página e clicar em **"Inserir Chave de Licença"**. Um campo de entrada será aberto
+    com instruções sobre como reivindicar a chave de licença. __A ativação ocorre diretamente no VS Code e leva apenas alguns segundos__:<br><br>
+    Abra a __Paleta de Comandos__ e digite __"Ativar Chave de Licença"__. Alternativamente, você pode abrir o diálogo __"Upgrade to PRO"__
+    em uma aba do SQLite Viewer, rolar até o final da página e clicar em __"Enter License Key"__. Um campo de entrada será aberto
     no topo da janela do VS Code. Cole a chave de licença e pressione enter. Um diálogo do sistema confirmará a ativação em alguns segundos.
   footnote1: >
     A ativação offline é necessária se um firewall corporativo impedir a extensão de se conectar ao servidor de licença.
