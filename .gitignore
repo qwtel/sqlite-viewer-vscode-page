@@ -170,7 +170,10 @@ $RECYCLE.BIN/
 dist
 .wrangler
 .dev.vars
+
+# Ignore generated files
 /index.html
 /de/index.html
 /en/index.html
 /fr/index.html
+/pt-BR/index.html

@@ -4,18 +4,18 @@ import languageParser from 'accept-language-parser';
 
 import { Env } from "./api/#shared"
 
-const DevCountryOverride = '';
+const LANGS: ('en'|'de'|'fr'|'pt-BR')[] = ['en', 'de', 'fr', 'pt-BR'];
 
-const DGToTier = Object.freeze({ 0: 0, 20: 1, 40: 2, 60: 3 });
+const DevCountryOverride = '';
 
 const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const url = new URL(context.request.url);
 
-  if (!url.pathname.match(/\/(en|de|fr)/)) {
+  if (LANGS.every(lang => !url.pathname.startsWith(`/${lang}`))) {
     const langHeader = context.request.headers.get('accept-language') || '';
-    const lang = languageParser.pick(['en', 'de', 'fr'], langHeader);
+    const lang = languageParser.pick(LANGS, langHeader);
     url.pathname = `/${lang}${url.pathname}`;
   }
 
@@ -93,7 +93,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   let transformedResponse;
   if (DEV && response.status === 200) {
-    const buf = await rewriter.transform(response).arrayBuffer()
+    const buf = await rewriter.transform(response).arrayBuffer();
     transformedResponse = new Response(buf, { headers: response.headers, status: response.status });
   } else {
     transformedResponse = rewriter.transform(response);
@@ -117,6 +117,8 @@ function html(strings: TemplateStringsArray, ...values: any[]) {
   for (const string of strings) str += string + (values[i++] || '');
   return str.trim();
 }
+
+const DGToTier = Object.freeze({ 0: 0, 20: 1, 40: 2, 60: 3 });
 
 const PPP = Object.freeze({
   AF: 60,
