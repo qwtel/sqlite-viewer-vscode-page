@@ -41,7 +41,7 @@ async function translateHtml(inFile: string, lang: string, outFile: string) {
   const htmlStr = Bun.file(resolve(inFile))
   const newHtmlStr = rewriter.transform(new Response(htmlStr));
   const outFileDir = path.dirname(resolve(outFile));
-  await fs.mkdir(outFileDir, { recursive: true }).catch();
+  await fs.mkdir(outFileDir, { recursive: true }).catch(() => {});
   await Bun.write(resolve(outFile), newHtmlStr);
 }
 
