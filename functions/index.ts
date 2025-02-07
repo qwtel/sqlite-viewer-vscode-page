@@ -2,9 +2,8 @@
 
 import languageParser from 'accept-language-parser';
 
+import { LANGS } from '../../src/constants';
 import { Env } from "./api/#shared"
-
-const LANGS: ('en'|'de'|'fr'|'pt-br')[] = ['en', 'de', 'fr', 'pt-br'];
 
 const DevCountryOverride = '';
 
