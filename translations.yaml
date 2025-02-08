@@ -213,7 +213,7 @@ en:
 fr:
   title: "SQLite Viewer PRO pour VS Code"
   forVsCode: "pour VS Code"
-  openInBrowser: "Ouvrir dans le navigateur"
+  openInBrowser: "Ouvrir navigateur"
   heroTitle: "Le meilleur éditeur SQLite est celui dans votre éditeur"
   heroParagraph: >
     Réalisez votre travail sans quitter VS Code. Débloquez des fonctionnalités puissantes d'__édition__ et d'__exportation__.
