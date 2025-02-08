@@ -15,7 +15,7 @@ const dashToCamelCase = (x: string) => x.replace(/-(\w)/g, (_, c) => c.toUpperCa
 
 const translations = yaml.parse(await Bun.file(resolve('./translations.yaml')).text()) as Record<string, Record<string, string>>;
 
-const ikon = html`<img class="img inline-block" width="18" height="18" src="/dist/images/favicon-pro.png" />`
+const icon = html`<img class="img inline-block" width="18" height="18" src="/dist/images/favicon-pro.png" />`
 
 async function translateHtml(inFile: string, lang: string, outFile: string) {
   const rewriter = new HTMLRewriter()
@@ -30,11 +30,18 @@ async function translateHtml(inFile: string, lang: string, outFile: string) {
         const value = translations[lang][dashToCamelCase(key)];
         // console.log(key, dashToCamelCase(key))
         if (value) {
-          let html = marked.parseInline('' + value, { gfm: true, breaks: true }) as string;
-          html = html.replaceAll('()', `(${ikon})`);
-          el.setInnerContent(html, { html: true });
+          let newHtml = marked.parseInline('' + value, { gfm: true, breaks: true }) as string;
+          newHtml = newHtml
+            .replaceAll('{icon}', icon)
+            .replaceAll('{SQLiteViewerPRO}', html`<span class="color">SQLite Viewer PRO</span>`)
+          el.setInnerContent(newHtml, { html: true });
         }
         el.removeAttribute('data-i18n-key');
+      }
+    })
+    .on(`[data-hreflang=${lang}]`, {
+      element(el) {
+        el.tagName = 'span';
       }
     })
 

@@ -518,8 +518,12 @@
 	flex-direction: column;
 }
 
-.o-50 {
-	opacity: 0.5;
+.color {
+	color: var(--x-color);
+}
+
+.color-50 {
+	color: color-mix(in oklab, var(--x-color) 50%, var(--x-background));
 }
 
 .center {
@@ -529,7 +533,7 @@
 }
 
 .color-unset {
-	color:unset;
+	color: unset;
 }
 
 .hover-link {

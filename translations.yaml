@@ -1,6 +1,6 @@
 de:
   title: "SQLite Viewer PRO für VS Code"
-  forVsCode: "für VS Code"
+  forVsCode: "{SQLiteViewerPRO} für VS Code"
   openInBrowser: "Im Browser Öffnen"
   heroTitle: "Der beste SQLite-Editor ist der in Ihrem Editor"
   heroParagraph: >
@@ -43,7 +43,7 @@ de:
   feat3H: "Werbefreie Nutzung"
   feat3P: >
     PRO-Kunden genießen eine werbefreie Nutzung – __ideal für Bildschirm&shy;freigaben und Aufnahmen__.
-    Zudem erhalten PRO-Kunden ein exklusives PRO-Symbol () in der UI.
+    Zudem erhalten PRO-Kunden ein exklusives PRO-Symbol ({icon}) in der UI.
   sectionTitleIi: "…und alles, was Sie an der kostenlosen Version schätzen:"
   free1H: "Performantes UI"
   free1P: >
@@ -67,7 +67,7 @@ de:
     zum Detail__, die in rein kommerziellen Produkten selten ist.
   nMInstalls: "1+ Million Installationen"
   rated55: "★★★★★ Wertung"
-  usedAcrossIndustry: "Eingesetzt in allen Branchen, einschließlich der"
+  usedAcrossIndustry: "Eingesetzt in allen Branchen, einschließlich der {NASA}"
   pricingTitle: "Kein Abo, kein Problem"
   pricingContent: >
     SQLite Viewer PRO ist ein __Einmalkauf__ und gewährt eine __dauerhafte Lizenz__. Funktioniert so lange, wie VS Code funktioniert.
@@ -77,7 +77,7 @@ de:
   plusVat: "+ MwSt."
   priceFeat1: "Bearbeitungs- und Exportfunktionen"
   priceFeat2: "Werbefreie Nutzung"
-  priceFeat3: "Exklusives PRO-Symbol ()"
+  priceFeat3: "Exklusives PRO-Symbol ({icon})"
   priceFeat4: "Offline-Lizenzaktivierung"
   priceFeat5: "Keine laufende Lizenzüberprüfung"
   purchase: "Jetzt kaufen"
@@ -108,7 +108,7 @@ de:
 
 en:
   title: "SQLite Viewer PRO for VS Code"
-  forVsCode: "for VS Code"
+  forVsCode: "{SQLiteViewerPRO} for VS Code"
   openInBrowser: "Open in Browser"
   heroTitle: "The Best SQLite Editor is the One in Your Editor"
   heroParagraph: >
@@ -149,7 +149,7 @@ en:
   feat3H: "Ad-Free Experience"
   feat3P: >
     PRO customers enjoy an ad-free experience — __perfect for screen sharing and recordings__. Additionally, PRO customers
-    receive an exclusive PRO icon () in the UI.
+    receive an exclusive PRO icon ({icon}) in the UI.
   sectionTitleIi: "...and everything you like about the free version:"
   free1H: "Performant UI"
   free1P: >
@@ -173,7 +173,7 @@ en:
     found in purely commercial products.
   nMInstalls: "1+ million installs"
   rated55: "Rated ★★★★★"
-  usedAcrossIndustry: "Used across the industry, including at"
+  usedAcrossIndustry: "Used across the industry, including at {NASA}"
   pricingTitle: "No Subscription, No Problem"
   pricingContent: >
     SQLite Viewer PRO is a __One-Time Purchase__ and grants you a __Perpetual License__. It works for as long as VS Code does.
@@ -183,7 +183,7 @@ en:
   plusVat: "+ VAT"
   priceFeat1: "Editing and export features"
   priceFeat2: "Ad-free experience"
-  priceFeat3: "Exclusive PRO icon ()"
+  priceFeat3: "Exclusive PRO icon ({icon})"
   priceFeat4: "Offline license activation"
   priceFeat5: "No license revalidation"
   purchase: "Purchase"
@@ -212,7 +212,7 @@ en:
 
 fr:
   title: "SQLite Viewer PRO pour VS Code"
-  forVsCode: "pour VS Code"
+  forVsCode: "{SQLiteViewerPRO} pour VS Code"
   openInBrowser: "Ouvrir navigateur"
   heroTitle: "Le meilleur éditeur SQLite est celui dans votre éditeur"
   heroParagraph: >
@@ -253,7 +253,7 @@ fr:
   feat3H: "Expérience sans publicité"
   feat3P: >
     Les clients PRO bénéficient d'une expérience sans publicité — __parfaite pour le partage d'écran et les enregistrements__. De plus, les clients PRO
-    reçoivent une icône PRO exclusive () dans l'interface utilisateur.
+    reçoivent une icône PRO exclusive ({icon}) dans l'interface utilisateur.
   sectionTitleIi: "...et tout ce que vous appréciez dans la version gratuite :"
   free1H: "Interface performante"
   free1P: >
@@ -277,7 +277,7 @@ fr:
     aux détails__ rarement trouvée dans des produits purement commerciaux.
   nMInstalls: "Plus d'un million d'installations"
   rated55: "Évalué ★★★★★"
-  usedAcrossIndustry: "Utilisé dans toute l'industrie, y compris chez"
+  usedAcrossIndustry: "Utilisé dans toute l'industrie, y compris chez {NASA}"
   pricingTitle: "Pas d'abonnement, pas de problème"
   pricingContent: >
     SQLite Viewer PRO est un __achat unique__ et vous accorde une __licence perpétuelle__. Il fonctionne aussi longtemps
@@ -288,7 +288,7 @@ fr:
   plusVat: "+ TVA"
   priceFeat1: "Fonctionnalités d'édition et d'exportation"
   priceFeat2: "Expérience sans publicité"
-  priceFeat3: "Icône PRO exclusive ()"
+  priceFeat3: "Icône PRO exclusive ({icon})"
   priceFeat4: "Activation de licence hors ligne"
   priceFeat5: "Pas de vérification continue de la licence"
   purchase: "Acheter"
@@ -300,7 +300,7 @@ fr:
   faq1Content: >
     Vous avez déjà la version PRO installée ! Tout ce qui est nécessaire est de l'activer. Après l'achat, vous recevrez un email du marchand
     avec des instructions sur comment réclamer la clé de licence. __L'activation se fait directement dans VS Code et ne prend que quelques secondes__:<br><br>
-    Ouvrez la __Palette de commandes__ et tapez __"Activer la clé de licence"__. Sinon, vous pouvez ouvrir le dialogue __"Upgrade to PRO"__
+    Ouvrez la __Palette de commandes__ et tapez __"Activer la clé de licence"__. Sinon, vous pouvez ouvrir le dialogue __"Passer à PRO"__
     dans un onglet SQLite Viewer, faites défiler jusqu'en bas de la page et cliquez sur __"Enter License Key"__. Un champ d'entrée s'ouvrira
     en haut de la fenêtre VS Code. Collez la clé de licence et appuyez sur entrée. Une boîte de dialogue système confirmera l'activation en quelques secondes.
   footnote1: >
@@ -319,7 +319,7 @@ fr:
 
 pt-br:
   title: "SQLite Viewer PRO para VS Code"
-  forVsCode: "para VS Code"
+  forVsCode: "{SQLiteViewerPRO} para VS Code"
   openInBrowser: "Abrir no navegador"
   heroTitle: "O melhor editor SQLite é aquele no seu editor"
   heroParagraph: >
@@ -360,7 +360,7 @@ pt-br:
   feat3H: "Experiência Sem Anúncios"
   feat3P: >
     Clientes PRO desfrutam de uma experiência sem anúncios — __perfeita para compartilhamento de tela e gravações__. Além disso, clientes PRO
-    recebem um ícone PRO exclusivo () na interface.
+    recebem um ícone PRO exclusivo ({icon}) na interface.
   sectionTitleIi: "...e tudo o que você gosta na versão gratuita:"
   free1H: "Interface Performática"
   free1P: >
@@ -384,7 +384,7 @@ pt-br:
     é encontrada em produtos puramente comerciais.
   nMInstalls: "Mais de 1 milhão de instalações"
   rated55: "Avaliado como ★★★★★"
-  usedAcrossIndustry: "Usado em toda a indústria, incluindo em"
+  usedAcrossIndustry: "Usado em toda a indústria, incluindo em {NASA}"
   pricingTitle: "Sem Assinatura, Sem Problema"
   pricingContent: >
     O SQLite Viewer PRO é uma __Compra Única__ e concede a você uma __Licença Perpétua__. Funciona enquanto o VS Code funcionar.
@@ -394,7 +394,7 @@ pt-br:
   plusVat: "+ IVA"
   priceFeat1: "Recursos de edição e exportação"
   priceFeat2: "Experiência sem anúncios"
-  priceFeat3: "Ícone PRO exclusivo ()"
+  priceFeat3: "Ícone PRO exclusivo ({icon})"
   priceFeat4: "Ativação de licença offline"
   priceFeat5: "Sem revalidação de licença"
   purchase: "Comprar"
@@ -406,7 +406,7 @@ pt-br:
   faq1Content: >
     Você já tem a versão PRO instalada! Tudo o que é necessário é ativá-la. Após a compra, você receberá um e-mail do comerciante
     com instruções sobre como reivindicar a chave de licença. __A ativação ocorre diretamente no VS Code e leva apenas alguns segundos__:<br><br>
-    Abra a __Paleta de Comandos__ e digite __"Ativar Chave de Licença"__. Alternativamente, você pode abrir o diálogo __"Upgrade to PRO"__
+    Abra a __Paleta de Comandos__ e digite __"Ativar Chave de Licença"__. Alternativamente, você pode abrir o diálogo __"Atualizar para PRO"__
     em uma aba do SQLite Viewer, rolar até o final da página e clicar em __"Enter License Key"__. Um campo de entrada será aberto
     no topo da janela do VS Code. Cole a chave de licença e pressione enter. Um diálogo do sistema confirmará a ativação em alguns segundos.
   footnote1: >
