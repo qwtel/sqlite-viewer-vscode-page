@@ -91,7 +91,7 @@ de:
     Sie haben die PRO-Version bereits installiert! Alles, was benötigt wird, ist die Aktivierung. Nach Abschluss des Kaufs erhalten Sie eine E-Mail vom
     Merchant of Record mit Anweisungen, wie Sie den Lizenzschlüssel einlösen können. __Die Aktivierung erfolgt direkt in VS Code selbst und dauert nur
     wenige Sekunden__:<br><br>
-    Öffnen Sie die __Befehlspalette__ und geben Sie __"Lizenzschlüssel aktivieren"__ ein. Alternativ können Sie den Dialog __"Upgrade to PRO"__
+    Öffnen Sie die __Befehlspalette__ und geben Sie __"Lizenzschlüssel aktivieren"__ ein. Alternativ können Sie den Dialog __"Auf PRO upgraden"__
     in einem SQLite Viewer-Tab öffnen, zum unteren Ende der Seite scrollen und auf __"Enter License Key"__ klicken. Ein Eingabefeld wird am oberen Rand des
     VS Code-Fensters geöffnet. Fügen Sie den Lizenzschlüssel ein und drücken Sie die Eingabetaste. Ein Systemdialog bestätigt die Aktivierung innerhalb weniger Sekunden.
   footnote1: "Die Offline-Aktivierung ist erforderlich, wenn eine Unternehmens-Firewall die Verbindung zur Lizenzserver verhindert."
