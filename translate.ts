@@ -33,6 +33,7 @@ async function translateHtml(inFile: string, lang: string, outFile: string) {
           let newHtml = marked.parseInline('' + value, { gfm: true, breaks: true }) as string;
           newHtml = newHtml
             .replaceAll('{icon}', icon)
+            .replaceAll('{NASA}', lang === 'ja' ? 'NASA' : '')
             .replaceAll('{SQLiteViewerPRO}', html`<span class="color">SQLite Viewer PRO</span>`)
           el.setInnerContent(newHtml, { html: true });
         }
