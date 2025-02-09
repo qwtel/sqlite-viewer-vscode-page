@@ -1,0 +1,106 @@
+title: "VS Code用SQLite Viewer PRO"
+forVsCode: "VS Code用{SQLiteViewerPRO}"
+openInBrowser: "ブラウザで開く"
+heroTitle: "最高のSQLiteエディタはあなたのエディタの中にある"
+heroParagraph: >
+  VS Codeを離れることなく作業を完了しましょう。強力な**編集**および**エクスポート**機能をアンロック。
+  **SSH**や**WSL**を含むどこでも動作します。
+cardsTitle: "PRO専用のワークフローをアンロックするためにアップグレード："
+seePricing: "価格を見る"
+learnMore: "詳細を確認"
+card1H: "さまざまな形式でデータをエクスポート"
+card1P: >
+  ビューアから直接行をさまざまな形式でコピーできます。サポートされている形式は、
+  TSV、CSV、SQLite挿入、JSONオブジェクト、JSON配列、HTML、およびMarkdownです。
+card2H: "その場で値を更新"
+card2P: >
+  サイドバーやモーダルから値を更新します。すべての変更は自動的にトランザクションにラップされ、
+  ファイルが保存されるとディスクにコミットされます。
+card3H: "行の挿入と削除"
+card3P: >
+  モーダルダイアログを使用して1つ以上の行を挿入します。エクスプローラーからまたはキーボードショートカットを使用して
+  1つ以上の行を削除します。
+card4H: "VS Codeを使用して変更を元に戻すおよびやり直す"
+card4P: >
+  SQLite Viewer PROはVS Codeの元に戻す/やり直す履歴と統合されます。変更はファイルが保存される前に
+  `ROLLBACK`ステートメントを通じて元に戻され、保存後は（反転した）SQLステートメントを実行することで元に戻されます。
+card5H: "コンテナ、SSH、およびWSLで動作"
+card5P: >
+  SQLite Viewer PROはコンテナ、SSHホスト、およびWSLインスタンス内にインストールできます。
+  ネイティブのSQLiteインスタンスがリモートワークスペース内のデータベースと並行して実行され、
+  Webビューのみがローカルマシンに残ります。
+sectionTitleI: "これらのPRO専用機能を含む："
+feat1H: "ネイティブSQLite"
+feat1P: >
+  PROバージョンは**公式のSQLite実装**を使用し、完全なフェイルオーバー保証を提供します。
+  旧読み取り専用クライアントはフォールバックとして残ります。
+feat2H: "無制限のファイルサイズ"
+feat2P: >
+  ファイルサイズに関するすべての制限が解除されます。**リモートセッション中でも**。
+  UIをレンダリングするために必要なデータのみがローカルマシンに転送されます。
+feat3H: "広告なしの体験"
+feat3P: >
+  PROのお客様は広告なしの体験を楽しむことができます。**画面共有や録画に最適**。
+  さらに、PROのお客様はUIに専用のPROアイコン（{icon}）を受け取ります。
+sectionTitleIi: "...そして無料版のすべての機能："
+free1H: "パフォーマンスに優れたUI"
+free1P: >
+  SQLite Viewerはパフォーマンスを重視して設計されています。Webスタックの最高のツールを使用し、
+  **古いハードウェアでも定期的にテスト**され、パフォーマンスがトップレベルに保たれます。
+free2H: "テーマに合わせたデザイン"
+free2P: >
+  一貫性のないユーザーインターフェースとはおさらばです。SQLite Viewerは**VS Codeのテーマに自動的に適応し**、
+  既存のVS Code体験にシームレスに統合されます。
+free3H: "ワンクリックセットアップ"
+free3P: >
+  SQLite Viewerはマシン上のバイナリに依存しません。独自のバイナリを持ち、**「インストール」をクリックするだけでセットアップが完了**します。
+  拡張機能全体のサイズはわずか2.5 MBです。
+free4H: "どこでも動作"
+free4P: >
+  VS Codium、CodeSandbox、GitPod、Google IDX、その他のVS Codeフォークを使用している場合でも、
+  **SQLite Viewerは環境に適応し**、可能な限り多くの機能を提供します。
+free5H: "オーナー運営"
+free5P: >
+  SQLite Viewerは1人の専任開発者によって作成されています。**一貫したビジョンと細部へのこだわり**があり、
+  純粋に商業的な製品ではめったに見られません。
+nMInstalls: "100万以上のインストール"
+rated55: "★★★★★の評価"
+usedAcrossIndustry: "業界全体で使用されており、{NASA}でも使用されています"
+pricingTitle: "サブスクリプションなし、問題なし"
+pricingContent: >
+  SQLite Viewer PROは**一度の購入**で**永久ライセンス**を提供します。VS Codeが動作する限り動作します。
+oneTimePurchase: "一度の購入"
+sameAsCalc1: "12か月で月額$6.58と同じ"
+sameAsCalc2: "12か月で月額$12.42と同じ"
+plusVat: "+ VAT"
+priceFeat1: "編集およびエクスポート機能"
+priceFeat2: "広告なしの体験"
+priceFeat3: "専用のPROアイコン（{icon}）"
+priceFeat4: "オフラインライセンス認証"
+priceFeat5: "ライセンスの再検証なし"
+purchase: "購入"
+ctaH: "まず試してみたいですか？14日間の返金保証を利用してください"
+ctaP: >
+  SQLite Viewer PROを最大2週間評価し、[14日間の返金保証](/refunds.html)を利用できます。
+  返金をリクエストするには、購入時に使用したメールアドレスで[refunds@sqliteviewer.app](mailto:refunds@sqliteviewer.app)に連絡してください。説明は不要です。
+faq1Summary: "**購入後にPROバージョンをインストールするにはどうすればよいですか？**"
+faq1Content: >
+  PROバージョンはすでにインストールされています！必要なのはアクティベーションだけです。購入が完了すると、
+  レコードの商人からライセンスキーを取得する方法についての指示が記載されたメールが届きます。
+  **アクティベーションはVS Code内で行われ、数秒で完了します**:<br><br>
+  **コマンドパレット**を開き、**"ライセンスキーをアクティベート"**&shy;と入力します。あるいは、SQLite Viewerタブ内の&shy;**"PROにアップグレード"**&shy;ダイアログを開き、
+  ページの下部までスクロールして&shy;**"Enter License Key"**&shy;をクリックします。VS Codeウィンドウの上部に入力フィールドが表示されます。
+  ライセンスキーを貼り付けてEnterキーを押します。数秒以内にシステムダイアログがアクティベーションを確認します。
+footnote1: >
+  企業のファイアウォールがライセンスサーバーへの接続を妨げる場合、オフラインアクティベーションが必要です。
+footnote2: >
+  デバイスがオフラインアクティベーションを通じて登録されると、ライセンスサーバーに再接続することなく拡張機能を使用できます。
+allRightsReserved: "全著作権所有"
+terms: "利用規約"
+privacy: "プライバシー"
+refunds: "返金"
+disclaimer1: >
+  「SQLite」はHipp, Wyrick & Company, Inc.の商標です。「Visual Studio Code」（VS Code）はMicrosoft Corporationの商標です。
+  この拡張機能は独立した製品であり、各商標所有者とは関係ありません。
+disclaimer2: >
+  デザインは[Solid](https://preview.cruip.com/solid)に基づいています。[GPL-3.0](https://github.com/qwtel/sqlite-viewer-vscode-page)の下でライセンスされています。

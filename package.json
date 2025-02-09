@@ -31,7 +31,7 @@
     "watch:images": "onchange 'src/images' -- run-s build:images",
     "watch:vendor": "onchange 'src/vendor' -- run-s build:vendor",
     "watch:inline-html": "onchange 'src/*.html' 'dist/**' -- run-s build:inline-html",
-    "watch:translate-html": "onchange '*.html' 'translations.*' -- run-s build:translate-html",
+    "watch:translate-html": "onchange '*.html' 'strings.*.yaml' 'translate.ts' -- run-s build:translate-html",
     "watch": "run-p serve watch:*",
     "dev": "run-s build watch"
   },

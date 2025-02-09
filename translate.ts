@@ -3,7 +3,7 @@
 import * as fs from 'fs/promises';
 import { marked } from 'marked';
 import * as yaml from 'yaml'
-
+import { Glob } from "bun";
 import URL from 'url';
 import path from 'path'
 
@@ -13,7 +13,14 @@ const resolve = (...args: string[]) => path.resolve(__dirname, ...args);
 
 const dashToCamelCase = (x: string) => x.replace(/-(\w)/g, (_, c) => c.toUpperCase());
 
-const translations = yaml.parse(await Bun.file(resolve('./translations.yaml')).text()) as Record<string, Record<string, string>>;
+const translations = {} as Record<string, Record<string, string>>;
+
+const stringsGlob = new Glob('strings.*.yaml');
+for await (const fn of stringsGlob.scan(resolve('.'))) {
+  const lang = fn.match(/\.(.+)\.yaml$/)![1];
+  const ts = yaml.parse(await Bun.file(resolve(fn)).text()) as Record<string, string>;
+  translations[lang] = ts;
+}
 
 const icon = html`<img class="img inline-block" width="18" height="18" src="/dist/images/favicon-pro.png" />`
 
@@ -59,16 +66,7 @@ await Promise.all(
   ),
 );
 
-// function extractNumbers(str: string) {
-//   return (str.match(/\d*\.?\d+/g) || []).map(Number);
-// }
-
-// function replacePlaceholders(str: string, numbers: number[]) {
-//   return str.replace(/\\(\d+)/g, (match, index) => numbers[index - 1] !== undefined 
-//     ? '' + numbers[index - 1] 
-//     : match);
-// }
-
+//#region utils
 function html(strings: TemplateStringsArray, ...values: any[]) {
   let str = '';
   strings.forEach((string, i) => {
@@ -76,3 +74,4 @@ function html(strings: TemplateStringsArray, ...values: any[]) {
   });
   return str;
 }
+//#endregion

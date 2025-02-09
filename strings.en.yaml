@@ -1,0 +1,102 @@
+title: "SQLite Viewer PRO for VS Code"
+forVsCode: "{SQLiteViewerPRO} for VS Code"
+openInBrowser: "Open in Browser"
+heroTitle: "The Best SQLite Editor is the One in Your Editor"
+heroParagraph: >
+  Get work done without leaving VS Code. Unlock powerful __editing__ and __export__ features.
+  Works anywhere, including __SSH__ and __WSL__.
+cardsTitle: "Upgrade to unlock exclusive PRO workflows:"
+seePricing: "See Pricing"
+learnMore: "Learn More"
+card1H: "Export data in a variety of formats"
+card1P: >
+  You can copy rows directly from the viewer in a variety of formats. Supported formats are:
+  TSV, CSV, SQLite inserts, JSON objects, JSON arrays, HTML, and Markdown.
+card2H: "Update values in place"
+card2P: >
+  Update values from the sidebar or modal. All changes are automatically wrapped in a transaction
+  and committed to disk when the file is saved.
+card3H: "Insert and delete rows"
+card3P: >
+  Insert one or more rows using the modal dialog. Delete one or more rows from the explorer or using
+  keyboard shortcuts.
+card4H: "Undo and redo changes using VS Code"
+card4P: >
+  SQLite Viewer PRO integrates with VS Code's undo/redo history. Changes are reverted through `ROLLBACK`
+  statements before a file has been saved, and by running (inverted) SQL statements afterwards.
+card5H: "Works in containers, SSH, and WSL"
+card5P: >
+  SQLite Viewer PRO can be installed inside containers, SSH hosts and WSL instances. A native SQLite instance
+  runs alongside the database in the remote workspace, while only the webview remains on the local machine.
+sectionTitleI: "Includes these exclusive PRO features:"
+feat1H: "Native SQLite Client"
+feat1P: >
+  The PRO version uses the __official SQLite implementation__, which provides the full set of failover guarantees.
+  The old readonly client remains as a fallback.
+feat2H: "Unlimited File Size"
+feat2P: >
+  All restrictions on file size are lifted, __even during remote sessions__. Only the data needed to render the UI
+  is transferred to your local machine.
+feat3H: "Ad-Free Experience"
+feat3P: >
+  PRO customers enjoy an ad-free experience — __perfect for screen sharing and recordings__. Additionally, PRO customers
+  receive an exclusive PRO icon ({icon}) in the UI.
+sectionTitleIi: "...and everything you like about the free version:"
+free1H: "Performant UI"
+free1P: >
+  SQLite Viewer is built with performance in mind. It uses the best tools the web stack has to offer and is __routinely
+  tested on older hardware__ to ensure performance remains top-notch.
+free2H: "Matching Theme"
+free2P: >
+  Say goodbye to disjointed user interfaces. SQLite Viewer __automatically adjusts to your VS Code theme__ and seamlessly
+  blends into the existing VS Code experience.
+free3H: "One-Click Setup"
+free3P: >
+  SQLite Viewer doesn't rely on binaries on your machine. It ships its own, so that __simply clicking 'Install' completes
+  the setup__. The entire extension weighs only 2.5 MB.
+free4H: "Works Anywhere"
+free4P: >
+  Whether you're using VS Codium, CodeSandbox, GitPod, Google IDX or other VS Code forks, __SQLite Viewer adapts to its environment__
+  and provides as many features as possible.
+free5H: "Owner Operated"
+free5P: >
+  SQLite Viewer is crafted by a single, dedicated developer. It enjoys a __coherent vision and attention to detail__ that is rarely
+  found in purely commercial products.
+nMInstalls: "1M+ million unique installs"
+rated55: "Rated ★★★★★"
+usedAcrossIndustry: "Used across the industry, including at {NASA}"
+pricingTitle: "No Subscription, No Problem"
+pricingContent: >
+  SQLite Viewer PRO is a __One-Time Purchase__ and grants you a __Perpetual License__. It works for as long as VS Code does.
+oneTimePurchase: "One-Time Purchase"
+sameAsCalc1: "Same as $6.58/month for 12 months"
+sameAsCalc2: "Same as $12.42/month for 12 months"
+plusVat: "+ VAT"
+priceFeat1: "Editing and export features"
+priceFeat2: "Ad-free experience"
+priceFeat3: "Exclusive PRO icon ({icon})"
+priceFeat4: "Offline license activation"
+priceFeat5: "No license revalidation"
+purchase: "Purchase"
+ctaH: "Want to try it first? Use the 14-day refund guarantee"
+ctaP: >
+  You can evaluate SQLite Viewer PRO for up to two weeks by making use of the [14-day refund guarantee](/refunds.html).
+  To request a refund, contact [refunds@sqliteviewer.app](mailto:refunds@sqliteviewer.app) with the email used at checkout — no explanation needed.
+faq1Summary: "__How do I install the PRO version after the purchase?__"
+faq1Content: >
+  You already have the PRO version installed! All that's required is to activate it. After the purchase is complete, you will receive an email from the
+  merchant of record with instructions on how claim the license key. __Activation happens within VS Code itself and only takes a couple of seconds__:<br><br>
+  Open the __Command Palette__ and type __"Activate License Key"__. Alternatively, you can open the __"Upgrade to PRO"__ dialog within a SQLite Viewer tab,
+  scroll to the bottom of the page and click __"Enter License Key"__. An input field will open at the top of the VS Code window. Paste the license key and hit enter.
+  A system dialog will confirm the activation within a few seconds.
+footnote1: "Offline Activation is required if a company firewall prevents the extension from connecting to the license server."
+footnote2: "When a device is enrolled through offline activation, the extension can be used without ever needing to reconnect to the license server."
+allRightsReserved: "All rights reserved"
+terms: "Terms"
+privacy: "Privacy"
+refunds: "Refunds"
+disclaimer1: >
+  “SQLite” is a trademark of Hipp, Wyrick & Company, Inc. “Visual Studio Code” (VS Code) is a trademark of Microsoft Corporation. This extension is an
+  independent product and is not affiliated with the respective trademark holders.
+disclaimer2: >
+  Design based on [Solid](https://preview.cruip.com/solid). Licensed under [GPL-3.0](https://github.com/qwtel/sqlite-viewer-vscode-page).
