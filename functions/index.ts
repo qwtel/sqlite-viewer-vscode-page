@@ -13,7 +13,10 @@ const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const url = new URL(context.request.url);
 
-  if (LANGS.every(lang => !url.pathname.startsWith(`/${lang}`))) {
+  let isDedicatedLangPage = false;
+  if (LANGS.some(lang => url.pathname.startsWith(`/${lang}`))) {
+    isDedicatedLangPage = true;
+  } else {
     const langHeader = context.request.headers.get('accept-language') || '';
     const lang = languageParser.pick(LANGS, langHeader);
     url.pathname = `/${lang}${url.pathname}`;
@@ -100,7 +103,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   }
 
   if (response.status === 200) {
-    transformedResponse.headers.append('vary', 'accept-language');
+    if (!isDedicatedLangPage) transformedResponse.headers.append('vary', 'accept-language');
     transformedResponse.headers.append('vary', 'cf-ipcountry');
   }
   return transformedResponse;
