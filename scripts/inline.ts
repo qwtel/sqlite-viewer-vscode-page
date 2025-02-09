@@ -1,13 +1,12 @@
 /// <reference types="bun-types" />
 
 import * as fs from 'fs/promises';
-
 import URL from 'url';
 import path from 'path'
 
 const __filename = URL.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const resolve = (...args: string[]) => path.resolve(__dirname, ...args);
+const resolve = (...args: string[]) => path.resolve(__dirname, '..', ...args);
 
 const IMG_CUTOFF_KB = 25;
 

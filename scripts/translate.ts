@@ -1,24 +1,24 @@
 /// <reference types="bun-types" />
 
 import * as fs from 'fs/promises';
+import URL from 'url';
+import path from 'path'
 import { marked } from 'marked';
 import * as yaml from 'yaml'
 import { Glob } from "bun";
-import URL from 'url';
-import path from 'path'
 
 const __filename = URL.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const resolve = (...args: string[]) => path.resolve(__dirname, ...args);
+const resolve = (...args: string[]) => path.resolve(__dirname, '..', ...args);
 
 const dashToCamelCase = (x: string) => x.replace(/-(\w)/g, (_, c) => c.toUpperCase());
 
 const translations = {} as Record<string, Record<string, string>>;
 
-const stringsGlob = new Glob('strings.*.yaml');
-for await (const fn of stringsGlob.scan(resolve('.'))) {
-  const lang = fn.match(/\.(.+)\.yaml$/)![1];
-  const ts = yaml.parse(await Bun.file(resolve(fn)).text()) as Record<string, string>;
+const glob = new Glob('*');
+for await (const name of glob.scan(resolve('./i18n'))) {
+  const [, lang] = name.match(/\.(.+)\.yaml$/)!;
+  const ts = yaml.parse(await Bun.file(resolve('./i18n', name)).text());
   translations[lang] = ts;
 }
 
