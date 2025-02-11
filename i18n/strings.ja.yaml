@@ -72,7 +72,7 @@ pricingContent: >
 oneTimePurchase: "一度の購入"
 sameAsCalc1: "12か月で月額$6.58と同じ"
 sameAsCalc2: "12か月で月額$12.42と同じ"
-plusVat: "+ VAT"
+plusVat: "+ 消費税"
 priceFeat1: "編集およびエクスポート機能"
 priceFeat2: "広告なしの体験"
 priceFeat3: "専用のPROアイコン（{icon}）"
