@@ -24,6 +24,11 @@ for await (const name of glob.scan(resolve('./i18n'))) {
 
 const icon = html`<img class="img inline-block" width="18" height="18" src="/dist/images/favicon-pro.png" />`
 
+const indexTs = `
+/// <reference types="@cloudflare/workers-types/2023-07-01" />
+export { onRequestGet } from "../index.ts";
+`;
+
 async function translateHtml(inFile: string, lang: string, outFile: string) {
   const rewriter = new HTMLRewriter()
     .on('html[lang]', {
@@ -58,6 +63,7 @@ async function translateHtml(inFile: string, lang: string, outFile: string) {
   const outFileDir = path.dirname(resolve(outFile));
   await fs.mkdir(outFileDir, { recursive: true }).catch(() => {});
   await Bun.write(resolve(outFile), newHtmlStr);
+  await Bun.write(resolve('functions', lang, 'index.ts'), indexTs);
 }
 
 await Promise.all(
