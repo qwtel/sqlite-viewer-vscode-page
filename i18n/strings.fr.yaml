@@ -102,4 +102,10 @@ disclaimer1: >
   “SQLite” est une marque de Hipp, Wyrick & Company, Inc. “Visual Studio Code” (VS Code) est une marque de Microsoft Corporation.
   Cette extension est un produit indépendant et n'est pas affiliée aux détenteurs respectifs des marques.
 disclaimer2: >
+  Tous les prix sont indiqués en dollars américains (USD) et n'incluent pas la TVA. La TVA peut être ajoutée lors du paiement. Votre fournisseur de carte de crédit
+  peut facturer des frais de conversion de devise.
+disclaimer3: >
   Design basé sur [Solid](https://preview.cruip.com/solid). Sous licence [GPL-3.0](https://github.com/qwtel/sqlite-viewer-vscode-page).
+langDisclaimer: >
+  Cette page a été traduite en français à l'aide de l'IA. Toute différence entre la version originale en anglais et la traduction est non intentionnelle,
+  et la version anglaise doit être considérée comme faisant autorité.

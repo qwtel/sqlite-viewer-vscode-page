@@ -27,8 +27,9 @@ ol > li {
     position: relative; /* To display all elements above the background color */
     display: flex;
     flex-wrap: wrap;
-    padding-top: 48px;
-    padding-bottom: 48px;
+    &:last-of-type {
+        padding-bottom: 48px;
+    }
 }
 
 .footer-brand,
@@ -80,8 +81,13 @@ ol > li {
 
     .site-footer-inner {
         justify-content: space-between;
-		padding-top: 64px;
-        padding-bottom: 128px;
+		padding-top: 32px;
+        &:last-of-type {
+            padding-bottom: 128px;
+        }
+        &:first-of-type {
+		    padding-top: 64px;
+        }
     }
 
     .footer-brand,
