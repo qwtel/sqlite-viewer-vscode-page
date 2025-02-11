@@ -103,8 +103,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   }
 
   if (response.status === 200) {
-    if (!isDedicatedLangPage) transformedResponse.headers.append('vary', 'accept-language');
-    transformedResponse.headers.append('vary', 'cf-ipcountry');
+    if (!isDedicatedLangPage) transformedResponse.headers.append('Vary', 'Accept-Language');
+    transformedResponse.headers.append('Vary', 'CF-IPCountry');
   }
   return transformedResponse;
 }
