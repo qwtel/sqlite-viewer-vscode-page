@@ -12,12 +12,13 @@ const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const url = new URL(context.request.url);
+  const { searchParams } = url;
 
   let isDedicatedLangPage = false;
   if (LANGS.some(lang => url.pathname.startsWith(`/${lang}`))) {
     isDedicatedLangPage = true;
   } else {
-    const langHeader = context.request.headers.get('accept-language') || '';
+    const langHeader = searchParams.get('lang') || context.request.headers.get('Accept-Language') || '';
     const lang = languageParser.pick(LANGS, langHeader) ?? 'en';
     url.pathname = `/${lang}${url.pathname}`;
   }
@@ -28,11 +29,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const PROHrefByTier = context.env.PRO_HREFS.trim().split('\n');
   const BEHrefByTier = context.env.BE_HREFS.trim().split('\n');
 
-  const country = ((DEV && DevCountryOverride) || context.request.headers.get('cf-ipcountry') || 'US') as keyof typeof PPP;
+  const country = ((DEV && DevCountryOverride) || context.request.headers.get('CF-IPcountry') || 'US') as keyof typeof PPP;
   const discountGroup = PPP[country] ?? 0;
   const tier = DGToTier[discountGroup];
 
-  const searchParams = url.searchParams;
   const colorScheme = lightDark(searchParams.get('color-scheme'))
   const vscode = searchParams.has('css-vars')
 
