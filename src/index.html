@@ -61,7 +61,7 @@
             <script>
               if (searchParams.has('css-vars')) {
                 document.getElementById('open-in-browser').style.display = 'inline';
-                document.getElementById('open-in-browser').href = location.origin + `?ref=vscode&lang=${searchParams.get('lang') || 'en'}`;
+                document.getElementById('open-in-browser').href = location.origin + `?ref=vscode`;
               }
             </script>
             <a class="button button-primary button-sm" href="#pricing" onclick="scrollToHash(event, null, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)" data-i18n-key="see-pricing">See Pricing</a>
