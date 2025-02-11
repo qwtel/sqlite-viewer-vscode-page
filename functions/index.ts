@@ -18,7 +18,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     isDedicatedLangPage = true;
   } else {
     const langHeader = context.request.headers.get('accept-language') || '';
-    const lang = languageParser.pick(LANGS, langHeader);
+    const lang = languageParser.pick(LANGS, langHeader) ?? 'en';
     url.pathname = `/${lang}${url.pathname}`;
   }
 
