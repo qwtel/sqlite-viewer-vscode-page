@@ -65,7 +65,9 @@ free5P: >
   SQLite Viewer wird von einem einzigen, engagierten Entwickler gepflegt. Dies gewährleistet eine __durchdachte Vision und Liebe
   zum Detail__, die in rein kommerziellen Produkten selten ist.
 nMInstalls: "1+ Million Installationen"
+nMInstallsVerbose: "Mehr als eine Million Installationen"
 rated55: "★★★★★ Wertung"
+rated55Verbose: "Mit 5/5 Sternen bewertet"
 usedAcrossIndustry: "Eingesetzt in allen Branchen, einschließlich der {NASA}"
 pricingTitle: "Kein Abo, kein Problem"
 pricingContent: >
@@ -99,6 +101,8 @@ allRightsReserved: "Alle Rechte vorbehalten"
 terms: "AGB"
 privacy: "Datenschutz"
 refunds: "Rückerstattungen"
+changelog: "Änderungsprotokoll"
+contact: "Kontakt"
 disclaimer1: >
   „SQLite“ ist eine Marke von Hipp, Wyrick & Company, Inc. „Visual Studio Code“ (VS Code) ist eine Marke der Microsoft Corporation. Diese Erweiterung ist ein
   unabhängiges Produkt und steht in keiner Verbindung zu den jeweiligen Markeninhabern.

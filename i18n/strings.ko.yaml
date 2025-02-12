@@ -51,7 +51,9 @@ free5H: "개인 운영"
 free5P: >
   SQLite Viewer는 단일, 헌신적인 개발자가 제작했습니다. **일관된 비전과 세부 사항에 대한 주의**를 즐기며 순수 상업 제품에서는 드물게 발견됩니다.
 nMInstalls: "100만+ 고유 설치"
+nMInstallsVerbose: "100만 개 이상의 고유 설치"
 rated55: "평점 ★★★★★"
+rated55Verbose: "5/5 별점으로 평가됨"
 usedAcrossIndustry: "{NASA}를 포함한 업계 전반에서 사용됨"
 pricingTitle: "구독 없음, 문제 없음"
 pricingContent: >
@@ -81,6 +83,8 @@ allRightsReserved: "모든 권리 보유"
 terms: "이용 약관"
 privacy: "개인정보 보호정책"
 refunds: "환불"
+changelog: "변경 로그"
+contact: "연락처"
 disclaimer1: >
   “SQLite”는 Hipp, Wyrick & Company, Inc.의 상표입니다. “Visual Studio Code” (VS Code)는 Microsoft Corporation의 상표입니다. 이 확장 프로그램은 독립 제품이며 해당 상표 소유자와 관련이 없습니다.
 disclaimer2: >

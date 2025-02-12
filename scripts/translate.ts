@@ -22,6 +22,7 @@ for await (const name of glob.scan(resolve('./i18n'))) {
   translations[lang] = ts;
 }
 
+const name = html`<span class="color">SQLite Viewer PRO</span>`;
 const icon = html`<img class="img inline-block" width="18" height="18" src="/dist/images/favicon-pro.png" />`
 
 const indexTs = `
@@ -46,10 +47,32 @@ async function translateHtml(inFile: string, lang: string, outFile: string) {
           newHtml = newHtml
             .replaceAll('{icon}', icon)
             .replaceAll('{NASA}', lang === 'ja' || lang === 'ko' ? 'NASA' : '')
-            .replaceAll('{SQLiteViewerPRO}', html`<span class="color">SQLite Viewer PRO</span>`)
+            .replaceAll('{SQLiteViewerPRO}', name)
           el.setInnerContent(newHtml, { html: true });
         }
         el.removeAttribute('data-i18n-key');
+      }
+    })
+    .on('[data-i18n-title]', {
+      element(el) {
+        const key = el.getAttribute('data-i18n-title')!;
+        const value = translations[lang][dashToCamelCase(key)];
+        if (value) {
+          const newHtml = marked.parseInline('' + value, { gfm: true }) as string;
+          el.setAttribute('title', newHtml);
+        }
+        el.removeAttribute('data-i18n-title');
+      }
+    })
+    .on('[data-i18n-content]', {
+      element(el) {
+        const key = el.getAttribute('data-i18n-content')!;
+        const value = translations[lang][dashToCamelCase(key)];
+        if (value) {
+          const newHtml = marked.parseInline('' + value, { gfm: true }) as string;
+          el.setAttribute('content', newHtml);
+        }
+        el.removeAttribute('data-i18n-content');
       }
     })
     .on(`[data-hreflang=${lang}]`, {
