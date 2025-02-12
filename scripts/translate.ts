@@ -24,6 +24,11 @@ for await (const name of glob.scan(resolve('./i18n'))) {
 
 const name = html`<span class="color">SQLite Viewer PRO</span>`;
 const icon = html`<img class="img inline-block" width="18" height="18" src="/dist/images/favicon-pro.png" />`
+const polar = html`<a href="https://polar.sh" target="_blank" style="text-decoration:none"><picture>
+  <source media="(prefers-color-scheme: light)" srcset="/dist/images/polar.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="/dist/images/polar-dark.svg">
+  <img style="display:inline-block;height:18px;padding-left:2px;margin-bottom:-3.5px" src="/dist/images/polar.svg" alt="Polar">
+</picture></a>`;
 
 const indexTs = `
 /// <reference types="@cloudflare/workers-types/2023-07-01" />
@@ -45,9 +50,10 @@ async function translateHtml(inFile: string, lang: string, outFile: string) {
         if (value) {
           let newHtml = marked.parseInline('' + value, { gfm: true, breaks: true }) as string;
           newHtml = newHtml
-            .replaceAll('{icon}', icon)
-            .replaceAll('{NASA}', lang === 'ja' || lang === 'ko' ? 'NASA' : '')
             .replaceAll('{SQLiteViewerPRO}', name)
+            .replaceAll('{icon}', icon)
+            .replaceAll('{polar}', polar)
+            .replaceAll('{NASA}', lang === 'ja' || lang === 'ko' ? 'NASA' : '')
           el.setInnerContent(newHtml, { html: true });
         }
         el.removeAttribute('data-i18n-key');

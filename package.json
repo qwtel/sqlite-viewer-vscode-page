@@ -30,7 +30,7 @@
     "watch:js": "onchange 'src/js' -- run-s build:js",
     "watch:images": "onchange 'src/images' -- run-s build:images",
     "watch:vendor": "onchange 'src/vendor' -- run-s build:vendor",
-    "watch:inline-html": "onchange 'src/*.html' 'dist/**' -- run-s build:inline-html",
+    "watch:inline-html": "onchange 'src/*.html' -- run-s build:inline-html",
     "watch:translate-html": "onchange '*.html' 'i18n/*' 'scripts/translate.ts' -- run-s build:translate-html",
     "watch": "run-p serve watch:*",
     "dev": "run-s build watch"

@@ -80,6 +80,8 @@ priceFeat3: "Exclusive PRO icon ({icon})"
 priceFeat4: "Offline license activation"
 priceFeat5: "No license revalidation"
 purchase: "Purchase"
+paymentInfo: >
+  Orders are processed by our online reseller & Merchant of Record {polar}.
 ctaH: "Want to try it first? Use the 14-day refund guarantee"
 ctaP: >
   You can evaluate SQLite Viewer PRO for up to two weeks by making use of the [14-day refund guarantee](/refunds.html).

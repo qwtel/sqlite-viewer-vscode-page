@@ -81,6 +81,8 @@ priceFeat3: "Icône PRO exclusive ({icon})"
 priceFeat4: "Activation de licence hors ligne"
 priceFeat5: "Pas de vérification continue de la licence"
 purchase: "Acheter"
+paymentInfo: >
+  Les commandes sont traitées par notre revendeur en ligne et marchand de référence {polar}.
 ctaH: "Voulez-vous l'essayer d'abord ? Utilisez la garantie de remboursement de 14 jours"
 ctaP: >
   Vous pouvez évaluer SQLite Viewer PRO pendant jusqu'à deux semaines en utilisant la [garantie de remboursement de 14 jours](/refunds.html).
