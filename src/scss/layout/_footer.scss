@@ -27,13 +27,13 @@ ol > li {
     position: relative; /* To display all elements above the background color */
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     &:last-of-type {
         padding-bottom: 48px;
     }
 }
 
 .footer-brand,
-.footer-links,
 .footer-social-links,
 .footer-copyright {
     flex: none;
@@ -42,21 +42,21 @@ ol > li {
     justify-content: center;
 }
 
+.footer-links-wrapper {
+    text-align: right;
+}
+
 .footer-brand,
-.footer-links,
+.footer-links-wrapper,
 .footer-social-links {
     margin-bottom: 24px;
 }
 
 .footer-social-links {
+    gap: 16px;
 
     li {
         display: inline-flex;
-
-		+ li {
-			margin-left: 16px;
-		}
-
         a {
             padding: 8px;
         }
@@ -64,13 +64,10 @@ ol > li {
 }
 
 .footer-links {
-
-    li {
-
-        + li {
-            margin-left: 24px;
-        }
-    }
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 4px 24px;
+    justify-content: center;
 }
 
 @include include-media.media( '>medium' ) {
@@ -82,6 +79,7 @@ ol > li {
     .site-footer-inner {
         justify-content: space-between;
 		padding-top: 32px;
+        column-gap: 24px;
         &:last-of-type {
             padding-bottom: 128px;
         }
@@ -91,10 +89,10 @@ ol > li {
     }
 
     .footer-brand,
-    .footer-links,
+    .footer-links-wrapper,
     .footer-social-links,
     .footer-copyright {
-        flex: 50%;
+        flex: calc(50% - 12px);
     }
 
     .footer-brand,
@@ -107,7 +105,7 @@ ol > li {
         justify-content: flex-end;
     }
 
-    .footer-links {
+    .footer-links-wrapper {
         order: 1;
         margin-bottom: 0;
     }

@@ -550,13 +550,15 @@
               <img class="header-logo-image" src="/dist/images/logo_70_mac.png" data-no-inline alt="Logo" width="35" height="35" fetchpriority="low">
             </a>
           </div>
-          <ul id="footer-links" class="footer-links list-reset">
-            <li><a href="/terms.html" data-i18n-key="terms">Terms</a></li>
-            <li><a href="/privacy.html" data-i18n-key="privacy">Privacy</a></li>
-            <li><a href="/refunds.html" data-i18n-key="refunds">Refunds</a></li>
-            <li><a href="https://marketplace.visualstudio.com/items/qwtel.sqlite-viewer/changelog" target="_blank">Changelog&nbsp;↗</a></li>
-            <li><a href="mailto:mail@sqliteviewer.app">Contact&nbsp;↗</a></li>
-          </ul>
+          <div class="footer-links-wrapper">
+            <ul id="footer-links" class="footer-links list-reset">
+              <li><a href="/terms.html" data-i18n-key="terms">Terms</a></li>
+              <li><a href="/privacy.html" data-i18n-key="privacy">Privacy</a></li>
+              <li><a href="/refunds.html" data-i18n-key="refunds">Refunds</a></li>
+              <li><a href="https://marketplace.visualstudio.com/items/qwtel.sqlite-viewer/changelog" target="_blank"><span data-i18n-key="changelog">Changelog</span>&nbsp;↗</a></li>
+              <li><a href="mailto:mail@sqliteviewer.app"><span data-i18n-key="contact">Contact</span>&nbsp;↗</a></li>
+            </ul>
+          </div>
           <ul class="footer-social-links list-reset">
             <li>
               <a href="https://github.com/qwtel/sqlite-viewer-vscode/discussions" title="GitHub">
@@ -575,7 +577,7 @@
               </a>
             </li>
           </ul>
-          <div class="footer-copyright column"><p class="mr-16">
+          <div class="footer-copyright column"><p>
             &copy; 2025 Florian Klampfer. <span data-i18n-key="all-rights-reserved">All rights reserved</span>.<br><br>
             <span data-i18n-key="disclaimer-1">“SQLite” is a trademark of Hipp, Wyrick & Company, Inc. “Visual Studio Code” (VS Code) is a trademark of Microsoft Corporation. This extension is an independent product and is not affiliated with the respective trademark holders.</span><br><br>
             <span data-i18n-key="disclaimer-2">Design based on <a href="https://preview.cruip.com/solid">Solid</a>. Licensed under <a href="https://github.com/qwtel/sqlite-viewer-vscode-page">GPL-3.0</a>.</span><br><br>
@@ -583,16 +585,18 @@
           </p></div>
         </div>
         <div class="site-footer-inner">
-          <div class="footer-copyright column"><p class="mr-16" data-i18n-key="lang-disclaimer"></div>
-          <ul id="lang-links" class="footer-links list-reset">
-            <li><a data-hreflang="en" href="/en/">English</a></li>
-            <li><a data-hreflang="de" href="/de/">Deutsch</a></li>
-            <li><a data-hreflang="fr" href="/fr/">Français</a></li>
-            <li><a data-hreflang="pt-br" href="/pt-br/">Português</a></li>
-            <li><a data-hreflang="ja" href="/ja/">日本語</a></li>
-            <li><a data-hreflang="es" href="/es/">Español</a></li>
-            <li><a data-hreflang="ko" href="/ko/">한국어</a></li>
-          </ul>
+          <div class="footer-copyright column"><p data-i18n-key="lang-disclaimer"></p></div>
+          <div class="footer-links-wrapper">
+            <ul id="lang-links" class="footer-links list-reset">
+              <li><a data-hreflang="en" href="/en/">English</a></li>
+              <li><a data-hreflang="de" href="/de/">Deutsch</a></li>
+              <li><a data-hreflang="fr" href="/fr/">Français</a></li>
+              <li><a data-hreflang="pt-br" href="/pt-br/">Português</a></li>
+              <li><a data-hreflang="ja" href="/ja/">日本語</a></li>
+              <li><a data-hreflang="es" href="/es/">Español</a></li>
+              <li><a data-hreflang="ko" href="/ko/">한국어</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </footer>
