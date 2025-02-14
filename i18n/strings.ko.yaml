@@ -68,8 +68,8 @@ priceFeat3: "독점 PRO 아이콘 ({icon})"
 priceFeat4: "오프라인 라이선스 활성화"
 priceFeat5: "라이선스 재검증 없음"
 purchase: "구매"
-paymentInfo: >
-  주문은 당사의 온라인 리셀러 및 기록 상점 {polar}에서 처리됩니다.
+paymentInfo: "주문은 당사의 온라인 리셀러 및 기록 상점 {polar}에서 처리됩니다."
+paymentProviders: "{GooglePayApplePay} 및 기타 결제 수단을 허용합니다"
 ctaH: "먼저 사용해보고 싶으신가요? 14일 환불 보장을 이용하세요"
 ctaP: >
   [14일 환불 보장](/refunds.html)을 이용하여 SQLite Viewer PRO를 최대 2주 동안 평가할 수 있습니다.

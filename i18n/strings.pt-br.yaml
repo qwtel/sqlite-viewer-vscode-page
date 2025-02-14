@@ -80,8 +80,8 @@ priceFeat3: "Ícone PRO exclusivo ({icon})"
 priceFeat4: "Ativação de licença offline"
 priceFeat5: "Sem revalidação de licença"
 purchase: "Comprar"
-paymentInfo: >
-  Os pedidos são processados pelo nosso revendedor online & Merchant of Record {polar}.
+paymentInfo: "Os pedidos são processados pelo nosso revendedor online & Merchant of Record {polar}."
+paymentProviders: "Aceita {GooglePayApplePay} e mais"
 ctaH: "Quer experimentar primeiro? Use a garantia de reembolso de 14 dias"
 ctaP: >
   Você pode avaliar o SQLite Viewer PRO por até duas semanas usando a [garantia de reembolso de 14 dias](/refunds.html).
