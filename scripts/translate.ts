@@ -30,13 +30,13 @@ const polar = html`<a href="https://polar.sh" target="_blank" style="text-decora
   <img style="display:inline-block;height:18px;padding:0 2px;margin-bottom:-3.5px" src="/dist/images/polar.svg" alt="Polar">
 </picture></a>`;
 const payments = html`
-<img style="height:30px;margin-right:-2px" src="/dist/images/google-pay.svg" alt="Google Pay" title="Google Pay">
-<img style="height:30px" src="/dist/images/apple-pay.svg" alt="Apple Pay" title="Apple Pay">
-<img style="height:30px" src="/dist/images/cashapp-pay.svg" alt="CashApp Pay" title="CashApp Pay">
-<img style="height:30px" src="/dist/images/visa.svg" alt="Visa" title="Visa">
-<img style="height:30px" src="/dist/images/mastercard.svg" alt="Mastercard" title="Mastercard">
-<!-- <img style="height:30px" src="/dist/images/amex.svg" alt="American Express" title="American Express">
-<img style="height:30px" src="/dist/images/discover.svg" alt="Discover" title="Discover"> -->
+<img style="height:26px;margin-right:-2px" src="/dist/images/google-pay.svg" alt="Google Pay" title="Google Pay">
+<img style="height:26px" src="/dist/images/apple-pay.svg" alt="Apple Pay" title="Apple Pay">
+<img style="height:26px" src="/dist/images/cashapp-pay.svg" alt="CashApp Pay" title="CashApp Pay">
+<img style="height:26px" src="/dist/images/visa.svg" alt="Visa" title="Visa">
+<img style="height:26px" src="/dist/images/mastercard.svg" alt="Mastercard" title="Mastercard">
+<!-- <img style="height:26px" src="/dist/images/amex.svg" alt="American Express" title="American Express">
+<img style="height:26px" src="/dist/images/discover.svg" alt="Discover" title="Discover"> -->
 `.trim();
 
 const indexTs = `
