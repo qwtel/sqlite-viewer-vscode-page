@@ -17,7 +17,7 @@ const translations = {} as Record<string, Record<string, string>>;
 
 const glob = new Glob('*');
 for await (const name of glob.scan(resolve('./i18n'))) {
-  const [, lang] = name.match(/\.(.+)\.yaml$/)!;
+  const [, lang] = name.match(/\.(.+)\.yaml$/) ?? [, 'en'];
   const ts = yaml.parse(await Bun.file(resolve('./i18n', name)).text());
   translations[lang] = ts;
 }
