@@ -55,7 +55,7 @@ free2P: >
 free3H: "Ein-Klick-Setup"
 free3P: >
   SQLite Viewer benötigt keine externen Binärdateien auf Ihrem Rechner. Die Erweiterung bringt alles mit,
-  sodass die __Installation mit einem einfachen Klick abgeschlossen__ ist. Die gesamte Erweiterung ist nur 2,5 MB groß.
+  sodass die __Installation mit einem einfachen Klick abgeschlossen__ ist. Die gesamte Erweiterung ist nur 6,5 MB groß.
 free4H: "Funktioniert Überall"
 free4P: >
   Ob in VS Codium, CodeSandbox, GitPod, Google IDX oder anderen VS Code-Forks – __SQLite Viewer passt sich der Umgebung an__

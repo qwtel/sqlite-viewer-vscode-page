@@ -53,7 +53,7 @@ free2P: >
 free3H: "Configuração com Um Clique"
 free3P: >
   O SQLite Viewer não depende de binários na sua máquina. Ele traz os seus próprios, de modo que __simplesmente clicar em 'Instalar' completa
-  a configuração__. A extensão inteira pesa apenas 2,5 MB.
+  a configuração__. A extensão inteira pesa apenas 6,5 MB.
 free4H: "Funciona em Qualquer Lugar"
 free4P: >
   Quer você esteja usando VS Codium, CodeSandbox, GitPod, Google IDX ou outros forks do VS Code, __o SQLite Viewer adapta-se ao seu ambiente__
