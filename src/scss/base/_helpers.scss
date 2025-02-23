@@ -547,6 +547,10 @@
 	font-weight: bold;
 }
 
+.nb { // no break
+	white-space: nowrap;
+}
+
 @media print {
 	.hide-print {
 		display: none;

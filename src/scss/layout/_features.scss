@@ -28,7 +28,27 @@
 }
 
 .feature-inner p {
-    // hyphens: auto;
+    hyphens: auto;
+}
+
+html[lang="de"] .feature-inner p {
+    hyphenate-limit-chars: 15 7 7;
+}
+
+html[lang="en"] .feature-inner p {
+    hyphenate-limit-chars: 9 4 4;
+}
+
+html[lang="pt-br"] .feature-inner p {
+    hyphenate-limit-chars: 12 6 5;
+}
+
+html[lang="es"] .feature-inner p {
+    hyphenate-limit-chars: 12 6 5;
+}
+
+html[lang="fr"] .feature-inner p {
+    hyphenate-limit-chars: 12 6 5;
 }
 
 .feature-icon {

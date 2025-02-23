@@ -41,7 +41,7 @@ feat2P: >
 feat3H: "広告なしの体験"
 feat3P: >
   PROのお客様は広告なしの体験を楽しむことができます。**画面共有や録画に最適**。
-  さらに、PROのお客様はUIに専用のPROアイコン（{icon}）を受け取ります。
+  さらに、PROのお客様はUIに専用のPROアイコン<span class="nb">（{icon}）</span>を受け取ります。
 sectionTitleIi: "...そして無料版のすべての機能："
 free1H: "パフォーマンスに優れたUI"
 free1P: >
@@ -57,7 +57,7 @@ free3P: >
   拡張機能全体のサイズはわずか6.5 MBです。
 free4H: "どこでも動作"
 free4P: >
-  VS Codium、CodeSandbox、GitPod、Google IDX、その他のVS Codeフォークを使用している場合でも、
+  Cursor、VS Codium、CodeSandbox、GitPod、Google IDX、その他のVS Codeフォークを使用している場合でも、
   **SQLite Viewerは環境に適応し**、可能な限り多くの機能を提供します。
 free5H: "オーナー運営"
 free5P: >

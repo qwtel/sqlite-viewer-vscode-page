@@ -33,14 +33,14 @@ feat1H: "Cliente SQLite Nativo"
 feat1P: >
   A versão PRO usa a __implementação oficial do SQLite__, que fornece o conjunto completo de garantias de failover.
   O antigo cliente somente leitura permanece como fallback.
-feat2H: "Tamanho de Arquivo Ilimitado"
+feat2H: "Tamanho Ilimitado"
 feat2P: >
   Todas as restrições de tamanho de arquivo são removidas, __mesmo durante sessões remotas__. Apenas os dados necessários para renderizar a interface
   são transferidos para sua máquina local.
 feat3H: "Experiência Sem Anúncios"
 feat3P: >
   Clientes PRO desfrutam de uma experiência sem anúncios — __perfeita para compartilhamento de tela e gravações__. Além disso, clientes PRO
-  recebem um ícone PRO exclusivo ({icon}) na interface.
+  recebem um ícone PRO exclusivo <span class="nb">({icon})</span> na interface.
 sectionTitleIi: "...e tudo o que você gosta na versão gratuita:"
 free1H: "Interface Performática"
 free1P: >
@@ -50,13 +50,13 @@ free2H: "Tema Correspondente"
 free2P: >
   Diga adeus às interfaces de usuário desarticuladas. O SQLite Viewer __ajusta-se automaticamente ao tema do VS Code__ e se integra
   perfeitamente à experiência existente do VS Code.
-free3H: "Configuração com Um Clique"
+free3H: "Configuração Fácil"
 free3P: >
   O SQLite Viewer não depende de binários na sua máquina. Ele traz os seus próprios, de modo que __simplesmente clicar em 'Instalar' completa
   a configuração__. A extensão inteira pesa apenas 6,5 MB.
-free4H: "Funciona em Qualquer Lugar"
+free4H: "Funciona em Todo Lugar"
 free4P: >
-  Quer você esteja usando VS Codium, CodeSandbox, GitPod, Google IDX ou outros forks do VS Code, __o SQLite Viewer adapta-se ao seu ambiente__
+  Quer você esteja usando Cursor, VS Codium, CodeSandbox, GitPod, Google IDX ou outros forks do VS Code, __o SQLite Viewer adapta-se ao seu ambiente__
   e fornece o máximo de recursos possível.
 free5H: "Operado pelo Proprietário"
 free5P: >

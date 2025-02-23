@@ -41,8 +41,8 @@ feat2P: >
   Nur die für die Anzeige erforderlichen Daten werden auf den lokalen Rechner übertragen.
 feat3H: "Werbefreie Nutzung"
 feat3P: >
-  PRO-Kunden genießen eine werbefreie Nutzung – __ideal für Bildschirm&shy;freigaben und Aufnahmen__.
-  Zudem erhalten PRO-Kunden ein exklusives PRO-Symbol ({icon}) in der UI.
+  PRO-Kunden genießen eine werbefreie Nutzung – __ideal für Bildschirmfreigaben und Aufnahmen__.
+  Zudem erhalten PRO-Kunden ein exklusives PRO-Symbol <span class="nb">({icon})</span> in der UI.
 sectionTitleIi: "…und alles, was Sie an der kostenlosen Version schätzen:"
 free1H: "Performantes UI"
 free1P: >
@@ -50,7 +50,7 @@ free1P: >
   und wird __regelmäßig auf älterer Hardware getestet__, um eine erstklassige Performance zu gewährleisten.
 free2H: "Passendes Theme"
 free2P: >
-  Schluss mit inkonsistenten Ober&shy;flächen. SQLite Viewer __passt sich automatisch Ihrem VS Code-Theme an__
+  Schluss mit inkonsistenten Oberflächen. SQLite Viewer __passt sich automatisch Ihrem VS Code-Theme an__
   und integriert sich nahtlos in die bestehende VS Code-Umgebung.
 free3H: "Ein-Klick-Setup"
 free3P: >
@@ -58,7 +58,7 @@ free3P: >
   sodass die __Installation mit einem einfachen Klick abgeschlossen__ ist. Die gesamte Erweiterung ist nur 6,5 MB groß.
 free4H: "Funktioniert Überall"
 free4P: >
-  Ob in VS Codium, CodeSandbox, GitPod, Google IDX oder anderen VS Code-Forks – __SQLite Viewer passt sich der Umgebung an__
+  Ob in Cursor, VS Codium, CodeSandbox, GitPod, Google IDX oder anderen VS Code-Forks – __SQLite Viewer passt sich der Umgebung an__
   und bietet so viele Funktionen wie möglich.
 free5H: "Inhabergeführt"
 free5P: >

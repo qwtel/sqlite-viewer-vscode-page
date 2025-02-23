@@ -33,7 +33,7 @@ feat2P: >
   파일 크기에 대한 모든 제한이 해제됩니다, **원격 세션 중에도**. UI를 렌더링하는 데 필요한 데이터만 로컬 머신으로 전송됩니다.
 feat3H: "광고 없는 경험"
 feat3P: >
-  PRO 고객은 광고 없는 경험을 즐길 수 있습니다 — **화면 공유 및 녹화에 적합합니다**. 또한, PRO 고객은 UI에서 독점적인 PRO 아이콘({icon})을 받습니다.
+  PRO 고객은 광고 없는 경험을 즐길 수 있습니다 — **화면 공유 및 녹화에 적합합니다**. 또한, PRO 고객은 UI에서 독점적인 PRO 아이콘<span class="nb">({icon})</span>을 받습니다.
 sectionTitleIi: "...그리고 무료 버전에서 좋아하는 모든 것:"
 free1H: "성능 좋은 UI"
 free1P: >
@@ -46,7 +46,7 @@ free3P: >
   SQLite Viewer는 머신에 있는 바이너리에 의존하지 않습니다. 자체적으로 제공되므로 **'설치'를 클릭하는 것만으로 설정이 완료됩니다**. 전체 확장 프로그램의 크기는 6.5MB에 불과합니다.
 free4H: "어디서나 작동"
 free4P: >
-  VS Codium, CodeSandbox, GitPod, Google IDX 또는 기타 VS Code 포크를 사용하든, **SQLite Viewer는 환경에 맞춰 조정**되어 가능한 많은 기능을 제공합니다.
+  Cursor, VS Codium, CodeSandbox, GitPod, Google IDX 또는 기타 VS Code 포크를 사용하든, **SQLite Viewer는 환경에 맞춰 조정**되어 가능한 많은 기능을 제공합니다.
 free5H: "개인 운영"
 free5P: >
   SQLite Viewer는 단일, 헌신적인 개발자가 제작했습니다. **일관된 비전과 세부 사항에 대한 주의**를 즐기며 순수 상업 제품에서는 드물게 발견됩니다.

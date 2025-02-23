@@ -40,7 +40,7 @@ feat2P: >
 feat3H: "Ad-Free Experience"
 feat3P: >
   PRO customers enjoy an ad-free experience — __perfect for screen sharing and recordings__. Additionally, PRO customers
-  receive an exclusive PRO icon ({icon}) in the UI.
+  receive an exclusive PRO icon <span class="nb">({icon})</span> in the UI.
 sectionTitleIi: "...and everything you like about the free version:"
 free1H: "Performant UI"
 free1P: >
@@ -56,7 +56,7 @@ free3P: >
   the setup__. The entire extension weighs only 6.5 MB.
 free4H: "Works Anywhere"
 free4P: >
-  Whether you're using VS Codium, CodeSandbox, GitPod, Google IDX or other VS Code forks, __SQLite Viewer adapts to its environment__
+  Whether you're using Cursor, VS Codium, CodeSandbox, GitPod, Google IDX or other VS Code forks, __SQLite Viewer adapts to its environment__
   and provides as many features as possible.
 free5H: "Owner Operated"
 free5P: >
