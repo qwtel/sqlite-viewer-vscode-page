@@ -91,7 +91,7 @@ async function translateHtml(inFile: string, lang: string, outFile: string) {
         el.removeAttribute('data-i18n-content');
       }
     })
-    .on(`[data-hreflang=${lang}]`, {
+    .on(`[href="/${lang}/"]`, {
       element(el) {
         el.tagName = 'span';
       }
