@@ -10,11 +10,8 @@ const resolve = (...args: string[]) => path.resolve(__dirname, '..', ...args);
 
 const IMG_CUTOFF_KB = 25;
 
-function getAttribute(el: HTMLRewriterTypes.Element, name: string) {
-  const attr = el.getAttribute(name) ?? '';
-  if (attr.startsWith('/')) return '.' + attr;
-  return attr;
-}
+const makeRelative = (url: string) => url.startsWith('/') ? '.' + url : url;
+const getAttribute = (el: HTMLRewriterTypes.Element, name: string) => makeRelative(el.getAttribute(name) ?? '');
 
 type Awaitable<T> = T | Promise<T>;
 async function asyncReplace(str: string, regex: RegExp, asyncFn: (x: RegExpMatchArray) => Awaitable<string|null|undefined>) {
@@ -46,7 +43,7 @@ async function inlineHtml(inFile: string, outFile: string) {
         style = style.replace(/\/\*[\s\S]*?\*\//g, '').trim();
         style = await asyncReplace(style, /url\(\s*['"]?([^'")]+)(['"]?)\s*\)/g, async ([, src]) => {
           if (src.startsWith('data:')) return null;
-          const dataUrl = await inlineImage(resolve(src))
+          const dataUrl = await inlineImage(makeRelative(src))
           return dataUrl && `url('${dataUrl}')`;
         });
         el.replace(`<style>${style}</style>`, { html: true }); 
@@ -88,7 +85,8 @@ async function inlineHtml(inFile: string, outFile: string) {
 
 async function inlineImage(src: string) {
   const stat = await fs.stat(src).catch(() => null);
-  const file = stat && stat.size < IMG_CUTOFF_KB * 1024 && Bun.file(src);
+  if (!stat || stat.size > IMG_CUTOFF_KB * 1024) return null;
+  const file = Bun.file(src);
   if (file) {
     if (file.type === 'image/svg+xml') {
       const dataBase64 = Buffer.from(await file.arrayBuffer()).toString('base64');
