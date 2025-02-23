@@ -16,7 +16,8 @@ function getAttribute(el: HTMLRewriterTypes.Element, name: string) {
   return attr;
 }
 
-async function asyncReplace(str: string, regex: RegExp, asyncFn: (x: RegExpMatchArray) => string|Promise<string>) {
+type Awaitable<T> = T | Promise<T>;
+async function asyncReplace(str: string, regex: RegExp, asyncFn: (x: RegExpMatchArray) => Awaitable<string|null|undefined>) {
   const matches = [...str.matchAll(regex)];
 
   const replacements = await Promise.all(
@@ -28,7 +29,7 @@ async function asyncReplace(str: string, regex: RegExp, asyncFn: (x: RegExpMatch
 
   let result = str;
   replacements.reverse().forEach(({ match, replacement }) => {
-    result = result.slice(0, match.index) + replacement + result.slice(match.index + match[0].length);
+    result = result.slice(0, match.index) + (replacement ?? match[0]) + result.slice(match.index + match[0].length);
   });
 
   return result;
@@ -43,22 +44,15 @@ async function inlineHtml(inFile: string, outFile: string) {
         const href = getAttribute(el, 'href') ?? '';
         let style = href && await Bun.file(href).text();
         style = style.replace(/\/\*[\s\S]*?\*\//g, '').trim();
-        style = await asyncReplace(style, /url\(\s*['"]?([^'")]+)(['"]?)\s*\)/g, async match => {
-          const src = match[1];
-          if (src.startsWith('data:')) return match[0];
-          const fileSrc = path.resolve(path.dirname(path.resolve(__dirname, href)), src)
-          const dataUrl = await inlineImage(fileSrc)
-          if (dataUrl) {
-            return `url('${dataUrl}')`;
-          } else {
-            const q = match[2];
-            return `url(${q}${fileSrc}${q})`;
-          }
+        style = await asyncReplace(style, /url\(\s*['"]?([^'")]+)(['"]?)\s*\)/g, async ([, src]) => {
+          if (src.startsWith('data:')) return null;
+          const dataUrl = await inlineImage(resolve(src))
+          return dataUrl && `url('${dataUrl}')`;
         });
         el.replace(`<style>${style}</style>`, { html: true }); 
       },
     })
-    .on('script[href]:not([href^="http"]):not([defer]):not([data-no-inline])', {
+    .on('script[src]:not([src^="http"]):not([defer]):not([data-no-inline])', {
       async element(el) {
         const src = getAttribute(el, 'src') ?? '';
         const type = el.getAttribute('type') ?? '';
