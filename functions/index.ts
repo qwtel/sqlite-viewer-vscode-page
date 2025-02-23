@@ -105,6 +105,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   if (response.status === 200) {
     if (!isDedicatedLangPage) transformedResponse.headers.append('Vary', 'Accept-Language');
     transformedResponse.headers.append('Vary', 'CF-IPCountry');
+    transformedResponse.headers.set('Cache-Control', 'public, max-age=600') 
   }
   return transformedResponse;
 }
