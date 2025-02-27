@@ -86,7 +86,7 @@ paymentProviders: "{GooglePayApplePay} などを受け付けます"
 ctaH: "まず試してみたいですか？14日間の返金保証を利用してください"
 ctaP: >
   SQLite Viewer PROを最大2週間評価し、[14日間の返金保証](/refunds.html)を利用できます。
-  返金をリクエストするには、購入時に使用したメールアドレスで[refunds@sqliteviewer.app](mailto:refunds@sqliteviewer.app)に連絡してください。説明は不要です。
+  返金をリクエストするには、購入時に使用したメールアドレスで[*refunds@sqliteviewer.app*](mailto:refunds@sqliteviewer.app)に連絡してください。説明は不要です。
 faq1Summary: "**購入後にPROバージョンをインストールするにはどうすればよいですか？**"
 faq1Content: >
   PROバージョンはすでにインストールされています！必要なのはアクティベーションだけです。購入が完了すると、
