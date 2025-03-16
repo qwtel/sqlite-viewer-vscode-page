@@ -28,11 +28,11 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const DEV = context.env.DEV;
   const PROHrefByTier = context.env.PRO_HREFS.trim().split('\n');
   const BEHrefByTier = context.env.BE_HREFS.trim().split('\n');
+  console.assert(PROHrefByTier.length === 4 && BEHrefByTier.length === 4, 'Invalid PRO_HREFS or BE_HREFS');
 
   const country = ((DEV && DevCountryOverride) || context.request.headers.get('CF-IPcountry') || 'US') as keyof typeof PPP;
-  // const discountGroup = PPP[country] ?? 0;
-  const discountGroup = 0;
-  const tier = DGToTier[discountGroup];
+  const discountPercent = PPP[country] ?? 0;
+  const discountTier = PercentToTier[discountPercent];
 
   const colorScheme = lightDark(searchParams.get('color-scheme'))
   const vscode = searchParams.has('css-vars')
@@ -44,10 +44,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         let newHref = '';
         switch (href) {
           case '#purchase':
-            newHref = PROHrefByTier[tier];
+            newHref = PROHrefByTier[discountTier];
             break;
           case '#purchase-be':
-            newHref = BEHrefByTier[tier];
+            newHref = BEHrefByTier[discountTier];
             break;
         }
         el.setAttribute('href', newHref);
@@ -75,7 +75,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     });
   }
 
-  if (discountGroup) {
+  if (discountPercent) {
     rewriter = rewriter
       .on(".pricing-table-price", {
         element(element) {
@@ -83,14 +83,14 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
           if (!price || Number.isNaN(price)) return;
           element.setInnerContent(html`
             <del class="pricing-table-price-currency h2 o-50">$</del><del class="pricing-table-price-amount h1 o-50">${price}</del>
-            <span class="pricing-table-price-currency h2">$</span><span class="pricing-table-price-amount h1">${formatPrice(price * (1 - discountGroup/100))}</span><small class="text-xxs">&nbsp;+&nbsp;VAT</small>
+            <span class="pricing-table-price-currency h2">$</span><span class="pricing-table-price-amount h1">${formatPrice(price * (1 - discountPercent/100))}</span><small class="text-xxs">&nbsp;+&nbsp;VAT</small>
           `, { html: true });
         },
       })
       .on(".price-hint", { 
         element(el) { 
           const [countryName, flag] = CountryInfo[country]; 
-          el.replace(html`<span class="price-hint text-xxs nowrap">${discountGroup}% off for all visitors from ${countryName} ${flag}</span>`, { html: true })
+          el.replace(html`<span class="price-hint text-xxs nowrap">${discountPercent}% off for all visitors from ${countryName} ${flag}</span>`, { html: true })
         } 
       })
   }
@@ -123,7 +123,7 @@ function html(strings: TemplateStringsArray, ...values: any[]) {
   return str.trim();
 }
 
-const DGToTier = Object.freeze({ 0: 0, 20: 1, 40: 2, 60: 3 });
+const PercentToTier = Object.freeze({ 0: 0, 20: 1, 40: 2, 60: 3 });
 
 const PPP = Object.freeze({
   AF: 60,
