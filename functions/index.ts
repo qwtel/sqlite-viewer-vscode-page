@@ -30,7 +30,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const BEHrefByTier = context.env.BE_HREFS.trim().split('\n');
 
   const country = ((DEV && DevCountryOverride) || context.request.headers.get('CF-IPcountry') || 'US') as keyof typeof PPP;
-  const discountGroup = PPP[country] ?? 0;
+  // const discountGroup = PPP[country] ?? 0;
+  const discountGroup = 0;
   const tier = DGToTier[discountGroup];
 
   const colorScheme = lightDark(searchParams.get('color-scheme'))
