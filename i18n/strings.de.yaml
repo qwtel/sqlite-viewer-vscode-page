@@ -5,8 +5,10 @@ heroTitle: "Der beste SQLite-Editor ist der in Ihrem Editor"
 heroParagraph: >
   Erledigen Sie Ihre Arbeit, ohne VS Code zu verlassen. Nutzen Sie leistungsstarke
   __Bearbeitungs-__ und __Exportfunktionen__. Funktioniert überall, auch über __SSH__ und __WSL__.
+heroFooter: >
+  __🌿&nbsp;Frühlingsverkauf 2025: -20% auf alle Einkäufe&nbsp;🍃__
 cardsTitle: "Upgrade, um exklusive PRO-Workflows freizuschalten:"
-seePricing: "Preisübersicht"
+seePricing: "Preisübersicht 🌿"
 learnMore: "Mehr erfahren"
 card1H: "Daten in verschiedenen Formaten exportieren"
 card1P: >
@@ -72,9 +74,11 @@ usedAcrossIndustry: "Eingesetzt in allen Branchen, einschließlich der {NASA}"
 pricingTitle: "Kein Abo, kein Problem"
 pricingContent: >
   SQLite Viewer PRO ist ein __Einmalkauf__ und gewährt eine __dauerhafte Lizenz__. Funktioniert so lange, wie VS Code funktioniert.
+pricingFooter: > 
+  __🌿&nbsp;Frühlingsverkauf 2025: -20% auf alle Einkäufe&nbsp;🍃__
 oneTimePurchase: "Einmalzahlung"
-sameAsCalc1: "Entspricht $6,58/Monat für 12 Monate"
-sameAsCalc2: "Entspricht $12,42/Monat für 12 Monate"
+sameAsCalc1: "Entspricht $5,18/Monat für 12 Monate"
+sameAsCalc2: "Entspricht $9,93/Monat für 12 Monate"
 plusVat: "+ MwSt."
 priceFeat1: "Bearbeitungs- und Exportfunktionen"
 priceFeat2: "Werbefreie Nutzung"

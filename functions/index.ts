@@ -11,21 +11,24 @@ const DevCountryOverride = '';
 const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
+  const DEV = context.env.DEV;
+
   const url = new URL(context.request.url);
   const { searchParams } = url;
 
   let isDedicatedLangPage = false;
-  if (LANGS.some(lang => url.pathname.startsWith(`/${lang}`))) {
-    isDedicatedLangPage = true;
-  } else {
-    const langHeader = searchParams.get('lang') || context.request.headers.get('Accept-Language') || '';
-    const lang = languageParser.pick(LANGS, langHeader) ?? 'en';
-    url.pathname = `/${lang}${url.pathname}`;
+  if (!DEV) {
+    if (LANGS.some(lang => url.pathname.startsWith(`/${lang}`))) {
+      isDedicatedLangPage = true;
+    } else {
+      const langHeader = searchParams.get('lang') || context.request.headers.get('Accept-Language') || '';
+      const lang = languageParser.pick(LANGS, langHeader) ?? 'en';
+      url.pathname = `/${lang}${url.pathname}`;
+    }
   }
 
   const response = await context.env.ASSETS.fetch(url);
 
-  const DEV = context.env.DEV;
   const PROHrefByTier = context.env.PRO_HREFS.trim().split('\n');
   const BEHrefByTier = context.env.BE_HREFS.trim().split('\n');
   console.assert(PROHrefByTier.length === 4 && BEHrefByTier.length === 4, 'Invalid PRO_HREFS or BE_HREFS');
@@ -82,8 +85,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
           const price = Number(element.getAttribute('data-price') ?? 0);
           if (!price || Number.isNaN(price)) return;
           element.setInnerContent(html`
-            <del class="pricing-table-price-currency h2 o-50">$</del><del class="pricing-table-price-amount h1 o-50">${price}</del>
-            <span class="pricing-table-price-currency h2">$</span><span class="pricing-table-price-amount h1">${formatPrice(price * (1 - discountPercent/100))}</span><small class="text-xxs">&nbsp;+&nbsp;VAT</small>
+            <del class="pricing-table-price-currency h2 o-50" title="USD">$</del><del class="pricing-table-price-amount h1 o-50">${price}</del>
+            <span class="pricing-table-price-currency h2" title="USD">$</span><span class="pricing-table-price-amount h1">${formatPrice(price * (1 - discountPercent/100))}</span><small class="text-xxs">&nbsp;+&nbsp;VAT</small>
           `, { html: true });
         },
       })
