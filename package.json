@@ -36,7 +36,7 @@
     "dev": "run-s build watch"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250415.0",
+    "@cloudflare/workers-types": "^4.20250409.0",
     "autoprefixer": "^10.4.21",
     "bun": "^1.2.9",
     "imagemin-cli": "^8.0.0",
@@ -47,7 +47,7 @@
     "rimraf": "^6.0.1",
     "sass": "^1.86.3",
     "uglify-es": "^3.3.10",
-    "wrangler": "^4.11.0"
+    "wrangler": "^4.9.1"
   },
   "homepage": "https://bitbucket.org/pasqualevitiello/solid#readme",
   "dependencies": {
