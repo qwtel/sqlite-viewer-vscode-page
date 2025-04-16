@@ -60,11 +60,11 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   if (!vscode) {
     rewriter = rewriter
       .on('meta[name="color-scheme"]', { element(el) { el.setAttribute('content', colorScheme || 'dark light') } })
-      // .on('body', {
-      //   element(el) {
-      //     el.append(html`<script defer src="https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.1/dist/embed.global.js" data-auto-init></script>`, { html: true });
-      //   }
-      // })
+      .on('body', {
+        element(el) {
+          el.append(html`<script defer src="https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.1/dist/embed.global.js" data-auto-init></script>`, { html: true });
+        }
+      })
   }
 
   if (colorScheme) {
