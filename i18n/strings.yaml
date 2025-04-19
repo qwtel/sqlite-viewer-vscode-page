@@ -84,7 +84,7 @@ priceFeat3: "Exclusive PRO icon ({icon})"
 priceFeat4: "Offline license activation"
 priceFeat5: "No license revalidation"
 purchase: "Purchase"
-paymentInfo: "Orders are processed by our online reseller & Merchant of Record {polar}."
+paymentInfo: "Orders are processed by our online reseller {polar}. Payments secured by {stripe}."
 paymentProviders: "Accepts {GooglePayApplePay} & more"
 ctaH: "Want to try it first? Use the 14-day refund guarantee"
 ctaP: >

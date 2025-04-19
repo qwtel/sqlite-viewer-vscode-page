@@ -85,7 +85,7 @@ priceFeat3: "Icône PRO exclusive ({icon})"
 priceFeat4: "Activation de licence hors ligne"
 priceFeat5: "Pas de vérification continue de la licence"
 purchase: "Acheter"
-paymentInfo: "Les commandes sont traitées par notre revendeur en ligne et marchand de référence {polar}."
+paymentInfo: "Les commandes sont traitées par notre revendeur en ligne {polar}. Paiements sécurisés par {stripe}."
 paymentProviders: "Accepte {GooglePayApplePay} et plus"
 ctaH: "Voulez-vous l'essayer d'abord ? Utilisez la garantie de remboursement de 14 jours"
 ctaP: >

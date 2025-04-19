@@ -86,7 +86,7 @@ priceFeat3: "Exklusives PRO-Symbol ({icon})"
 priceFeat4: "Offline-Lizenzaktivierung"
 priceFeat5: "Keine laufende Lizenzüberprüfung"
 purchase: "Jetzt kaufen"
-paymentInfo: "Bestellungen werden von unserem Online-Reseller & Merchant of Record {polar} bearbeitet."
+paymentInfo: "Bestellungen werden von unserem Online-Reseller {polar} bearbeitet. Zahlungen gesichert durch {stripe}."
 paymentProviders: "Akzeptiert {GooglePayApplePay} & mehr"
 ctaH: "Möchten Sie es zuerst ausprobieren? Nutzen Sie die 14-Tage-Rückerstattungsgarantie"
 ctaP: >

@@ -84,7 +84,7 @@ priceFeat3: "Icono PRO exclusivo ({icon})"
 priceFeat4: "Activación de licencia offline"
 priceFeat5: "Sin revalidación de licencia"
 purchase: "Comprar"
-paymentInfo: "Los pedidos son procesados por nuestro revendedor en línea y comerciante de registro {polar}."
+paymentInfo: "Los pedidos son procesados por nuestro revendedor en línea {polar}. Pagos asegurados por {stripe}."
 paymentProviders: "Acepta {GooglePayApplePay} y más"
 ctaH: "¿Quieres probarlo primero? Usa la garantía de reembolso de 14 días"
 ctaP: >

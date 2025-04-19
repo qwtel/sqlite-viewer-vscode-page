@@ -85,7 +85,7 @@ priceFeat3: "専用のPROアイコン（{icon}）"
 priceFeat4: "オフラインライセンス認証"
 priceFeat5: "ライセンスの再検証なし"
 purchase: "購入"
-paymentInfo: "注文は当社のオンラインリセラーおよび記録商人{polar}によって処理されます。"
+paymentInfo: "注文は当社のオンラインリセラー {polar} によって処理されます。支払いは {stripe} によって保護されています。"
 paymentProviders: "{GooglePayApplePay} などを受け付けます"
 ctaH: "まず試してみたいですか？14日間の返金保証を利用してください"
 ctaP: >

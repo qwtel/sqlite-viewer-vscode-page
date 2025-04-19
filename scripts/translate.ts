@@ -27,8 +27,14 @@ const icon = html`<img class="img inline-block" width="18" height="18" src="/dis
 const polar = html`<a href="https://polar.sh" target="_blank" style="text-decoration:none"><picture>
   <source media="(prefers-color-scheme: light)" srcset="/dist/images/polar.svg">
   <source media="(prefers-color-scheme: dark)" srcset="/dist/images/polar-dark.svg">
-  <img style="display:inline-block;height:18px;padding:0 2px;margin-bottom:-3.5px" src="/dist/images/polar.svg" alt="Polar">
+  <img style="display:inline-block;height:16px;padding:0 2px;margin-bottom:-3px" src="/dist/images/polar.svg" alt="Polar">
 </picture></a>`;
+const stripe = html`<a href="https://stripe.com" target="_blank" style="text-decoration:none"><picture>
+  <source media="(prefers-color-scheme: light)" srcset="/dist/images/Stripe_wordmark_-_slate.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="/dist/images/Stripe_wordmark_-_white.svg">
+  <img style="display:inline-block;height:24px;margin:0 -3px;margin-bottom:-7.5px" src="/dist/images/Stripe_wordmark_-_slate.svg" alt="Stripe">
+</picture></a>`;
+
 
 const indexTs = `
 /// <reference types="@cloudflare/workers-types/2023-07-01" />
@@ -66,6 +72,7 @@ async function translateHtml(inFile: string, lang: string, outFile: string) {
             .replaceAll('{SQLiteViewerPRO}', name)
             .replaceAll('{icon}', icon)
             .replaceAll('{polar}', polar)
+            .replaceAll('{stripe}', stripe)
             .replaceAll('{GooglePayApplePay}', payments)
             .replaceAll('{NASA}', lang === 'ja' || lang === 'ko' ? 'NASA' : '')
           el.setInnerContent(newHtml, { html: true });
