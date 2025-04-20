@@ -36,7 +36,7 @@
     "dev": "run-s build watch"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250417.0",
+    "@cloudflare/workers-types": "^4.20250419.0",
     "autoprefixer": "^10.4.21",
     "bun": "^1.2.10",
     "imagemin-cli": "^8.0.0",
