@@ -36,6 +36,7 @@ async function inlineHtml(inFile: string, outFile: string) {
   let inPicture = false;
 
   const rewriter = new HTMLRewriter()
+    .on('*', { comments(comment) { comment.remove() } })
     .on('link[rel="stylesheet"][href]:not([href^="http"]):not([data-no-inline])', {
       async element(el) {
         const href = getAttribute(el, 'href') ?? '';
