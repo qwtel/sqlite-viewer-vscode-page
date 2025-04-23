@@ -11,29 +11,27 @@ seePricing: "See Pricing"
 learnMore: "Learn More"
 card1H: "Export data in a variety of formats"
 card1P: >
-  You can copy rows directly from the viewer in a variety of formats. Supported formats are:
-  TSV, CSV, SQLite inserts, JSON objects, JSON arrays, HTML, and Markdown.
+  You can copy rows directly from the viewer. Supported formats include: TSV, CSV, SQLite inserts, JSON objects, JSON arrays, HTML, and Markdown.
 card2H: "Update values in place"
 card2P: >
-  Update values from the sidebar or modal. All changes are automatically wrapped in a transaction
+  Update values in the sidebar or modal. All changes are automatically wrapped in a transaction
   and committed to disk when the file is saved.
 card3H: "Insert and delete rows"
 card3P: >
-  Insert one or more rows using the modal dialog. Delete one or more rows from the explorer or using
-  keyboard shortcuts.
+  Insert or delete one or more rows using the modal dialog, the explorer, or keyboard shortcuts.
 card4H: "Undo and redo changes using VS Code"
 card4P: >
   SQLite Viewer PRO integrates with VS Code's undo/redo history. Changes are reverted through `ROLLBACK`
-  statements before a file has been saved, and by running (inverted) SQL statements afterwards.
+  statements before the file is saved, and by running (inverted) SQL statements after it is saved.
 card5H: "Works in containers, SSH, and WSL"
 card5P: >
-  SQLite Viewer PRO can be installed inside containers, SSH hosts and WSL instances. A native SQLite instance
-  runs alongside the database in the remote workspace, while only the webview remains on the local machine.
+  SQLite Viewer PRO can be installed inside containers, SSH hosts, and WSL instances. A native SQLite instance
+  runs alongside your database in the remote workspace, while only the webview remains on the local machine.
 sectionTitleI: "Includes these exclusive PRO features:"
 feat1H: "Native SQLite Client"
 feat1P: >
   The PRO version uses the __official SQLite implementation__, which provides the full set of failover guarantees.
-  The old readonly client remains as a fallback.
+  The old read-only client remains as a fallback.
 feat2H: "Unlimited File Size"
 feat2P: >
   All restrictions on file size are lifted, __even during remote sessions__. Only the data needed to render the UI
@@ -57,7 +55,7 @@ free3P: >
   the setup__. The entire extension weighs only 6.5 MB.
 free4H: "Works Anywhere"
 free4P: >
-  Whether you're using Cursor, VS Codium, CodeSandbox, GitPod, Google IDX or other VS Code forks, __SQLite Viewer adapts to its environment__
+  Whether you're using Cursor, VS Codium, CodeSandbox, GitPod, Google IDX, or other VS Code forks, __SQLite Viewer adapts to its environment__
   and provides as many features as possible.
 free5H: "Owner Operated"
 free5P: >
@@ -91,7 +89,7 @@ ctaP: >
 faq1Summary: "__How do I install the PRO version after the purchase?__"
 faq1Content: >
   You already have the PRO version installed! All that's required is to activate it. After the purchase is complete, you will receive an email from the
-  merchant of record with instructions on how claim the license key. __Activation happens within VS Code itself and only takes a couple of seconds__:<br><br>
+  merchant of record with instructions on how to claim the license key. __Activation happens within VS Code itself and only takes a couple of seconds__:<br><br>
   Open the __Command Palette__ and type __"Activate License Key"__. Alternatively, you can open the __"Upgrade to PRO"__ dialog within a SQLite Viewer tab,
   scroll to the bottom of the page and click __"Enter License Key"__. An input field will open at the top of the VS Code window. Paste the license key and hit enter.
   A system dialog will confirm the activation within a few seconds.
