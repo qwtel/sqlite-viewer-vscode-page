@@ -6,7 +6,7 @@ heroParagraph: >
   Réalisez votre travail sans quitter VS Code. Débloquez des fonctionnalités puissantes d'__édition__ et d'__exportation__.
   Fonctionne partout, y compris sur __SSH__ et __WSL__.
 heroFooter: "" # __🌿&nbsp;Soldes de Printemps 2025 : -20% sur tous les achats&nbsp;🍃__
-cardsTitle: "Mettez à niveau pour débloquer des flux de travail PRO exclusifs :"
+cardsTitle: "Mettez à niveau pour débloquer des flux de travail PRO exclusifs"
 seePricing: "Voir les prix"
 learnMore: "En savoir plus"
 card1H: "Exporter les données dans divers formats"
@@ -42,7 +42,7 @@ feat3H: "Expérience sans publicité"
 feat3P: >
   Les clients PRO bénéficient d'une expérience sans publicité — __parfaite pour le partage d'écran et les enregistrements__. De plus, les clients PRO
   reçoivent une icône PRO exclusive <span class="nb">({icon})</span> dans l'interface utilisateur.
-sectionTitleIi: "...et tout ce que vous appréciez dans la version gratuite :"
+sectionTitleIi: "Inclut tout ce que vous appréciez dans la version gratuite"
 free1H: "Interface performante"
 free1P: >
   SQLite Viewer est conçu avec la performance à l'esprit. Il utilise les meilleurs outils disponibles sur la pile web et est __régulièrement testé sur
