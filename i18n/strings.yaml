@@ -84,9 +84,9 @@ priceFeat5: "No license revalidation"
 purchase: "Purchase"
 paymentInfo: "Orders are processed by our online reseller {polar}. Payments secured by {stripe}."
 paymentProviders: "Accepts {GooglePayApplePay} & more"
-ctaH: "Want to try it first? Use the 14-day refund guarantee"
+ctaH: "Want to try it first? Use the 14-Day Refund Guarantee"
 ctaP: >
-  You can evaluate SQLite Viewer PRO for up to two weeks by making use of the [14-day refund guarantee](/refunds.html).
+  You can evaluate SQLite Viewer PRO for up to two weeks by making use of the [14-Day Refund Guarantee](/refunds.html).
   To request a refund, contact [*refunds@sqliteviewer.app*](mailto:refunds@sqliteviewer.app) with the email used at checkout — no explanation needed.
 faq1Summary: "__How do I install the PRO version after the purchase?__"
 faq1Content: >

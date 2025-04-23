@@ -14,25 +14,14 @@
 .pricing-tables-wrap {
     display: flex;
     flex-wrap: wrap;
-		gap: 1rem;
+		gap: 1.5rem;
     justify-content: center;
-    margin-right: -12px;
-    margin-left: -12px;
-
-    &:first-child {
-        margin-top: -12px;
-    }
-
-    &:last-child {
-        margin-bottom: -12px;
-    }
 }
 
 .pricing-table {
 	position: relative;
-    padding: 12px;
     width: 368px;
-    max-width: 420px;
+    max-width: 425px;
     flex-grow: 1;
 
 	&:first-of-type:before {
