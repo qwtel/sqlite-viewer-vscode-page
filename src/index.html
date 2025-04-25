@@ -633,10 +633,8 @@
   </div>
   <script>
     const theme = colorScheme || window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    const isNewTab = ev => ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.button === 1;
     document.querySelectorAll('[data-polar-checkout]').forEach(el => {
       el.setAttribute('data-polar-checkout-theme', theme);
-      el.addEventListener('click', ev => isNewTab(ev) && ev.stopImmediatePropagation());
     });
   </script>
   <script type="module">
