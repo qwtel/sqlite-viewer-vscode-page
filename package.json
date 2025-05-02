@@ -36,18 +36,18 @@
     "dev": "run-s build watch"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250419.0",
+    "@cloudflare/workers-types": "^4.20250430.0",
     "autoprefixer": "^10.4.21",
-    "bun": "^1.2.10",
+    "bun": "^1.2.11",
     "imagemin-cli": "^8.0.0",
     "mkdirp": "^3.0.1",
     "npm-run-all": "^4.1.5",
     "onchange": "^7.1.0",
     "postcss-cli": "^11.0.1",
     "rimraf": "^6.0.1",
-    "sass": "^1.86.3",
+    "sass": "^1.87.0",
     "uglify-es": "^3.3.10",
-    "wrangler": "^4.12.0"
+    "wrangler": "^4.14.1"
   },
   "homepage": "https://bitbucket.org/pasqualevitiello/solid#readme",
   "dependencies": {
@@ -57,8 +57,8 @@
     "@worker-tools/response-creators": "1.2.0-pre.6",
     "accept-language-parser": "^1.5.0",
     "jose": "=5.10.0",
-    "marked": "^15.0.8",
+    "marked": "^15.0.11",
     "yaml": "^2.7.1"
   },
-  "packageManager": "pnpm@10.8.1"
+  "packageManager": "pnpm@10.10.0"
 }

@@ -95,6 +95,10 @@ faq1Content: >
   Abre la __Paleta de Comandos__ y escribe __"Activar Clave de Licencia"__. Alternativamente, puedes abrir el diálogo __"Actualizar a PRO"__
   en una pestaña de SQLite Viewer, desplazarte hasta el final de la página y hacer clic en __"Enter License Key"__. Se abrirá un campo de entrada
   en la parte superior de la ventana de VS Code. Pega la clave de licencia y presiona enter. Un diálogo del sistema confirmará la activación en unos segundos.
+faq2Summary: "__¿Puedo usar la versión PRO en varios dispositivos?__"
+faq2Content: >
+  ¡Sí! Puedes activar la PRO Edition en hasta __dos (2) dispositivos simultáneamente__.
+  La Business Edition además permite __uso offline en hasta cuatro (4) dispositivos__.
 footnote1: >
   La activación offline es necesaria si un firewall corporativo impide que la extensión se conecte al servidor de licencias.
 footnote2: >
