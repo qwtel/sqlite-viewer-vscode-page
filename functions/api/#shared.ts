@@ -100,7 +100,7 @@ export async function validate(context: EnvEventContext, licenseKey: string, { i
   const baseURL = context.env.DEV ? 'https://sandbox-api.polar.sh' : 'https://api.polar.sh';
   let response: Response;
   try {
-    response = await fetch(new URL('/v1/users/license-keys/validate', baseURL), {
+    response = await fetch(new URL('/v1/customer-portal/license-keys/validate', baseURL), {
       method: 'POST',
       headers: {
         'Accept': 'application/json', 
@@ -119,25 +119,25 @@ export async function validate(context: EnvEventContext, licenseKey: string, { i
 
   if (!response.ok) {
     if (response.status === 404) {
-      // throw badRequest(`Invalid license key`);
+      throw badRequest(`Invalid license key`);
     }
-    // throw new Response(`License validation request failed: ${response.status}`, { status: response.status });
+    throw new Response(`License validation request failed: ${response.status}`, { status: response.status });
   }
 
   if (response.headers.get('Content-Type')?.includes('application/json') === false) {
-    // throw serviceUnavailable('Invalid response from license validation service');
+    throw serviceUnavailable('Invalid response from license validation service');
   }
 
   let data;
   try {
     data = await response.json() as LicenseKeyResponse;
   } catch {
-    // throw serviceUnavailable('Failed to parse response');
+    throw serviceUnavailable('Failed to parse response');
     data = {}
   }
 
   if (data.status !== 'granted') {
-    // throw paymentRequired(`License validation failed: ${data.status}`);
+    throw paymentRequired(`License validation failed: ${data.status}`);
   }
 
   const isEnt = data.benefit_id === context.env.BE_BENEFIT_ID;
