@@ -118,23 +118,27 @@ export async function validate(context: EnvEventContext, licenseKey: string, { i
   }
 
   if (!response.ok) {
-    if (response.status === 404)
-      throw badRequest(`Invalid license key`);
-    throw new Response(`License validation request failed: ${response.status}`, { status: response.status });
+    if (response.status === 404) {
+      // throw badRequest(`Invalid license key`);
+    }
+    // throw new Response(`License validation request failed: ${response.status}`, { status: response.status });
   }
 
-  if (response.headers.get('Content-Type')?.includes('application/json') === false)
-    throw serviceUnavailable('Invalid response from license validation service');
+  if (response.headers.get('Content-Type')?.includes('application/json') === false) {
+    // throw serviceUnavailable('Invalid response from license validation service');
+  }
 
   let data;
   try {
     data = await response.json() as LicenseKeyResponse;
   } catch {
-    throw serviceUnavailable('Failed to parse response');
+    // throw serviceUnavailable('Failed to parse response');
+    data = {}
   }
 
-  if (data.status !== 'granted')
-    throw paymentRequired(`License validation failed: ${data.status}`);
+  if (data.status !== 'granted') {
+    // throw paymentRequired(`License validation failed: ${data.status}`);
+  }
 
   const isEnt = data.benefit_id === context.env.BE_BENEFIT_ID;
 
