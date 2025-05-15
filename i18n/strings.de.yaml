@@ -99,10 +99,6 @@ faq1Content: >
   Öffnen Sie die __Befehlspalette__ und geben Sie __"Lizenzschlüssel aktivieren"__ ein. Alternativ können Sie den Dialog __"Auf PRO upgraden"__
   in einem SQLite Viewer-Tab öffnen, zum unteren Ende der Seite scrollen und auf __"Enter License Key"__ klicken. Ein Eingabefeld wird am oberen Rand des
   VS Code-Fensters geöffnet. Fügen Sie den Lizenzschlüssel ein und drücken Sie die Eingabetaste. Ein Systemdialog bestätigt die Aktivierung innerhalb weniger Sekunden.
-faq2Summary: "__Kann ich die PRO-Version auf mehreren Geräten verwenden?__"
-faq2Content: >
-  Ja! Mit der PRO Edition können Sie die Lizenz auf bis zu __zwei (2) Geräten gleichzeitig__ aktivieren.
-  Die Business Edition ermöglicht zusätzlich __Offline-Nutzung auf bis zu vier (4) Geräten__.
 footnote1: "Die Offline-Aktivierung ist erforderlich, wenn eine Unternehmens-Firewall die Verbindung zur Lizenzserver verhindert."
 footnote2: "Sobald ein Gerät durch die Offline-Aktivierung registriert wurde, kann die Erweiterung ohne erneute Verbindung zum Lizenzserver genutzt werden."
 allRightsReserved: "Alle Rechte vorbehalten"

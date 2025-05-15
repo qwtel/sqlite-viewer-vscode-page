@@ -96,10 +96,6 @@ faq1Content: >
   Ouvrez la __Palette de commandes__ et tapez __"Activer la clé de licence"__. Sinon, vous pouvez ouvrir le dialogue __"Passer à PRO"__
   dans un onglet SQLite Viewer, faites défiler jusqu'en bas de la page et cliquez sur __"Enter License Key"__. Un champ d'entrée s'ouvrira
   en haut de la fenêtre VS Code. Collez la clé de licence et appuyez sur entrée. Une boîte de dialogue système confirmera l'activation en quelques secondes.
-faq2Summary: "__Puis-je utiliser la version PRO sur plusieurs appareils ?__"
-faq2Content: >
-  Oui ! Vous pouvez activer la PRO Edition sur jusqu'à __deux (2) appareils simultanément__.
-  La Business Edition permet également __l'utilisation hors ligne sur jusqu'à quatre (4) appareils__.
 footnote1: >
   L'activation hors ligne est nécessaire si un pare-feu d'entreprise empêche l'extension de se connecter au serveur de licence.
 footnote2: >

@@ -93,10 +93,6 @@ faq1Content: >
   Open the __Command Palette__ and type __"Activate License Key"__. Alternatively, you can open the __"Upgrade to PRO"__ dialog within a SQLite Viewer tab,
   scroll to the bottom of the page and click __"Enter License Key"__. An input field will open at the top of the VS Code window. Paste the license key and hit enter.
   A system dialog will confirm the activation within a few seconds.
-faq2Summary: "__Can I use the PRO version on multiple devices?__"
-faq2Content: >
-  Yes! You can activate it on up __two (2) devices simultaneously__ using the PRO Edition. 
-  The Business Edition additionally grants __offline use for up to four (4) devices__.
 footnote1: "Offline Activation is required if a company firewall prevents the extension from connecting to the license server."
 footnote2: "When a device is enrolled through offline activation, the extension can be used without ever needing to reconnect to the license server."
 allRightsReserved: "All rights reserved"
