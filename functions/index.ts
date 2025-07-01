@@ -1,6 +1,7 @@
 /// <reference types="@cloudflare/workers-types/2023-07-01" />
 
 import languageParser from 'accept-language-parser';
+import { Polar } from "@polar-sh/sdk";
 
 import { Env } from "./api/#shared"
 
@@ -12,6 +13,13 @@ const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const DEV = context.env.DEV;
+
+  const polar = new Polar({
+    accessToken: context.env.POLAR_ACCESS_TOKEN ?? "",
+    server: DEV ? "sandbox" : "production",
+  });
+
+  // const [ numPurchases, avatarUrls ] = await getRecentProductPurchases(polar, [context.env.PRO_PRODUCT_ID, context.env.BE_PRODUCT_ID]);
 
   const url = new URL(context.request.url);
   const { searchParams } = url;
@@ -40,6 +48,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const colorScheme = lightDark(searchParams.get('color-scheme'))
   const vscode = searchParams.has('css-vars')
 
+  const numPurchases = 43;
+
   let rewriter = new HTMLRewriter()
     .on('a[href^="#purchase"]', {
       element(el) {
@@ -55,7 +65,13 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         }
         el.setAttribute('href', newHref);
       },
-    });
+    })
+    .on('.purchased-n-times', {
+      element(el) {
+        const content = el.getAttribute('content');
+        el.setInnerContent(content?.replace('{n}', numPurchases.toString()) ?? '', { html: true });
+      }
+    })
 
   if (!vscode) {
     rewriter = rewriter
@@ -124,6 +140,83 @@ function html(strings: TemplateStringsArray, ...values: any[]) {
   let str = '', i = 0;
   for (const string of strings) str += string + (values[i++] || '');
   return str.trim();
+}
+
+async function* getNonEmptyAvatarUrls(avatarUrls: string[]): AsyncGenerator<string, void, unknown> {
+  // Process avatar URLs one by one to yield valid ones as they're found
+  for (const url of avatarUrls) {
+    if (!url) {
+      continue;
+    }
+
+    try {
+      // Parse URL and set d parameter to '404' to check if image exists
+      const urlObj = new URL(url);
+      urlObj.searchParams.set('d', '404');
+      const testUrl = urlObj.toString();
+      
+      // Make a HEAD request to check if the image exists
+      const response = await fetch(testUrl, { method: 'HEAD' });
+
+      console.log(testUrl, response.status)
+      
+      if (response.status !== 404) {
+        // Image exists, yield it immediately
+        yield url;
+      }
+    } catch (error) {
+      // If request fails, skip this URL
+      continue;
+    }
+  }
+}
+
+async function getRecentProductPurchases(polar: Polar, productId: string|string[]) {
+  try {
+    // Calculate the date 30 days ago
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30.5);
+    const cutoffDate = thirtyDaysAgo
+
+    const result = await polar.orders.list({
+      productId,
+      page: 1,
+      limit: 100,
+      sorting: ['-created_at'],
+    });
+
+    let purchaseCount = 0;
+    let avatarUrls: string[] = [];
+    outer: for await (const page of result) {
+      for (const order of page.result.items) {
+        purchaseCount++;
+        avatarUrls.push(order.customer.avatarUrl);
+        // console.log(`Order ID: ${order.id}, Amount: ${order.netAmount}, Customer: ${order.customer.name}, Date: ${order.createdAt}`);
+        if (order.createdAt > cutoffDate) break outer;
+      }
+    }
+
+    const validAvatarUrls: string[] = [];
+    const avatarGenerator = getNonEmptyAvatarUrls(avatarUrls);
+    
+    // Take up to 5 valid avatars
+    for await (const validUrl of avatarGenerator) {
+      validAvatarUrls.push(validUrl);
+      if (validAvatarUrls.length >= 5) break;
+    }
+
+    // // Fill remaining slots with blank filler if we don't have 5 valid avatars
+    // while (validAvatarUrls.length < 5) {
+    //   validAvatarUrls.push('https://www.gravatar.com/avatar/091069191e05f8d6d7dd4c0a3f3d9e99727bbd9f691382181231d75ee9b5135b?d=blank');
+    // }
+
+    console.log(`Total purchases for product ${productId} in the last 30 days: ${purchaseCount}`);
+    console.log({ validAvatarUrls })
+    return [purchaseCount, validAvatarUrls];
+  } catch (error) {
+    console.error("Failed to fetch purchases:", error);
+    throw error;
+  }
 }
 
 const PercentToTier = Object.freeze({ 0: 0, 20: 1, 40: 2, 60: 3 });

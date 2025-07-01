@@ -286,6 +286,10 @@
 	margin-bottom: 64px;
 }
 
+.mb-128 {
+	margin-bottom: 128px;
+}
+
 .ml-64 {
 	margin-left: 64px;
 }
@@ -534,6 +538,10 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+.items-center {
+	align-items: center;
 }
 
 .color-unset {

@@ -8,6 +8,10 @@ heroParagraph: >
 heroFooter: "" # __🌿&nbsp;Spring Sale 2025: -20% on all purchases&nbsp;🍃__
 cardsTitle: "Upgrade to unlock exclusive PRO workflows"
 seePricing: "See Pricing"
+purchasedNTimes: "Purchased {n} times last month"
+usedByAt: "Used by engineers at {logos} & others†"
+disclaimer4: >
+  † Company logos displayed on this page are used for illustrative purposes only and do not constitute endorsement, sponsorship, or affiliation with these organizations.
 learnMore: "Watch Clips"
 card1H: "Export data in a variety of formats"
 card1P: >
@@ -61,9 +65,9 @@ free5H: "Owner Operated"
 free5P: >
   SQLite Viewer is crafted by a single, dedicated developer. It enjoys a __coherent vision and attention to detail__ that is rarely
   found in purely commercial products.
-nMInstalls: "1M+ unique installs"
+nMInstalls: "2,000,000+ unique installs"
 nMInstallsVerbose: "More than one million unique installs"
-rated55: "Rated ★★★★★"
+rated55: "Rated ★★★★<sup>+</sup>"
 rated55Verbose: "Rated 5/5 stars"
 usedAcrossIndustry: "Used across the industry, including at {NASA}"
 pricingTitle: "No Subscription, No Problem"
@@ -108,4 +112,4 @@ disclaimer2: >
   All prices are in United States Dollars (USD) and exclude VAT. VAT may be added at checkout. Your credit card provider may charge a currency conversion fee.
 disclaimer3: > 
   Design based on [Solid](https://preview.cruip.com/solid). Licensed under [GPL-3.0](https://github.com/qwtel/sqlite-viewer-vscode-page).
-langDisclaimer: ""
+langDisclaimer: "This page is available the following languages:"

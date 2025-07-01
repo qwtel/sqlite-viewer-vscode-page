@@ -51,6 +51,7 @@
   },
   "homepage": "https://bitbucket.org/pasqualevitiello/solid#readme",
   "dependencies": {
+    "@polar-sh/sdk": "^0.34.2",
     "@types/accept-language-parser": "^1.5.8",
     "@worker-tools/html": "2.0.0-pre.13",
     "@worker-tools/middleware": "0.1.0-pre.36",

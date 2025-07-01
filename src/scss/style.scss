@@ -283,7 +283,7 @@ div:has(> .section-title) {
   position: relative;
 }
 
-div:has(> .section-title)::after {
+div:has(> .section-title)::after, .with-divider::after {
   content: '';
   position: absolute;
   bottom: -24px;
@@ -310,6 +310,29 @@ div:has(> .section-title)::after {
     mix-blend-mode: normal;
     transition: filter 0.125s, opacity 0.125s;
   }
+}
+
+#logo-graveyard {
+  margin-top: -90px;
+  filter: grayscale(1);
+  @media (prefers-color-scheme: dark) {
+    filter: grayscale(1) invert(1);
+  }
+}
+
+#avatar-stack {
+  align-items: center;
+  justify-content: center;
+  padding-left: 16px;
+}
+
+.avatar-stack-item {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid functions.color(bg, 4);
+  margin-left: -16px;
 }
 
 /*--------------------------------------------------------------
