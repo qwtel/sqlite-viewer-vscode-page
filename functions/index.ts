@@ -11,15 +11,10 @@ const DevCountryOverride = '';
 
 const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
 
-const ns = 'sqlite-viewer-vscode-page.5';
+const ns = 'sqlite-viewer-vscode-page.6';
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const DEV = context.env.DEV;
-
-  const polar = new Polar({
-    accessToken: context.env.POLAR_ACCESS_TOKEN ?? "",
-    server: DEV ? "sandbox" : "production",
-  });
 
   let [numPurchases, avatarUrls] = await Promise.all([
     context.env.KV.get<number>(`${ns}.numPurchases`, 'json'),
@@ -27,7 +22,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   ]);
 
   if (numPurchases == null || avatarUrls == null) {
-    [numPurchases, avatarUrls] = await getRecentProductPurchases(!!DEV, polar, [context.env.PRO_PRODUCT_ID, context.env.BE_PRODUCT_ID]);
+    [numPurchases, avatarUrls] = await getRecentProductPurchases(context.env);
     context.waitUntil((async () => {
       await Promise.all([
         context.env.KV.put(`${ns}.numPurchases`, JSON.stringify(numPurchases), { expirationTtl: 60 * 60 * 24 * 30 }),
@@ -183,7 +178,14 @@ async function* genNonEmptyAvatarUrls(avatarUrls: string[]): AsyncGenerator<stri
   }
 }
 
-async function getRecentProductPurchases(DEV: boolean, polar: Polar, productId: string|string[]): Promise<[count: number, avatarUrls: string[]]> {
+async function getRecentProductPurchases(env: Env): Promise<[count: number, avatarUrls: string[]]> {
+  const polar = new Polar({
+    accessToken: env.POLAR_ACCESS_TOKEN ?? "",
+    server: env.DEV ? "sandbox" : "production",
+  });
+
+  const productId = [env.PRO_PRODUCT_ID, env.BE_PRODUCT_ID];
+
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30.5);
   const cutoffDate = thirtyDaysAgo
@@ -200,9 +202,11 @@ async function getRecentProductPurchases(DEV: boolean, polar: Polar, productId: 
 
   outer: for await (const page of result) {
     for (const order of page.result.items) {
-      if (!DEV && order.createdAt < cutoffDate) break outer;
+      if (!env.DEV && order.createdAt < cutoffDate) break outer;
       purchaseCount++;
-      avatarUrls.push(order.customer.avatarUrl);
+      if (order.productId !== env.BE_PRODUCT_ID) {
+        avatarUrls.push(order.customer.avatarUrl);
+      }
     }
   }
 
