@@ -11,7 +11,7 @@ const DevCountryOverride = '';
 
 const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
 
-const ns = 'sqlite-viewer-vscode-page.3';
+const ns = 'sqlite-viewer-vscode-page.5';
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const DEV = context.env.DEV;
@@ -27,7 +27,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   ]);
 
   if (numPurchases == null || avatarUrls == null) {
-    [numPurchases, avatarUrls] = await getRecentProductPurchases(polar, [context.env.PRO_PRODUCT_ID, context.env.BE_PRODUCT_ID]);
+    [numPurchases, avatarUrls] = await getRecentProductPurchases(!!DEV, polar, [context.env.PRO_PRODUCT_ID, context.env.BE_PRODUCT_ID]);
     context.waitUntil((async () => {
       await Promise.all([
         context.env.KV.put(`${ns}.numPurchases`, JSON.stringify(numPurchases), { expirationTtl: 60 * 60 * 24 * 30 }),
@@ -87,7 +87,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     })
     .on('#avatar-stack', {
       element(el) {
-        el.setInnerContent(avatarUrls.map(url => html`<img class="avatar-stack-item" src="${url}">`).join(''), { html: true });
+        const selectedAvatars = [...avatarUrls].sort(() => Math.random() - 0.5).slice(0, 5);
+        el.setInnerContent(selectedAvatars.map(url => html`<img class="avatar-stack-item" src="${url}">`).join(''), { html: true });
       }
     })
 
@@ -160,81 +161,60 @@ function html(strings: TemplateStringsArray, ...values: any[]) {
   return str.trim();
 }
 
-async function* getNonEmptyAvatarUrls(avatarUrls: string[]): AsyncGenerator<string, void, unknown> {
-  // Process avatar URLs one by one to yield valid ones as they're found
+async function* genNonEmptyAvatarUrls(avatarUrls: string[]): AsyncGenerator<string, void, unknown> {
   for (const url of avatarUrls) {
     if (!url) {
       continue;
     }
 
     try {
-      // Parse URL and set d parameter to '404' to check if image exists
       const urlObj = new URL(url);
       urlObj.searchParams.set('d', '404');
       const testUrl = urlObj.toString();
       
-      // Make a HEAD request to check if the image exists
       const response = await fetch(testUrl, { method: 'HEAD' });
 
-      console.log(testUrl, response.status)
-      
       if (response.status !== 404) {
-        // Image exists, yield it immediately
         yield url;
       }
     } catch (error) {
-      // If request fails, skip this URL
       continue;
     }
   }
 }
 
-async function getRecentProductPurchases(polar: Polar, productId: string|string[]): Promise<[number, string[]]> {
-  try {
-    // Calculate the date 30 days ago
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30.5);
-    const cutoffDate = thirtyDaysAgo
+async function getRecentProductPurchases(DEV: boolean, polar: Polar, productId: string|string[]): Promise<[count: number, avatarUrls: string[]]> {
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30.5);
+  const cutoffDate = thirtyDaysAgo
 
-    const result = await polar.orders.list({
-      productId,
-      page: 1,
-      limit: 100,
-      sorting: ['-created_at'],
-    });
+  const result = await polar.orders.list({
+    productId,
+    page: 1,
+    limit: 100,
+    sorting: ['-created_at'],
+  });
 
-    let purchaseCount = 0;
-    let avatarUrls: string[] = [];
-    outer: for await (const page of result) {
-      for (const order of page.result.items) {
-        purchaseCount++;
-        avatarUrls.push(order.customer.avatarUrl);
-        // console.log(`Order ID: ${order.id}, Amount: ${order.netAmount}, Customer: ${order.customer.name}, Date: ${order.createdAt}`);
-        if (order.createdAt < cutoffDate) break outer;
-      }
+  let purchaseCount = 0;
+  let avatarUrls: string[] = [];
+
+  outer: for await (const page of result) {
+    for (const order of page.result.items) {
+      if (!DEV && order.createdAt < cutoffDate) break outer;
+      purchaseCount++;
+      avatarUrls.push(order.customer.avatarUrl);
     }
-
-    const validAvatarUrls: string[] = [];
-    const avatarGenerator = getNonEmptyAvatarUrls(avatarUrls);
-    
-    // Take up to 5 valid avatars
-    for await (const validUrl of avatarGenerator) {
-      validAvatarUrls.push(validUrl);
-      if (validAvatarUrls.length >= 5) break;
-    }
-
-    // // Fill remaining slots with blank filler if we don't have 5 valid avatars
-    // while (validAvatarUrls.length < 5) {
-    //   validAvatarUrls.push('https://www.gravatar.com/avatar/091069191e05f8d6d7dd4c0a3f3d9e99727bbd9f691382181231d75ee9b5135b?d=blank');
-    // }
-
-    console.log(`Total purchases for product ${productId} in the last 30 days: ${purchaseCount}`);
-    console.log({ validAvatarUrls })
-    return [purchaseCount, validAvatarUrls];
-  } catch (error) {
-    console.error("Failed to fetch purchases:", error);
-    throw error;
   }
+
+  const validAvatarUrls: string[] = [];
+  const avatarGenerator = genNonEmptyAvatarUrls(avatarUrls);
+  
+  for await (const validUrl of avatarGenerator) {
+    validAvatarUrls.push(validUrl);
+    if (validAvatarUrls.length >= 40) break;
+  }
+
+  return [purchaseCount, validAvatarUrls];
 }
 
 const PercentToTier = Object.freeze({ 0: 0, 20: 1, 40: 2, 60: 3 });
