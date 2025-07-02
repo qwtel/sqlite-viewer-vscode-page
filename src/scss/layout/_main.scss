@@ -29,13 +29,13 @@ main {
 
 .section-inner {
     position: relative; /* To always display inner elements above pseudo decorative stuff */
-    margin-top: 88px;
-    margin-bottom: 88px;
+    margin-top: 92px;
+    margin-bottom: 92px;
 }
 
-@include include-media.media( '>medium' ) {
+// @include include-media.media( '>medium' ) {
 
-    .section-inner {
-        margin-top: 88px;
-    }
-}
+//     .section-inner {
+//         margin-top: 128px;
+//     }
+// }

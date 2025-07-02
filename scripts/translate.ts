@@ -39,9 +39,9 @@ const stripe = html`<a href="https://stripe.com" target="_blank" style="text-dec
 
 const logos = html`
   <img src="/dist/images/Apple_logo_black.svg" title="Apple" alt="Apple" style="height: 32px; opacity: 0.5;">
-  <img src="/dist/images/NASA_Worm_logo.svg" title="NASA" alt="NASA" style="height: 32px; padding-top: 5px; opacity: 0.5;">
+  <img src="/dist/images/NASA_Worm_logo.svg" title="NASA" alt="NASA" style="height: 32px; opacity: 0.5; padding-top: 5px;">
   <img src="/dist/images/Verizon_2024.svg" title="Verizon" alt="Verizon" style="height: 32px; opacity: 0.5;">
-  <img src="/dist/images/Abbott_Laboratories_logo.svg" title="Abbott Laboratories" alt="Abbott Laboratories" style="height: 32px; opacity: 0.5; position: relative; bottom: -3px;">
+  <img src="/dist/images/Abbott_Laboratories_logo.svg" title="Abbott Laboratories" alt="Abbott Laboratories" style="height: 32px; opacity: 0.5; margin-bottom: -5px;">
 `;
 
 const indexTs = `

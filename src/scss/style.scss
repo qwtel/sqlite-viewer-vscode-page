@@ -201,6 +201,10 @@
     object-fit: cover;
   }
 
+  @media (min-width: 768px) {
+    border-left: 1px solid functions.color(bg, 4);
+  }
+
   @media (max-width: 768px) {
     border-top-left-radius: .25rem;
     border-bottom-right-radius: 0;
@@ -313,10 +317,21 @@ div:has(> .section-title)::after, .with-divider::after {
 }
 
 #logo-graveyard {
-  margin-top: -90px;
+  margin-top: -82px;
+}
+
+.logo-graveyard {
+  flex-wrap: wrap; 
+  align-items: center;
+  user-select: none;
+  gap: 24px;
   filter: grayscale(1);
   @media (prefers-color-scheme: dark) {
     filter: grayscale(1) invert(1);
+  }
+  > img {
+    position: relative;
+    top: -3px;
   }
 }
 

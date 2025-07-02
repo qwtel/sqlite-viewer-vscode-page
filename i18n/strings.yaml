@@ -6,7 +6,7 @@ heroParagraph: >
   Get work done without leaving VS Code. Unlock powerful __editing__ and __export__ features.
   Works anywhere, including __SSH__ and __WSL__.
 heroFooter: "" # __🌿&nbsp;Spring Sale 2025: -20% on all purchases&nbsp;🍃__
-cardsTitle: "Upgrade to unlock exclusive PRO workflows"
+cardsTitle: "Upgrade to Unlock Exclusive PRO Workflows"
 seePricing: "See Pricing"
 purchasedNTimes: "Purchased {n} times last month"
 usedByAt: "Used by engineers at {logos} & others†"
@@ -31,7 +31,10 @@ card5H: "Works in containers, SSH, and WSL"
 card5P: >
   SQLite Viewer PRO can be installed inside containers, SSH hosts, and WSL instances. A native SQLite instance
   runs alongside your database in the remote workspace, while only the webview remains on the local machine.
-sectionTitleI: "Includes these exclusive PRO features:"
+sectionTitleI: "Re-Engineered From the Ground Up for PRO Demands"
+sectionParagraphI: >
+  You can think of the PRO version as _SQLite Viewer 2_.
+  It's not just feature flags, but a completely new engine under the hood. Comes with SQLite failover guarantees and large file support.
 feat1H: "Native SQLite Client"
 feat1P: >
   The PRO version uses the __official SQLite implementation__, which provides the full set of failover guarantees.
@@ -44,7 +47,10 @@ feat3H: "Ad-Free Experience"
 feat3P: >
   PRO customers enjoy an ad-free experience — __perfect for screen sharing and recordings__. Additionally, PRO customers
   receive an exclusive PRO icon <span class="nb">({icon})</span> in the UI.
-sectionTitleIi: "Includes everything you like about the free version"
+sectionTitleIi: "Includes Everything You Like About the Free Version"
+sectionParagraphIi: >
+  Upgrading to SQLite Viewer PRO is a seamless experience. Just enter the license key and you're good to go. 
+  In addition to new and exclusive PRO features, everything you like about the free version stays as is.
 free1H: "Performant UI"
 free1P: >
   SQLite Viewer is built with performance in mind. It uses the best tools the web stack has to offer and is __routinely
@@ -67,7 +73,7 @@ free5P: >
   found in purely commercial products.
 nMInstalls: "2,000,000+ unique installs"
 nMInstallsVerbose: "More than one million unique installs"
-rated55: "Rated ★★★★<sup>+</sup>"
+rated55: "Rated ★★★★★"
 rated55Verbose: "Rated 5/5 stars"
 usedAcrossIndustry: "Used across the industry, including at {NASA}"
 pricingTitle: "No Subscription, No Problem"

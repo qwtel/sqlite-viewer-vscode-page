@@ -9,7 +9,7 @@ export type Env = {
   ORGANIZATION_ID: string,
   BE_BENEFIT_ID: string,
   GUMROAD_ACCESS_TOKEN: string
-  KV?: KVNamespace
+  KV: KVNamespace
   PRO_HREFS: string,
   BE_HREFS: string,
   POLAR_ACCESS_TOKEN: string,

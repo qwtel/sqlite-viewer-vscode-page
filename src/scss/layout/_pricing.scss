@@ -14,7 +14,7 @@
 .pricing-tables-wrap {
     display: flex;
     flex-wrap: wrap;
-		gap: 1.5rem;
+		gap: 2.5rem;
     justify-content: center;
 }
 
@@ -115,14 +115,15 @@
     align-self: flex-end;
 }
 
+.section-paragraph, .price-hint {
+	font-weight: 300;
+}
+
 @include include-media.media( '>medium' ) {
 
-	.pricing {
-
-		.section-paragraph {
-	        padding-left: 90px;
-	        padding-right: 90px;
-	    }
+	.section-paragraph {
+		padding-left: 90px;
+		padding-right: 90px;
 	}
 
 	.pricing-header {

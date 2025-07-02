@@ -11,6 +11,8 @@ const DevCountryOverride = '';
 
 const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
 
+const ns = 'sqlite-viewer-vscode-page.2';
+
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const DEV = context.env.DEV;
 
@@ -19,7 +21,20 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     server: DEV ? "sandbox" : "production",
   });
 
-  // const [ numPurchases, avatarUrls ] = await getRecentProductPurchases(polar, [context.env.PRO_PRODUCT_ID, context.env.BE_PRODUCT_ID]);
+  let [numPurchases, avatarUrls] = await Promise.all([
+    context.env.KV.get<number>(`${ns}.numPurchases`, 'json'),
+    context.env.KV.get<string[]>(`${ns}.avatarUrls`, 'json'),
+  ]);
+
+  if (numPurchases == null || avatarUrls == null) {
+    [numPurchases, avatarUrls] = await getRecentProductPurchases(polar, [context.env.PRO_PRODUCT_ID, context.env.BE_PRODUCT_ID]);
+    context.waitUntil((async () => {
+      await Promise.all([
+        context.env.KV.put(`${ns}.numPurchases`, JSON.stringify(numPurchases), { expirationTtl: 60 * 60 * 24 * 30 }),
+        context.env.KV.put(`${ns}.avatarUrls`, JSON.stringify(avatarUrls), { expirationTtl: 60 * 60 * 24 * 30 }),
+      ]);
+    })());
+  } 
 
   const url = new URL(context.request.url);
   const { searchParams } = url;
@@ -48,8 +63,6 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const colorScheme = lightDark(searchParams.get('color-scheme'))
   const vscode = searchParams.has('css-vars')
 
-  const numPurchases = 43;
-
   let rewriter = new HTMLRewriter()
     .on('a[href^="#purchase"]', {
       element(el) {
@@ -70,6 +83,11 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       element(el) {
         const content = el.getAttribute('content');
         el.setInnerContent(content?.replace('{n}', numPurchases.toString()) ?? '', { html: true });
+      }
+    })
+    .on('#avatar-stack', {
+      element(el) {
+        el.setInnerContent(avatarUrls.map(url => html`<img class="avatar-stack-item" src="${url}">`).join(''), { html: true });
       }
     })
 
@@ -171,7 +189,7 @@ async function* getNonEmptyAvatarUrls(avatarUrls: string[]): AsyncGenerator<stri
   }
 }
 
-async function getRecentProductPurchases(polar: Polar, productId: string|string[]) {
+async function getRecentProductPurchases(polar: Polar, productId: string|string[]): Promise<[number, string[]]> {
   try {
     // Calculate the date 30 days ago
     const thirtyDaysAgo = new Date();

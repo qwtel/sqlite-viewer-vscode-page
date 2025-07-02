@@ -99,7 +99,7 @@
                   <img class="avatar-stack-item" src="https://www.gravatar.com/avatar/c953de6a81a6b5fd5a1f983b86d6680816f3bf83a3fcca71d223f98923a892f6?d=blank">
                   <img class="avatar-stack-item" src="https://www.gravatar.com/avatar/091069191e05f8d6d7dd4c0a3f3d9e99727bbd9f691382181231d75ee9b5135b?d=blank">
                 </div>
-                <span class="purchased-n-times text-xxs ml-8" data-i18n-content="purchased-n-times">Purchased {n} times last month</span>
+                <span class="purchased-n-times text-xxs ml-8" data-i18n-content="purchased-n-times" content="Purchased {n} times last month">Purchased {n} times last month</span>
               </div>
             </div>
             <div class="hero-figure anime-element">
@@ -133,12 +133,12 @@
 
       <section id="logo-graveyard" class="section">
         <div class="container">
-          <div class="text-center text-xxs color-50 mb-32 flex items-center o-50 pt-16 pb-16 mb-128" style="align-items: center; flex-wrap: wrap; justify-content: space-between; gap: 16px;" data-i18n-key="used-by-at">
+          <div class="logo-graveyard text-center text-xxs color-50 mb-32 flex items-center o-50 pt-16 pb-16 mb-128" data-i18n-key="used-by-at">
             Used by engineers at
             <img src="/dist/images/Apple_logo_black.svg" title="Apple" alt="Apple" style="height: 32px; opacity: 0.5;">
             <img src="/dist/images/NASA_Worm_logo.svg" title="NASA" alt="NASA" style="height: 32px; padding-top: 5px; opacity: 0.5;">
             <img src="/dist/images/Verizon_2024.svg" title="Verizon" alt="Verizon" style="height: 32px; opacity: 0.5;">
-            <img src="/dist/images/Abbott_Laboratories_logo.svg" title="Abbott Laboratories" alt="Abbott Laboratories" style="height: 32px; opacity: 0.5; position: relative; bottom: -3px;">
+            <img src="/dist/images/Abbott_Laboratories_logo.svg" title="Abbott Laboratories" alt="Abbott Laboratories" style="height: 32px; opacity: 0.5; margin-bottom: -5px;">
             & others*
           </div>
         </div>
@@ -253,8 +253,11 @@
       <section class="features section">
         <div class="container">
           <div class="features-inner section-inner">
-            <div class="features-header text-center mt-128 mb-64">
-              <!-- <p class="section-title h3 mt-0 color-unset" data-i18n-key="section-title-i">Includes these exclusive PRO features:</p> -->
+            <div class="features-header text-center mt-128 mb-56">
+              <h3 class="section-title h3 mt-128 color-unset" data-i18n-key="section-title-i">Re-engineered for PRO demands</h3>
+              <p class="section-paragraph mb-0 text-sm" data-i18n-key="section-paragraph-i">
+                You can think of the PRO version as <em>SQLite Viewer 2</em>. It's not just feature flags, but a completely new engine under the hood. Comes with SQLite failover guarantees and large file support.
+              </p>
             </div>
             <div class="features-wrap">
               <div class="feature text-center is-revealing">
@@ -292,8 +295,12 @@
       <section class="features section">
         <div class="container">
           <div class="features-inner section-inner">
-            <div class="features-header text-center mb-64">
-              <p class="section-title h3 mt-0 color-unset" data-i18n-key="section-title-ii">Includes everything you like about the free version</p>
+            <div class="features-header text-center mb-56">
+              <h3 class="section-title h3 mt-128 color-unset" data-i18n-key="section-title-ii">Includes everything you like about the free version</h3>
+              <p class="section-paragraph mb-0 text-sm" data-i18n-key="section-paragraph-ii">
+                Upgrading to SQLite Viewer PRO is a seamless experience. Just enter the license key and you're good to go. 
+                In addition to new and exclusive PRO features, everything you like about the free version stays as is.
+              </p>
             </div>
             <div class="features-wrap">
               <div class="feature text-center is-revealing">
@@ -358,6 +365,14 @@
                 <a class="hover-link" href="https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer" target="_blank" title="More than one million unique installs" data-i18n-key="n-m-installs" data-i18n-title="n-m-installs-verbose">1M+ unique installs</a>.
                 <a class="hover-link" href="https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer&ssr=false#review-details" target="_blank" title="Rated 5/5 stars" data-i18n-key="rated-5-5" data-i18n-title="rated-5-5-verbose">Rated ★★★★★</a>.<br>
               </div>
+            </div>
+            <div class="logo-graveyard o-50 text-center text-sm flex center pb-24" data-i18n-key="used-by-at">
+              Used by engineers at
+              <img src="/dist/images/Apple_logo_black.svg" title="Apple" alt="Apple" style="height: 32px; opacity: 0.5;">
+              <img src="/dist/images/NASA_Worm_logo.svg" title="NASA" alt="NASA" style="height: 32px; padding-top: 5px; opacity: 0.5;">
+              <img src="/dist/images/Verizon_2024.svg" title="Verizon" alt="Verizon" style="height: 32px; opacity: 0.5;">
+              <img src="/dist/images/Abbott_Laboratories_logo.svg" title="Abbott Laboratories" alt="Abbott Laboratories" style="height: 32px; opacity: 0.5; margin-bottom: -5px;">
+              & others*
             </div>
           </div>
         </div>
@@ -455,7 +470,7 @@
             <!-- <p class="text-xs" data-i18n-key="cta-p">
               You can evaluate SQLite Viewer PRO for up to two weeks by making use of the <a href="/refunds">14-day refund guarantee</a>.
             </p> -->
-            <p class="text-xxs mb-16" data-i18n-key="payment-info">Orders are processed by our online reseller <a href="https://polar.sh" target="_blank" style="text-decoration:none"><picture>
+            <p class="text-xxs mb-16 o-50" data-i18n-key="payment-info">Orders are processed by our online reseller <a href="https://polar.sh" target="_blank" style="text-decoration:none"><picture>
               <source media="(prefers-color-scheme: light)" srcset="/dist/images/polar.svg">
               <source media="(prefers-color-scheme: dark)" srcset="/dist/images/polar-dark.svg">
               <img style="display:inline-block;height:16px;padding-left:2px;margin-bottom:-3px" src="/dist/images/polar.svg" alt="Polar">
