@@ -23,7 +23,6 @@
     "build:js": "run-s uglify",
     "build:images": "run-s imagemin",
     "build:vendor": "cp -r src/vendor/* dist",
-    "build:changelog-carousel": "npx bun run scripts/changelog-carousel.ts",
     "build:html": "npx bun run scripts/inline.ts",
     "build:translate-html": "npx bun run scripts/translate.ts",
     "build": "run-s build:*",
