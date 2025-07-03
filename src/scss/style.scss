@@ -341,7 +341,7 @@ div:has(> .section-title)::after, .with-divider::after {
   }
 }
 
-#avatar-stack {
+.avatar-stack {
   align-items: center;
   justify-content: center;
   padding-left: 16px;
@@ -354,6 +354,13 @@ div:has(> .section-title)::after, .with-divider::after {
   object-fit: cover;
   border: 1px solid functions.color(bg, 4);
   margin-left: -16px;
+}
+
+details[name="faq"] {
+  border: 1px solid functions.color(bg, 4);
+  border-radius: 3px;
+  padding: 16px;
+  margin-bottom: 16px;
 }
 
 /*--------------------------------------------------------------
