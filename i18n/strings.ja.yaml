@@ -7,7 +7,13 @@ heroParagraph: >
   **SSH**や**WSL**を含むどこでも動作します。
 heroFooter: "" # **🌿&nbsp;2025年春のセール: 全商品20%オフ&nbsp;🍃**
 cardsTitle: "PRO専用のワークフローをアンロックするためにアップグレード"
+cardsParagraph: >
+  SQLite Viewer PROは新しいワークフローをアンロックします。VS Codeとの深い統合により、他のSQLiteエディタでは不可能な独自のワークフローを可能にします。
 seePricing: "価格を見る"
+purchasedNTimes: "最近{n}回購入されました"
+usedByAt: "{logos}などのエンジニアが使用※"
+disclaimer4: >
+  ※ このページに表示されている企業ロゴは説明目的でのみ使用されており、これらの組織との承認、スポンサーシップ、または提携を構成するものではありません。
 learnMore: "クリップを見る"
 card1H: "さまざまな形式でデータをエクスポート"
 card1P: >
@@ -31,6 +37,9 @@ card5P: >
   ネイティブのSQLiteインスタンスがリモートワークスペース内のデータベースと並行して実行され、
   Webビューのみがローカルマシンに残ります。
 sectionTitleI: "これらのPRO専用機能を含む："
+sectionParagraphI: >
+  PROバージョンは_SQLite Viewer 2_と考えることができます。
+  単なる機能フラグではなく、完全に新しいエンジンが内部にあります。SQLiteフェイルオーバー保証と大容量ファイルサポートを備えています。
 feat1H: "ネイティブSQLite"
 feat1P: >
   PROバージョンは**公式のSQLite実装**を使用し、完全なフェイルオーバー保証を提供します。
@@ -44,6 +53,9 @@ feat3P: >
   PROのお客様は広告なしの体験を楽しむことができます。**画面共有や録画に最適**。
   さらに、PROのお客様はUIに専用のPROアイコン<span class="nb">（{icon}）</span>を受け取ります。
 sectionTitleIi: "無料版のすべての機能も含まれています"
+sectionParagraphIi: >
+  SQLite Viewer PROへのアップグレードはシームレスな体験です。ライセンスキーを入力するだけで準備完了です。
+  新しい専用PRO機能に加えて、無料版で気に入っているすべての機能がそのまま残ります。
 free1H: "パフォーマンスに優れたUI"
 free1P: >
   SQLite Viewerはパフォーマンスを重視して設計されています。Webスタックの最高のツールを使用し、
@@ -64,10 +76,10 @@ free5H: "オーナー運営"
 free5P: >
   SQLite Viewerは1人の専任開発者によって作成されています。**一貫したビジョンと細部へのこだわり**があり、
   純粋に商業的な製品ではめったに見られません。
-nMInstalls: "100万以上のインストール"
-nMInstallsVerbose: "100万以上のユニークインストール"
-rated55: "★★★★★の評価"
-rated55Verbose: "5/5 星の評価"
+nMInstalls: "2,000,000+ インストール"
+nMInstallsVerbose: "200万以上のユニークインストール"
+rated55: "★★★★☆の評価"
+rated55Verbose: "4.5/5 星の評価"
 usedAcrossIndustry: "業界全体で使用されており、{NASA}でも使用されています"
 pricingTitle: "サブスクリプションなし、問題なし"
 pricingContent: >
@@ -82,6 +94,7 @@ priceFeat2: "広告なしの体験"
 priceFeat3: "専用のPROアイコン（{icon}）"
 priceFeat4: "オフラインライセンス認証"
 priceFeat5: "ライセンスの再検証なし"
+priceFeat6: "Copilot/Cursor統合"
 purchase: "購入"
 paymentInfo: "注文は当社のオンラインリセラー {polar} によって処理されます。支払いは {stripe} によって保護されています。"
 paymentProviders: "{GooglePayApplePay} などを受け付けます"
@@ -118,4 +131,8 @@ disclaimer3: >
 langDisclaimer: >
   このページはAIを使用して日本語に翻訳されました。英語のオリジナルと翻訳の間に違いがある場合、それは意図的なものではなく、
   英語版が最終的なものと見なされるべきです。
+faqTitle: よくある質問
+comingSoon: 近日公開
+changelogTitle: 更新、継続的に配信
+changelogSubtitle: "SQLite Viewer PROは引き続きバグ修正と新機能を受け取ります。最近のバージョン履歴を以下でご確認ください："
 preview: プレビュー

@@ -7,7 +7,13 @@ heroParagraph: >
   __Bearbeitungs-__ und __Exportfunktionen__. Funktioniert überall, auch über __SSH__ und __WSL__.
 heroFooter: "" # __🌿&nbsp;Frühlingsverkauf 2025: -20% auf alle Einkäufe&nbsp;🍃__
 cardsTitle: "Upgrade, um exklusive PRO-Workflows freizuschalten"
+cardsParagraph: >
+  SQLite Viewer PRO entsperrt neue Workflows. Mit seiner tiefen Integration in VS Code ermöglicht es einige Workflows, die einzigartig sind und mit keinem anderen SQLite-Editor möglich sind.
 seePricing: "Preisübersicht"
+purchasedNTimes: "Kürzlich {n} mal gekauft"
+usedByAt: "Verwendet von Ingenieuren bei {logos} & anderen*"
+disclaimer4: >
+  * Firmenlogos auf dieser Seite werden nur zu Illustrationszwecken verwendet und stellen keine Befürwortung, Sponsoring oder Verbindung zu diesen Organisationen dar.
 learnMore: "Clips ansehen"
 card1H: "Daten in verschiedenen Formaten exportieren"
 card1P: >
@@ -32,6 +38,9 @@ card5P: >
   native SQLite-Instanz läuft parallel zur Datenbank im Remote-Workspace, während nur die Webansicht
   lokal bleibt.
 sectionTitleI: "Enthält diese exklusiven PRO-Features:"
+sectionParagraphI: >
+  Sie können sich die PRO-Version als _SQLite Viewer 2_ vorstellen.
+  Es sind nicht nur Feature-Flags, sondern eine komplett neue Engine unter der Haube. Kommt mit SQLite-Failover-Garantien und Unterstützung für große Dateien.
 feat1H: "Nativer SQLite-Client"
 feat1P: >
   Die PRO-Version verwendet die __offizielle SQLite-Implementierung__ und bietet damit die vollen
@@ -45,6 +54,9 @@ feat3P: >
   PRO-Kunden genießen eine werbefreie Nutzung – __ideal für Bildschirmfreigaben und Aufnahmen__.
   Zudem erhalten PRO-Kunden ein exklusives PRO-Symbol <span class="nb">({icon})</span> in der UI.
 sectionTitleIi: "Enthält alles, was Sie an der kostenlosen Version schätzen"
+sectionParagraphIi: >
+  Das Upgrade auf SQLite Viewer PRO ist eine nahtlose Erfahrung. Geben Sie einfach den Lizenzschlüssel ein und Sie sind bereit.
+  Zusätzlich zu neuen und exklusiven PRO-Features bleibt alles, was Sie an der kostenlosen Version mögen, unverändert.
 free1H: "Performantes UI"
 free1P: >
   SQLite Viewer wurde mit Blick auf Performance entwickelt. Es nutzt die besten Tools des Web-Stacks
@@ -65,10 +77,10 @@ free5H: "Inhabergeführt"
 free5P: >
   SQLite Viewer wird von einem einzigen, engagierten Entwickler gepflegt. Dies gewährleistet eine __durchdachte Vision und Liebe
   zum Detail__, die in rein kommerziellen Produkten selten ist.
-nMInstalls: "1+ Million Installationen"
-nMInstallsVerbose: "Mehr als eine Million Installationen"
-rated55: "★★★★★ Bewertung"
-rated55Verbose: "Mit 5/5 Sternen bewertet"
+nMInstalls: "2.000.000+ Installationen"
+nMInstallsVerbose: "Mehr als zwei Millionen Installationen"
+rated55: "★★★★☆ Bewertung"
+rated55Verbose: "Mit 4.5/5 Sternen bewertet"
 usedAcrossIndustry: "Eingesetzt in allen Branchen, einschließlich der {NASA}"
 pricingTitle: "Kein Abo, kein Problem"
 pricingContent: >
@@ -83,6 +95,7 @@ priceFeat2: "Werbefreie Nutzung"
 priceFeat3: "Exklusives PRO-Symbol ({icon})"
 priceFeat4: "Offline-Lizenzaktivierung"
 priceFeat5: "Keine laufende Lizenzüberprüfung"
+priceFeat6: "Copilot/Cursor-Integration"
 purchase: "Jetzt kaufen"
 paymentInfo: "Bestellungen werden von unserem Online-Reseller {polar} bearbeitet. Zahlungen gesichert durch {stripe}."
 paymentProviders: "Akzeptiert {GooglePayApplePay} & mehr"
@@ -108,7 +121,7 @@ refunds: "Rückerstattungen"
 changelog: "Änderungsprotokoll"
 contact: "Kontakt"
 disclaimer1: >
-  „SQLite“ ist eine Marke von Hipp, Wyrick & Company, Inc. „Visual Studio Code“ (VS Code) ist eine Marke der Microsoft Corporation. Diese Erweiterung ist ein
+  "SQLite" ist eine Marke von Hipp, Wyrick & Company, Inc. "Visual Studio Code" (VS Code) ist eine Marke der Microsoft Corporation. Diese Erweiterung ist ein
   unabhängiges Produkt und steht in keiner Verbindung zu den jeweiligen Markeninhabern.
 disclaimer2: >
   Alle Preise sind in US-Dollar (USD) angegeben und verstehen sich ohne MwSt. Die MwSt. kann beim Checkout hinzugefügt werden. Ihr Kreditkartenanbieter
@@ -118,4 +131,8 @@ disclaimer3: >
 langDisclaimer: >
   Diese Seite wurde mit KI ins Deutsche übersetzt. Etwaige Unterschiede zwischen dem englischen Original und der Übersetzung sind unbeabsichtigt,
   und die englische Version sollte als maßgeblich angesehen werden.
+faqTitle: Häufig gestellte Fragen
+comingSoon: Demnächst
+changelogTitle: Updates, kontinuierlich geliefert
+changelogSubtitle: "SQLite Viewer PRO erhält weiterhin Bugfixes und neue Features. Schauen Sie sich die aktuelle Versionshistorie unten an:"
 preview: Vorabversion

@@ -80,7 +80,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         el.setInnerContent(content?.replace('{n}', numPurchases.toString()) ?? '', { html: true });
       }
     })
-    .on('#avatar-stack', {
+    .on('.avatar-stack', {
       element(el) {
         const selectedAvatars = [...avatarUrls].sort(() => Math.random() - 0.5).slice(0, 5);
         el.setInnerContent(selectedAvatars.map(url => html`<img class="avatar-stack-item" src="${url}">`).join(''), { html: true });

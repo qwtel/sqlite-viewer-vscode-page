@@ -74,7 +74,7 @@ free5P: >
   SQLite Viewer is crafted by a single, dedicated developer. It enjoys a __coherent vision and attention to detail__ that is rarely
   found in purely commercial products.
 nMInstalls: "2,000,000+ unique installs"
-nMInstallsVerbose: "More than one million unique installs"
+nMInstallsVerbose: "More than two million unique installs"
 rated55: "Rated ★★★★☆"
 rated55Verbose: "Rated 4.5/5 stars"
 usedAcrossIndustry: "Used across the industry, including at {NASA}"
@@ -91,6 +91,7 @@ priceFeat2: "Ad-free experience"
 priceFeat3: "Exclusive PRO icon ({icon})"
 priceFeat4: "Offline license activation"
 priceFeat5: "No license revalidation"
+priceFeat6: "Copilot/Cursor integration"
 purchase: "Purchase"
 paymentInfo: "Orders are processed by our online reseller {polar}. Payments secured by {stripe}."
 paymentProviders: "Accepts {GooglePayApplePay} & more"

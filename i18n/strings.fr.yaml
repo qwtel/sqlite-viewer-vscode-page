@@ -7,7 +7,13 @@ heroParagraph: >
   Fonctionne partout, y compris sur __SSH__ et __WSL__.
 heroFooter: "" # __🌿&nbsp;Soldes de Printemps 2025 : -20% sur tous les achats&nbsp;🍃__
 cardsTitle: "Mettez à niveau pour débloquer des flux de travail PRO exclusifs"
+cardsParagraph: >
+  SQLite Viewer PRO débloque de nouveaux flux de travail. Avec son intégration profonde dans VS Code, il permet certains flux de travail qui sont uniques et impossibles avec tout autre éditeur SQLite.
 seePricing: "Voir les prix"
+purchasedNTimes: "Acheté {n} fois récemment"
+usedByAt: "Utilisé par des ingénieurs chez {logos} et d'autres*"
+disclaimer4: >
+  * Les logos d'entreprises affichés sur cette page sont utilisés à des fins d'illustration uniquement et ne constituent pas une approbation, un parrainage ou une affiliation avec ces organisations.
 learnMore: "Regarder des clips"
 card1H: "Exporter les données dans divers formats"
 card1P: >
@@ -30,6 +36,9 @@ card5P: >
   SQLite Viewer PRO peut être installé à l'intérieur de conteneurs, sur des hôtes SSH et dans des instances WSL. Une instance SQLite native
   fonctionne parallèlement à la base de données dans l'espace de travail distant, tandis que seule la vue web reste sur la machine locale.
 sectionTitleI: "Inclut ces fonctionnalités PRO exclusives :"
+sectionParagraphI: >
+  Vous pouvez considérer la version PRO comme _SQLite Viewer 2_.
+  Ce ne sont pas seulement des drapeaux de fonctionnalités, mais un moteur complètement nouveau sous le capot. Livré avec des garanties de basculement SQLite et le support de fichiers volumineux.
 feat1H: "Client SQLite natif"
 feat1P: >
   La version PRO utilise l'__implémentation officielle de SQLite__, ce qui fournit l'ensemble complet des garanties de reprise après échec.
@@ -43,6 +52,9 @@ feat3P: >
   Les clients PRO bénéficient d'une expérience sans publicité — __parfaite pour le partage d'écran et les enregistrements__. De plus, les clients PRO
   reçoivent une icône PRO exclusive <span class="nb">({icon})</span> dans l'interface utilisateur.
 sectionTitleIi: "Inclut tout ce que vous appréciez dans la version gratuite"
+sectionParagraphIi: >
+  Passer à SQLite Viewer PRO est une expérience transparente. Entrez simplement la clé de licence et vous êtes prêt.
+  En plus des nouvelles fonctionnalités PRO exclusives, tout ce que vous appréciez dans la version gratuite reste inchangé.
 free1H: "Interface performante"
 free1P: >
   SQLite Viewer est conçu avec la performance à l'esprit. Il utilise les meilleurs outils disponibles sur la pile web et est __régulièrement testé sur
@@ -63,10 +75,10 @@ free5H: "Géré par le propriétaire"
 free5P: >
   SQLite Viewer est fabriqué par un seul développeur dédié. Il bénéficie d'une __vision cohérente et d'une attention
   aux détails__ rarement trouvée dans des produits purement commerciaux.
-nMInstalls: "Plus d'un million d'installations"
-nMInstallsVerbose: "Plus d'un million d'installations uniques"
-rated55: "Évalué ★★★★★"
-rated55Verbose: "Évalué 5/5 étoiles"
+nMInstalls: "2 000 000+ installations"
+nMInstallsVerbose: "Plus de deux millions d'installations uniques"
+rated55: "Évalué ★★★★☆"
+rated55Verbose: "Évalué 4.5/5 étoiles"
 usedAcrossIndustry: "Utilisé dans toute l'industrie, y compris chez {NASA}"
 pricingTitle: "Pas d'abonnement, pas de problème"
 pricingContent: >
@@ -82,6 +94,7 @@ priceFeat2: "Expérience sans publicité"
 priceFeat3: "Icône PRO exclusive ({icon})"
 priceFeat4: "Activation de licence hors ligne"
 priceFeat5: "Pas de vérification continue de la licence"
+priceFeat6: "Intégration Copilot/Cursor"
 purchase: "Acheter"
 paymentInfo: "Les commandes sont traitées par notre revendeur en ligne {polar}. Paiements sécurisés par {stripe}."
 paymentProviders: "Accepte {GooglePayApplePay} et plus"
@@ -107,7 +120,7 @@ refunds: "Remboursements"
 changelog: "Journal des modifications"
 contact: "Contact"
 disclaimer1: >
-  « SQLite » est une marque de Hipp, Wyrick & Company, Inc. « Visual Studio Code » (VS Code) est une marque de Microsoft Corporation.
+  « SQLite » est une marque de Hipp, Wyrick & Company, Inc. « Visual Studio Code » (VS Code) est une marque de Microsoft Corporation.
   Cette extension est un produit indépendant et n'est pas affiliée aux détenteurs respectifs des marques.
 disclaimer2: >
   Tous les prix sont indiqués en dollars américains (USD) et n'incluent pas la TVA. La TVA peut être ajoutée lors du paiement. Votre fournisseur de carte de crédit
@@ -117,4 +130,8 @@ disclaimer3: >
 langDisclaimer: >
   Cette page a été traduite en français à l'aide de l'IA. Toute différence entre la version originale en anglais et la traduction est non intentionnelle,
   et la version anglaise doit être considérée comme faisant autorité.
+faqTitle: Questions Fréquemment Posées
+comingSoon: Bientôt
+changelogTitle: Mises à jour, livrées en continu
+changelogSubtitle: "SQLite Viewer PRO continue de recevoir des corrections de bugs et de nouvelles fonctionnalités. Consultez l'historique des versions récentes ci-dessous :"
 preview: Aperçu

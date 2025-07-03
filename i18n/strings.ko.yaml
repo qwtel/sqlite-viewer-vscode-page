@@ -7,7 +7,13 @@ heroParagraph: >
   **SSH** 및 **WSL**을 포함한 어디서나 작동합니다.
 heroFooter: "" # **🌿&nbsp;2025년 봄 세일: 모든 구매 -20% 할인&nbsp;🍃**
 cardsTitle: "독점 PRO 워크플로를 잠금 해제하려면 업그레이드하세요"
+cardsParagraph: >
+  SQLite Viewer PRO는 새로운 워크플로를 잠금 해제합니다. VS Code와의 깊은 통합으로 다른 SQLite 편집기에서는 불가능한 고유한 워크플로를 가능하게 합니다.
 seePricing: "가격 보기"
+purchasedNTimes: "최근 {n}번 구매됨"
+usedByAt: "{logos} 등의 엔지니어가 사용※"
+disclaimer4: >
+  ※ 이 페이지에 표시된 회사 로고는 설명 목적으로만 사용되며, 이러한 조직과의 승인, 후원 또는 제휴를 구성하지 않습니다.
 learnMore: "클립 보기"
 card1H: "다양한 형식으로 데이터 내보내기"
 card1P: >
@@ -26,6 +32,9 @@ card5H: "컨테이너, SSH 및 WSL에서 작동"
 card5P: >
   SQLite Viewer PRO는 컨테이너, SSH 호스트 및 WSL 인스턴스에 설치할 수 있습니다. 네이티브 SQLite 인스턴스가 원격 작업 공간에서 데이터베이스와 함께 실행되며, 웹뷰만 로컬 머신에 남아 있습니다.
 sectionTitleI: "다음과 같은 독점 PRO 기능 포함:"
+sectionParagraphI: >
+  PRO 버전을 _SQLite Viewer 2_로 생각할 수 있습니다.
+  단순한 기능 플래그가 아니라 완전히 새로운 엔진이 내부에 있습니다. SQLite 장애 조치 보장과 대용량 파일 지원을 제공합니다.
 feat1H: "네이티브 SQLite 클라이언트"
 feat1P: >
   PRO 버전은 **공식 SQLite 구현**을 사용하여 전체 장애 조치 보장을 제공합니다. 이전 읽기 전용 클라이언트는 백업으로 남아 있습니다.
@@ -36,6 +45,9 @@ feat3H: "광고 없는 경험"
 feat3P: >
   PRO 고객은 광고 없는 경험을 즐길 수 있습니다 — **화면 공유 및 녹화에 적합합니다**. 또한, PRO 고객은 UI에서 독점적인 PRO 아이콘<span class="nb">({icon})</span>을 받습니다.
 sectionTitleIi: "무료 버전에서 좋아하는 모든 기능도 포함되어 있습니다"
+sectionParagraphIi: >
+  SQLite Viewer PRO로 업그레이드하는 것은 원활한 경험입니다. 라이선스 키만 입력하면 준비 완료입니다.
+  새로운 독점 PRO 기능 외에도 무료 버전에서 좋아하는 모든 기능이 그대로 유지됩니다.
 free1H: "성능 좋은 UI"
 free1P: >
   SQLite Viewer는 성능을 염두에 두고 제작되었습니다. 웹 스택이 제공하는 최고의 도구를 사용하며, **구형 하드웨어에서도 정기적으로 테스트**하여 성능이 최고 수준을 유지하도록 합니다.
@@ -51,10 +63,10 @@ free4P: >
 free5H: "개인 운영"
 free5P: >
   SQLite Viewer는 단일, 헌신적인 개발자가 제작했습니다. **일관된 비전과 세부 사항에 대한 주의**를 즐기며 순수 상업 제품에서는 드물게 발견됩니다.
-nMInstalls: "100만+ 고유 설치"
-nMInstallsVerbose: "100만 개 이상의 고유 설치"
-rated55: "평점 ★★★★★"
-rated55Verbose: "5/5 별점으로 평가됨"
+nMInstalls: "2,000,000+ 고유 설치"
+nMInstallsVerbose: "200만 개 이상의 고유 설치"
+rated55: "평점 ★★★★☆"
+rated55Verbose: "4.5/5 별점으로 평가됨"
 usedAcrossIndustry: "{NASA}를 포함한 업계 전반에서 사용됨"
 pricingTitle: "구독 없음, 문제 없음"
 pricingContent: >
@@ -69,6 +81,7 @@ priceFeat2: "광고 없는 경험"
 priceFeat3: "독점 PRO 아이콘 ({icon})"
 priceFeat4: "오프라인 라이선스 활성화"
 priceFeat5: "라이선스 재검증 없음"
+priceFeat6: "Copilot/Cursor 통합"
 purchase: "구매"
 paymentInfo: "주문은 당사의 온라인 리셀러 {polar}에서 처리됩니다. 결제는 {stripe}에서 보호됩니다."
 paymentProviders: "{GooglePayApplePay} 및 기타 결제 수단을 허용합니다"
@@ -99,4 +112,8 @@ disclaimer3: >
 langDisclaimer: >
   이 페이지는 AI를 사용하여 한국어로 번역되었습니다. 영어 원본과 번역본 간의 차이는 의도하지 않은 것이며,
   영어 버전이 최종적으로 간주되어야 합니다.
+faqTitle: 자주 묻는 질문
+comingSoon: 곧 출시
+changelogTitle: 업데이트, 지속적으로 제공
+changelogSubtitle: "SQLite Viewer PRO는 계속해서 버그 수정과 새로운 기능을 받습니다. 최근 버전 기록을 아래에서 확인하세요:"
 preview: 미리보기

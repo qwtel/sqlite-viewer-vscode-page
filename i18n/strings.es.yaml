@@ -7,7 +7,13 @@ heroParagraph: >
   Funciona en cualquier lugar, incluyendo __SSH__ y __WSL__.
 heroFooter: "" # __🌿&nbsp;Oferta de Primavera 2025: -20% en todas las compras&nbsp;🍃__
 cardsTitle: "Actualiza para desbloquear flujos de trabajo PRO exclusivos"
+cardsParagraph: >
+  SQLite Viewer PRO desbloquea nuevos flujos de trabajo. Con su profunda integración en VS Code, habilita algunos flujos de trabajo que son únicos y no son posibles con ningún otro editor SQLite.
 seePricing: "Ver precios"
+purchasedNTimes: "Comprado {n} veces recientemente"
+usedByAt: "Usado por ingenieros en {logos} y otros*"
+disclaimer4: >
+  * Los logos de empresas mostrados en esta página se usan solo con fines ilustrativos y no constituyen respaldo, patrocinio o afiliación con estas organizaciones.
 learnMore: "Ver clips"
 card1H: "Exportar datos en varios formatos"
 card1P: >
@@ -30,6 +36,9 @@ card5P: >
   SQLite Viewer PRO se puede instalar dentro de contenedores, hosts SSH e instancias WSL. Una instancia nativa de SQLite
   se ejecuta junto con la base de datos en el espacio de trabajo remoto, mientras que solo la vista web permanece en la máquina local.
 sectionTitleI: "Incluye estas funciones PRO exclusivas:"
+sectionParagraphI: >
+  Puedes pensar en la versión PRO como _SQLite Viewer 2_.
+  No son solo banderas de características, sino un motor completamente nuevo bajo el capó. Viene con garantías de failover de SQLite y soporte para archivos grandes.
 feat1H: "Cliente SQLite Nativo"
 feat1P: >
   La versión PRO utiliza la __implementación oficial de SQLite__, que proporciona el conjunto completo de garantías de failover.
@@ -43,6 +52,9 @@ feat3P: >
   Los clientes PRO disfrutan de una experiencia sin anuncios — __perfecta para compartir pantalla y grabaciones__. Además, los clientes PRO
   reciben un icono PRO exclusivo <span class="nb">({icon})</span> en la interfaz.
 sectionTitleIi: "Incluye todo lo que te gusta de la versión gratuita"
+sectionParagraphIi: >
+  Actualizar a SQLite Viewer PRO es una experiencia fluida. Solo ingresa la clave de licencia y estás listo.
+  Además de nuevas y exclusivas funciones PRO, todo lo que te gusta de la versión gratuita permanece igual.
 free1H: "UI de alto rendimiento"
 free1P: >
   SQLite Viewer está construido pensando en el rendimiento. Utiliza las mejores herramientas que ofrece la pila web y se __prueba rutinariamente
@@ -63,10 +75,10 @@ free5H: "Operado por el propietario"
 free5P: >
   SQLite Viewer está creado por un único desarrollador dedicado. Disfruta de una __visión coherente y atención al detalle__ que rara vez
   se encuentra en productos puramente comerciales.
-nMInstalls: "Más de 1M+ instalaciones"
-nMInstallsVerbose: "Más de un millón de instalaciones únicas"
-rated55: "Calificado como ★★★★★"
-rated55Verbose: "Calificado con 5/5 estrellas"
+nMInstalls: "2.000.000+ instalaciones únicas"
+nMInstallsVerbose: "Más de dos millones de instalaciones únicas"
+rated55: "Calificado como ★★★★☆"
+rated55Verbose: "Calificado con 4.5/5 estrellas"
 usedAcrossIndustry: "Utilizado en toda la industria, incluyendo en {NASA}"
 pricingTitle: "Sin suscripción, sin problema"
 pricingContent: >
@@ -81,6 +93,7 @@ priceFeat2: "Experiencia sin anuncios"
 priceFeat3: "Icono PRO exclusivo ({icon})"
 priceFeat4: "Activación de licencia offline"
 priceFeat5: "Sin revalidación de licencia"
+priceFeat6: "Integración con Copilot/Cursor"
 purchase: "Comprar"
 paymentInfo: "Los pedidos son procesados por nuestro revendedor en línea {polar}. Pagos asegurados por {stripe}."
 paymentProviders: "Acepta {GooglePayApplePay} y más"
@@ -116,4 +129,8 @@ disclaimer3: >
 langDisclaimer: >
   Esta página ha sido traducida al español utilizando IA. Cualquier diferencia entre la versión original en inglés y la traducción no es intencional,
   y la versión en inglés debe considerarse como la definitiva.
+faqTitle: Preguntas Frecuentes
+comingSoon: Próximamente
+changelogTitle: Actualizaciones, entregadas continuamente
+changelogSubtitle: "SQLite Viewer PRO continúa recibiendo correcciones de errores y nuevas funciones. Consulta el historial de versiones recientes a continuación:"
 preview: Vista previa
