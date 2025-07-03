@@ -7,6 +7,8 @@ heroParagraph: >
   Works anywhere, including __SSH__ and __WSL__.
 heroFooter: "" # __🌿&nbsp;Spring Sale 2025: -20% on all purchases&nbsp;🍃__
 cardsTitle: "Upgrade to Unlock Exclusive PRO Workflows"
+cardsParagraph: >
+  SQLite Viewer PRO unlocks new workflows. With its deep integration into VS Code, it enables some workflows that are unique and not possible with any other SQLite editor.
 seePricing: "See Pricing"
 purchasedNTimes: "Purchased {n} times last month"
 usedByAt: "Used by engineers at {logos} & others†"

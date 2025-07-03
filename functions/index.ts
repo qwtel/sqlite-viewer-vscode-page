@@ -11,7 +11,7 @@ const DevCountryOverride = '';
 
 const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
 
-const ns = 'sqlite-viewer-vscode-page.6';
+const ns = 'sqlite-viewer-vscode-page.7';
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const DEV = context.env.DEV;
@@ -204,9 +204,7 @@ async function getRecentProductPurchases(env: Env): Promise<[count: number, avat
     for (const order of page.result.items) {
       if (!env.DEV && order.createdAt < cutoffDate) break outer;
       purchaseCount++;
-      if (order.productId !== env.BE_PRODUCT_ID) {
-        avatarUrls.push(order.customer.avatarUrl);
-      }
+      avatarUrls.push(order.customer.avatarUrl);
     }
   }
 
