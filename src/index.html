@@ -32,6 +32,10 @@
       document.querySelector(hash || event.currentTarget.hash).scrollIntoView({ block: block || 'start', behavior: 'smooth' });
     }
   </script>
+  <link rel="stylesheet" media="(prefers-color-scheme:light)" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css"/>
+  <link rel="stylesheet" media="(prefers-color-scheme:dark)" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/dark.css" onload="document.documentElement.classList.add('sl-theme-dark');"/>
+  <script>window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(ev) { document.documentElement.classList.toggle('sl-theme-dark', ev.matches) });</script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace-autoloader.js"></script>
 </head>
 <body class="is-boxed has-animations">
   <script>
@@ -360,6 +364,9 @@
         </div>
       </section>
 
+      
+    
+
       <section class="proof section">
         <div class="container">
           <div class="proof-inner section-inner has-top-divider has-bottom-divider p-0">
@@ -383,7 +390,132 @@
         </div>
       </section>
 
-      <section class="pricing section">
+      
+    <section class="changelog-carousel section">
+      <div class="container">
+        <div class="section-inner">
+          <div class="text-center mb-48">
+            <h3 class="h3 mt-0 color-unset" data-i18n-key="changelog-title">Recent Updates</h3>
+            <p class="section-paragraph mb-0 text-sm" data-i18n-key="changelog-subtitle">
+              Stay up to date with the latest features and improvements in SQLite Viewer PRO.
+            </p>
+          </div>
+          <div class="carousel-container">
+            <sl-carousel pagination navigation loop autoplay autoplay-interval="5000">
+              
+      <sl-carousel-item>
+        <div class="changelog-card">
+          <div class="changelog-header">
+            <h4 class="changelog-version"><span class="version-number">v25.6.1 <sl-badge variant="neutral" size="small" data-i18n-key="preview">Preview</sl-badge></span> <time class="version-date" datetime="2025-06-29">June 30, 2025</time></h4>
+          </div>
+          <div class="changelog-content text-sm">
+            <ul>
+<li>Added forward and backward button</li>
+<li>Moved &#39;Expand All&#39; button inside the sidebar (only visible on hover; same as VS Code explorer)</li>
+<li>Section headers in the left sidebar are now sticky</li>
+<li>Updated various dependencies</li>
+</ul>
+
+          </div>
+        </div>
+      </sl-carousel-item>
+      <sl-carousel-item>
+        <div class="changelog-card">
+          <div class="changelog-header">
+            <h4 class="changelog-version"><span class="version-number">v25.6.0 <sl-badge variant="neutral" size="small" data-i18n-key="preview">Preview</sl-badge></span> <time class="version-date" datetime="2025-06-22">June 23, 2025</time></h4>
+          </div>
+          <div class="changelog-content text-sm">
+            <ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Added an &quot;Instant Commit&quot; setting that prevents the extension from opening long-running transactions that block other SQLite processes. Use with caution, as undo/redo functionality is limited in this mode.</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Added &quot;Instant Commit&quot; toggle to viewer UI to temporarily toggle the instant commit feature per database. Note that this toggle is only visible if the global setting applies to the given file.</li>
+<li>Updated SQLite and SQLite WASM to 3.50.1</li>
+<li>Various other changes and fixes</li>
+</ul>
+
+          </div>
+        </div>
+      </sl-carousel-item>
+      <sl-carousel-item>
+        <div class="changelog-card">
+          <div class="changelog-header">
+            <h4 class="changelog-version"><span class="version-number">v25.5.4 <sl-badge variant="neutral" size="small" data-i18n-key="preview">Preview</sl-badge></span> <time class="version-date" datetime="2025-05-08">May 9, 2025</time></h4>
+          </div>
+          <div class="changelog-content text-sm">
+            <p>Fixed visual row number alignment issue</p>
+
+          </div>
+        </div>
+      </sl-carousel-item>
+      <sl-carousel-item>
+        <div class="changelog-card">
+          <div class="changelog-header">
+            <h4 class="changelog-version"><span class="version-number">v25.5.3 <sl-badge variant="neutral" size="small" data-i18n-key="preview">Preview</sl-badge></span> <time class="version-date" datetime="2025-05-08">May 9, 2025</time></h4>
+          </div>
+          <div class="changelog-content text-sm">
+            <ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug that prevented undoing delete operations in tables with generated columns after tx commit</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Changing numeric values in non-numeric column types will no longer change the type to text</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Disabled Pragmas when opening a readonly database</li>
+<li>Boolean columns are now rendered as readonly checkboxes</li>
+<li>Valid JSON values will now be pretty-printed regardless of column type</li>
+<li>Numeric values will now be rendered in code font regardless of column type</li>
+<li>Text values should now be rendered as text regardless of column type</li>
+<li>Rearranged cell layout for BLOBs.<br>The download button is now on the right side, no longer in the same spot as image preview.</li>
+<li>Now showing the file type of blobs (e.g. &quot;PNG&quot;) on the download button</li>
+<li>Will no longer run SQLite queries originating from the sidebar when the sidebar is closed</li>
+<li>Added dedicated symbol for <code>ANY</code> type columns</li>
+</ul>
+
+          </div>
+        </div>
+      </sl-carousel-item>
+      <sl-carousel-item>
+        <div class="changelog-card">
+          <div class="changelog-header">
+            <h4 class="changelog-version"><span class="version-number">v25.5.2 <sl-badge variant="neutral" size="small" data-i18n-key="preview">Preview</sl-badge></span> <time class="version-date" datetime="2025-05-06">May 7, 2025</time></h4>
+          </div>
+          <div class="changelog-content text-sm">
+            <h5><sl-badge variant="primary" size="small">PRO</sl-badge> Pragma Editor</h5>
+<p>PRO users now have access to a experimental PRAGMA editor. It is located in a new tab in the sidebar.</p>
+<h5>Changes</h5>
+<ul>
+<li>Changed icons in datetime text input to match icons in cells</li>
+<li>Changed rendering of datetime values to omit the <code>T</code> in the UI (export not affected)</li>
+</ul>
+<h5>Fixes</h5>
+<ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed an issue that caused an extra entry on the undo history when an SQLite error occurred during an operation</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a memory leak related to event listeners</li>
+</ul>
+
+          </div>
+        </div>
+      </sl-carousel-item>
+              
+    <sl-carousel-item>
+      <div class="changelog-card">
+        <div class="changelog-header">
+          <h4 class="changelog-version"><span class="version-number">Full Version History</span></h4>
+        </div>
+        <div class="changelog-content text-sm">
+          <p>Browse the complete changelog to see all features, bug fixes, and improvements across every version of SQLite Viewer PRO.</p>
+          <div class="text-center mt-24">
+            <a href="https://marketplace.visualstudio.com/items/qwtel.sqlite-viewer/changelog" target="_blank" class="button button-sm">
+              <span data-i18n-key="view-full-changelog">View Full Changelog</span>&nbsp;↗
+            </a>
+          </div>
+        </div>
+      </div>
+    </sl-carousel-item>
+          </div>
+        </div>
+      </div>
+    </section>
+
+      
+
+      
+    <section class="pricing section">
         <div class="container-sm">
           <div id="pricing" class="pricing-inner section-inner">
             <div class="pricing-header text-center">

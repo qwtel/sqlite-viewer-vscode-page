@@ -25,8 +25,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     [numPurchases, avatarUrls] = await getRecentProductPurchases(context.env);
     context.waitUntil((async () => {
       await Promise.all([
-        context.env.KV.put(`${ns}.numPurchases`, JSON.stringify(numPurchases), { expirationTtl: 60 * 60 * 24 * 30 }),
-        context.env.KV.put(`${ns}.avatarUrls`, JSON.stringify(avatarUrls), { expirationTtl: 60 * 60 * 24 * 30 }),
+        context.env.KV.put(`${ns}.numPurchases`, JSON.stringify(numPurchases), { expirationTtl: 60 * 60 * 24 * 7 }),
+        context.env.KV.put(`${ns}.avatarUrls`, JSON.stringify(avatarUrls), { expirationTtl: 60 * 60 * 24 * 7 }),
       ]);
     })());
   } 

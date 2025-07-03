@@ -39,6 +39,11 @@
 @use "components/buttons";
 
 /*--------------------------------------------------------------
+# Changelog Carousel
+--------------------------------------------------------------*/
+@use "components/changelog-carousel";
+
+/*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
 @use "layout/header";
@@ -323,6 +328,7 @@ div:has(> .section-title)::after, .with-divider::after {
 .logo-graveyard {
   flex-wrap: wrap; 
   align-items: center;
+  justify-content: center;
   user-select: none;
   gap: 24px;
   filter: grayscale(1);

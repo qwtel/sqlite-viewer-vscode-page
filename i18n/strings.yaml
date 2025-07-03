@@ -10,7 +10,7 @@ cardsTitle: "Upgrade to Unlock Exclusive PRO Workflows"
 cardsParagraph: >
   SQLite Viewer PRO unlocks new workflows. With its deep integration into VS Code, it enables some workflows that are unique and not possible with any other SQLite editor.
 seePricing: "See Pricing"
-purchasedNTimes: "Purchased {n} times last month"
+purchasedNTimes: "Purchased {n} times recently"
 usedByAt: "Used by engineers at {logos} & others†"
 disclaimer4: >
   † Company logos displayed on this page are used for illustrative purposes only and do not constitute endorsement, sponsorship, or affiliation with these organizations.
@@ -75,8 +75,8 @@ free5P: >
   found in purely commercial products.
 nMInstalls: "2,000,000+ unique installs"
 nMInstallsVerbose: "More than one million unique installs"
-rated55: "Rated ★★★★★"
-rated55Verbose: "Rated 5/5 stars"
+rated55: "Rated ★★★★☆"
+rated55Verbose: "Rated 4.5/5 stars"
 usedAcrossIndustry: "Used across the industry, including at {NASA}"
 pricingTitle: "No Subscription, No Problem"
 pricingContent: >
@@ -123,4 +123,6 @@ disclaimer3: >
   Design based on [Solid](https://preview.cruip.com/solid). Licensed under [GPL-3.0](https://github.com/qwtel/sqlite-viewer-vscode-page).
 langDisclaimer: "This page is available the following languages:"
 comingSoon: Coming Soon
-
+changelogTitle: Updates, Continuously Delivered
+changelogSubtitle: "SQLite Viewer PRO continues to receive bug fixes and new features. Check out the recent version history below:"
+preview: Preview

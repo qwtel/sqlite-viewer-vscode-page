@@ -72,7 +72,8 @@ async function translateHtml(inFile: string, lang: string, outFile: string) {
     .on('[data-i18n-key]', {
       element(el) {
         const key = el.getAttribute('data-i18n-key')!;
-        const value = translations[lang][dashToCamelCase(key)];
+        const keyCamel = dashToCamelCase(key);
+        const value = translations[lang][keyCamel] ?? translations['en'][keyCamel] ?? '';
         // console.log(key, dashToCamelCase(key))
         if (value) {
           let newHtml = marked.parseInline('' + value, { gfm: true, breaks: true }) as string;
@@ -112,6 +113,14 @@ async function translateHtml(inFile: string, lang: string, outFile: string) {
     .on(`[href="/${lang}/"]`, {
       element(el) {
         el.tagName = 'span';
+      }
+    })
+    .on(`time[datetime]`, {
+      element(el) {
+        const datetime = el.getAttribute('datetime')!;
+        const date = new Date(datetime);
+        const formattedDate = new Intl.DateTimeFormat(lang, { year: 'numeric', month: 'long', day: 'numeric' }).format(date);
+        el.setInnerContent(formattedDate);
       }
     })
 

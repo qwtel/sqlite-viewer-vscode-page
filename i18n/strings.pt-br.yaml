@@ -106,7 +106,7 @@ refunds: "Reembolsos"
 changelog: "Log de mudanças"
 contact: "Contato"
 disclaimer1: >
-  “SQLite” é uma marca registrada de Hipp, Wyrick & Company, Inc. “Visual Studio Code” (VS Code) é uma marca registrada da Microsoft Corporation.
+  «SQLite» é uma marca registrada de Hipp, Wyrick & Company, Inc. «Visual Studio Code» (VS Code) é uma marca registrada da Microsoft Corporation.
   Esta extensão é um produto independente e não é afiliada aos respectivos detentores das marcas.
 disclaimer2: >
   Todos os preços estão em dólares americanos (USD) e não incluem IVA. O IVA pode ser adicionado no checkout. Seu provedor de cartão de crédito
@@ -116,3 +116,4 @@ disclaimer3: >
 langDisclaimer: >
   Esta página foi traduzida para o português usando IA. Quaisquer diferenças entre a versão original em inglês e a tradução são não intencionais,
   e a versão em inglês deve ser considerada como a definitiva.
+preview: Visualização

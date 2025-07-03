@@ -90,7 +90,7 @@ refunds: "환불"
 changelog: "변경 로그"
 contact: "연락처"
 disclaimer1: >
-  “SQLite”는 Hipp, Wyrick & Company, Inc.의 상표입니다. “Visual Studio Code” (VS Code)는 Microsoft Corporation의 상표입니다. 이 확장 프로그램은 독립 제품이며 해당 상표 소유자와 관련이 없습니다.
+  "SQLite"는 Hipp, Wyrick & Company, Inc.의 상표입니다. "Visual Studio Code" (VS Code)는 Microsoft Corporation의 상표입니다. 이 확장 프로그램은 독립 제품이며 해당 상표 소유자와 관련이 없습니다.
 disclaimer2: >
   모든 가격은 미국 달러 (USD)로 표시되며 부가세는 포함되지 않습니다. 부가세는 결제 시 추가될 수 있습니다. 신용카드 제공업체가
   환전 수수료를 부과할 수 있습니다.
@@ -99,3 +99,4 @@ disclaimer3: >
 langDisclaimer: >
   이 페이지는 AI를 사용하여 한국어로 번역되었습니다. 영어 원본과 번역본 간의 차이는 의도하지 않은 것이며,
   영어 버전이 최종적으로 간주되어야 합니다.
+preview: 미리보기
