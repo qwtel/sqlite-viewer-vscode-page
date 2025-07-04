@@ -363,6 +363,12 @@ details[name="faq"] {
   margin-bottom: 16px;
 }
 
+@media (pointer: coarse) or (max-width: 960px) {
+  sl-carousel::part(navigation) {
+    display: none;
+  }
+}
+
 /*--------------------------------------------------------------
 # Web App
 --------------------------------------------------------------*/

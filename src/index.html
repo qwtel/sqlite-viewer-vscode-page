@@ -32,10 +32,6 @@
       document.querySelector(hash || event.currentTarget.hash).scrollIntoView({ block: block || 'start', behavior: 'smooth' });
     }
   </script>
-  <link rel="stylesheet" media="(prefers-color-scheme:light)" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css"/>
-  <link rel="stylesheet" media="(prefers-color-scheme:dark)" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/dark.css" onload="document.documentElement.classList.add('sl-theme-dark');"/>
-  <script>window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(ev) { document.documentElement.classList.toggle('sl-theme-dark', ev.matches) });</script>
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace-autoloader.js"></script>
 </head>
 <body class="is-boxed has-animations">
   <script>
@@ -51,7 +47,7 @@
       <div class="container">
         <div class="site-header-inner">
           <div class="brand header-brand mr-8">
-            <h1 class="m-0" style="display:flex;align-items:center;font-size:18px;line-height:100%">
+            <h1 class="m-0 header-brand-title">
               <a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' });">
                 <img class="header-logo-image" src="/dist/images/logo_70_mac.png" alt="Logo" width="35" height="35">
               </a>
@@ -61,10 +57,11 @@
             </h1>
           </div>
           <div class="flex min-w-0">
-            <a id="open-in-browser" class="button button-default button-sm vscode-only ellipsis mr-8" style="display:none" target="_blank" title="Open in Browser" data-i18n-title="open-in-browser"><span data-i18n-key="open-in-browser">Open in Browser</span>&nbsp;↗</a>
+            <a id="open-in-browser" class="button button-default button-sm vscode-only ellipsis mr-8 display-none" target="_blank" title="Open in Browser" data-i18n-title="open-in-browser"><span data-i18n-key="open-in-browser">Open in Browser</span>&nbsp;↗</a>
             <script>
               if (searchParams.has('css-vars')) {
-                document.getElementById('open-in-browser').style.display = 'inline';
+                document.getElementById('open-in-browser').classList.remove('display-none');
+                document.getElementById('open-in-browser').classList.add('display-inline');
                 document.getElementById('open-in-browser').href = location.origin + `?ref=vscode`;
               }
             </script>
@@ -108,7 +105,7 @@
             </div>
             <div class="hero-figure anime-element">
               <svg class="placeholder" width="528" height="396" viewBox="0 0 528 396">
-                <rect width="528" height="396" style="fill:transparent;" />
+                <rect width="528" height="396" class="fill-transparent" />
               </svg>
               <div class="hero-figure-box hero-figure-box-01" data-rotation="45deg"></div>
               <div class="hero-figure-box hero-figure-box-02" data-rotation="-45deg"></div>
@@ -139,10 +136,10 @@
         <div class="container">
           <div class="logo-graveyard text-center text-xxs color-50 mb-32 flex items-center o-50 pt-16 pb-16 mb-128" data-i18n-key="used-by-at">
             Used by engineers at
-            <img src="/dist/images/Apple_logo_black.svg" title="Apple" alt="Apple" style="height: 32px; opacity: 0.5;">
-            <img src="/dist/images/NASA_Worm_logo.svg" title="NASA" alt="NASA" style="height: 32px; padding-top: 5px; opacity: 0.5;">
-            <img src="/dist/images/Verizon_2024.svg" title="Verizon" alt="Verizon" style="height: 32px; opacity: 0.5;">
-            <img src="/dist/images/Abbott_Laboratories_logo.svg" title="Abbott Laboratories" alt="Abbott Laboratories" style="height: 32px; opacity: 0.5; margin-bottom: -5px;">
+            <img src="/dist/images/Apple_logo_black.svg" title="Apple" alt="Apple" class="h-32 o-50">
+            <img src="/dist/images/NASA_Worm_logo.svg" title="NASA" alt="NASA" class="h-32 o-50 pt-5">
+            <img src="/dist/images/Verizon_2024.svg" title="Verizon" alt="Verizon" class="h-32 o-50">
+            <img src="/dist/images/Abbott_Laboratories_logo.svg" title="Abbott Laboratories" alt="Abbott Laboratories" class="h-32 o-50 mb-n5">
             & others*
           </div>
         </div>
@@ -270,7 +267,7 @@
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-                    <img src="/dist/images/native.webp" alt="Native SQLite Client" style="height:100px;transform:scale(0.85)">
+                    <img src="/dist/images/native.webp" alt="Native SQLite Client" class="h-100 scale-85">
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="feat-1-h">Native SQLite Client</h4>
                   <p class="text-sm mb-0" data-i18n-key="feat-1-p">The PRO version uses the <strong>canonical SQLite implementation</strong>, which provides the full set of failover guarantees. The old readonly client remains as a fallback.</p>
@@ -279,7 +276,7 @@
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-                    <img src="/dist/images/lfs.webp" alt="Large File Support" style="height:100px">
+                    <img src="/dist/images/lfs.webp" alt="Large File Support" class="h-100">
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="feat-2-h">Large File Support</h4>
                   <p class="text-sm mb-0" data-i18n-key="feat-2-p">All restrictions on file size are lifted, <strong>even during remote sessions</strong>. Only the data needed to render the UI is transferred to your local machine. Powered by <em>VS Code Server</em>.</p>
@@ -288,7 +285,7 @@
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-                    <img src="/dist/images/adblock.webp" alt="Ad-Free Experience" style="height:100px;transform:scale(0.85)">
+                    <img src="/dist/images/adblock.webp" alt="Ad-Free Experience" class="h-100 scale-85">
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="feat-3-h">Ad-Free Experience</h4>
                   <p class="text-sm mb-0" data-i18n-key="feat-3-p">PRO customers enjoy an ad-free experience — <strong>perfect for screen sharing and recordings</strong>. Additionally, PRO customers receive an exclusive PRO icon (<img class="img inline-block" width="18" height="18" src="/dist/images/favicon-pro.png" />) in the UI.</p>
@@ -313,7 +310,7 @@
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-                    <img src="/dist/images/perf.webp" alt="Performant UI" style="height:100px;transform:scale(0.85)">
+                    <img src="/dist/images/perf.webp" alt="Performant UI" class="h-100 scale-85">
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="free-1-h">Performant UI</h4>
                   <p class="text-sm mb-0" data-i18n-key="free-1-p">SQLite Viewer is built with performance in mind. It uses the best tools the web stack has to offer and is <strong>routinely tested on older hardware</strong> to ensure performance remains top-notch.</p>
@@ -322,7 +319,7 @@
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-                    <img src="/dist/images/autotheme.webp" alt="Matching Theme" width="100" height="100" style="mask-image: radial-gradient(circle, black 36%, transparent 72%); mask-size: cover;" >
+                    <img src="/dist/images/autotheme.webp" alt="Matching Theme" width="100" height="100" class="square-100 feature-icon-mask">
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="free-2-h">Matching Theme</h4>
                   <p class="text-sm mb-0" data-i18n-key="free-2-p">Say goodbye to disjointed user interfaces. SQLite Viewer <strong>automatically adjusts to your VS Code theme</strong> and seamlessly blends into the existing VS Code experience.</p>
@@ -334,7 +331,7 @@
                     <picture>
                       <source media="(prefers-color-scheme: light)" srcset="/dist/images/install-dark.webp">
                       <source media="(prefers-color-scheme: dark)" srcset="/dist/images/install-light.webp">
-                      <img src="/dist/images/install-light.webp" alt="One-Click Setup" width="100" height="100" style="mask-image: radial-gradient(circle, black 36%, transparent 72%); mask-size: cover;">
+                      <img src="/dist/images/install-light.webp" alt="One-Click Setup" width="100" height="100" class="square-100 feature-icon-mask">
                     </picture>
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="free-3-h">One-Click Setup</h4>
@@ -344,7 +341,7 @@
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-                    <img src="/dist/images/openvsx.webp" alt="Works Anywhere" style="height:100px;transform:scale(0.72)">
+                    <img src="/dist/images/openvsx.webp" alt="Works Anywhere" class="h-100 scale-72">
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="free-4-h">Works Anywhere</h4>
                   <p class="text-sm mb-0" data-i18n-key="free-4-p">Whether you're using VS Codium, CodeSandbox, GitPod, Google IDX or other VS Code forks, <strong>SQLite Viewer adapts to its environment</strong> and provides as many features as possible.</p>
@@ -353,7 +350,7 @@
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon">
-                    <img src="/dist/images/owner.webp" alt="Owner Operated" style="height:100px;transform:scale(0.85)">
+                    <img src="/dist/images/owner.webp" alt="Owner Operated" class="h-100 scale-85">
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="free-5-h">Owner Operated</h4>
                   <p class="text-sm mb-0" data-i18n-key="free-5-p">SQLite Viewer is crafted by a single, dedicated developer. It enjoys a <strong>coherent vision and attention to detail</strong> that is rarely found in purely commercial products.</p>
@@ -371,7 +368,7 @@
         <div class="container">
           <div class="proof-inner section-inner has-top-divider has-bottom-divider p-0">
             <div class="center is-revealing pt-16 pb-16">
-              <div class="h3 m-0 color-unset" style="line-height:1.6;">
+              <div class="h3 m-0 color-unset line-height-1-6">
                 <a class="hover-link" href="https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer" target="_blank" title="More than one million unique installs" data-i18n-key="n-m-installs" data-i18n-title="n-m-installs-verbose">1M+ unique installs</a>.
                 <a class="hover-link" href="https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer&ssr=false#review-details" target="_blank" title="Rated 5/5 stars" data-i18n-key="rated-5-5" data-i18n-title="rated-5-5-verbose">Rated ★★★★★</a>.<br>
               </div>
@@ -379,10 +376,10 @@
             <div class="is-revealing">
               <div class="logo-graveyard o-50 text-center text-sm flex center pb-24" data-i18n-key="used-by-at">
                 Used by engineers at
-                <img src="/dist/images/Apple_logo_black.svg" title="Apple" alt="Apple" style="height: 32px; opacity: 0.5;">
-                <img src="/dist/images/NASA_Worm_logo.svg" title="NASA" alt="NASA" style="height: 32px; padding-top: 5px; opacity: 0.5;">
-                <img src="/dist/images/Verizon_2024.svg" title="Verizon" alt="Verizon" style="height: 32px; opacity: 0.5;">
-                <img src="/dist/images/Abbott_Laboratories_logo.svg" title="Abbott Laboratories" alt="Abbott Laboratories" style="height: 32px; opacity: 0.5; margin-bottom: -5px;">
+                <img src="/dist/images/Apple_logo_black.svg" title="Apple" alt="Apple" class="h-32 o-50">
+                <img src="/dist/images/NASA_Worm_logo.svg" title="NASA" alt="NASA" class="h-32 o-50 pt-5">
+                <img src="/dist/images/Verizon_2024.svg" title="Verizon" alt="Verizon" class="h-32 o-50">
+                <img src="/dist/images/Abbott_Laboratories_logo.svg" title="Abbott Laboratories" alt="Abbott Laboratories" class="h-32 o-50 mb-n5">
                 & others*
               </div>
             </div>
@@ -405,7 +402,7 @@
       <div class="container">
         <div class="section-inner">
           <div class="text-center mb-48">
-            <h3 class="section-title h3 mt-0 color-unset" data-i18n-key="changelog-title">Recent Updates</h3>
+            <h3 class="h3 mt-0 color-unset" data-i18n-key="changelog-title">Recent Updates</h3>
             <p class="section-paragraph mb-0 text-sm" data-i18n-key="changelog-subtitle">
               Stay up to date with the latest features and improvements in SQLite Viewer PRO.
             </p>
@@ -617,20 +614,20 @@
             <!-- <p class="text-xs" data-i18n-key="cta-p">
               You can evaluate SQLite Viewer PRO for up to two weeks by making use of the <a href="/refunds">14-day refund guarantee</a>.
             </p> -->
-            <p class="text-xxs mb-16 o-50" data-i18n-key="payment-info">Orders are processed by our online reseller <a href="https://polar.sh" target="_blank" style="text-decoration:none"><picture>
+            <p class="text-xxs mb-16 o-50" data-i18n-key="payment-info">Orders are processed by our online reseller <a href="https://polar.sh" target="_blank" class="no-decoration"><picture>
               <source media="(prefers-color-scheme: light)" srcset="/dist/images/polar.svg">
               <source media="(prefers-color-scheme: dark)" srcset="/dist/images/polar-dark.svg">
-              <img style="display:inline-block;height:16px;padding-left:2px;margin-bottom:-3px" src="/dist/images/polar.svg" alt="Polar">
+              <img class="display-inline-block h-16 pl-2 mb-n3" src="/dist/images/polar.svg" alt="Polar">
             </picture></a>. Payments secured by <picture>
               <source media="(prefers-color-scheme: light)" srcset="/dist/images/Stripe_wordmark_-_slate.svg">
               <source media="(prefers-color-scheme: dark)" srcset="/dist/images/Stripe_wordmark_-_white.svg">
-              <img style="display:inline-block;height:24px;margin:0 -3px;margin-bottom:-7.5px" src="/dist/images/Stripe_wordmark_-_slate.svg" alt="Stripe">
+              <img class="display-inline-block h-24" style="margin:0 -3px -7.5px" src="/dist/images/Stripe_wordmark_-_slate.svg" alt="Stripe">
             </picture>.</p>
-            <!-- <p class="payment-providers text-xxs flex" style="flex-wrap:wrap; gap:.5rem; justify-content:center; align-items:center" data-i18n-key="payment-providers">
+            <!-- <p class="payment-providers text-xxs flex flex-wrap gap-8 justify-center align-center" data-i18n-key="payment-providers">
               <span>Accepts</span>
-              <img class="payment-provider-icon" style="height:26px;margin-right:-2px" src="/dist/images/google-pay.svg" alt="Google Pay" title="Google Pay">
-              <img class="payment-provider-icon" style="height:26px" src="/dist/images/apple-pay.svg" alt="Apple Pay" title="Apple Pay">
-              <img class="payment-provider-icon" style="height:26px" src="/dist/images/cashapp-pay.svg" alt="CashApp Pay" title="CashApp Pay">
+              <img class="payment-provider-icon h-26 mr-n2" src="/dist/images/google-pay.svg" alt="Google Pay" title="Google Pay">
+              <img class="payment-provider-icon h-26" src="/dist/images/apple-pay.svg" alt="Apple Pay" title="Apple Pay">
+              <img class="payment-provider-icon h-26" src="/dist/images/cashapp-pay.svg" alt="CashApp Pay" title="CashApp Pay">
               <span>& more</span>
             </p> -->
           </div>
@@ -722,7 +719,7 @@
             <li>
               <a href="https://github.com/qwtel/sqlite-viewer-vscode" title="GitHub">
                 <span class="screen-reader-text">GitHub</span>
-                <svg style="width: 16px; height: 16px;" viewBox="0 0 1024 1024" width="1024" height="1024" xmlns="http://www.w3.org/2000/svg">
+                <svg class="square-16" viewBox="0 0 1024 1024" width="1024" height="1024" xmlns="http://www.w3.org/2000/svg">
                   <path fill="#0270D7" fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z" transform="scale(64)"/>
                 </svg>
               </a>
@@ -730,7 +727,7 @@
             <li>
               <a href="https://x.com/qwtel" title="X">
                 <span class="screen-reader-text">X</span>
-                <svg style="width: 16px; height: 16px;" viewBox="0 0 300 300.251" width="300" height="300.251" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <svg class="square-16" viewBox="0 0 300 300.251" width="300" height="300.251" version="1.1" xmlns="http://www.w3.org/2000/svg">
                   <path fill="#0270D7" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/>
                 </svg>
               </a>

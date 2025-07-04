@@ -568,3 +568,131 @@
 		display: none;
 	}
 }
+
+/* Header brand styling */
+.header-brand-title {
+	display: flex;
+	align-items: center;
+	font-size: 18px;
+	line-height: 100%;
+}
+
+
+
+/* Feature icon styling */
+.feature-icon-mask {
+	mask-image: radial-gradient(circle, black 36%, transparent 72%);
+	mask-size: cover;
+}
+
+
+
+/* Layout utilities */
+.line-height-1-6 {
+	line-height: 1.6;
+}
+
+/* Display utilities */
+.display-none {
+	display: none;
+}
+
+.display-inline {
+	display: inline;
+}
+
+.display-inline-block {
+	display: inline-block;
+}
+
+/* Text utilities */
+.no-decoration {
+	text-decoration: none;
+}
+
+/* Fill utilities */
+.fill-transparent {
+	fill: transparent;
+}
+
+/* Sizing utilities */
+.square-16 {
+  width: 16px;
+  height: 16px;
+}
+.square-24 {
+  width: 24px;
+  height: 24px;
+}
+.square-32 {
+  width: 32px;
+  height: 32px;
+}
+
+/* Scale utilities */
+.scale-85 {
+  transform: scale(0.85);
+}
+.scale-72 {
+  transform: scale(0.72);
+}
+
+/* Padding utilities (positive and negative) */
+.pl-7-5 {
+  padding-left: 7.5px;
+}
+.pl-n7-5 {
+  padding-left: -7.5px;
+}
+.pt-5 {
+  padding-top: 5px;
+}
+.pt-n5 {
+  padding-top: -5px;
+}
+.pl-2 {
+  padding-left: 2px;
+}
+
+/* Margin utilities (positive and negative) */
+.mb-n5 {
+  margin-bottom: -5px;
+}
+.mr-n2 {
+  margin-right: -2px;
+}
+
+/* Height utilities */
+.h-16 {
+  height: 16px;
+}
+.h-24 {
+  height: 24px;
+}
+.h-26 {
+  height: 26px;
+}
+.h-32 {
+  height: 32px;
+}
+.h-100 {
+  height: 100px;
+}
+
+/* Flex utilities */
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.gap-8 {
+  gap: 0.5rem;
+}
+.justify-center {
+  justify-content: center;
+}
+.align-center {
+  align-items: center;
+}
+
+.mb-n3 {
+  margin-bottom: -3px;
+}

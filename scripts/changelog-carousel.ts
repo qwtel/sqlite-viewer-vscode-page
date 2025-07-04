@@ -1,6 +1,5 @@
 /// <reference types="bun-types" />
 
-import * as fs from 'fs/promises';
 import URL from 'url';
 import path from 'path';
 import { marked } from 'marked';
@@ -170,22 +169,13 @@ async function integrateCarousel() {
   // Generate the carousel HTML
   const carouselHTML = await generateCarouselHTML();
   
-  // Add Shoelace to the head section if not already present
-  const shoelaceTags = html`
-  <link rel="stylesheet" media="(prefers-color-scheme:light)" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css"/>
-  <link rel="stylesheet" media="(prefers-color-scheme:dark)" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/dark.css" onload="document.documentElement.classList.add('sl-theme-dark');"/>
-  <script>window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(ev) { document.documentElement.classList.toggle('sl-theme-dark', ev.matches) });</script>
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace-autoloader.js"></script>
-  `;
-  let contentWithShoelace = indexContent;
+  let contentWithLazyLoad = indexContent;
   
-  if (!indexContent.includes('shoelace-autoloader.js')) {
-    console.log('ℹ️ Adding Shoelace to the head section...');
+  if (!indexContent.includes('changelog-carousel')) {
+    console.log('ℹ️ Adding lazy loading script to the head section...');
     const headEnd = indexContent.indexOf('</head>');
-    contentWithShoelace = 
+    contentWithLazyLoad = 
       indexContent.substring(0, headEnd) + 
-      '\n' + 
-      shoelaceTags + 
       '\n' + 
       indexContent.substring(headEnd);
   }
@@ -196,7 +186,7 @@ async function integrateCarousel() {
     
     // Use regex to find and remove all carousel sections
     const carouselRegex = /<section class="changelog-carousel section">[\s\S]*?<\/section>\s*/g;
-    let newContent = contentWithShoelace.replace(carouselRegex, '');
+    let newContent = contentWithLazyLoad.replace(carouselRegex, '');
     
     // Now insert the new carousel after the proof section
     const proofSectionEnd = newContent.indexOf('</section>', newContent.indexOf('<section class="proof section">'));
@@ -214,16 +204,16 @@ async function integrateCarousel() {
     console.log('✅ Changelog carousel updated successfully!');
   } else {
     // Find the proof section and insert the carousel after it
-    const proofSectionEnd = contentWithShoelace.indexOf('</section>', contentWithShoelace.indexOf('<section class="proof section">'));
+    const proofSectionEnd = contentWithLazyLoad.indexOf('</section>', contentWithLazyLoad.indexOf('<section class="proof section">'));
     const insertPosition = proofSectionEnd + '</section>'.length;
     
     // Insert the carousel HTML after the proof section
     const newContent = 
-      contentWithShoelace.substring(0, insertPosition) + 
+      contentWithLazyLoad.substring(0, insertPosition) + 
       '\n\n      ' + 
       carouselHTML + 
       '\n\n      ' + 
-      contentWithShoelace.substring(insertPosition);
+      contentWithLazyLoad.substring(insertPosition);
     
     // Write the updated content back to the file
     await Bun.write(indexPath, newContent);
