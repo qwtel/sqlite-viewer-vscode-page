@@ -22,13 +22,18 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   ]);
 
   if (numPurchases == null || avatarUrls == null) {
-    [numPurchases, avatarUrls] = await getRecentProductPurchases(context.env);
-    context.waitUntil((async () => {
-      await Promise.all([
-        context.env.KV.put(`${ns}.numPurchases`, JSON.stringify(numPurchases), { expirationTtl: 60 * 60 * 24 * 7 }),
-        context.env.KV.put(`${ns}.avatarUrls`, JSON.stringify(avatarUrls), { expirationTtl: 60 * 60 * 24 * 7 }),
-      ]);
-    })());
+    [numPurchases, avatarUrls] = await getRecentProductPurchases(context.env).catch((err) => {
+      console.error(err);
+      return [null, null];
+    });
+    if (numPurchases != null && avatarUrls != null) {
+      context.waitUntil((async () => {
+        await Promise.all([
+          context.env.KV.put(`${ns}.numPurchases`, JSON.stringify(numPurchases), { expirationTtl: 60 * 60 * 24 * 7 }),
+          context.env.KV.put(`${ns}.avatarUrls`, JSON.stringify(avatarUrls), { expirationTtl: 60 * 60 * 24 * 7 }),
+        ]);
+      })());
+    }
   } 
 
   const url = new URL(context.request.url);
@@ -77,12 +82,14 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     .on('.purchased-n-times', {
       element(el) {
         const content = el.getAttribute('content');
-        el.setInnerContent(content?.replace('{n}', numPurchases.toString()) ?? '', { html: true });
+        if (content && numPurchases) {
+          el.setInnerContent(content.replace('{n}', numPurchases.toString()), { html: true });
+        }
       }
     })
     .on('.avatar-stack', {
       element(el) {
-        const selectedAvatars = [...avatarUrls].sort(() => Math.random() - 0.5).slice(0, 5);
+        const selectedAvatars = [...avatarUrls ?? []].sort(() => Math.random() - 0.5).slice(0, 5);
         el.setInnerContent(selectedAvatars.map(url => html`<img class="avatar-stack-item" src="${url}">`).join(''), { html: true });
       }
     })
