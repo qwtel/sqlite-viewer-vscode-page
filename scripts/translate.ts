@@ -115,14 +115,14 @@ async function translateHtml(inFile: string, lang: string, outFile: string) {
         el.tagName = 'span';
       }
     })
-    .on(`time[datetime]`, {
-      element(el) {
-        const datetime = el.getAttribute('datetime')!;
-        const date = new Date(datetime);
-        const formattedDate = new Intl.DateTimeFormat(lang, { year: 'numeric', month: 'long', day: 'numeric' }).format(date);
-        el.setInnerContent(formattedDate);
-      }
-    })
+    // .on(`time[datetime]`, {
+    //   element(el) {
+    //     const datetime = el.getAttribute('datetime')!;
+    //     const date = new Date(datetime);
+    //     const formattedDate = new Intl.DateTimeFormat(lang, { year: 'numeric', month: 'long', day: 'numeric' }).format(date);
+    //     el.setInnerContent(formattedDate);
+    //   }
+    // })
 
   const newHtmlStr = rewriter.transform(new Response(htmlStr));
   const outFileDir = path.dirname(resolve(outFile));

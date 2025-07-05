@@ -94,7 +94,7 @@ async function generateCarouselHTML(): Promise<string> {
     parsedContent = parsedContent.replace(/\[PRO\]/g, html`<sl-badge variant="primary" size="small">PRO</sl-badge>`);
     
     // Replace (Pre-Release) with Preview badge in version
-    let versionWithBadge = release.version.replace(/\(Pre-Release\)/g, html`<sl-badge variant="neutral" size="small" data-i18n-key="preview">Preview</sl-badge>`);
+    let versionWithBadge = release.version.replace(/\(Pre-Release\)/g, html`<sl-badge variant="neutral" size="small">Preview</sl-badge>`);
     
     // Split version and date, then wrap in spans
     const parts = versionWithBadge.split(' - ');
