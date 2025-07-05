@@ -361,6 +361,9 @@ details[name="faq"] {
   border-radius: 3px;
   padding: 16px;
   margin-bottom: 16px;
+  summary {
+    font-weight: bold;
+  }
 }
 
 @media (pointer: coarse) or (max-width: 960px) {

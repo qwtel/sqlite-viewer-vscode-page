@@ -23,6 +23,7 @@
     height: 100%;
     overflow: hidden;
     position: relative;
+    aspect-ratio: 16/9;
     
     &::after {
       content: '';
@@ -33,6 +34,17 @@
       height: 160px;
       background: linear-gradient(to bottom, transparent, functions.color(bg, 2));
       pointer-events: none;
+    }
+  }
+
+  sl-carousel {
+    sl-carousel-item:not(:first-of-type) {
+      display: none;
+    }
+    &[aria-label] { // loaded
+      sl-carousel-item:not(:first-of-type) {
+        display: flex;
+      }
     }
   }
 
