@@ -8,7 +8,7 @@ heroParagraph: >
 heroFooter: "" # **🌿&nbsp;2025년 봄 세일: 모든 구매 -20% 할인&nbsp;🍃**
 cardsTitle: "독점 PRO 워크플로를 잠금 해제하려면 업그레이드하세요"
 cardsParagraph: >
-  SQLite Viewer PRO는 새로운 워크플로를 잠금 해제합니다. VS Code와의 깊은 통합으로 다른 SQLite 편집기에서는 불가능한 고유한 워크플로를 가능하게 합니다.
+  VS Code와의 깊은 통합으로 SQLite Viewer PRO는 다른 편집기에서는 불가능한 고유한 새로운 워크플로를 가능하게 합니다.
 seePricing: "가격 보기"
 purchasedNTimes: "최근 {n}번 구매됨"
 usedByAt: "{logos} 등의 엔지니어가 사용※"
@@ -31,7 +31,7 @@ card4P: >
 card5H: "컨테이너, SSH 및 WSL에서 작동"
 card5P: >
   SQLite Viewer PRO는 컨테이너, SSH 호스트 및 WSL 인스턴스에 설치할 수 있습니다. 네이티브 SQLite 인스턴스가 원격 작업 공간에서 데이터베이스와 함께 실행되며, 웹뷰만 로컬 머신에 남아 있습니다.
-sectionTitleI: "다음과 같은 독점 PRO 기능 포함:"
+sectionTitleI: "PRO 요구사항에 맞춰 근본적으로 재설계"
 sectionParagraphI: >
   PRO 버전을 _SQLite Viewer 2_로 생각할 수 있습니다.
   단순한 기능 플래그가 아니라 완전히 새로운 엔진이 내부에 있습니다. SQLite 장애 조치 보장과 대용량 파일 지원을 제공합니다.
@@ -115,5 +115,5 @@ langDisclaimer: >
 faqTitle: 자주 묻는 질문
 comingSoon: 곧 출시
 changelogTitle: 업데이트, 지속적으로 제공
-changelogSubtitle: "SQLite Viewer PRO는 계속해서 버그 수정과 새로운 기능을 받습니다. 최근 버전 기록을 아래에서 확인하세요:"
+changelogSubtitle: "SQLite Viewer PRO는 정기적인 업데이트와 새로운 기능으로 계속 개선되고 있습니다. 아래에서 새로운 기능을 확인하세요:"
 preview: 미리보기

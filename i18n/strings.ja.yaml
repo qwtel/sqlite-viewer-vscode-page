@@ -8,7 +8,7 @@ heroParagraph: >
 heroFooter: "" # **🌿&nbsp;2025年春のセール: 全商品20%オフ&nbsp;🍃**
 cardsTitle: "PRO専用のワークフローをアンロックするためにアップグレード"
 cardsParagraph: >
-  SQLite Viewer PROは新しいワークフローをアンロックします。VS Codeとの深い統合により、他のSQLiteエディタでは不可能な独自のワークフローを可能にします。
+  VS Codeとの深い統合により、SQLite Viewer PROは他のエディタでは不可能な独自の新しいワークフローを可能にします。
 seePricing: "価格を見る"
 purchasedNTimes: "最近{n}回購入されました"
 usedByAt: "{logos}などのエンジニアが使用※"
@@ -36,7 +36,7 @@ card5P: >
   SQLite Viewer PROはコンテナ、SSHホスト、およびWSLインスタンス内にインストールできます。
   ネイティブのSQLiteインスタンスがリモートワークスペース内のデータベースと並行して実行され、
   Webビューのみがローカルマシンに残ります。
-sectionTitleI: "これらのPRO専用機能を含む："
+sectionTitleI: "PROの要求に応じて根本から再設計"
 sectionParagraphI: >
   PROバージョンは_SQLite Viewer 2_と考えることができます。
   単なる機能フラグではなく、完全に新しいエンジンが内部にあります。SQLiteフェイルオーバー保証と大容量ファイルサポートを備えています。
@@ -134,5 +134,5 @@ langDisclaimer: >
 faqTitle: よくある質問
 comingSoon: 近日公開
 changelogTitle: 更新、継続的に配信
-changelogSubtitle: "SQLite Viewer PROは引き続きバグ修正と新機能を受け取ります。最近のバージョン履歴を以下でご確認ください："
+changelogSubtitle: "SQLite Viewer PROは定期的なアップデートと新機能で常に改善されています。以下で新機能をご確認ください："
 preview: プレビュー

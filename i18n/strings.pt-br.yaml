@@ -8,7 +8,7 @@ heroParagraph: >
 heroFooter: "" # __🌿&nbsp;Oferta de Primavera 2025: -20% em todas as compras&nbsp;🍃__
 cardsTitle: "Atualize para desbloquear fluxos de trabalho PRO exclusivos"
 cardsParagraph: >
-  SQLite Viewer PRO desbloqueia novos fluxos de trabalho. Com sua integração profunda no VS Code, ele habilita alguns fluxos de trabalho que são únicos e não são possíveis com nenhum outro editor SQLite.
+  Com sua integração profunda no VS Code, SQLite Viewer PRO habilita novos fluxos de trabalho que são únicos e não são possíveis com nenhum outro editor.
 seePricing: "Ver Preços"
 purchasedNTimes: "Comprado {n} vezes recentemente"
 usedByAt: "Usado por engenheiros na {logos} e outros*"
@@ -35,7 +35,10 @@ card5H: "Funciona em contêineres, SSH e WSL"
 card5P: >
   O SQLite Viewer PRO pode ser instalado dentro de contêineres, hosts SSH e instâncias WSL. Uma instância nativa do SQLite
   é executada junto com o banco de dados no workspace remoto, enquanto apenas a visualização web permanece na máquina local.
-sectionTitleI: "Inclui esses recursos PRO exclusivos:"
+sectionTitleI: "Redesenhado do zero para as demandas PRO"
+sectionParagraphI: >
+  Você pode pensar na versão PRO como _SQLite Viewer 2_.
+  Não são apenas flags de recursos, mas um motor completamente novo sob o capô. Vem com garantias de failover do SQLite e suporte para arquivos grandes.
 feat1H: "Cliente SQLite Nativo"
 feat1P: >
   A versão PRO usa a __implementação oficial do SQLite__, que fornece o conjunto completo de garantias de failover.
@@ -49,6 +52,9 @@ feat3P: >
   Clientes PRO desfrutam de uma experiência sem anúncios — __perfeita para compartilhamento de tela e gravações__. Além disso, clientes PRO
   recebem um ícone PRO exclusivo <span class="nb">({icon})</span> na interface.
 sectionTitleIi: "Inclui tudo o que você gosta na versão gratuita"
+sectionParagraphIi: >
+  Atualizar para SQLite Viewer PRO é uma experiência perfeita. Basta inserir a chave de licença e você está pronto.
+  Além de novos recursos PRO exclusivos, tudo o que você gosta na versão gratuita permanece como está.
 free1H: "Interface Performática"
 free1P: >
   O SQLite Viewer é construído com foco em desempenho. Ele usa as melhores ferramentas que a pilha web tem a oferecer e é __rotineiramente
@@ -123,5 +129,8 @@ disclaimer3: >
 langDisclaimer: >
   Esta página foi traduzida para o português usando IA. Quaisquer diferenças entre a versão original em inglês e a tradução são não intencionais,
   e a versão em inglês deve ser considerada como a definitiva.
+faqTitle: Perguntas Frequentes
 comingSoon: Em Breve
+changelogTitle: Atualizações, entregues continuamente
+changelogSubtitle: "SQLite Viewer PRO continua melhorando com atualizações regulares e novos recursos. Veja o que há de novo abaixo:"
 preview: Visualização

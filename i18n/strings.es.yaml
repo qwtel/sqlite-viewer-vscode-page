@@ -8,7 +8,7 @@ heroParagraph: >
 heroFooter: "" # __🌿&nbsp;Oferta de Primavera 2025: -20% en todas las compras&nbsp;🍃__
 cardsTitle: "Actualiza para desbloquear flujos de trabajo PRO exclusivos"
 cardsParagraph: >
-  SQLite Viewer PRO desbloquea nuevos flujos de trabajo. Con su profunda integración en VS Code, habilita algunos flujos de trabajo que son únicos y no son posibles con ningún otro editor SQLite.
+  Con su profunda integración en VS Code, SQLite Viewer PRO habilita nuevos flujos de trabajo que son únicos y no son posibles con ningún otro editor.
 seePricing: "Ver precios"
 purchasedNTimes: "Comprado {n} veces recientemente"
 usedByAt: "Usado por ingenieros en {logos} y otros*"
@@ -35,7 +35,7 @@ card5H: "Funciona en contenedores, SSH y WSL"
 card5P: >
   SQLite Viewer PRO se puede instalar dentro de contenedores, hosts SSH e instancias WSL. Una instancia nativa de SQLite
   se ejecuta junto con la base de datos en el espacio de trabajo remoto, mientras que solo la vista web permanece en la máquina local.
-sectionTitleI: "Incluye estas funciones PRO exclusivas:"
+sectionTitleI: "Rediseñado desde cero para las demandas PRO"
 sectionParagraphI: >
   Puedes pensar en la versión PRO como _SQLite Viewer 2_.
   No son solo banderas de características, sino un motor completamente nuevo bajo el capó. Viene con garantías de failover de SQLite y soporte para archivos grandes.
@@ -132,5 +132,5 @@ langDisclaimer: >
 faqTitle: Preguntas Frecuentes
 comingSoon: Próximamente
 changelogTitle: Actualizaciones, entregadas continuamente
-changelogSubtitle: "SQLite Viewer PRO continúa recibiendo correcciones de errores y nuevas funciones. Consulta el historial de versiones recientes a continuación:"
+changelogSubtitle: "SQLite Viewer PRO sigue mejorando con actualizaciones regulares y nuevas funciones. Mira qué hay de nuevo a continuación:"
 preview: Vista previa

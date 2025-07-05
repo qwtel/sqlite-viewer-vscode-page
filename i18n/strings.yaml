@@ -8,7 +8,7 @@ heroParagraph: >
 heroFooter: "" # __🌿&nbsp;Spring Sale 2025: -20% on all purchases&nbsp;🍃__
 cardsTitle: "Upgrade to Unlock Exclusive PRO Workflows"
 cardsParagraph: >
-  SQLite Viewer PRO unlocks new workflows. With its deep integration into VS Code, it enables some workflows that are unique and not possible with any other SQLite editor.
+  With its deep integration into VS Code, SQLite Viewer PRO enables new workflows that are unique and not possible with any other editor.
 seePricing: "See Pricing"
 purchasedNTimes: "Purchased {n} times recently"
 usedByAt: "Used by engineers at {logos} & others†"
@@ -99,7 +99,6 @@ ctaH: "Want to try it first? Use the 14-Day Refund Guarantee"
 ctaP: >
   You can evaluate SQLite Viewer PRO for up to two weeks by making use of the [14-Day Refund Guarantee](/refunds.html).
   To request a refund, contact [*refunds@sqliteviewer.app*](mailto:refunds@sqliteviewer.app) with the email used at checkout — no explanation needed.
-faqTitle: Frequently Asked Questions
 faq1Summary: "__How do I install the PRO version after the purchase?__"
 faq1Content: >
   You already have the PRO version installed! All that's required is to activate it. After the purchase is complete, you will receive an email from the
@@ -123,7 +122,8 @@ disclaimer2: >
 disclaimer3: > 
   Design based on [Solid](https://preview.cruip.com/solid). Licensed under [GPL-3.0](https://github.com/qwtel/sqlite-viewer-vscode-page).
 langDisclaimer: "This page is available the following languages:"
+faqTitle: Frequently Asked Questions
 comingSoon: Coming Soon
 changelogTitle: Updates, Continuously Delivered
-changelogSubtitle: "SQLite Viewer PRO continues to receive bug fixes and new features. Check out the recent version history below:"
+changelogSubtitle: "SQLite Viewer PRO keeps getting better with regular updates and new features. See what's new below:"
 preview: Preview
