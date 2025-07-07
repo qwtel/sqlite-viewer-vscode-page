@@ -108,6 +108,19 @@ faq1Content: >
   Abra a __Paleta de Comandos__ e digite __"Ativar Chave de Licença"__. Alternativamente, você pode abrir o diálogo __"Atualizar para PRO"__
   em uma aba do SQLite Viewer, rolar até o final da página e clicar em __"Enter License Key"__. Um campo de entrada será aberto
   no topo da janela do VS Code. Cole a chave de licença e pressione enter. Um diálogo do sistema confirmará a ativação em alguns segundos.
+faq2Summary: "Posso usar a versão PRO em múltiplos dispositivos?"
+faq2Content: >
+  Você pode ativar SQLite Viewer PRO em um número ilimitado de dispositivos e usá-lo em até 3 dispositivos simultaneamente.<br><br>
+  Existem algumas restrições na frequência de ativação, mas estas estão apenas em vigor para prevenir compartilhamento/publicação de chaves e outros abusos.
+  _A grande maioria dos clientes nunca encontra problemas de licenciamento_.
+faq3Summary: "Como funciona a ativação de licença offline?"
+faq3Content: >
+  Ao selecionar __"Ativação de Licença Offline"__ da __Paleta de Comandos__, você será redirecionado para a página de ativação offline.
+  _Você pode abrir esta página em qualquer dispositivo_. Digite sua chave de licença e você receberá um token de ativação.
+  Você pode então enviar este token para o dispositivo de destino através de qualquer canal (ex. email, Slack)
+  e colá-lo no campo de entrada no final do assistente de Ativação de Licença Offline.<br><br>
+  Dispositivos registrados através deste método nunca tentarão se conectar ao servidor de licença,
+  desde que uma chave Business Edition tenha sido usada e a caixa "Avaliação Business Edition" não tenha sido marcada ao gerar o token.
 footnote1: >
   A ativação offline é necessária se um firewall corporativo impedir a extensão de se conectar ao servidor de licença.
 footnote2: >

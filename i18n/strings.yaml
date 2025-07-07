@@ -99,15 +99,28 @@ ctaH: "Want to try it first? Use the 14-Day Refund Guarantee"
 ctaP: >
   You can evaluate SQLite Viewer PRO for up to two weeks by making use of the [14-Day Refund Guarantee](/refunds.html).
   To request a refund, contact [*refunds@sqliteviewer.app*](mailto:refunds@sqliteviewer.app) with the email used at checkout — no explanation needed.
-faq1Summary: "__How do I install the PRO version after the purchase?__"
+faq1Summary: How do I install the PRO version after the purchase?
 faq1Content: >
   You already have the PRO version installed! All that's required is to activate it. After the purchase is complete, you will receive an email from the
   merchant of record with instructions on how to claim the license key. __Activation happens within VS Code itself and only takes a couple of seconds__:<br><br>
   Open the __Command Palette__ and type __"Activate License Key"__. Alternatively, you can open the __"Upgrade to PRO"__ dialog within a SQLite Viewer tab,
   scroll to the bottom of the page and click __"Enter License Key"__. An input field will open at the top of the VS Code window. Paste the license key and hit enter.
   A system dialog will confirm the activation within a few seconds.
+faq2Summary: Can I use the PRO version on multiple devices?
+faq2Content: >
+  You can activate SQLite Viewer PRO on an unlimited number of devices, and use it on up to 3 devices simultaneously.<br><br>
+  There are some restrictions on activation frequency, but these are solely in place to prevent key sharing/publishing and other misuse.
+  _The vast majority of customers never encounter any licensing issues_.
+faq3Summary: How does offline license activation work?
+faq3Content: >
+  When selecting __"Offline License Activation"__ from the __Command Palette__, you will be redirected to the offline activation page.
+  _You can open this page on any device_. Enter your license key and you will receive an activation token.
+  You can then send this token to the intended device through any channel (e.g. email, Slack) 
+  and paste it into the input field at the end of the Offline License Activation wizard.<br><br>
+  Devices enrolled through this method will never attempt to connect to the license server, 
+  provided a Business Edition key was used and the "Business Edition evaluation" checkbox was not checked when generating the token.
 footnote1: "Offline Activation is required if a company firewall prevents the extension from connecting to the license server."
-footnote2: "When a device is enrolled through offline activation, the extension can be used without ever needing to reconnect to the license server."
+footnote2: "When a device is enrolled through offline activation, the extension can be used without ever needing to connect to the license server."
 allRightsReserved: "All rights reserved"
 terms: "Terms"
 privacy: "Privacy"

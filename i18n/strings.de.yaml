@@ -112,6 +112,19 @@ faq1Content: >
   Öffnen Sie die __Befehlspalette__ und geben Sie __"Lizenzschlüssel aktivieren"__ ein. Alternativ können Sie den Dialog __"Auf PRO upgraden"__
   in einem SQLite Viewer-Tab öffnen, zum unteren Ende der Seite scrollen und auf __"Enter License Key"__ klicken. Ein Eingabefeld wird am oberen Rand des
   VS Code-Fensters geöffnet. Fügen Sie den Lizenzschlüssel ein und drücken Sie die Eingabetaste. Ein Systemdialog bestätigt die Aktivierung innerhalb weniger Sekunden.
+faq2Summary: "Kann ich die PRO-Version auf mehreren Geräten verwenden?"
+faq2Content: >
+  Sie können SQLite Viewer PRO auf einer unbegrenzten Anzahl von Geräten aktivieren und es gleichzeitig auf bis zu 3 Geräten verwenden.<br><br>
+  Es gibt einige Einschränkungen bei der Aktivierungshäufigkeit, aber diese dienen ausschließlich dazu, das Teilen/Veröffentlichen von Schlüsseln und andere Missbräuche zu verhindern.
+  _Die überwiegende Mehrheit der Kunden hat nie Probleme mit der Lizenzierung_.
+faq3Summary: "Wie funktioniert die Offline-Lizenzaktivierung?"
+faq3Content: >
+  Wenn Sie __"Offline-Lizenzaktivierung"__ aus der __Befehlspalette__ auswählen, werden Sie zur Offline-Aktivierungsseite weitergeleitet.
+  _Sie können diese Seite auf jedem Gerät öffnen_. Geben Sie Ihren Lizenzschlüssel ein und Sie erhalten ein Aktivierungstoken.
+  Sie können dieses Token dann über jeden Kanal (z.B. E-Mail, Slack) an das gewünschte Gerät senden
+  und es in das Eingabefeld am Ende des Offline-Lizenzaktivierungsassistenten einfügen.<br><br>
+  Geräte, die über diese Methode registriert wurden, versuchen nie, sich mit dem Lizenzserver zu verbinden,
+  vorausgesetzt, ein Business Edition-Schlüssel wurde verwendet und die "Business Edition-Evaluierung"-Checkbox beim Generieren des Tokens nicht aktiviert war.
 footnote1: "Die Offline-Aktivierung ist erforderlich, wenn eine Unternehmens-Firewall die Verbindung zur Lizenzserver verhindert."
 footnote2: "Sobald ein Gerät durch die Offline-Aktivierung registriert wurde, kann die Erweiterung ohne erneute Verbindung zum Lizenzserver genutzt werden."
 allRightsReserved: "Alle Rechte vorbehalten"
