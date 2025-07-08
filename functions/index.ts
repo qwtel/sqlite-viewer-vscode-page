@@ -11,7 +11,8 @@ const DevCountryOverride = '';
 
 const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
 
-const ns = 'sqlite-viewer-vscode-page.7';
+const ns = 'sqlite-viewer-vscode-page.8';
+const ttlDay = 60 * 60 * 24;
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const DEV = context.env.DEV;
@@ -29,8 +30,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     if (numPurchases != null && avatarUrls != null) {
       context.waitUntil((async () => {
         await Promise.all([
-          context.env.KV.put(`${ns}.numPurchases`, JSON.stringify(numPurchases), { expirationTtl: 60 * 60 * 24 * 7 }),
-          context.env.KV.put(`${ns}.avatarUrls`, JSON.stringify(avatarUrls), { expirationTtl: 60 * 60 * 24 * 7 }),
+          context.env.KV.put(`${ns}.numPurchases`, JSON.stringify(numPurchases), { expirationTtl: ttlDay }),
+          context.env.KV.put(`${ns}.avatarUrls`, JSON.stringify(avatarUrls), { expirationTtl: ttlDay }),
         ]);
       })());
     }
