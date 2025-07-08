@@ -105,7 +105,7 @@ faq1Summary: "__¿Cómo instalo la versión PRO después de la compra?__"
 faq1Content: >
   ¡Ya tienes instalada la versión PRO! Todo lo que se necesita es activarla. Después de completar la compra, recibirás un correo electrónico del comerciante
   con instrucciones sobre cómo reclamar la clave de licencia. __La activación se realiza directamente en VS Code y solo toma unos segundos__:<br><br>
-  Abre la __Paleta de Comandos__ y escribe __"Activar Clave de Licencia"__. Alternativamente, puedes abrir el diálogo __"Actualizar a PRO"__
+  Abre la __Paleta de comandos__ y escribe __"Activar Clave de Licencia"__. Alternativamente, puedes abrir el diálogo __"Actualizar a PRO"__
   en una pestaña de SQLite Viewer, desplazarte hasta el final de la página y hacer clic en __"Enter License Key"__. Se abrirá un campo de entrada
   en la parte superior de la ventana de VS Code. Pega la clave de licencia y presiona enter. Un diálogo del sistema confirmará la activación en unos segundos.
 faq2Summary: "¿Puedo usar la versión PRO en múltiples dispositivos?"
@@ -115,7 +115,7 @@ faq2Content: >
   _La gran mayoría de los clientes nunca encuentran problemas de licenciamiento_.
 faq3Summary: "¿Cómo funciona la activación de licencia offline?"
 faq3Content: >
-  Al seleccionar __"Activación de Licencia Offline"__ desde la __Paleta de Comandos__, serás redirigido a la página de activación offline.
+  Al seleccionar __"Activación de Licencia Offline"__ desde la __Paleta de comandos__, serás redirigido a la página de activación offline.
   _Puedes abrir esta página en cualquier dispositivo_. Ingresa tu clave de licencia y recibirás un token de activación.
   Puedes enviar este token al dispositivo destinado a través de cualquier canal (ej. email, Slack)
   y pegarlo en el campo de entrada al final del asistente de Activación de Licencia Offline.<br><br>
