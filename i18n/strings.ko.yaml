@@ -3,8 +3,8 @@ forVsCode: "VS Code용 {SQLiteViewerPRO}"
 openInBrowser: "브라우저에서 열기"
 heroTitle: "최고의 SQLite 편집기는 당신의 편집기 안에 있습니다"
 heroParagraph: >
-  VS Code를 떠나지 않고 작업을 완료하세요. 강력한 **편집** 및 **내보내기** 기능을 잠금 해제하세요.
-  **SSH** 및 **WSL**을 포함한 어디서나 작동합니다.
+  VS Code를 떠나지 않고 작업을 완료하세요. 강력한 [편집](#card-2) 및 [내보내기](#card-1) 기능을 잠금 해제하세요.
+  [SSH 및 WSL](#card-5)을 포함한 어디서나 작동합니다.
 heroFooter: "" # **🌿&nbsp;2025년 봄 세일: 모든 구매 -20% 할인&nbsp;🍃**
 cardsTitle: "독점 PRO 워크플로를 잠금 해제하려면 업그레이드하세요"
 cardsParagraph: >
@@ -56,7 +56,7 @@ free2P: >
   불일치한 사용자 인터페이스와 작별하세요. SQLite Viewer는 **자동으로 VS Code 테마에 맞춰 조정**되어 기존 VS Code 경험에 원활하게 통합됩니다.
 free3H: "원클릭 설정"
 free3P: >
-  SQLite Viewer는 머신에 있는 바이너리에 의존하지 않습니다. 자체적으로 제공되므로 **'설치'를 클릭하는 것만으로 설정이 완료됩니다**. 전체 확장 프로그램의 크기는 6.5MB에 불과합니다.
+  SQLite Viewer는 머신에 있는 바이너리에 의존하지 않습니다. 자체적으로 제공되므로 **'설치'를 클릭하는 것만으로 설정이 완료됩니다**. 전체 확장 프로그램의 크기는 7MB에 불과합니다.
 free4H: "어디서나 작동"
 free4P: >
   Cursor, VS Codium, CodeSandbox, GitPod, Google IDX 또는 기타 VS Code 포크를 사용하든, **SQLite Viewer는 환경에 맞춰 조정**되어 가능한 많은 기능을 제공합니다.

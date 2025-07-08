@@ -65,7 +65,7 @@
                 document.getElementById('open-in-browser').href = location.origin + `?ref=vscode`;
               }
             </script>
-            <a class="button button-default button-sm" href="#pricing" onclick="scrollToHash(event, null, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)" data-i18n-key="see-pricing">See Pricing</a>
+            <a class="button button-primary button-sm" href="#pricing" onclick="scrollToHash(event, null, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)" data-i18n-key="see-pricing">See Pricing</a>
           </div>
         </div>
       </div>
@@ -86,8 +86,8 @@
               </script> -->
               <p class="hero-paragraph" data-i18n-key="hero-paragraph">Get work done without leaving VS Code. Unlock powerful <strong>editing</strong> and <strong>export</strong> features. Works anywhere, including <strong>SSH and WSL</strong>.</p>
               <div class="hero-cta">
-                <a class="button button-primary" href="#card-5" onclick="scrollToHash(event, '#card-1')"><span data-i18n-key="learn-more">Watch Clips</span>&nbsp;↓</a>
-                <a class="button button-default" href="#pricing" onclick="scrollToHash(event, null, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)" data-i18n-key="see-pricing">See Pricing</a>
+                <a class="button button-default" href="#card-1"><span data-i18n-key="learn-more">Watch Clips</span>&nbsp;↓</a>
+                <a class="button button-primary" href="#pricing" onclick="scrollToHash(event, null, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)" data-i18n-key="see-pricing">See Pricing</a>
               </div>
               <span class="text-xs" data-i18n-key="hero-footer">
                 <!-- <strong>🌿&nbsp;Spring Sale 2025: -20% on all purchases&nbsp;🍃</strong> -->
@@ -163,7 +163,7 @@
             <div class="spy" id="card-1" style="--index: 1"></div>
             <div class="card" style="--index: 1">
               <div class="card__content">
-                <a class="card__header" href="#card-1" onclick="scrollToHash(event)"></a>
+                <a class="card__header" href="#card-1"></a>
                 <div>
                   <h3 data-i18n-key="card-1-h">Export data in a variety of formats</h3>
                   <p class="text-sm" data-i18n-key="card-1-p">You can copy rows directly from the viewer in a variety of formats. Supported formats are: TSV, CSV, SQLite inserts, JSON objects, JSON arrays, HTML, and Markdown.</p>
@@ -181,7 +181,7 @@
             <div class="spy" id="card-2" style="--index: 2"></div>
             <div class="card" style="--index: 2">
               <div class="card__content">
-                <a class="card__header" href="#card-2" onclick="scrollToHash(event)"></a>
+                <a class="card__header" href="#card-2"></a>
                 <div>
                   <h3 data-i18n-key="card-2-h">Update values in place</h3>
                   <p class="text-sm" data-i18n-key="card-2-p">Update values from the sidebar or modal. All changes are automatically wrapped in a transaction and committed to disk when the file is saved.</p>
@@ -199,7 +199,7 @@
             <div class="spy" id="card-3" style="--index: 3"></div>
             <div class="card" style="--index: 3">
               <div class="card__content">
-                <a class="card__header" href="#card-3" onclick="scrollToHash(event)"></a>
+                <a class="card__header" href="#card-3"></a>
                 <div>
                   <h3 data-i18n-key="card-3-h">Insert and delete rows</h3>
                   <p class="text-sm" data-i18n-key="card-3-p">Insert one or more rows using the modal dialog. Delete one or more rows from the explorer or using keyboard shortcuts.</p>
@@ -217,7 +217,7 @@
             <div class="spy" id="card-4" style="--index: 4"></div>
             <div class="card"  style="--index: 4">
               <div class="card__content">
-                <a class="card__header" href="#card-4" onclick="scrollToHash(event)"></a>
+                <a class="card__header" href="#card-4"></a>
                 <div>
                   <h3 data-i18n-key="card-4-h">Undo and redo changes using VS Code</h3>
                   <p class="text-sm" data-i18n-key="card-4-p">SQLite Viewer PRO integrates with VS Code's undo/redo history. Changes are reverted through <code>ROLLBACK</code> statements before a file has been saved, and by running (inverted) SQL statements afterwards.</p>
@@ -235,7 +235,7 @@
             <div class="spy" id="card-5" style="--index: 5"></div>
             <div class="card" style="--index: 5">
               <div class="card__content">
-                <a class="card__header" href="#card-5" onclick="scrollToHash(event)"></a>
+                <a class="card__header" href="#card-5"></a>
                 <div>
                   <h3 data-i18n-key="card-5-h">Works in containers, SSH, and WSL</h3>
                   <p class="text-sm" data-i18n-key="card-5-p">SQLite Viewer PRO can be installed inside containers, SSH hosts and WSL instances. A native SQLite instance runs alongside the database in the remote workspace, while only the webview remains on the local machine.</p>
@@ -776,6 +776,11 @@
     const theme = colorScheme || window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     document.querySelectorAll('[data-polar-checkout]').forEach(el => {
       el.setAttribute('data-polar-checkout-theme', theme);
+    });
+  </script>
+  <script>
+    document.querySelectorAll('a[href^="#card-"]').forEach(a => {
+      a.addEventListener('click', ev => scrollToHash(ev));
     });
   </script>
   <script type="module">

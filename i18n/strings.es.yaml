@@ -3,8 +3,8 @@ forVsCode: "{SQLiteViewerPRO} para VS Code"
 openInBrowser: "Abrir en el navegador"
 heroTitle: "El mejor editor de SQLite es el que está en tu editor"
 heroParagraph: >
-  Realiza tu trabajo sin salir de VS Code. Desbloquea potentes funciones de __edición__ y __exportación__.
-  Funciona en cualquier lugar, incluyendo __SSH__ y __WSL__.
+  Realiza tu trabajo sin salir de VS Code. Desbloquea potentes funciones de [edición](#card-2) y [exportación](#card-1).
+  Funciona en cualquier lugar, incluyendo [SSH y WSL](#card-5).
 heroFooter: "" # __🌿&nbsp;Oferta de Primavera 2025: -20% en todas las compras&nbsp;🍃__
 cardsTitle: "Actualiza para desbloquear flujos de trabajo PRO exclusivos"
 cardsParagraph: >
@@ -66,7 +66,7 @@ free2P: >
 free3H: "Configuración con un clic"
 free3P: >
   SQLite Viewer no depende de binarios en tu máquina. Trae los suyos propios, de modo que __simplemente haciendo clic en 'Instalar' se completa
-  la configuración__. Toda la extensión pesa solo 6,5 MB.
+  la configuración__. Toda la extensión pesa solo 7 MB.
 free4H: "Funciona en cualquier lugar"
 free4P: >
   Ya sea que estés usando Cursor, VS Codium, CodeSandbox, GitPod, Google IDX u otros forks de VS Code, __SQLite Viewer se adapta a su entorno__

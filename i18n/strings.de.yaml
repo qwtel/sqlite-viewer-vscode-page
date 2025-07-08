@@ -4,7 +4,7 @@ openInBrowser: "Im Browser Öffnen"
 heroTitle: "Der beste SQLite-Editor ist der in Ihrem Editor"
 heroParagraph: >
   Erledigen Sie Ihre Arbeit, ohne VS Code zu verlassen. Nutzen Sie leistungsstarke
-  __Bearbeitungs-__ und __Exportfunktionen__. Funktioniert überall, auch über __SSH__ und __WSL__.
+  [Bearbeitungs-](#card-2) und [Exportfunktionen](#card-1). Funktioniert überall, auch über [SSH und WSL](#card-5).
 heroFooter: "" # __🌿&nbsp;Frühlingsverkauf 2025: -20% auf alle Einkäufe&nbsp;🍃__
 cardsTitle: "Upgrade, um exklusive PRO-Workflows freizuschalten"
 cardsParagraph: >
@@ -68,7 +68,7 @@ free2P: >
 free3H: "Ein-Klick-Setup"
 free3P: >
   SQLite Viewer benötigt keine externen Binärdateien auf Ihrem Rechner. Die Erweiterung bringt alles mit,
-  sodass die __Installation mit einem einfachen Klick abgeschlossen__ ist. Die gesamte Erweiterung ist nur 6,5 MB groß.
+  sodass die __Installation mit einem einfachen Klick abgeschlossen__ ist. Die gesamte Erweiterung ist nur 7 MB groß.
 free4H: "Funktioniert Überall"
 free4P: >
   Ob in Cursor, VS Codium, CodeSandbox, GitPod, Google IDX oder anderen VS Code-Forks – __SQLite Viewer passt sich der Umgebung an__

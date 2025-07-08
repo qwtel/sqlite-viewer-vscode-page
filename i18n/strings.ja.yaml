@@ -3,8 +3,8 @@ forVsCode: "VS Code用{SQLiteViewerPRO}"
 openInBrowser: "ブラウザで開く"
 heroTitle: "最高のSQLiteエディタはあなたのエディタの中にある"
 heroParagraph: >
-  VS Codeを離れることなく作業を完了しましょう。強力な**編集**および**エクスポート**機能をアンロック。
-  **SSH**や**WSL**を含むどこでも動作します。
+  VS Codeを離れることなく作業を完了しましょう。強力な[編集](#card-2)および[エクスポート](#card-1)機能をアンロック。
+  [SSHやWSL](#card-5)を含むどこでも動作します。
 heroFooter: "" # **🌿&nbsp;2025年春のセール: 全商品20%オフ&nbsp;🍃**
 cardsTitle: "PRO専用のワークフローをアンロックするためにアップグレード"
 cardsParagraph: >
@@ -67,7 +67,7 @@ free2P: >
 free3H: "ワンクリックセットアップ"
 free3P: >
   SQLite Viewerはマシン上のバイナリに依存しません。独自のバイナリを持ち、**「インストール」をクリックするだけでセットアップが完了**します。
-  拡張機能全体のサイズはわずか6.5 MBです。
+  拡張機能全体のサイズはわずか7 MBです。
 free4H: "どこでも動作"
 free4P: >
   Cursor、VS Codium、CodeSandbox、GitPod、Google IDX、その他のVS Codeフォークを使用している場合でも、
