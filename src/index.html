@@ -413,6 +413,29 @@
       <sl-carousel-item>
         <div class="changelog-card">
           <div class="changelog-header">
+            <h4 class="changelog-version"><span class="version-number">v25.7.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-07-16">July 17, 2025</time></h4>
+          </div>
+          <div class="changelog-content text-sm">
+            <h5><sl-badge variant="primary" size="small">PRO</sl-badge> Export Dialog</h5>
+<p>Introduced a new export command for saving table data in multiple formats.
+This feature is designed as an alternative to the selection/clipboard-based export, especially for larger tables. 
+Exported data is written directly to a file. </p>
+<p>You can launch the export either as a standalone command from the Command Palette or through a modal dialog within the viewer. The modal dialog supports sorting and filtering, just like the clipboard export.</p>
+<p>While this method can handle larger datasets than the clipboard export, it is still limited by JS&#39; performance and the overhead of data marshalling. For exporting large tables (1M+ rows), a dedicated export tool is recommended.</p>
+<h5>Fixes</h5>
+<ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug that prevented images from being embedded in exported data.</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> The cutoff for inlined BLOBs can now be configured from the export dialog (also affects clipboard export) and now defaults to 10KB.</li>
+<li>Fixed an issue where the left sidebar could not be snapped to its minimum position.</li>
+<li>Added a warning when attempting to select more than 10,000 rows.</li>
+</ul>
+
+          </div>
+        </div>
+      </sl-carousel-item>
+      <sl-carousel-item>
+        <div class="changelog-card">
+          <div class="changelog-header">
             <h4 class="changelog-version"><span class="version-number">v25.6.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-06-29">June 30, 2025</time></h4>
           </div>
           <div class="changelog-content text-sm">
@@ -467,32 +490,11 @@
 <li>Valid JSON values will now be pretty-printed regardless of column type</li>
 <li>Numeric values will now be rendered in code font regardless of column type</li>
 <li>Text values should now be rendered as text regardless of column type</li>
-<li>Rearranged cell layout for BLOBs.<br>The download button is now on the right side, no longer in the same spot as image preview.</li>
+<li>Rearranged cell layout for BLOBs. 
+The download button is now on the right side, no longer in the same spot as image preview.</li>
 <li>Now showing the file type of blobs (e.g. &quot;PNG&quot;) on the download button</li>
 <li>Will no longer run SQLite queries originating from the sidebar when the sidebar is closed</li>
 <li>Added dedicated symbol for <code>ANY</code> type columns</li>
-</ul>
-
-          </div>
-        </div>
-      </sl-carousel-item>
-      <sl-carousel-item>
-        <div class="changelog-card">
-          <div class="changelog-header">
-            <h4 class="changelog-version"><span class="version-number">v25.5.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-05-06">May 7, 2025</time></h4>
-          </div>
-          <div class="changelog-content text-sm">
-            <h5><sl-badge variant="primary" size="small">PRO</sl-badge> Pragma Editor</h5>
-<p>PRO users now have access to a experimental PRAGMA editor. It is located in a new tab in the sidebar.</p>
-<h5>Changes</h5>
-<ul>
-<li>Changed icons in datetime text input to match icons in cells</li>
-<li>Changed rendering of datetime values to omit the <code>T</code> in the UI (export not affected)</li>
-</ul>
-<h5>Fixes</h5>
-<ul>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed an issue that caused an extra entry on the undo history when an SQLite error occurred during an operation</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a memory leak related to event listeners</li>
 </ul>
 
           </div>

@@ -50,8 +50,8 @@ async function parseChangelog(): Promise<Release[]> {
         }
         i++; // Skip the date line
       }
-    } else if (currentRelease && line.trim()) {
-      // Add content lines (skip empty lines but include all headers)
+    } else if (currentRelease) {
+      // Add content lines (include empty lines to preserve paragraph breaks)
       currentContent.push(line);
     }
   }
@@ -74,10 +74,8 @@ async function generateCarouselHTML(): Promise<string> {
   let carouselItems = '';
   
   for (const release of releases) {
-    // Clean up the content - remove excessive whitespace
-    const cleanContent = release.content
-      .replace(/\n\s*\n/g, '\n') // Remove multiple empty lines
-      .trim();
+    // Clean up the content - preserve paragraph breaks
+    const cleanContent = release.content.trim();
     
     // Add 2 levels to each headline (## -> ####, ### -> #####, etc.)
     const contentWithAdjustedHeadlines = cleanContent.replace(/^(#{1,6})\s/gm, (match, hashes) => {
@@ -86,8 +84,8 @@ async function generateCarouselHTML(): Promise<string> {
     
     // Parse markdown content
     let parsedContent = await marked.parse(contentWithAdjustedHeadlines, { 
-      gfm: true, 
-      breaks: true
+      gfm: true,
+      breaks: false
     });
     
     // Replace [PRO] with sl-badge elements
