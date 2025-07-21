@@ -167,19 +167,22 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/node,sublimetext,windows,macos,sass
-dist
+/dist
 .wrangler
 .dev.vars
 
 # Ignore generated files
 /index.html
-/de/index.html
-/en/index.html
-/fr/index.html
-/pt-br/index.html
-/ja/index.html
-/es/index.html
-/ko/index.html
+/index-*
+/app.html
+/app-*
+/de
+/en
+/fr
+/pt-br
+/ja
+/es
+/ko
 /functions/de
 /functions/en
 /functions/fr
@@ -187,3 +190,14 @@ dist
 /functions/ja
 /functions/es
 /functions/ko
+
+# /*.svg
+# /*.avif
+# /*.webp
+# /*.webm
+# /*.png
+# /*.jpg
+# /*.mp4
+# /*.ico
+# /*.css
+# /*.js

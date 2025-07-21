@@ -1,4 +1,20 @@
-(() => {
+(async () => {
+  {
+    if (document.body.classList.contains('vscode')) {
+      const Comlink = await import("../vendor/comlink.js");
+      const parentEndpoint = Comlink.windowEndpoint(self.parent);
+      const wrappedParent = Comlink.wrap(parentEndpoint);
+      document.querySelectorAll('a[href]:not([href^="#"]').forEach(a => {
+        a.addEventListener('click', event => {
+          event.preventDefault();
+          wrappedParent.openLink(a.href);
+        });
+      });
+      document.getElementById('footer-links').insertAdjacentHTML('afterbegin', '<li><a id="license-key" href="#">Enter License Key&nbsp;↑</a></li>');
+      document.getElementById('license-key').addEventListener('click', event => (event.preventDefault(), wrappedParent.enterLicenseKey()));
+    }
+  }
+
   const root = document.documentElement;
 
   root.classList.remove('no-js')
@@ -88,7 +104,7 @@
 
   // Handle View timeline based card animations
   !CSS.supports('view-timeline-name', '--cards-element-scrolls-in-body') && (async () => {
-    await import("/dist/scroll-timeline.min.js");
+    await import("../vendor/scroll-timeline.min.js");
 
     const cardContents = cardsWrapper.querySelectorAll('.card__content');
 
@@ -260,5 +276,4 @@
     
     observer.observe(carouselSection);
   }
-})()
-
+})();
