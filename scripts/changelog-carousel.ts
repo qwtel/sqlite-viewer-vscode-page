@@ -13,8 +13,10 @@ interface Release {
   content: string;
 }
 
-async function parseChangelog(): Promise<Release[]> {
+async function parseChangelog(): Promise<Release[]|null> {
   const changelogPath = resolve('..', 'CHANGELOG.md');
+  if (!await Bun.file(changelogPath).exists()) return null;
+
   const changelogContent = await Bun.file(changelogPath).text();
   
   const releases: Release[] = [];
@@ -68,8 +70,9 @@ async function parseChangelog(): Promise<Release[]> {
   return releases.slice(0, 5);
 }
 
-async function generateCarouselHTML(): Promise<string> {
+async function generateCarouselHTML(): Promise<string|null> {
   const releases = await parseChangelog();
+  if (!releases) return null;
   
   let carouselItems = '';
   
@@ -161,11 +164,12 @@ async function generateCarouselHTML(): Promise<string> {
 }
 
 async function integrateCarousel() {
-  const indexPath = resolve('src', 'index.html');
-  const indexContent = await Bun.file(indexPath).text();
-  
   // Generate the carousel HTML
   const carouselHTML = await generateCarouselHTML();
+  if (!carouselHTML) return;
+
+  const indexPath = resolve('src', 'index.html');
+  const indexContent = await Bun.file(indexPath).text();
   
   let contentWithLazyLoad = indexContent;
   
