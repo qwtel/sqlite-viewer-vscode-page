@@ -60,7 +60,7 @@
       scaleX: [0.05, 0.05],
       scaleY: [0, 1],
       perspective: '500px',
-      delay: anime?.random(0, 400)
+      delay: anime.random(0, 400)
     }).add({
       duration: 400,
       easing: 'easeInOutExpo',
@@ -92,9 +92,9 @@
 
     anime?.({
       targets: '.hero-figure-box-01, .hero-figure-box-02, .hero-figure-box-03, .hero-figure-box-04, .hero-figure-box-08, .hero-figure-box-09, .hero-figure-box-10',
-      duration: anime?.random(600, 800),
-      delay: anime?.random(600, 800),
-      rotate: [ anime?.random(-360, 360), (el) => el.dataset.rotation],
+      duration: anime.random(600, 800),
+      delay: anime.random(600, 800),
+      rotate: [ anime.random(-360, 360), (el) => el.dataset.rotation],
       scale: [0.7, 1],
       opacity: [0, 1],
       easing: 'easeInOutExpo'

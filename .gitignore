@@ -176,6 +176,8 @@ $RECYCLE.BIN/
 /index-*
 /app.html
 /app-*
+
+# Ignore translations
 /de
 /en
 /fr
@@ -190,14 +192,3 @@ $RECYCLE.BIN/
 /functions/ja
 /functions/es
 /functions/ko
-
-# /*.svg
-# /*.avif
-# /*.webp
-# /*.webm
-# /*.png
-# /*.jpg
-# /*.mp4
-# /*.ico
-# /*.css
-# /*.js
