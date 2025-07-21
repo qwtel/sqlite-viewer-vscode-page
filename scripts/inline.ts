@@ -50,14 +50,14 @@ async function inlineHtml(inFile: string, outFile: string) {
         el.replace(`<style>${style}</style>`, { html: true }); 
       },
     })
-    // .on('script[src]:not([src^="http"]):not([defer]):not([data-no-inline])', {
-    //   async element(el) {
-    //     const src = getAttribute(el, 'src') ?? '';
-    //     const type = el.getAttribute('type') ?? '';
-    //     let script = src && await Bun.file(src).text();
-    //     el.replace(`<script${type === "module" ? ' type="module"' : ""}>${script}</script>`, { html: true });
-    //   },
-    // })
+    .on('script[src]:not([src^="http"]):not([defer]):not([data-no-inline])', {
+      async element(el) {
+        const src = getAttribute(el, 'src') ?? '';
+        const type = el.getAttribute('type') ?? '';
+        let script = src && await Bun.file(src).text();
+        el.replace(`<script${type === "module" ? ' type="module"' : ""}>${script}</script>`, { html: true });
+      },
+    })
     .on('picture', { 
       element(el) { 
         inPicture = true; 
