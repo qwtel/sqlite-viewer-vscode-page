@@ -1,7 +1,7 @@
 (async () => {
   {
     if (document.body.classList.contains('vscode')) {
-      const Comlink = await import("../vendor/comlink.js");
+      const Comlink = await import("./vendor/comlink.js");
       const parentEndpoint = Comlink.windowEndpoint(self.parent);
       const wrappedParent = Comlink.wrap(parentEndpoint);
       document.querySelectorAll('a[href]:not([href^="#"]').forEach(a => {
@@ -51,7 +51,8 @@
     root.classList.add('anime-ready')
 
     /* global anime */
-    anime.timeline({
+    const anime = window.anime;
+    anime?.timeline({
       targets: '.hero-figure-box-05'
     }).add({
       duration: 400,
@@ -59,7 +60,7 @@
       scaleX: [0.05, 0.05],
       scaleY: [0, 1],
       perspective: '500px',
-      delay: anime.random(0, 400)
+      delay: anime?.random(0, 400)
     }).add({
       duration: 400,
       easing: 'easeInOutExpo',
@@ -71,7 +72,7 @@
       rotateZ: '-1deg'
     })
 
-    anime.timeline({
+    anime?.timeline({
       targets: '.hero-figure-box-06, .hero-figure-box-07'
     }).add({
       duration: 400,
@@ -89,11 +90,11 @@
       rotateZ: '20deg'
     })
 
-    anime({
+    anime?.({
       targets: '.hero-figure-box-01, .hero-figure-box-02, .hero-figure-box-03, .hero-figure-box-04, .hero-figure-box-08, .hero-figure-box-09, .hero-figure-box-10',
-      duration: anime.random(600, 800),
-      delay: anime.random(600, 800),
-      rotate: [ anime.random(-360, 360), (el) => el.dataset.rotation],
+      duration: anime?.random(600, 800),
+      delay: anime?.random(600, 800),
+      rotate: [ anime?.random(-360, 360), (el) => el.dataset.rotation],
       scale: [0.7, 1],
       opacity: [0, 1],
       easing: 'easeInOutExpo'
@@ -104,7 +105,7 @@
 
   // Handle View timeline based card animations
   !CSS.supports('view-timeline-name', '--cards-element-scrolls-in-body') && (async () => {
-    await import("../vendor/scroll-timeline.min.js");
+    await import("./vendor/scroll-timeline.min.js");
 
     const cardContents = cardsWrapper.querySelectorAll('.card__content');
 
@@ -172,50 +173,7 @@
   // Show loading spinner when clicking on checkout button
   {
     const sheet = new CSSStyleSheet();
-    sheet.replaceSync(`
-  .lds-ring {
-    color: functions.color(typography, 2);
-  }
-  .lds-ring,
-  .lds-ring div {
-    box-sizing: border-box;
-  }
-  .lds-ring {
-    display: inline-block;
-    position: relative;
-    width: 80px;
-    height: 80px;
-  }
-  .lds-ring div {
-    box-sizing: border-box;
-    display: block;
-    position: absolute;
-    width: 64px;
-    height: 64px;
-    margin: 8px;
-    border: 8px solid currentColor;
-    border-radius: 50%;
-    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: currentColor transparent transparent transparent;
-  }
-  .lds-ring div:nth-child(1) {
-    animation-delay: -0.45s;
-  }
-  .lds-ring div:nth-child(2) {
-    animation-delay: -0.3s;
-  }
-  .lds-ring div:nth-child(3) {
-    animation-delay: -0.15s;
-  }
-  @keyframes lds-ring {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-    `);
+    sheet.replaceSync(`.lds-ring { color: functions.color(typography, 2); } .lds-ring, .lds-ring div { box-sizing: border-box; } .lds-ring { display: inline-block; position: relative; width: 80px; height: 80px; } .lds-ring div { box-sizing: border-box; display: block; position: absolute; width: 64px; height: 64px; margin: 8px; border: 8px solid currentColor; border-radius: 50%; animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite; border-color: currentColor transparent transparent transparent; } .lds-ring div:nth-child(1) { animation-delay: -0.45s; } .lds-ring div:nth-child(2) { animation-delay: -0.3s; } .lds-ring div:nth-child(3) { animation-delay: -0.15s; } @keyframes lds-ring { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`);
     document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
 
     const isNewTab = ev => ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.button === 1;

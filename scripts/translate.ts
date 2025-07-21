@@ -23,37 +23,37 @@ for await (const name of glob.scan(resolve('./i18n'))) {
 }
 
 const name = html`<span class="color">SQLite Viewer PRO</span>`;
-const icon = html`<img class="img inline-block" width="18" height="18" src="/dist/images/favicon-pro.png" />`
+const icon = html`<img class="img inline-block" width="18" height="18" src="./dist/images/favicon-pro.png" />`
 
 // const polar = html`<a href="https://polar.sh" target="_blank" class="no-decoration"><picture>
-//   <source media="(prefers-color-scheme: light)" srcset="/dist/images/polar.svg">
-//   <source media="(prefers-color-scheme: dark)" srcset="/dist/images/polar-dark.svg">
-//   <img class="display-inline-block h-16 pl-2 mb-n3" src="/dist/images/polar.svg" alt="Polar">
+//   <source media="(prefers-color-scheme: light)" srcset="./dist/images/polar.svg">
+//   <source media="(prefers-color-scheme: dark)" srcset="./dist/images/polar-dark.svg">
+//   <img class="display-inline-block h-16 pl-2 mb-n3" src="./dist/images/polar.svg" alt="Polar">
 // </picture></a>`;
 
 // const stripe = html`<a href="https://stripe.com" target="_blank" style="text-decoration:none"><picture>
-//   <source media="(prefers-color-scheme: light)" srcset="/dist/images/Stripe_wordmark_-_slate.svg">
-//   <source media="(prefers-color-scheme: dark)" srcset="/dist/images/Stripe_wordmark_-_white.svg">
-//   <img class="display-inline-block h-24" style="margin:0 -3px;margin-bottom:-7.5px" src="/dist/images/Stripe_wordmark_-_slate.svg" alt="Stripe">
+//   <source media="(prefers-color-scheme: light)" srcset="./dist/images/Stripe_wordmark_-_slate.svg">
+//   <source media="(prefers-color-scheme: dark)" srcset="./dist/images/Stripe_wordmark_-_white.svg">
+//   <img class="display-inline-block h-24" style="margin:0 -3px;margin-bottom:-7.5px" src="./dist/images/Stripe_wordmark_-_slate.svg" alt="Stripe">
 // </picture></a>`;
 
 const polar = html`<picture>
-  <source media="(prefers-color-scheme: light)" srcset="/dist/images/polar.svg">
-  <source media="(prefers-color-scheme: dark)" srcset="/dist/images/polar-dark.svg">
-  <img class="display-inline-block h-16 pl-2 mb-n3" src="/dist/images/polar.svg" alt="Polar">
+  <source media="(prefers-color-scheme: light)" srcset="./dist/images/polar.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="./dist/images/polar-dark.svg">
+  <img class="display-inline-block pl-2 mb-n3" style="height:16px" src="./dist/images/polar.svg" alt="Polar">
 </picture>`;
 
 const stripe = html`<picture>
-  <source media="(prefers-color-scheme: light)" srcset="/dist/images/Stripe_wordmark_-_slate.svg">
-  <source media="(prefers-color-scheme: dark)" srcset="/dist/images/Stripe_wordmark_-_white.svg">
-  <img class="display-inline-block h-24" style="margin:0 -3px;margin-bottom:-7.5px" src="/dist/images/Stripe_wordmark_-_slate.svg" alt="Stripe">
+  <source media="(prefers-color-scheme: light)" srcset="./dist/images/Stripe_wordmark_-_slate.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="./dist/images/Stripe_wordmark_-_white.svg">
+  <img class="display-inline-block" style="height:24px; margin:0 -3px;margin-bottom:-7.5px" src="./dist/images/Stripe_wordmark_-_slate.svg" alt="Stripe">
 </picture>`;
 
 const logos = html`
-  <img src="/dist/images/Apple_logo_black.svg" title="Apple" alt="Apple" class="h-32 o-50">
-  <img src="/dist/images/NASA_Worm_logo.svg" title="NASA" alt="NASA" class="h-32 o-50 pt-5">
-  <img src="/dist/images/Verizon_2024.svg" title="Verizon" alt="Verizon" class="h-32 o-50">
-  <img src="/dist/images/Abbott_Laboratories_logo.svg" title="Abbott Laboratories" alt="Abbott Laboratories" class="h-32 o-50 mb-n5">
+  <img src="./dist/images/Apple_logo_black.svg" title="Apple" alt="Apple" style="height:32px" class="o-50">
+  <img src="./dist/images/NASA_Worm_logo.svg" title="NASA" alt="NASA" style="height:32px" class="o-50 pt-5">
+  <img src="./dist/images/Verizon_2024.svg" title="Verizon" alt="Verizon" style="height:32px" class="o-50">
+  <img src="./dist/images/Abbott_Laboratories_logo.svg" title="Abbott Laboratories" alt="Abbott Laboratories" style="height:32px" class="o-50 mb-n5">
 `;
 
 const indexTs = `
@@ -79,6 +79,11 @@ async function translateHtml(inFile: string, lang: string, outFile: string) {
     .on('html[lang]', {
       element(el) {
         el.setAttribute('lang', lang);
+      }
+    })
+    .on('head', {
+      element(el) {
+        el.prepend(`<base href="/" />`, { html: true });
       }
     })
     .on('[data-i18n-key]', {
