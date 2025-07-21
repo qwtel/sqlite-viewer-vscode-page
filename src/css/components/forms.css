@@ -1,0 +1,96 @@
+@import "../variables.css";
+
+/*--------------------------------------------------------------
+# Forms
+--------------------------------------------------------------*/
+
+.input,
+.textarea {
+  background-color: var(--color-typography-1);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-bg-3);
+  border-radius: 2px;
+  color: var(--color-typography-2);
+  max-width: 100%;
+  width: 100%;
+
+  &::placeholder {
+    color: var(--color-typography-3);
+  }
+
+  &::-ms-input-placeholder {
+    color: var(--color-typography-3);
+  }
+
+  &:-ms-input-placeholder {
+    color: var(--color-typography-3);
+  }
+
+  &:hover {
+    border-color: color-mix(in oklab, var(--color-bg-3) 95%, var(--darken) 5%);
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+    border-color: var(--color-bg-3);
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+    background-color: var(--color-bg-2);
+    border-color: var(--color-bg-2);
+  }
+}
+
+.input {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  font-size: var(--font-size-eta);
+  letter-spacing: var(--kerning-eta);
+  line-height: 20px;
+  padding: 13px 16px;
+  height: 48px;
+  box-shadow: none;
+
+  .inline-input {
+    display: inline;
+    width: auto;
+  }
+}
+
+.textarea {
+  display: block;
+  min-width: 100%;
+  resize: vertical;
+
+  .inline-textarea {
+    display: inline;
+    width: auto;
+  }
+}
+
+.field-grouped > .control:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+@media (min-width: 640px) {
+  .field-grouped {
+    display: flex;
+
+    > .control {
+      flex-shrink: 0;
+
+      &.control-expanded {
+        flex-grow: 1;
+        flex-shrink: 1;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 0;
+        margin-right: 8px;
+      }
+    }
+  }
+} 

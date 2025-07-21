@@ -17,16 +17,16 @@
     "scss": "sass --style=compressed src/scss:dist/css",
     "uglify": "mkdirp dist/js -p && uglifyjs src/js/*.js -m -c -o dist/js/main.min.js",
     "imagemin": "imagemin src/images/* -o dist/images",
-    "bs": "browser-sync start --config ./bs-config.js",
+    "bs": "browser-sync start --config bs-config.js",
     "serve": "wrangler pages dev . --compatibility-date=2024-08-21 --ip 0.0.0.0 --kv KV",
-    "build:css": "run-s scss autoprefixer",
+    "build:css": "npx bun build src/css/style.css --outdir dist/css --minify",
     "build:js": "run-s uglify",
     "build:images": "run-s imagemin",
     "build:vendor": "cp -r src/vendor/* dist",
     "build:html": "npx bun run scripts/inline.ts",
     "build:translate-html": "npx bun run scripts/translate.ts",
     "build": "run-s build:*",
-    "watch:css": "onchange 'src/scss' -- run-s build:css",
+    "watch:css": "npx bun build ./src/css/style.css --outdir ./dist/css --watch --sourcemap=external --no-clear-screen",
     "watch:js": "onchange 'src/js' -- run-s build:js",
     "watch:images": "onchange 'src/images' -- run-s build:images",
     "watch:vendor": "onchange 'src/vendor' -- run-s build:vendor",
@@ -37,9 +37,9 @@
     "dev": "run-s build watch"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250628.0",
+    "@cloudflare/workers-types": "^4.20250719.0",
     "autoprefixer": "^10.4.21",
-    "bun": "^1.2.17",
+    "bun": "^1.2.19",
     "imagemin-cli": "^8.0.0",
     "mkdirp": "^3.0.1",
     "npm-run-all": "^4.1.5",
@@ -48,11 +48,11 @@
     "rimraf": "^6.0.1",
     "sass": "^1.89.2",
     "uglify-es": "^3.3.10",
-    "wrangler": "^4.22.0"
+    "wrangler": "^4.25.0"
   },
   "homepage": "https://bitbucket.org/pasqualevitiello/solid#readme",
   "dependencies": {
-    "@polar-sh/sdk": "^0.34.2",
+    "@polar-sh/sdk": "^0.34.5",
     "@types/accept-language-parser": "^1.5.8",
     "@worker-tools/html": "2.0.0-pre.13",
     "@worker-tools/middleware": "0.1.0-pre.36",
@@ -62,5 +62,5 @@
     "marked": "^15.0.12",
     "yaml": "^2.8.0"
   },
-  "packageManager": "pnpm@10.12.4"
+  "packageManager": "pnpm@10.13.1"
 }

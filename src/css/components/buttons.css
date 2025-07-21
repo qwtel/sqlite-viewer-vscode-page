@@ -1,0 +1,75 @@
+@import "../variables.css";
+
+/*--------------------------------------------------------------
+# Buttons
+--------------------------------------------------------------*/
+
+.button {
+  display: inline-flex;
+  font-size: var(--font-size-theta);
+  letter-spacing: var(--kerning-theta);
+  font-weight: var(--font-weight-semibold);
+  line-height: 16px;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  background-color: var(--color-bg-3);
+  color: var(--color-typography-1);
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  justify-content: center;
+  padding: 16px 32px;
+  height: 48px;
+  text-align: center;
+  white-space: nowrap;
+
+  &:not(:disabled):hover {
+    background: color-mix(in oklab, var(--color-bg-3) 99%, var(--lighten) 2%);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &:active {
+    outline: 0;
+  }
+
+  &::before {
+    border-radius: 2px;
+  }
+}
+
+.button-sm {
+  padding: 8px 24px;
+  height: 32px;
+}
+
+.button-primary {
+  color: #fff;
+  background-color: color-mix(in oklab, var(--color-primary-1), var(--color-primary-2));
+  background-image: linear-gradient(65deg, var(--color-primary-1) 0%, var(--color-primary-2) 100%);
+
+  &:not(:disabled):hover {
+    background-color: color-mix(
+      in srgb, 
+      color-mix(in oklab, var(--color-primary-1), var(--color-primary-2)), 
+      white 4%);
+    background-image: linear-gradient(
+      65deg, 
+      color-mix(in srgb, var(--color-primary-1), white 4%) 0%, 
+      color-mix(in srgb, var(--color-primary-2), white 4%) 100%);
+  }
+}
+
+.button-block {
+  display: flex;
+  width: 100%;
+}
+
+@media (max-width: 639px) {
+  .button-wide-mobile {
+    width: 100%;
+    max-width: 280px;
+  }
+} 

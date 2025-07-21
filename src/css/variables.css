@@ -1,0 +1,148 @@
+/*--------------------------------------------------------------
+# Variables
+--------------------------------------------------------------*/
+
+:root {
+  /* Font Families */
+  --x-font-family: system-ui;
+  --x-font-family-mono: ui-monospace;
+  
+  /* Font Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 700;
+  --font-weight-bold: 900;
+  
+  /* Breakpoints */
+  --breakpoint-small: 480px;
+  --breakpoint-medium: 640px;
+  --breakpoint-large: 1024px;
+  --breakpoint-xlarge: 1280px;
+  --breakpoint-xxlarge: 1440px;
+  
+  /* Structure */
+  --content-padding-mobile: 16px;
+  --content-padding-desktop: 24px;
+  --container-width: 1080px;
+  --container-width-sm: 800px;
+  
+  /* Font Sizes */
+  --font-size-alpha: 44px;
+  --font-size-beta: 38px;
+  --font-size-gamma: 32px;
+  --font-size-delta: 24px;
+  --font-size-epsilon: 20px;
+  --font-size-zeta: 18px;
+  --font-size-eta: 16px;
+  --font-size-theta: 14px;
+  
+  /* Line Heights */
+  --line-height-alpha: 54px;
+  --line-height-beta: 48px;
+  --line-height-gamma: 42px;
+  --line-height-delta: 34px;
+  --line-height-epsilon: 30px;
+  --line-height-zeta: 28px;
+  --line-height-eta: 24px;
+  --line-height-theta: 22px;
+  
+  /* Kerning */
+  --kerning-alpha: 0px;
+  --kerning-beta: 0px;
+  --kerning-gamma: 0px;
+  --kerning-delta: 0px;
+  --kerning-epsilon: -0.1px;
+  --kerning-zeta: -0.1px;
+  --kerning-eta: -0.1px;
+  --kerning-theta: 0px;
+  
+  /* Print Font Sizes */
+  --print-font-size-1: 32pt;
+  --print-font-size-2: 22pt;
+  --print-font-size-3: 16pt;
+  --print-font-size-4: 12pt;
+  --print-font-size-5: 12pt;
+  --print-font-size-6: 10pt;
+  --print-font-size-7: 8pt;
+  --print-font-size-8: 8pt;
+  
+  /* Print Line Heights */
+  --print-line-height-1: 42pt;
+  --print-line-height-2: 30pt;
+  --print-line-height-3: 26pt;
+  --print-line-height-4: 18pt;
+  --print-line-height-5: 18pt;
+  --print-line-height-6: 16pt;
+  --print-line-height-7: 14pt;
+  --print-line-height-8: 14pt;
+  
+  /* Print Kerning */
+  --print-kerning-1: 0pt;
+  --print-kerning-2: 0pt;
+  --print-kerning-3: 0pt;
+  --print-kerning-4: 0pt;
+  --print-kerning-5: 0pt;
+  --print-kerning-6: 0pt;
+  --print-kerning-7: 0pt;
+  --print-kerning-8: 0pt;
+  
+  scrollbar-gutter: stable;
+}
+
+body {
+  --x-color: #fff;
+  --x-background: #1D2026;
+  --darken: black;
+  --lighten: white;
+}
+
+@media (prefers-color-scheme: light) {
+  body:not(.dark) {
+    --x-color: #000;
+    --x-background: #ffffff;
+    --darken: rgb(144, 144, 144);
+    --lighten: #484848;
+    -webkit-font-smoothing: auto;
+  }
+}
+
+body.light {
+  --x-color: #000;
+  --x-background: #ffffff;
+  --darken: rgb(144, 144, 144);
+  --lighten: #484848;
+  -webkit-font-smoothing: auto;
+}
+
+/* Color Variables */
+body {
+  /* Typography Colors */
+  --color-typography-1: var(--x-color, #FFFFFF);
+  --color-typography-2: color-mix(
+    in oklab, 
+    color-mix(in oklab, var(--x-color) 50%, var(--x-background)) 100%,
+    #0270D7 12.5%
+  );
+  --color-typography-3: color-mix(
+    in oklab, 
+    color-mix(in oklab, var(--x-color) 70%, var(--x-background)) 100%,
+    #0270D7 12.5%
+  );
+  
+  /* Background Colors */
+  --color-bg-1: color-mix(in oklab, var(--x-background) 85%, var(--darken));
+  --color-bg-2: var(--x-background);
+  --color-bg-3: color-mix(in oklab, var(--x-background) 95%, var(--lighten));
+  --color-bg-4: color-mix(in oklab, var(--x-background) 90%, var(--lighten));
+  
+  /* Primary Colors */
+  --color-primary-1: #0270D7;
+  --color-primary-2: #0F8AFD;
+  --color-primary-3: #0256A4;
+  
+  /* Font Family Variables */
+  --font-family-base: var(--x-font-family);
+  --font-family-heading: var(--x-font-family);
+  --font-family-code: var(--x-font-family-mono);
+  --font-family-pre: var(--x-font-family-mono);
+} 

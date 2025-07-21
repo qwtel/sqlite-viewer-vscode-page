@@ -1,0 +1,42 @@
+@import "../variables.css";
+
+/*--------------------------------------------------------------
+# Site content
+--------------------------------------------------------------*/
+
+.is-boxed {
+  background: var(--color-bg-3);
+}
+
+.body-wrap {
+  background: var(--color-bg-2);
+  overflow: clip;
+  /* Sticky footer */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.boxed-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  box-shadow: 0 24px 48px color-mix(in srgb, var(--color-bg-1) 76%, #222);
+  mix-blend-mode: normal;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.section-inner {
+  position: relative; /* To always display inner elements above pseudo decorative stuff */
+  margin-top: 92px;
+  margin-bottom: 92px;
+}
+
+/* @media (min-width: 640px) {
+  .section-inner {
+    margin-top: 128px;
+  }
+} */ 
