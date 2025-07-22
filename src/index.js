@@ -101,18 +101,16 @@
     })
   }
 
-  const cardsWrapper = document.getElementById('cards');
-
-  // Handle View timeline based card animations
-  !CSS.supports('view-timeline-name', '--cards-element-scrolls-in-body') && (async () => {
+  // Handle view timeline-based card animations
+  !CSS.supports('view-timeline-name', '--cards-element-scrolls-in-body') && document.querySelectorAll('.cards-stack').forEach(async (cardsStack) => {
     await import("./vendor/scroll-timeline.min.js");
 
-    const cardContents = cardsWrapper.querySelectorAll('.card__content');
+    const cardContents = cardsStack.querySelectorAll('.card__content');
 
     const numCards = cardContents.length;
-    cardsWrapper.style.setProperty('--num-cards', numCards);
+    cardsStack.style.setProperty('--num-cards', numCards);
 
-    const viewTimeline = new ViewTimeline({ subject: cardsWrapper, axis: 'block' });
+    const viewTimeline = new ViewTimeline({ subject: cardsStack, axis: 'block' });
 
     cardContents.forEach((cardContent, index0) => {
       const index = index0 + 1;
@@ -131,7 +129,7 @@
 
   // Handle scroll-based video playback
   {
-    const cardVideos = cardsWrapper.querySelectorAll('video');
+    const cardVideos = document.getElementById('cards')?.querySelectorAll('video');
     const inObserver = new IntersectionObserver((entries) => {
       const windowHeight = window.innerHeight - 60 - 16 - 20; // 60px for header, 16px for padding, 20px for margin
       for (const entry of entries) {
