@@ -1,5 +1,6 @@
 /// <reference types="bun-types" />
 
+import { $ } from "bun";
 import * as fs from 'fs/promises';
 import URL from 'url';
 import path from 'path'
@@ -29,6 +30,17 @@ async function buildHtmlFiles() {
   if (!result.success) {
     console.error('Build failed:', result.logs);
     process.exit(1);
+  }
+
+  // First, minify images if we're in production/deployment mode
+  if (!process.env.DEV) {
+    console.log('Minifying images for production...');
+    try {
+      const { execSync } = await import('child_process');
+      execSync('npx imagemin src/images/* -o dist/images', { stdio: 'inherit' });
+    } catch (error) {
+      console.error('Error running imagemin:', error);
+    }
   }
 
   console.log('Build completed successfully');
@@ -102,6 +114,7 @@ async function inlineHtmlFromBuild(buildOutputs: any[], htmlFileName: string, ou
       },
     })
 
+  console.log(`Inlining HTML for ${htmlFileName}...`);
   const html = await htmlOutput.text();
   const newHtml = rewriter.transform(new Response(html));
   const outFileDir = path.dirname(resolve(outFile));
@@ -135,4 +148,6 @@ await Promise.all([
   inlineHtmlFromBuild(buildOutputs, 'index.html', './index.html'),
   inlineHtmlFromBuild(buildOutputs, 'app.html', '../sqlite-viewer-core/web/index.html'),
 ]);
+
+console.log("Done!");
 

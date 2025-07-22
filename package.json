@@ -16,7 +16,7 @@
     "autoprefixer": "exit 0 || postcss -u autoprefixer -r dist/css/*",
     "scss": "sass --style=compressed src/scss:dist/css",
     "uglify": "mkdirp dist/js -p && uglifyjs src/js/*.js -m -c -o dist/js/main.min.js",
-    "imagemin": "imagemin src/images/* -o dist/images",
+    "imagemin": "npx bun run scripts/imagemin-stats.ts",
     "bs": "browser-sync start --config bs-config.js",
     "serve": "wrangler pages dev . --compatibility-date=2024-08-21 --ip 0.0.0.0 --kv KV",
     "build:html": "npx bun run scripts/html.ts",
