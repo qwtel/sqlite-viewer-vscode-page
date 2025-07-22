@@ -120,6 +120,32 @@ faq3Content: >
   and paste it into the input field at the end of the Offline License Activation wizard.<br><br>
   Devices enrolled through this method will never attempt to connect to the license server, 
   provided a Business Edition key was used and the "Business Edition evaluation" checkbox was not checked when generating the token.
+faq4Summary: What datetime formats are supported?
+faq4Content: >
+  SQLite Viewer PRO supports a wide range of datetime formats for columns defined as `DATE` or `DATETIME`. Supported input formats include:<br><br>
+  • SQLite ISO-like strings<br>
+  • ISO-8601 strings<br>
+  • Julian Day numbers<br>
+  • Seconds since 1970 (Unix timestamp)<br>
+  • Milliseconds since 1970<br>
+  • Microseconds since 1970<br>
+  • Excel serial date (1900 system)<br>
+  • Windows FILETIME since 1601<br>
+  • .NET Ticks since 0001<br><br>
+  When a valid date is recognized, it can be displayed in one of 4 formats:<br>
+  • Localized, human-readable strings (default)<br>
+  • Localized, human-readable time-ago strings (e.g. "6 months ago")<br>
+  • Machine-friendly ISO-8601 strings<br>
+  • Raw values<br><br>
+  Values can be edited using a generic date picker or by modifying the interpreted ISO string. The extension preserves the original format when saving to disk.
+faq5Summary: Can I use the PRO version to view production databases?
+faq5Content: >
+  Yes, but it is highly recommended that you make preparations.<br><br>
+  If you intend to view data only, open the live database in read-only mode to prevent accidental modification. 
+  Right-click the file, click __"Open With…"__ and select __"SQLite Viewer (read-only)"__.<br><br>
+  If you intend to modify the live database, it is highly recommended to enable the __"Sqlite Viewer: Instant Commit"__ feature from the VS Code settings menu. 
+  This will prevent the extension from opening long-running transactions that could block other SQLite processes accessing the same database.
+  However, please note that undo/redo functionality can be limited in this mode.<br><br>
 footnote1: "Offline Activation is required if a company firewall prevents the extension from connecting to the license server."
 footnote2: "When a device is enrolled through offline activation, the extension can be used without ever needing to connect to the license server."
 allRightsReserved: "All rights reserved"
