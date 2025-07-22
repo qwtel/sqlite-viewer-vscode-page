@@ -236,7 +236,7 @@ a.card__header {
   right: 0;
   height: calc((var(--card-top-offset) + 0.125em) * 1 / (1.1 - 0.1 * var(--num-cards)));
   cursor: pointer;
-  background-color: color-mix(in srgb, var(--color-bg-4) 25%, transparent);
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--color-bg-4) 50%, transparent), transparent);
   border-top-left-radius: .25rem;
   border-top-right-radius: .25rem;
   z-index: 1;
