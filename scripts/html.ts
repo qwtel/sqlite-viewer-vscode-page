@@ -88,6 +88,14 @@ async function inlineHtmlFromBuild(buildOutputs: any[], htmlFileName: string, ou
         el.replace(`<script${type === "module" ? ' type="module"' : ""}>${script}</script>`, { html: true });
       },
     })
+    .on('script[src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"]', {
+      async element(el) {
+        console.log('Inlining anime.js from CDN...');
+        const response = await fetch(el.getAttribute('src')!);
+        const script = await response.text();
+        el.replace(`<script>${script}</script>`, { html: true });
+      },
+    })
     .on('picture', { 
       element(el) { 
         inPicture = true; 
