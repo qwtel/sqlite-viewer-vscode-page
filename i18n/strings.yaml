@@ -80,11 +80,12 @@ rated55Verbose: "Rated 4.5/5 stars"
 usedAcrossIndustry: "Used across the industry, including at {NASA}"
 pricingTitle: "No Subscription, No Problem"
 pricingContent: >
-  SQLite Viewer PRO is a __One-Time Purchase__ and grants you a __Perpetual License__. It works for as long as VS Code does.
+  SQLite Viewer PRO offers a __One-Time Purchase__ that grants you a __Perpetual License__.<br>
+  _A monthly subscription is also available for short-term projects, or if your organization requires recurring payments_.
 pricingFooter: "" #   __🌿&nbsp;Spring Sale 2025: -20% on all purchases&nbsp;🍃__
 oneTimePurchase: "One-Time Purchase"
-sameAsCalc1: "Same as $6.58/month for 12 months"
-sameAsCalc2: "Same as $11.58/month for 12 months"
+sameAsCalc1: "Perpetual License"
+sameAsCalc2: "Perpetual License"
 plusVat: "+ VAT"
 priceFeat1: "Editing and export features"
 priceFeat2: "Ad-free experience"
