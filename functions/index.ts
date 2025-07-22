@@ -60,6 +60,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const country = ((DEV && DevCountryOverride) || context.request.headers.get('CF-IPcountry') || 'US') as keyof typeof PPP;
   const discountPercent = PPP[country] ?? 0;
   const discountTier = PercentToTier[discountPercent];
+  const hasDiscount = discountPercent > 0;
 
   const colorScheme = lightDark(searchParams.get('color-scheme'))
   const vscode = searchParams.has('css-vars')
@@ -75,6 +76,12 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
             break;
           case '#purchase-be':
             newHref = BEHrefByTier[discountTier];
+            break;
+          case '#subscribe':
+            newHref = context.env.PRO_SUBSCRIBE_HREF;
+            break;
+          case '#subscribe-be':
+            newHref = context.env.BE_SUBSCRIBE_HREF;
             break;
         }
         el.setAttribute('href', newHref);
@@ -94,6 +101,15 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         el.setInnerContent(selectedAvatars.map(url => html`<img class="avatar-stack-item" src="${url}">`).join(''), { html: true });
       }
     })
+
+  if (hasDiscount) {
+    rewriter = rewriter
+      .on('.pricing-toggle-container, .monthly-price', {
+        element(el) {
+          el.remove();
+        }
+      })
+  }
 
   if (!vscode) {
     rewriter = rewriter
@@ -131,6 +147,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       .on(".price-hint", { 
         element(el) { 
           const [countryName, flag] = CountryInfo[country]; 
+          console.log('price-hint', ...el.attributes);  
+          if (el.getAttribute('class')?.includes('monthly-price')) return;
           el.replace(html`<span class="price-hint text-xxs nowrap">${discountPercent}% off for all visitors from ${countryName} ${flag}</span>`, { html: true })
         } 
       })

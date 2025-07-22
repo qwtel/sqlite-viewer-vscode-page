@@ -39,7 +39,6 @@
     bottom: 18.8%;
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
-    /* background-image: url('/dist/images/pricing-illustration.svg'); */
     background-image: url('../../images/pricing-illustration.svg');
   }
 }
@@ -115,12 +114,13 @@
 }
 
 .pricing-table-cta {
+  display: flex;
   align-self: flex-end;
 }
 
-.section-paragraph, .price-hint {
-  /* font-weight: 300; */
-}
+/* .section-paragraph, .price-hint {
+  font-weight: 300;
+} */
 
 @media (min-width: 640px) {
   .section-paragraph {

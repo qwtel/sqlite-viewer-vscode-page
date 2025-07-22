@@ -139,7 +139,7 @@ body {
   --color-primary-1: #0270D7;
   --color-primary-2: #0F8AFD;
   --color-primary-3: #0256A4;
-  
+
   /* Font Family Variables */
   --font-family-base: var(--x-font-family);
   --font-family-heading: var(--x-font-family);
