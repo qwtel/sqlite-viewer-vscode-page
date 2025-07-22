@@ -41,6 +41,11 @@
 @import "components/changelog-carousel.css";
 
 /*--------------------------------------------------------------
+# Pricing Toggle
+--------------------------------------------------------------*/
+@import "components/pricing-toggle.css";
+
+/*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
 @import "layout/header.css";
@@ -76,222 +81,21 @@
 @import "layout/footer.css";
 
 /*--------------------------------------------------------------
-# VS Code / Cards
+# Cards
 --------------------------------------------------------------*/
-@layer app, base;
+@import "layout/cards.css";
 
-.vscode-only {
-  display: none;
-}
+/*--------------------------------------------------------------
+# Web App
+--------------------------------------------------------------*/
+@import "web-app.css";
 
-.vscode .vscode-only {
-  display: unset;
-}
+/*--------------------------------------------------------------
+# Miscellaneous Components
+--------------------------------------------------------------*/
 
-.vscode .web-only {
-  display: none;
-}
-
-.proof-inner {
-  margin-top: 64px;
-  margin-bottom: 64px;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-#cards {
-  --card-margin: 64px;
-  --card-top-offset: 1em;
-  --outline-width: 0px;
-  padding: 0;
-  margin-top: 88px;
-  padding-bottom: calc((var(--num-cards) - 1) * var(--card-top-offset));
-  list-style: none;
-  outline: calc(var(--outline-width) * 10) solid hotpink;
-  display: grid;
-  gap: var(--card-margin);
-  grid-template-columns: 100%;
-  grid-template-rows: repeat(var(--num-cards), 1fr);
-
-  @media (max-height: 800px) {
-    --card-margin: 32px;
-    grid-template-rows: repeat(var(--num-cards), auto);
-  }
-}
-
-#root {
-  background: var(--color-bg-3);
-  aspect-ratio: 1160/600;
-
-  @media (max-aspect-ratio: 1/1) {
-    aspect-ratio: unset;
-    height: 80vh;
-  }
-}
-
-.cards {
-  @media (min-width: 1400px) {
-    margin-left: -2rem;
-    margin-right: -2rem;
-  }
-}
-
-.card {
-  outline: var(--outline-width) solid lime;
-}
-
-.card__content {
-  box-shadow: 0 24px 48px color-mix(in srgb, var(--color-bg-1) 76%, #222);
-  background: var(--color-bg-3);
-  color: var(--color-typography-1);
-  border-radius: .25rem;
-  display: grid;
-  grid-template-areas: "text img";
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: 100%;
-  align-items: stretch;
-  outline: var(--outline-width) solid blue;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 100%;
-    grid-template-rows: auto 1fr;
-    grid-template-areas: "img"
-                         "text";
-  }
-}
-
-.card__content > div:not(.card__header) {
-  grid-area: text;
-  width: 80%;
-  place-self: center;
-  text-align: left;
-  overflow: hidden;
-  overflow: clip;
-  display: grid;
-  place-items: start;
-  padding-top: 12px;
-  padding-bottom: 12px;
-
-  /* Headers take up space and mess up the layout. Easier to just hide them between the problematic breakpoints */
-  & > h3 {
-    margin-top: 12px;
-
-    @media (max-width: 426px) {
-      display: none;
-    }
-
-    @media (min-width: 640px) {
-      display: none;
-    }
-
-    @media (min-width: 1024px) {
-      display: inherit;
-    }
-  }
-}
-
-.card__content > figure {
-  grid-area: img;
-  margin: 0;
-  border-top-right-radius: .25rem;
-  border-bottom-right-radius: .25rem;
-  overflow: hidden;
-  overflow: clip;
-  aspect-ratio: 4 / 3;
-  position: relative;
-  width: 100%;
-
-  & > img, & > video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  @media (min-width: 768px) {
-    border-left: 1px solid var(--color-bg-4);
-  }
-
-  @media (max-width: 768px) {
-    border-top-left-radius: .25rem;
-    border-bottom-right-radius: 0;
-  }
-}
-
-/* --- */
-
-#cards {
-  --card-top: calc(60px + 16px + var(--card-top-offset));
-}
-
-.card {
-  --index0: calc(var(--index) - 1);
-  --reverse-index: calc(var(--num-cards) - var(--index0));
-  --reverse-index0: calc(var(--reverse-index) - 1);
-  --card-base-y: calc(var(--index0) * var(--card-top-offset));
-  --card-hover-y: 0px;
-  position: sticky;
-  top: var(--card-top);
-  transition: transform 0.500s;
-  transform: translateY(calc(var(--card-base-y) - var(--card-hover-y)));
-
-  @media (max-height: 800px) {
-    position: static;
-  }
-}
-
-.card, .spy {
-  --index: attr(data-index);
-  grid-row: var(--index);
-  grid-column: 1;
-  scroll-margin-top: var(--card-top);
-}
-
-.card__content {
-  transform-origin: 50% 0%;
-  will-change: transform;
-}
-
-a.card__header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: calc((var(--card-top-offset) + 0.125em) * 1 / (1.1 - 0.1 * var(--num-cards)));
-  cursor: pointer;
-  background-color: color-mix(in srgb, var(--color-bg-4) 25%, transparent);
-  border-top-left-radius: .25rem;
-  border-top-right-radius: .25rem;
-  z-index: 1;
-
-  @media (max-height: 800px) {
-    display: none;
-  }
-}
-
-.card:has(.card__header:hover) {
-  --card-hover-y: calc(0.125em * 1 / (1.1 - 0.1 * var(--reverse-index)));
-  transition: transform 0.125s;
-}
-
-@supports (view-timeline-name: --cards-element-scrolls-in-body) {
-  @keyframes scale {
-    to {
-      transform: scale(calc(1.1 - 0.1 * var(--reverse-index)));
-    }
-  }
-
-  #cards {
-    view-timeline-name: --cards-element-scrolls-in-body;
-  }
-
-  .card__content {
-    animation: linear scale forwards;
-    animation-timeline: --cards-element-scrolls-in-body;
-    animation-range: exit-crossing calc(var(--index0) / var(--num-cards) * 100%) exit-crossing calc((var(--index)) / var(--num-cards) * 100%);
-  }
-}
-
-div:has(> .section-title) {
+/* Section Dividers */
+div:has(> .section-title), .with-divider {
   position: relative;
 }
 
@@ -308,23 +112,7 @@ div:has(> .section-title)::after, .with-divider::after {
   background: var(--color-bg-4);
 }
 
-#nasa-svg {
-  width: 184px;
-  height: 220px;
-  filter: grayscale(1);
-  opacity: .85;
-  transform: scale(0.85);
-  mix-blend-mode: luminosity;
-  transition: filter 0.75s, opacity 0.75s;
-
-  &:hover {
-    filter: grayscale(0);
-    opacity: 1;
-    mix-blend-mode: normal;
-    transition: filter 0.125s, opacity 0.125s;
-  }
-}
-
+/* Logo Graveyard */
 #logo-graveyard {
   margin-top: -82px;
 }
@@ -347,6 +135,7 @@ div:has(> .section-title)::after, .with-divider::after {
   }
 }
 
+/* Avatar Stack */
 .avatar-stack {
   align-items: center;
   justify-content: center;
@@ -362,6 +151,7 @@ div:has(> .section-title)::after, .with-divider::after {
   margin-left: -16px;
 }
 
+/* FAQ */
 details[name="faq"] {
   border: 1px solid var(--color-bg-4);
   border-radius: 3px;
@@ -373,181 +163,9 @@ details[name="faq"] {
   }
 }
 
+/* Carousel Navigation */
 @media (pointer: coarse) or (max-width: 960px) {
   sl-carousel::part(navigation) {
     display: none;
   }
-}
-
-/*--------------------------------------------------------------
-# Web App
---------------------------------------------------------------*/
-#root {
-  overflow: hidden;
-  overflow: clip;
-  border: 1px solid var(--color-bg-4);
-}
-
-@media (display-mode: window-controls-overlay) or (display-mode: standalone) {
-  .container, .hero, .site-header, .site-footer { 
-    display: contents!important; 
-  }
-
-  .container > *:not(#root) { 
-    display: none!important; 
-  }
-
-  #root {
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh;
-    max-width: none;
-    max-height: none;
-    margin: 0;
-    padding: 0;
-  }
-}
-
-.app {
-  .container, .hero, .site-header, .site-footer { 
-    display: contents!important; 
-  }
-
-  .container > *:not(#root) { 
-    display: none!important; 
-  }
-
-  #root {
-    width: 100%;
-    height: 100vh;
-    height: 100dvh;
-    max-width: none;
-    max-height: none;
-    margin: 0;
-    padding: 0;
-  }
-}
-
-body:not(.app) .scroller { 
-  overscroll-behavior: initial!important; 
 } 
-
-/*--------------------------------------------------------------
-# Pricing Toggle
---------------------------------------------------------------*/
-.pricing-toggle-container {
-  margin-top: 32px;
-}
-
-.pricing-toggle-wrapper {
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  background: var(--color-bg-2);
-  border: 1px solid var(--color-bg-4);
-  border-radius: 50px;
-  padding: 4px;
-}
-
-.pricing-toggle-label {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--color-typography-2);
-  padding: 8px 16px;
-  border-radius: 46px;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  user-select: none;
-}
-
-.pricing-toggle-label.active {
-  color: var(--color-typography-1);
-  background: var(--color-primary-1);
-}
-
-.pricing-toggle {
-  position: relative;
-  display: inline-block;
-  width: 48px;
-  height: 24px;
-  cursor: pointer;
-}
-
-.pricing-toggle-input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.pricing-toggle-slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--color-bg-4);
-  transition: 0.2s;
-  border-radius: 24px;
-}
-
-.pricing-toggle-slider:before {
-  position: absolute;
-  content: "";
-  height: 18px;
-  width: 18px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: 0.2s;
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.pricing-toggle-input:checked + .pricing-toggle-slider {
-  background-color: var(--color-primary-1);
-}
-
-.pricing-toggle-input:checked + .pricing-toggle-slider:before {
-  transform: translateX(24px);
-}
-
-/* Default state (one-time) */
-.pricing .one-time-price {
-  display: unset;
-}
-
-.pricing .monthly-price {
-  display: none;
-}
-
-.pricing .pricing-toggle-one-time {
-  color: var(--color-typography-1);
-  background: var(--color-bg-1);
-}
-
-.pricing .pricing-toggle-monthly {
-  color: var(--color-typography-2);
-  background: transparent;
-}
-
-/* Monthly state (when checked) */
-.pricing:has(.pricing-toggle-input:checked) {
-  .one-time-price {
-    display: none;
-  }
-
-  .monthly-price {
-    display: unset;
-  }
-
-  .pricing-toggle-monthly {
-    color: var(--color-typography-1);
-    background: var(--color-bg-1);
-  }
-
-  .pricing-toggle-one-time {
-    color: var(--color-typography-2);
-    background: transparent;
-  }
-}

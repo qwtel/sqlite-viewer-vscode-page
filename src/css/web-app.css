@@ -1,0 +1,52 @@
+/*--------------------------------------------------------------
+# Web App
+--------------------------------------------------------------*/
+#root {
+  overflow: hidden;
+  overflow: clip;
+  border: 1px solid var(--color-bg-4);
+}
+
+@media (display-mode: window-controls-overlay) or (display-mode: standalone) {
+  .container, .hero, .site-header, .site-footer { 
+    display: contents!important; 
+  }
+
+  .container > *:not(#root) { 
+    display: none!important; 
+  }
+
+  #root {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.app {
+  .container, .hero, .site-header, .site-footer { 
+    display: contents!important; 
+  }
+
+  .container > *:not(#root) { 
+    display: none!important; 
+  }
+
+  #root {
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+body:not(.app) .scroller { 
+  overscroll-behavior: initial!important; 
+} 
