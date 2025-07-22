@@ -10,8 +10,10 @@ const resolve = (...args: string[]) => path.resolve(__dirname, '..', ...args);
 
 const IMG_CUTOFF_KB = 25;
 
-const makeRelative = (url: string) => url.startsWith('/') ? '.' + url : url;
-const getAttribute = (el: HTMLRewriterTypes.Element, name: string) => makeRelative(el.getAttribute(name) ?? '');
+const getAttribute = (el: HTMLRewriterTypes.Element, name: string) => {
+  const value = el.getAttribute(name) ?? '';
+  return value ? resolve(value) : '';
+};
 
 type Awaitable<T> = T | Promise<T>;
 async function asyncReplace(str: string, regex: RegExp, asyncFn: (x: RegExpMatchArray) => Awaitable<string|null|undefined>) {
@@ -39,12 +41,12 @@ async function inlineHtml(inFile: string, outFile: string) {
     .on('*', { comments(comment) { comment.remove() } })
     .on('link[rel="stylesheet"][href]:not([href^="http"]):not([data-no-inline])', {
       async element(el) {
-        const href = getAttribute(el, 'href') ?? '';
+        const href = getAttribute(el, 'href');
         let style = href && await Bun.file(href).text();
         style = style.replace(/\/\*[\s\S]*?\*\//g, '').trim();
         style = await asyncReplace(style, /url\(\s*['"]?([^'")]+)(['"]?)\s*\)/g, async ([, src]) => {
           if (src.startsWith('data:')) return null;
-          const dataUrl = await inlineImage(makeRelative(src))
+          const dataUrl = await inlineImage(resolve(src))
           return dataUrl && `url('${dataUrl}')`;
         });
         el.replace(`<style>${style}</style>`, { html: true }); 
@@ -52,7 +54,7 @@ async function inlineHtml(inFile: string, outFile: string) {
     })
     .on('script[src]:not([src^="http"]):not([defer]):not([data-no-inline])', {
       async element(el) {
-        const src = getAttribute(el, 'src') ?? '';
+        const src = getAttribute(el, 'src');
         const type = el.getAttribute('type') ?? '';
         let script = src && await Bun.file(src).text();
         el.replace(`<script${type === "module" ? ' type="module"' : ""}>${script}</script>`, { html: true });
@@ -67,7 +69,7 @@ async function inlineHtml(inFile: string, outFile: string) {
     .on('img[src]:not([src^="http"]):not([src^="data"]):not([data-no-inline])', {
       async element(el) {
         if (inPicture) return; // skip images inside <picture> because there's usually multiple <source> tags
-        const src = getAttribute(el, 'src') ?? '';
+        const src = getAttribute(el, 'src');
         const dataUrl = await inlineImage(src);
         dataUrl && el.setAttribute('src', dataUrl);
       },
