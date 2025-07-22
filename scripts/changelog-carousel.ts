@@ -3,6 +3,7 @@
 import URL from 'url';
 import path from 'path';
 import { marked } from 'marked';
+import { html } from './_utils';
 
 const __filename = URL.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -174,7 +175,7 @@ async function integrateCarousel() {
   let contentWithLazyLoad = indexContent;
   
   if (!indexContent.includes('changelog-carousel')) {
-    console.log('ℹ️ Adding lazy loading script to the head section...');
+    console.log('Adding lazy loading script to the head section...');
     const headEnd = indexContent.indexOf('</head>');
     contentWithLazyLoad = 
       indexContent.substring(0, headEnd) + 
@@ -184,7 +185,7 @@ async function integrateCarousel() {
 
   // Check if carousel already exists
   if (indexContent.includes('changelog-carousel section')) {
-    console.log('ℹ️ Changelog carousel already exists, updating content...');
+    console.log('Changelog carousel already exists, updating content...');
     
     // Use regex to find and remove all carousel sections
     const carouselRegex = /<section class="changelog-carousel section">[\s\S]*?<\/section>\s*/g;
@@ -203,7 +204,7 @@ async function integrateCarousel() {
       newContent.substring(insertPosition);
     
     await Bun.write(indexPath, newContent);
-    console.log('✅ Changelog carousel updated successfully!');
+    console.log('Changelog carousel updated successfully!');
   } else {
     // Find the proof section and insert the carousel after it
     const proofSectionEnd = contentWithLazyLoad.indexOf('</section>', contentWithLazyLoad.indexOf('<section class="proof section">'));
@@ -220,19 +221,9 @@ async function integrateCarousel() {
     // Write the updated content back to the file
     await Bun.write(indexPath, newContent);
     
-    console.log('✅ Changelog carousel integrated successfully!');
+    console.log('Changelog carousel integrated successfully!');
   }
 }
 
 // Run the integration
 await integrateCarousel(); 
-
-//#region utils
-function html(strings: TemplateStringsArray, ...values: any[]) {
-  let str = '';
-  strings.forEach((string, i) => {
-    str += string + (values[i] ?? '');
-  });
-  return str.trimEnd();
-}
-//#endregion

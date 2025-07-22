@@ -4,45 +4,57 @@ import * as fs from 'fs/promises';
 import URL from 'url';
 import path from 'path'
 
+import { asyncReplace } from './_utils';
+
 const __filename = URL.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const resolve = (...args: string[]) => path.resolve(__dirname, '..', ...args);
 
 const IMG_CUTOFF_KB = 25;
 
-const getAttribute = (el: HTMLRewriterTypes.Element, name: string) => {
-  const value = el.getAttribute(name) ?? '';
-  return value ? resolve(value) : '';
-};
-
-type Awaitable<T> = T | Promise<T>;
-async function asyncReplace(str: string, regex: RegExp, asyncFn: (x: RegExpMatchArray) => Awaitable<string|null|undefined>) {
-  const matches = [...str.matchAll(regex)];
-
-  const replacements = await Promise.all(
-    matches.map(async match => {
-      const replacement = await asyncFn(match);
-      return { match, replacement };
-    })
-  );
-
-  let result = str;
-  replacements.reverse().forEach(({ match, replacement }) => {
-    result = result.slice(0, match.index) + (replacement ?? match[0]) + result.slice(match.index + match[0].length);
+// Build step - equivalent to the build:build script from package.json
+async function buildHtmlFiles() {
+  console.log('Building HTML files...');
+  
+  const result = await Bun.build({
+    entrypoints: ['./src/index.html', './src/app.html'],
+    outdir: '.',
+    naming: {
+      asset: 'dist/[dir]/[name].[ext]',
+      chunk: 'dist/[name].[ext]',
+    },
+    minify: true,
   });
 
-  return result;
+  if (!result.success) {
+    console.error('Build failed:', result.logs);
+    process.exit(1);
+  }
+
+  console.log('Build completed successfully');
+  return result.outputs;
 }
 
-async function inlineHtml(inFile: string, outFile: string) {
+async function inlineHtmlFromBuild(buildOutputs: any[], htmlFileName: string, outFile: string) {
   let inPicture = false;
+
+  // Find the HTML file in build outputs
+  const htmlOutput = buildOutputs.find(x => x.path.endsWith(htmlFileName));
+  if (!htmlOutput) {
+    console.error(`Could not find ${htmlFileName} in build outputs`);
+    return;
+  }
 
   const rewriter = new HTMLRewriter()
     .on('*', { comments(comment) { comment.remove() } })
     .on('link[rel="stylesheet"][href]:not([href^="http"]):not([data-no-inline])', {
       async element(el) {
-        const href = getAttribute(el, 'href');
-        let style = href && await Bun.file(href).text();
+        const href = el.getAttribute('href') ?? '';
+        if (!href) return;
+        
+        // Read CSS file from filesystem
+        const cssPath = resolve(href);
+        let style = await Bun.file(cssPath).text();
         style = style.replace(/\/\*[\s\S]*?\*\//g, '').trim();
         style = await asyncReplace(style, /url\(\s*['"]?([^'")]+)(['"]?)\s*\)/g, async ([, src]) => {
           if (src.startsWith('data:')) return null;
@@ -54,9 +66,13 @@ async function inlineHtml(inFile: string, outFile: string) {
     })
     .on('script[src]:not([src^="http"]):not([defer]):not([data-no-inline])', {
       async element(el) {
-        const src = getAttribute(el, 'src');
+        const src = el.getAttribute('src') ?? '';
+        if (!src) return;
+        
+        // Read JS file from filesystem
+        const jsPath = resolve(src);
         const type = el.getAttribute('type') ?? '';
-        let script = src && await Bun.file(src).text();
+        let script = await Bun.file(jsPath).text();
         el.replace(`<script${type === "module" ? ' type="module"' : ""}>${script}</script>`, { html: true });
       },
     })
@@ -69,8 +85,10 @@ async function inlineHtml(inFile: string, outFile: string) {
     .on('img[src]:not([src^="http"]):not([src^="data"]):not([data-no-inline])', {
       async element(el) {
         if (inPicture) return; // skip images inside <picture> because there's usually multiple <source> tags
-        const src = getAttribute(el, 'src');
-        const dataUrl = await inlineImage(src);
+        const src = el.getAttribute('src') ?? '';
+        if (!src) return;
+        
+        const dataUrl = await inlineImage(resolve(src));
         dataUrl && el.setAttribute('src', dataUrl);
       },
     })
@@ -84,7 +102,7 @@ async function inlineHtml(inFile: string, outFile: string) {
       },
     })
 
-  const html = Bun.file(resolve(inFile))
+  const html = await htmlOutput.text();
   const newHtml = rewriter.transform(new Response(html));
   const outFileDir = path.dirname(resolve(outFile));
   const exists = await fs.exists(resolve(outFileDir)).catch(() => null);
@@ -109,8 +127,12 @@ async function inlineImage(src: string) {
   return null;
 }
 
+// Build HTML files first and get outputs
+const buildOutputs = await buildHtmlFiles();
+
+// Then inline the built files using build outputs
 await Promise.all([
-  inlineHtml("./index.html", "./index.html"),
-  inlineHtml("./app.html", "../sqlite-viewer-core/web/index.html"),
+  inlineHtmlFromBuild(buildOutputs, 'index.html', './index.html'),
+  inlineHtmlFromBuild(buildOutputs, 'app.html', '../sqlite-viewer-core/web/index.html'),
 ]);
 

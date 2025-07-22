@@ -6,6 +6,7 @@ import path from 'path'
 import { marked } from 'marked';
 import * as yaml from 'yaml'
 import { Glob } from "bun";
+import { html } from './_utils';
 
 const __filename = URL.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -153,13 +154,3 @@ await Promise.all(
     translateHtml('./index.html', lang, `./${lang}/index.html`)
   ),
 );
-
-//#region utils
-function html(strings: TemplateStringsArray, ...values: any[]) {
-  let str = '';
-  strings.forEach((string, i) => {
-    str += string + (values[i] ?? '');
-  });
-  return str;
-}
-//#endregion
