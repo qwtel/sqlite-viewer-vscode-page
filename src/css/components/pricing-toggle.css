@@ -1,11 +1,9 @@
 /*--------------------------------------------------------------
 # Pricing Toggle
 --------------------------------------------------------------*/
-.pricing-toggle-container {
-  margin-top: 32px;
-}
-
 .pricing-toggle-wrapper {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   gap: 16px;
