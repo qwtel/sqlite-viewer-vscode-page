@@ -16,12 +16,12 @@
     "autoprefixer": "exit 0 || postcss -u autoprefixer -r dist/css/*",
     "scss": "sass --style=compressed src/scss:dist/css",
     "uglify": "mkdirp dist/js -p && uglifyjs src/js/*.js -m -c -o dist/js/main.min.js",
-    "imagemin": "npx bun run scripts/imagemin-stats.ts",
+    "imagemin": "bun run scripts/imagemin-stats.ts",
     "bs": "browser-sync start --config bs-config.js",
     "serve": "wrangler pages dev . --compatibility-date=2024-08-21 --ip 0.0.0.0 --kv KV",
-    "build:html": "npx bun run scripts/html.ts",
-    "build:translate-html": "npx bun run scripts/translate-html.ts",
-    "build:changelog-carousel": "npx bun run scripts/changelog-carousel.ts",
+    "build:html": "bun run scripts/html.ts",
+    "build:translate-html": "bun run scripts/translate-html.ts",
+    "build:changelog-carousel": "bun run scripts/changelog-carousel.ts",
     "build": "run-s build:*",
     "watch:build+html": "onchange 'src/**/*' -- run-s build:html",
     "watch:translate-html": "onchange 'index.html' 'i18n/*' 'scripts/translate.ts' -- run-s build:translate-html",
@@ -32,7 +32,6 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250722.0",
     "autoprefixer": "^10.4.21",
-    "bun": "^1.2.19",
     "imagemin-cli": "^8.0.0",
     "mkdirp": "^3.0.1",
     "npm-run-all": "^4.1.5",
@@ -55,5 +54,5 @@
     "marked": "^15.0.12",
     "yaml": "^2.8.0"
   },
-  "packageManager": "pnpm@10.13.1"
+  "packageManager": "bun@1.2.19"
 }
