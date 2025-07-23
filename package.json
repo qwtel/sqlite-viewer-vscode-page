@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250722.0",
+    "@types/bun": "^1.2.19",
     "autoprefixer": "^10.4.21",
     "imagemin-cli": "^8.0.0",
     "mkdirp": "^3.0.1",

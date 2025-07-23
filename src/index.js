@@ -125,7 +125,7 @@
         rangeEnd: `exit-crossing ${CSS.percent(index / numCards * 100)}`,
       });
     });
-  })();
+  });
 
   // Handle scroll-based video playback
   {
