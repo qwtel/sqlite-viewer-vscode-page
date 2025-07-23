@@ -84,8 +84,7 @@ pricingContent: >
   _A monthly subscription is also available for short-term projects, or if your organization requires recurring payments_.
 pricingFooter: "" #   __🌿&nbsp;Spring Sale 2025: -20% on all purchases&nbsp;🍃__
 oneTimePurchase: "One-Time Purchase"
-sameAsCalc1: "Perpetual License"
-sameAsCalc2: "Perpetual License"
+perpetualLicense: "Perpetual License"
 plusVat: "+ VAT"
 priceFeat1: "Editing and export features"
 priceFeat2: "Ad-free experience"
