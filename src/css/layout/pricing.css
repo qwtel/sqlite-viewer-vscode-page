@@ -45,7 +45,7 @@
 
 .pricing-table-header,
 .pricing-table-features li:not(:last-child) {
-  border-bottom: 1px solid color-mix(in srgb, var(--color-typography-2) 24%, transparent);
+  border-bottom: 1px solid rgb(from var(--color-typography-2)  r g b / 24%);
 }
 
 .pricing-table-inner {
@@ -54,7 +54,7 @@
   flex-wrap: wrap;
   padding: 24px;
   height: 100%;
-  background: color-mix(in oklab, var(--color-bg-4) 76%, transparent);
+  background: rgb(from var(--color-bg-4) r g b / 76%);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
 
