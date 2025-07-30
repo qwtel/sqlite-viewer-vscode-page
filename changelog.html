@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <base href="/">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>Complete Changelog - SQLite Viewer PRO for VS Code</title>
+  <link rel="icon" type="image/png" href="./favicon.ico">
+  <link rel="stylesheet" href="./dist/index.css">
+  <script>(function () { window.counterscale = { q: [["set", "siteId", "vscode.sqliteviewer.app"], ["trackPageview"]] } })()</script>
+  <script defer id="counterscale-script" src="https://counterscale.sqliteviewer.app/tracker.js"></script>
+
+  <link rel="stylesheet" media="(prefers-color-scheme:light)" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css"/>
+  <link rel="stylesheet" media="(prefers-color-scheme:dark)" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/dark.css"/>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace.js"></script>
+  </head>
+<body class="is-boxed has-animations">
+  <div class="body-wrap">
+    <header class="site-header">
+      <div class="container">
+        <div class="site-header-inner">
+          <div class="brand header-brand">
+            <h1 class="m-0 header-brand-title">
+						  <a href="/">
+								<img class="header-logo-image" src="./dist/images/logo_70_mac.png" alt="Logo" width="35" height="35">
+              </a>
+              <div class="ml-8 color-50" data-i18n-key="for-vs-code">
+                <span class="color">SQLite Viewer PRO</span> for VS Code
+              </div>
+            </h1>
+          </div>
+          <div>
+            <!-- <a class="button button-primary button-sm web-only" href="/#pricing">Pricing</a> -->
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+			<section class="section">
+				<div id="content" class="container">
+    <section class="section">
+      <h1 class="mb-64">Changelog</h1>
+      <!-- <p class="section-paragraph mb-0 text-sm">
+        All features, bug fixes, and improvements across every version of SQLite Viewer PRO.
+      </p> -->
+      <div class="changelog-carousel">
+        <div class="changelog-entries">
+          
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v25.7.0-(pre-release)"><span class="version-number">v25.7.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-07-16">July 17, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <h4><sl-badge variant="primary" size="small">PRO</sl-badge> Export Dialog</h4>
+<p>Introduced a new export command for saving table data in multiple formats.
+This feature is designed as an alternative to the selection/clipboard-based export, especially for larger tables. 
+Exported data is written directly to a file. </p>
+<p>You can launch the export either as a standalone command from the Command Palette or through a modal dialog within the viewer. The modal dialog supports sorting and filtering, just like the clipboard export.</p>
+<p>While this method can handle larger datasets than the clipboard export, it is still limited by JS&#39; performance and the overhead of data marshalling. For exporting large tables (1M+ rows), a dedicated export tool is recommended.</p>
+<h4>Fixes</h4>
+<ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug that prevented images from being embedded in exported data.</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> The cutoff for inlined BLOBs can now be configured from the export dialog (also affects clipboard export) and now defaults to 10KB.</li>
+<li>Fixed an issue where the left sidebar could not be snapped to its minimum position.</li>
+<li>Added a warning when attempting to select more than 10,000 rows.</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v25.6.1-(pre-release)"><span class="version-number">v25.6.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-06-29">June 30, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Added forward and backward button</li>
+<li>Moved &#39;Expand All&#39; button inside the sidebar (only visible on hover; same as VS Code explorer)</li>
+<li>Section headers in the left sidebar are now sticky</li>
+<li>Updated various dependencies</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v25.6.0-(pre-release)"><span class="version-number">v25.6.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-06-22">June 23, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Added an &quot;Instant Commit&quot; setting that prevents the extension from opening long-running transactions that block other SQLite processes. Use with caution, as undo/redo functionality is limited in this mode.</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Added &quot;Instant Commit&quot; toggle to viewer UI to temporarily toggle the instant commit feature per database. Note that this toggle is only visible if the global setting applies to the given file.</li>
+<li>Updated SQLite and SQLite WASM to 3.50.1</li>
+<li>Various other changes and fixes</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v25.5.4-(pre-release)"><span class="version-number">v25.5.4 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-05-08">May 9, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Fixed visual row number alignment issue</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v25.5.3-(pre-release)"><span class="version-number">v25.5.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-05-08">May 9, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug that prevented undoing delete operations in tables with generated columns after tx commit</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Changing numeric values in non-numeric column types will no longer change the type to text</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Disabled Pragmas when opening a readonly database</li>
+<li>Boolean columns are now rendered as readonly checkboxes</li>
+<li>Valid JSON values will now be pretty-printed regardless of column type</li>
+<li>Numeric values will now be rendered in code font regardless of column type</li>
+<li>Text values should now be rendered as text regardless of column type</li>
+<li>Rearranged cell layout for BLOBs. 
+The download button is now on the right side, no longer in the same spot as image preview.</li>
+<li>Now showing the file type of blobs (e.g. &quot;PNG&quot;) on the download button</li>
+<li>Will no longer run SQLite queries originating from the sidebar when the sidebar is closed</li>
+<li>Added dedicated symbol for <code>ANY</code> type columns</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v25.5.2-(pre-release)"><span class="version-number">v25.5.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-05-06">May 7, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <h4><sl-badge variant="primary" size="small">PRO</sl-badge> Pragma Editor</h4>
+<p>PRO users now have access to a experimental PRAGMA editor. It is located in a new tab in the sidebar.</p>
+<h4>Changes</h4>
+<ul>
+<li>Changed icons in datetime text input to match icons in cells</li>
+<li>Changed rendering of datetime values to omit the <code>T</code> in the UI (export not affected)</li>
+</ul>
+<h4>Fixes</h4>
+<ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed an issue that caused an extra entry on the undo history when an SQLite error occurred during an operation</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a memory leak related to event listeners</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v25.5.0-(pre-release)"><span class="version-number">v25.5.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-05-01">May 2, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Labels inside sidebar will now overflow more gracefully when running low on horizontal space</li>
+<li>Fixed a potential issue during file opening</li>
+<li>Updated and changed dependencies</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v25.4.3-(pre-release)"><span class="version-number">v25.4.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-04-27">April 28, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Fixed a potential issue during file opening</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v25.4.2-(pre-release)"><span class="version-number">v25.4.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-04-27">April 28, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <h4><sl-badge variant="primary" size="small">PRO</sl-badge> Improved Logging</h4>
+<p>The Log has moved to VS Code&#39;s Output tab. This enables syntax highlighting, search, filtering, and also improves logging performance.</p>
+<ul>
+<li>Clicking the Log tab in the sidebar now opens VS Code&#39;s Output pane with the SQLite Viewer log pre-selected</li>
+<li>Added <code>[read]</code> and <code>[WRITE]</code> to all log lines, making it easier to scan for unsaved edits, both visually and when using the UI filter</li>
+<li>Added <code>[${filename}]</code> to all log lines. This allows you to use the quick filter to limit the output to specific files</li>
+</ul>
+<h4><sl-badge variant="primary" size="small">PRO</sl-badge> Basic Batch Updates</h4>
+<p>Added basic multi-select and batch editing. When selecting two or more rows, the sidebar now shows the number of distinct values in the selection, or the single common value. 
+Changing a value in the sidebar will apply it to all selected rows. 
+For now, this is limited to fixed values. 
+Hopefully, more functionality from SQLite&#39;s <code>SET</code> statement can be surfaced in a future update.</p>
+<h4>Fixes</h4>
+<ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug that caused the extension to hang after encountering certain SQLite errors, such as foreign key mismatches</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed the UI not updating when reverting unsaved changes through VS Code</li>
+<li>Fixed a bug when using <code>\</code> in search terms</li>
+<li>Fixed a bug related to <code>&#39;</code> and <code>&quot;</code> in column names</li>
+<li>Added missing translations</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v25.4.1-(pre-release)"><span class="version-number">v25.4.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-04-22">April 23, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Improved support for read-only mode. When opening a database file without the required file permissions, the editor will open in read-only mode instead of showing an error, and the UI will indicate that the file has been opened in read-only mode.</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> When applying unsaved changes to a database file that has been locked by another process (e.g. VS Code has been forcefully shut down), the viewer will now open in read-only mode instead of showing an error. Saving the changes is not possible in read-only mode, so they can be retried at a later time. Be aware that VS Code may prompt you to revert the changes.</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Added a read-only SQLite Viewer option to VS Code&#39;s &quot;Open With…&quot; dialog.</li>
+<li>If an error occurs while opening a file, it will now be surfaced earlier through VS Code&#39;s UI instead of being displayed inside an empty SQLite Viewer tab.</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> If an error occurs while opening a file, the extension will attempt to use the read-only WebAssembly implementation to open the file instead of failing immediately. A warning will still be displayed in this case.</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v25.4.0-(pre-release)"><span class="version-number">v25.4.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-04-18">April 19, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <h4><sl-badge variant="primary" size="small">PRO</sl-badge> Date/Time Support</h4>
+<p>Columns that are defined as either <code>DATE</code> or <code>DATETIME</code> and have structured data in them are now shown as formatted dates. Supported formats are:</p>
+<ul>
+<li>SQLite ISO-like strings</li>
+<li>ISO-8601 strings</li>
+<li>Julian Day numbers</li>
+<li>Seconds since 1970</li>
+<li>Milliseconds since 1970</li>
+<li>Microseconds since 1970</li>
+<li>Excel serial date (1900 system)</li>
+<li>Windows FILETIME since 1601</li>
+<li>.NET Ticks since 0001</li>
+</ul>
+<p>If a valid date is recognized, it can be shown in one of 4 formats:</p>
+<ul>
+<li>Localized, human-readable strings (default)</li>
+<li>Localized, human-readable time-ago strings (e.g. &quot;6 months ago&quot;) </li>
+<li>Machine-friendly ISO-8601 strings</li>
+<li>Raw values</li>
+</ul>
+<p>Values can be edited, either through a generic date picker or modifying the interpreted ISO string. The extension will write the original format to disk if it was recognized correctly, or manually selected in the UI.</p>
+<p>This feature also integrates with the export feature. E.g. when viewing a column as raw dates, they will be included as raw values in the export. This matches the current export behavior. 
+When exporting to JSON, dates will generally be included as ISO strings, unless raw is selected.
+When exporting to human-readable formats like Markdown and HTML, the output will generally match what&#39;s on screen.
+When viewing a column in machine-friendly format and exporting for Excel, the dates will be included in Excel&#39;s serial date format. </p>
+<h4><sl-badge variant="primary" size="small">PRO</sl-badge> Exports</h4>
+<ul>
+<li>Renamed the default export format from &quot;TSV&quot; to &quot;Excel&quot; to better reflect its intended purpose</li>
+<li>Changed HTML export to also populate the <code>text/html</code> MIME type in the clipboard. This can help pasting structured content into some applications. The old TSV export also made use of this behavior.</li>
+<li>Added a plain &quot;TSV&quot; export format</li>
+<li>Boolean columns are now exported as <code>true</code>/<code>false</code> when picking CSV, TSV, JSON as export format</li>
+<li>Boolean columns are now exported as <code>TRUE</code>/<code>FALSE</code> when picking Excel as export format</li>
+<li><code>JSONB</code> columns are now exported as <code>jsonb(&#39;...&#39;)</code> when picking SQLite as export format</li>
+<li><code>NULL</code> values are now omitted when exporting to Excel, CSV, TSV, HTML, or Markdown instead of being included as &quot;NULL&quot; strings</li>
+</ul>
+<h4>Additions</h4>
+<ul>
+<li><code>JSONB</code> values are now rendered correctly regardless of column type</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> <code>JSONB</code> values can now be edited regardless of column type</li>
+<li>Small <code>BLOB</code> values (&lt;= 48 bytes) are now rendered as hexadecimal in text inputs</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Small <code>BLOB</code> values can now be inserted and updated in hexadecimal from within the extension. Common formats like UUIDs and IPv6 addresses can be pasted directly into the text field.</li>
+</ul>
+<h4>Fixes</h4>
+<ul>
+<li>Various improvements to translations </li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed lost precision when viewing integers above 2^53 - 1 and below -(2^53 - 1)</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed potential issue when inserting or updating values in tables that have special characters in the name</li>
+<li>Fixed a crash caused by an incorrect call to <code>setValidity</code></li>
+<li>Fixed incorrect hover tooltip for <code>ROWID</code></li>
+<li>Arrow icons in column type labels now look identical across platforms</li>
+<li>Fixed hex size cutoff mismatch between UI (48) and exports (32)</li>
+</ul>
+<h3>March 2025</h3>
+<p>This extension is now published using Calendar Versioning of shape: <code>YY.MM.MICRO</code>. Using SemVer for a UI client never made much sense, nor was there a clear cutoff when this extension went from 0 to 1. Going forward, all versions will be a date + incremental number.</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v25.3.1-(pre-release)"><span class="version-number">v25.3.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-03-22">March 23, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <h4>Better Dynamic Typing Support</h4>
+<p>The viewer will now better differentiate between column types (as defined by <code>CREATE TABLE</code>) and the actual types of individual values. 
+The labels in the detail view have been updated to indicate this. 
+For example, when a <code>TEXT</code> value was inserted in a <code>BLOB</code> column, the label will be <code>TEXT→BLOB</code> instead of just <code>BLOB</code>.</p>
+<h4>Basic <code>JSONB</code> Support</h4>
+<ul>
+<li>Values in <code>JSONB</code> columns are now rendered in their textual representation instead of downloadable blobs</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Values inserted or updated in <code>JSONB</code> columns are now automatically wrapped in <code>jsonb(?)</code></li>
+</ul>
+<h4>Other</h4>
+<ul>
+<li>Reduced cutoff for rendering <code>BLOB</code> columns in hex format from 256 to 48 bytes </li>
+<li>Download button in cells is now always aligned left</li>
+<li>Size in bytes is now displayed even when showing a preview image in a cell</li>
+<li>Now always showing the total number of rows alongside the number of filtered rows</li>
+<li><code>BLOB</code> columns with <code>NULL</code> values now show a prominent &#39;NULL&#39; label in the detail view</li>
+<li>Added some missing translations</li>
+<li>Fixed a bug that caused the file size shown on the download button in the detail view to be incorrect</li>
+<li>Changed storage size calculation and labels to match the user&#39;s OS:<ul>
+<li>On Windows it will use multiples of 1024 and KB, MB, etc. labels (unchanged) </li>
+<li>On macOS it will use multiples of 1000 with KB, MB, etc. labels</li>
+<li>Others will use multiples of 1024 with KiB, MiB, etc. labels</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v25.3.0-(pre-release)"><span class="version-number">v25.3.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-03-14">March 15, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Tables are now always explicitly sorted by <code>ROWID</code> unless a user-sorting is defined. Tables without <code>ROWID</code>s are now always explicitly sorted by their primary keys (in order).</li>
+<li><code>ROWID</code> is now always used as a tie-breaker when sorting by a column that contains duplicate values to ensure a unique ordering. Tables without <code>ROWID</code> now always use their primary keys (in order) as tie-breakers.</li>
+<li>Fixed a bug that caused shift-select to fail for certain orderings with duplicate values (see above).</li>
+<li>Scroll bars of text fields are now thinner</li>
+<li>Changed frontend bundler from Rollup to esbuild</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.10"><span class="version-number">v0.10</span></h3>
+        </div>
+        <div class="changelog-content">
+          <h4>Localization 🇩🇪 🇫🇷 🇧🇷 🇯🇵 🇪🇸 🇰🇷</h4>
+<p>This extension now includes translations for German, French, Portuguese (Brazil), Japanese, Spanish and Korean.
+If your VS Code display language is set to one of these, the extension will adjust automatically. 
+You can change your VS Code display language from the Command Palette using &quot;Configure Display Language&quot;.</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.10.5"><span class="version-number">v0.10.5</span> <time class="version-date" datetime="2025-03-11">March 12, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Fixed an issue that prevented the editor from opening in the latest VS Code preview build.</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.10.4-(pre-release)"><span class="version-number">v0.10.4 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-03-10">March 11, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Retrying previous release</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.10.3-(pre-release)"><span class="version-number">v0.10.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-03-10">March 11, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Fixed an issue that caused ordering of exported rows to match the selection order rather than ordering in the UI</li>
+<li>Updated SQLite to 3.49.1</li>
+<li>Updated many internal dependencies</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> The toolchain to compile the native helper was updated from Zig 0.13 to 0.14</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.10.2"><span class="version-number">v0.10.2</span> <time class="version-date" datetime="2025-02-13">February 14, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Added missing labels to some UI elements</li>
+<li>Changed wording of some labels</li>
+<li>Fixed an issue that caused minor layout shift when hiding columns</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.10.1"><span class="version-number">v0.10.1</span> <time class="version-date" datetime="2025-02-10">February 11, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Added Japanese, Spanish and Korean translations.</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.10.0"><span class="version-number">v0.10.0</span> <time class="version-date" datetime="2025-02-07">February 8, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Added German, French and Portuguese translations.</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.9"><span class="version-number">v0.9</span></h3>
+        </div>
+        <div class="changelog-content">
+          <h4>Features</h4>
+<ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> You can now change values in <code>BLOB</code> columns through a new file input field in the modal and sidebar</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Added a button to set a <code>BLOB</code> value to <code>NULL</code> in the modal and sidebar</li>
+</ul>
+<h4>Changes</h4>
+<ul>
+<li>Image previews are now only fetched from the db when they are visible in the viewport</li>
+</ul>
+<h4>Fixes</h4>
+<ul>
+<li>Added a small amount of buffering that prevents many stale and unnecessary queries from being run. This should also prevent freezes and excessive load times in some cases</li>
+<li>Fixed a bug that caused image previews to not update when refreshing the table</li>
+<li>Disabled row count caching, which could cause incorrect row numbers to be displayed in some cases.</li>
+<li>Fixed a bug that prevented input fields in the modal from being auto-focused and scrolled into view in the sidebar if the cell value was empty</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Should now call <code>sqlite3_close</code> correctly when closing a tab</li>
+<li>Fixed drop effect being shown incorrectly when dragging a column</li>
+<li>Fixed &quot;exact&quot; filter modifier not working</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.9.6"><span class="version-number">v0.9.6</span> <time class="version-date" datetime="2025-01-09">January 10, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>SQLite Viewer now remembers the last sidebar position</li>
+<li>Fixed row selection background color when explorer panel loses focus</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.9.5"><span class="version-number">v0.9.5</span> <time class="version-date" datetime="2024-11-21">November 22, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed token auto-renewal after 14 days</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Added timeout to token auto-renewal</li>
+<li>Fixed insert row number appearing in wrong position when pinning columns</li>
+<li>Improved scrollbar placement for Table Info table creation SQL textarea</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.9.4"><span class="version-number">v0.9.4</span> <time class="version-date" datetime="2024-11-17">November 18, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Fixed Table Info tab missing horizontal scroll overflow</li>
+<li>Added formatting to Table Info table creation SQL  </li>
+<li>Changed table creation SQL to use textarea instead of inline text</li>
+<li>Updated dependencies</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.9.3"><span class="version-number">v0.9.3</span> <time class="version-date" datetime="2024-11-09">November 10, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Fixed column drag and drop using the sidebar</li>
+<li>Fixed height of pinned rows</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.9.2"><span class="version-number">v0.9.2</span> <time class="version-date" datetime="2024-11-06">November 7, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Added Markdown export</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Adding <code>&lt;br&gt;</code> for newlines when exporting as HTML or Markdown</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> JSON columns are rendered as code blocks when exporting as HTML or Markdown</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.9.1"><span class="version-number">v0.9.1</span> <time class="version-date" datetime="2024-11-05">November 6, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Bumped SQLite to 3.47.0</li>
+<li>Bumped SQLite WASM to 3.47.0</li>
+<li>Reverted Ctrl+C change</li>
+<li>Mixed up ad placement</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.9.0"><span class="version-number">v0.9.0</span> <time class="version-date" datetime="2024-10-31">November 1, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Initial v0.9 release</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.8"><span class="version-number">v0.8</span></h3>
+        </div>
+        <div class="changelog-content">
+          <h4><a href="https://vscode.sqliteviewer.app">SQLite Viewer PRO</a></h4>
+<p>You can now upgrade SQLite Viewer to a read-write database editor by upgrading to SQLite Viewer PRO. 
+Like the base version, it&#39;s designed to <em>just work</em>, even in remote workspaces like WSL, SSH, and containers. For more information check out <a href="https://vscode.sqliteviewer.app">vscode.sqliteviewer.app</a> or the info popup inside the viewer. 
+Users of the free version are not affected by this.</p>
+<h4>Secondary Sidebar</h4>
+<p>SQLite Viewer now features a second sidebar 🎉. It shows either the current row selection or metadata about the current table.</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.8.9"><span class="version-number">v0.8.9</span></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Improved experience for first-time users of the extension</li>
+<li>Fixed a bug that caused files without extensions to not open when placed inside an invisible folder</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.8.8"><span class="version-number">v0.8.8</span> <time class="version-date" datetime="2024-10-29">October 30, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Changed license key validation to support keys from different payment providers</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Added copy to clipboard option to offline activation wizard</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.8.7"><span class="version-number">v0.8.7</span> <time class="version-date" datetime="2024-10-25">October 26, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Renamed &quot;Enter Access Token&quot; command to &quot;Offline License Activation&quot; and changed workflow to a guided wizard with additional instructions.</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.8.6"><span class="version-number">v0.8.6</span> <time class="version-date" datetime="2024-10-21">October 22, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Added &quot;Enter Access Token&quot; command that allows activating the PRO version while offline or behind a firewall.</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.8.5"><span class="version-number">v0.8.5</span> <time class="version-date" datetime="2024-10-21">October 22, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <h4>Features</h4>
+<ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Added basic logging to the sidebar for better insight into what SQLite Viewer is doing behind the scenes.</li>
+</ul>
+<h4>Fixes</h4>
+<ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug that caused a SQLite transaction to be started before making any changes</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug that caused unsaved edits to be lost when closing and reopening VSCode 2+ times</li>
+<li>Fixed some unnecessary queries being run</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.8.4"><span class="version-number">v0.8.4</span> <time class="version-date" datetime="2024-10-19">October 20, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Made error messages more descriptive</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Added a confirmation dialog before committing a transaction that contains too many changes to keep in the undo history. This usually occurs when deleting large numbers of rows.</li>
+<li>Fixed a bug that reset range selection when using pagination buttons or the scrollbar</li>
+<li>Other minor fixes</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.8.3"><span class="version-number">v0.8.3</span> <time class="version-date" datetime="2024-10-17">October 18, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Minor fixes. Bumped to main release channel.</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.8.2-(pre-release)"><span class="version-number">v0.8.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-10-17">October 18, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>No outside visible changes</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.8.1-(pre-release)"><span class="version-number">v0.8.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-10-16">October 17, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p><sl-badge variant="primary" size="small">PRO</sl-badge> Performance improvements</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.8.0-(pre-release)"><span class="version-number">v0.8.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-10-16">October 17, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Initial 0.8 release</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.7.3"><span class="version-number">v0.7.3</span> <time class="version-date" datetime="2024-09-28">September 29, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>The initial size of the sidebar is now based on available space</li>
+<li>Resizing the sidebar and columns should now work when using the extension with a web-based version of VSCode on an iPad or other touch device</li>
+<li>Row buttons no longer take up space while the row is not in the hovered state</li>
+<li>Various bug fixes and improvements</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.7.2"><span class="version-number">v0.7.2</span> <time class="version-date" datetime="2024-09-27">September 28, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Fixed telemetry connection string error</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.7.1"><span class="version-number">v0.7.1</span> <time class="version-date" datetime="2024-09-27">September 28, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Fixed version update banner from being shown again</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.7.0"><span class="version-number">v0.7.0</span> <time class="version-date" datetime="2024-09-27">September 28, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Added basic keyboard navigation support. It is still quite easy to lose the focus, especially when using Page Up/Page Down keys.</li>
+<li>Added button to collapse the sidebar</li>
+<li>Various minor fixes and improvements</li>
+<li>Added expand/collapse all button to tables sidebar</li>
+<li>It is now possible to <strong>open more than one SQLite Viewer instance per file</strong>. 
+Additionally, opening large files (~1GB) is now much faster, and opening additional tabs of the same file carries little additional cost.</li>
+</ul>
+<p>Note that this release includes significant restructuring of the extension, which may cause (unrelated) issues.
+Please <a href="https://github.com/qwtel/sqlite-viewer-vscode/issues">report</a> any issues you encounter.</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.6-(pre-release)"><span class="version-number">v0.6 <sl-badge variant="neutral" size="small">Preview</sl-badge></span></h3>
+        </div>
+        <div class="changelog-content">
+          <h4>Secondary Sidebar</h4>
+<p><del>SQLite Viewer now features a second sidebar 🎉. It shows either the current row selection or metadata about the current table.</del>
+This has been shelved for now, please remain on the pre-release channel if you need the sidebar.</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.6.7-(pre-release)"><span class="version-number">v0.6.7 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-09-23">September 24, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Code refactoring, no externally visible changes</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.6.6-(pre-release)"><span class="version-number">v0.6.6 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-09-08">September 9, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Replaced 3rd party ad with 1st party ad: Check out <a href="https://hydejack.com/?ref=vscode">Hydejack</a>, a Jekyll theme for hackers, nerds, and academics, made by yours truly.</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.6.5-(pre-release)"><span class="version-number">v0.6.5 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-08-27">August 28, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Code refactoring, no externally visible changes</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.6.4-(pre-release)"><span class="version-number">v0.6.4 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-07-09">July 10, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>It is now possible to <strong>open more than one SQLite Viewer instance per file</strong>. 
+Additionally, opening large files (~1GB) is now much faster, and opening additional tabs of the same file carries no additional cost beyond the webview itself.</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.6.3-(pre-release)"><span class="version-number">v0.6.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-06-30">July 1, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Included latest changes from 0.5 branch</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.6.2-(pre-release)"><span class="version-number">v0.6.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-06-17">June 18, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Improved keyboard support. Page Up/Page Down should now work in most cases</li>
+<li>Added expand/collapse all button to tables sidebar</li>
+<li>Fixed a performance regression when rendering a table for the first time</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.6.1-(pre-release)"><span class="version-number">v0.6.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-06-16">June 17, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Added basic keyboard support to table explorer and main view</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.5"><span class="version-number">v0.5</span></h3>
+        </div>
+        <div class="changelog-content">
+          <h4>WAL Mode Support</h4>
+<p>This version introduces support for <strong>reading WAL mode databases</strong>. It works across all VSCode file systems including local, remote, and even on github.dev.</p>
+<p>This fixes a common issue that caused the contents of a <code>-wal</code> file not being shown in the UI when the auto checkpoint limit hadn&#39;t been reached.
+This led to unsatisfying workarounds such as disabling WAL mode, triggering checkpoints manually or reducing the auto checkpoint limit.</p>
+<p>While this update removes the need for the above workarounds, it does not change the read-only nature of the extension or remove the need to reload the file for updates to be visible in the UI.</p>
+<p>Note that making this work required significant restructuring of the extension, which may cause (unrelated) issues. Please report any you may encounter.</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.5.13"><span class="version-number">v0.5.13</span> <time class="version-date" datetime="2024-05-18">May 19, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Replaced 3rd party ad with 1st party ad: Check out <a href="https://hydejack.com/?ref=vscode">Hydejack</a>, a Jekyll theme for hackers, nerds, and academics, made by yours truly.</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.5.12"><span class="version-number">v0.5.12</span> <time class="version-date" datetime="2024-05-18">May 19, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Fixed an issue related to square brackets in column names</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.5.11"><span class="version-number">v0.5.11</span> <time class="version-date" datetime="2024-05-18">May 19, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Fixed an issue that caused the update notification to re-appear each time VSCode was restarted</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.5.10"><span class="version-number">v0.5.10</span> <time class="version-date" datetime="2024-05-18">May 19, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Fixed an issue that caused an entire file to crash when some tables/views are using custom functions</li>
+<li>Fixed an issue that caused rendering artifacts and column resizing issues in empty tables</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.5.9"><span class="version-number">v0.5.9</span> <time class="version-date" datetime="2024-06-30">July 1, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Improved column filtering:</p>
+<ul>
+<li>Added a button to invert a column filter</li>
+<li>Added a button to filter a column for non-nullish (<code>NULL</code> or empty string) values. You can combine it with the invert button to filter for nullish values instead.</li>
+<li>Typing <code>NULL</code> or <code>&#39;&#39;</code> into the column filter will now filter by null or empty string values respectively.</li>
+<li>Changed representation of empty strings from <code>&quot;&quot;</code> to <code>&#39;&#39;</code>. This is to match the filter values above and to distinguish it from the legitimate search target <code>&quot;&quot;</code>, which can come up in combination with JSON(B) columns. If you need to search for the exact string sequence <code>&#39;&#39;</code>, use escape characters: <code>\&#39;\&#39;</code>.</li>
+<li>Fixed a bug that caused column filters to not properly reset when deleting the contents of the search box</li>
+</ul>
+<p>Experimental support for Views:</p>
+<ul>
+<li>SQLite Viewer can now view Views. Note that there is a known performance issue for large views. This feature will retain the &quot;Experimental&quot; qualifier until I can resolve it.</li>
+<li>Added button to expand/collapse all tables and views in the sidebar</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.5.8"><span class="version-number">v0.5.8</span> <time class="version-date" datetime="2024-06-10">June 11, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Limiting webview Content Security Policy to environments that are known to work.
+This should (finally) make this extension work with GitPod and Google IDX.</li>
+<li>Fixed download button height in detail view </li>
+<li>Reduced bundle size (&lt; 1MB)</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.5.7"><span class="version-number">v0.5.7</span> <time class="version-date" datetime="2024-06-09">June 10, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>The extension now adds configuration settings for nesting SQLite-related files:</p>
+<p><img src="documentation/nesting.png" alt="File nesting screenshot"></p>
+<p>This has no effect if you aren&#39;t using VSCode&#39;s File Nesting feature. You may enable it in settings under &quot;Explorer &gt; File Nesting: Enabled&quot;.</p>
+<p>If you use file nesting, but do not want to nest SQLite files, you can manually delete the patterns from the settings page under &quot;Explorer &gt; File Nesting: Patterns&quot;. SQLite Viewer will not attempt to set the patterns again, unless explicitly requested through the command &quot;SQLite Viewer: Add SQLite File Nesting Patterns&quot;.</p>
+<p>This version also changes the file name of downloaded blobs to be prefixed with <code>-x-</code>, e.g. <code>favicons.sqlite-x-moz_icons-10-data.bin</code>. This ensures that downloaded blobs will be sorted below <code>-wal</code>, <code>-shm</code> and <code>-journal</code> files, reducing the risk of accidentally interacting with them when range-selecting downloaded files.</p>
+<h4>Fixes</h4>
+<ul>
+<li>Downgraded minimum vscode version to 1.83.1. This should make the Open VSX version of the extension work with Google IDX</li>
+<li>Removed special characters from codicons asset path. This should make icons render correctly when using the Open VSX version of the extension in GitPod</li>
+<li>Fixed an error when setting max file size to 0</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.5.6"><span class="version-number">v0.5.6</span> <time class="version-date" datetime="2024-05-31">June 1, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Fixed a potential memory issue by limiting memory usage to configured file size limit</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.5.5"><span class="version-number">v0.5.5</span> <time class="version-date" datetime="2024-05-31">June 1, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Bumped WAL Mode support to main channel.</p>
+<h4>Changes</h4>
+<ul>
+<li>Autofocus in detail view should now work when the query takes longer to finish</li>
+<li>Added better loading indicator to detail view</li>
+<li>Minor performance improvement for detail view query</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.5.4-(pre-release)"><span class="version-number">v0.5.4 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-05-22">May 23, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Generated columns are now shown</li>
+<li>Fixed showing <code>ROWID</code> column for tables that were created without row ids</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.5.3-(pre-release)"><span class="version-number">v0.5.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-05-21">May 22, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Fixed an issue that prevented the extension from loading on github.dev in Safari</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.5.2-(pre-release)"><span class="version-number">v0.5.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-05-20">May 21, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Added Content-Security-Policy to extension webview</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.5.1-(pre-release)"><span class="version-number">v0.5.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-05-18">May 19, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>No publicly visible changes</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.5.0-(pre-release)"><span class="version-number">v0.5.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-05-17">May 18, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Initial v0.5 pre-release</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.4"><span class="version-number">v0.4</span></h3>
+        </div>
+        <div class="changelog-content">
+          <h4>Solid Rewrite</h4>
+<p>SQLite Viewer 0.4 is a complete rewrite of this extension with a focus on improved performance.</p>
+<p>It also implements SQLite Viewer&#39;s <strong>most requested feature</strong>: Default file association for <code>.db</code> files! </p>
+<p>Additionally, version 0.4 ships many quality of life improvements:</p>
+<ul>
+<li>Double clicking a cell will now open the modal and pre-select the text content</li>
+<li>The extension will now attempt to auto-size text columns based on visible content on first open</li>
+<li>Blob columns containing known image formats are previewed inline</li>
+<li>Blob columns up to 256 bytes (that aren&#39;t images) are rendered in hex format instead of as a download button</li>
+<li>Pinning a row will no longer remove it from the main view</li>
+<li>Columns can now be hidden in the sidebar</li>
+<li>The <code>ROWID</code> column can now be displayed (enable in sidebar)</li>
+<li>It is now possible to select and rearrange multiple columns at the same time in the sidebar</li>
+<li>The modal/dialog view can now be resized</li>
+<li>Downloading a blob will now automatically add an appropriate file extension if it can be inferred</li>
+<li>Column sizes and pinning now persist when switching to another table (but not after closing the tab/file)</li>
+</ul>
+<h4>Performance</h4>
+<ul>
+<li>Faster virtualized scrolling</li>
+<li>Faster columns resizing</li>
+</ul>
+<h4>Style</h4>
+<ul>
+<li>Many aspects of the extension&#39;s UI should match VSCode&#39;s style closer</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.4.14"><span class="version-number">v0.4.14</span> <time class="version-date" datetime="2024-04-29">April 30, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Generated columns are now shown</li>
+<li>Fixed showing <code>ROWID</code> column for tables that are created without a <code>ROWID</code></li>
+<li>Fixed an issue that prevented the extension from loading on github.dev in Safari</li>
+</ul>
+<h3>v0.4.12 – v0.4.13</h3>
+<p><em>Released on April 30, 2024</em></p>
+<p>Fixed an issue that prevented text selection when using the extension on the web in the latest version of Chrome</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.4.11"><span class="version-number">v0.4.11</span> <time class="version-date" datetime="2024-04-29">April 30, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Tables in sidebar are now sorted alphabetically </li>
+<li>Fixed foreign key icon not being shown, or being shown on wrong column </li>
+<li>Fixed text in foreign key tooltip referencing wrong column names</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.4.10"><span class="version-number">v0.4.10</span> <time class="version-date" datetime="2024-04-29">April 30, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>SQLite updated to 3.45.3</li>
+<li>Fixed an issue that sometimes caused text selection to be slow</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.4.9"><span class="version-number">v0.4.9</span> <time class="version-date" datetime="2024-05-05">May 6, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Fixed an issue that prevented files from loading correctly when connected to a workspace via SSH</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.4.8"><span class="version-number">v0.4.8</span> <time class="version-date" datetime="2024-05-05">May 6, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>The detail view has a new, cleaner look that closer matches similar components in VSCode</li>
+<li>Added extension name and version number to the bottom left</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.4.7"><span class="version-number">v0.4.7</span> <time class="version-date" datetime="2024-05-03">May 4, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Fixed visible cells updating to new values immediately after refreshing a file</li>
+<li>Fixed an issue that caused the UI to become non-interactive when showing an error message</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.4.6"><span class="version-number">v0.4.6</span> <time class="version-date" datetime="2024-05-03">May 4, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Added button to filter columns by exact search term</li>
+<li>Removed &quot;Not Allowed&quot; cursor from read-only fields in detail view</li>
+<li>Improved startup time by avoiding unnecessary copying when opening a file</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.4.5"><span class="version-number">v0.4.5</span> <time class="version-date" datetime="2024-05-02">May 3, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Fixed an issue that caused the extension to go blank when opening an external link</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.4.4"><span class="version-number">v0.4.4</span> <time class="version-date" datetime="2024-05-02">May 3, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <h4>Features</h4>
+<p>Improved JSON column support</p>
+<ul>
+<li>JSON columns are now shown as textarea instead of a one-line input in detail view</li>
+<li>JSON textarea defaults to 6 rows instead of 2 in detail view</li>
+<li>JSON values are now rendered in monospace font</li>
+<li>JSON values are now pretty printed in detail view</li>
+</ul>
+<h4>Fixes</h4>
+<ul>
+<li>Unknown column types now default to textarea instead of one-line input</li>
+</ul>
+<h4>Style</h4>
+<ul>
+<li>Better differentiation between empty strings and NULL by showing them as <code>&quot;&quot;</code> instead of <code>NULL</code></li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.4.3"><span class="version-number">v0.4.3</span> <time class="version-date" datetime="2024-05-01">May 2, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <h4>Fixes</h4>
+<ul>
+<li>Added back search functionality for tables</li>
+<li>Fixed ROWID column sizing</li>
+<li>Fixed a browser history issue when using the extension on the web</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.4.2"><span class="version-number">v0.4.2</span> <time class="version-date" datetime="2024-04-30">May 1, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <h4>Fixes</h4>
+<ul>
+<li>Fixed column widths resetting when refreshing a file</li>
+<li>Fixed column order resetting when refreshing a file</li>
+<li>Fixed an issue causing the grid to collapse when refreshing a file</li>
+<li>Fixed sidebar column order not updating when pinning a column</li>
+</ul>
+<h4>Style</h4>
+<ul>
+<li>Increased default column width by 20%</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.4.1"><span class="version-number">v0.4.1</span> <time class="version-date" datetime="2024-04-29">April 30, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Added essential application reporting</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.4.0"><span class="version-number">v0.4.0</span> <time class="version-date" datetime="2024-04-29">April 30, 2024</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Initial v0.4 release</p>
+<h3>v0.3.0 – v3.0.24</h3>
+<p><em>Released on May 25, 2023</em></p>
+<p>Minor bug fixes and previews</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.2.4"><span class="version-number">v0.2.4</span> <time class="version-date" datetime="2023-04-10">April 11, 2023</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Added max file size setting</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.2.3"><span class="version-number">v0.2.3</span> <time class="version-date" datetime="2023-03-03">March 4, 2023</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Fixed opening FTS4 &amp; FTS5 files</li>
+<li>Fixed showing large integers</li>
+<li>Fixed showing booleans</li>
+<li>Fixed opening files exported by pandas <code>.to_sql</code></li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.2.2"><span class="version-number">v0.2.2</span> <time class="version-date" datetime="2023-03-02">March 3, 2023</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Prerelease version</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.2.1"><span class="version-number">v0.2.1</span> <time class="version-date" datetime="2023-03-01">March 2, 2023</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Prerelease version</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.2.0"><span class="version-number">v0.2.0</span> <time class="version-date" datetime="2022-03-20">March 21, 2022</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>Prerelease version</p>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.1.5"><span class="version-number">v0.1.5</span> <time class="version-date" datetime="2022-02-22">February 23, 2022</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Fixed a bug that caused the SQLite WebWorker to be initialized twice</li>
+<li>Updated dependencies<ul>
+<li>Updated SQLite to 3.38.0</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.1.4"><span class="version-number">v0.1.4</span> <time class="version-date" datetime="2022-01-23">January 24, 2022</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Updated dependencies<ul>
+<li>Updated SQLite to 3.37.2</li>
+<li>Updated React v18 to latest Release Candidate</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.1.3"><span class="version-number">v0.1.3</span> <time class="version-date" datetime="2021-12-15">December 16, 2021</time></h3>
+        </div>
+        <div class="changelog-content">
+          <ul>
+<li>Added ref to external link</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.1.2"><span class="version-number">v0.1.2</span> <time class="version-date" datetime="2021-12-14">December 15, 2021</time></h3>
+        </div>
+        <div class="changelog-content">
+          <h4>Fixes</h4>
+<ul>
+<li>Opening files with the R*Tree extension will no longer produce an error</li>
+<li>Binary values are now always rendered as download buttons, even when not specified as <code>BLOB</code> type</li>
+</ul>
+<h4>Other</h4>
+<ul>
+<li>Updated dependencies<ul>
+<li>Updated React to v18 Release Candidate</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.1.1"><span class="version-number">v0.1.1</span> <time class="version-date" datetime="2021-12-12">December 13, 2021</time></h3>
+        </div>
+        <div class="changelog-content">
+          <h4>Fixes</h4>
+<ul>
+<li>Show error message when trying to open SQLite file using extensions</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v0.1.0"><span class="version-number">v0.1.0</span> <time class="version-date" datetime="2021-11-27">November 28, 2021</time></h3>
+        </div>
+        <div class="changelog-content">
+          <p>You can now open any file with SQLite Viewer and set SQLite Viewer as default for any file extension:</p>
+<p><img src="documentation/new.gif" alt="Open With"></p>
+<h4>Changes</h4>
+<ul>
+<li>Removed the <code>.db</code> file association, as it is too generic to be permanently associated with SQLite Viewer. 
+You can easily restore the old behavior through VSCode&#39;s Open With menu.</li>
+<li>Updated dependencies<ul>
+<li>Updated React to v18 Beta</li>
+<li>Updated React Router to v6</li>
+</ul>
+</li>
+</ul>
+<h4>Fixes</h4>
+<ul>
+<li>Fixed a transparency issue with fixed columns with certain color themes</li>
+</ul>
+<h3>v0.0.1 – v0.0.24</h3>
+<ul>
+<li>Replaced Emojis with Codicons for better VSCode integration</li>
+<li>Added support for pinning columns and rows</li>
+<li>Added reload button </li>
+<li>Column virtualization: Tables with many columns should no longer impact UI performance</li>
+<li>Added keyboard shortcuts<ul>
+<li>Ctrl+F/Cmd+F: Focus global search</li>
+<li>Ctrl+R/Cmd+R: Reload content</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+        </div>
+      </div>
+    </section></div>
+			</section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="site-footer-inner">
+          <div class="brand footer-brand">
+						<a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' })">
+              <img class="header-logo-image" src="./dist/images/logo_70_mac.png" data-no-inline alt="Logo" width="35" height="35" fetchpriority="low">
+						</a>
+          </div>
+          <div class="footer-links-wrapper">
+            <ul id="footer-links" class="footer-links list-reset">
+              <li><a href="./terms.html" data-i18n-key="terms">Terms</a></li>
+              <li><a href="./privacy.html" data-i18n-key="privacy">Privacy</a></li>
+              <li><a href="./refunds.html" data-i18n-key="refunds">Refunds</a></li>
+              <li><a href="./changelog.html" data-i18n-key="changelog">Changelog</a></li>
+              <li><a href="mailto:mail@sqliteviewer.app"><span data-i18n-key="contact">Contact</span>&nbsp;↗</a></li>
+            </ul>
+          </div>
+          <ul class="footer-social-links list-reset">
+            <li>
+              <a href="https://github.com/qwtel/sqlite-viewer-vscode" title="GitHub">
+                <span class="screen-reader-text">GitHub</span>
+                <svg style="width:16px;height:16px" viewBox="0 0 1024 1024" width="1024" height="1024" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="#0270D7" fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z" transform="scale(64)"/>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a href="https://x.com/qwtel" title="X">
+                <span class="screen-reader-text">X</span>
+                <svg style="width:16px;height:16px" viewBox="0 0 300 300.251" width="300" height="300.251" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="#0270D7" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/>
+                </svg>
+              </a>
+            </li>
+          </ul>
+          <div class="footer-copyright column"><p>
+            &copy; 2025 Florian Klampfer. <span data-i18n-key="all-rights-reserved">All rights reserved</span>.<br><br>
+            <span data-i18n-key="disclaimer-1">“SQLite” is a trademark of Hipp, Wyrick & Company, Inc. “Visual Studio Code” (VS Code) is a trademark of Microsoft Corporation. This extension is an independent product and is not affiliated with the respective trademark holders.</span><br><br>
+            <span data-i18n-key="disclaimer-2">Design based on <a href="https://preview.cruip.com/solid">Solid</a>. Licensed under <a href="https://github.com/qwtel/sqlite-viewer-vscode-page">GPL-3.0</a>.</span><br><br>
+          </p></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module">
+    const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
+    darkMode.addEventListener('change', (ev) => document.documentElement.classList.toggle('sl-theme-dark', ev.matches));
+    if (darkMode.matches) document.documentElement.classList.add('sl-theme-dark');
+  </script>
+  </body>
+</html>
