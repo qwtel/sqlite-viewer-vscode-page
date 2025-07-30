@@ -177,6 +177,8 @@ $RECYCLE.BIN/
 /index-*
 /app.html
 /app-*
+/changelog.html
+/changelog-*
 
 # Ignore translations
 /de
