@@ -24,7 +24,7 @@
     "build:changelog-carousel": "bun run scripts/changelog-carousel.ts",
     "build": "run-s build:*",
     "watch:build+html": "onchange 'src/**/*' -- run-s build:html",
-    "watch:translate-html": "onchange 'index.html' 'i18n/*' 'scripts/translate.ts' -- run-s build:translate-html",
+    "watch:translate-html": "onchange 'index.html' 'i18n/*' 'scripts/translate-html.ts' -- run-s build:translate-html",
     "watch:changelog-carousel": "onchange '../CHANGELOG.md' -- run-s build:changelog-carousel",
     "watch": "run-p serve watch:*",
     "dev": "run-s build watch"
