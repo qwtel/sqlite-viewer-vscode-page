@@ -67,7 +67,7 @@ free2P: >
 free3H: "ワンクリックセットアップ"
 free3P: >
   SQLite Viewerはマシン上のバイナリに依存しません。独自のバイナリを持ち、**「インストール」をクリックするだけでセットアップが完了**します。
-  拡張機能全体のサイズはわずか7 MBです。
+  拡張機能全体のサイズはわずか10 MBです。
 free4H: "どこでも動作"
 free4P: >
   Cursor、VS Codium、CodeSandbox、GitPod、Google IDX、その他のVS Codeフォークを使用している場合でも、
