@@ -95,6 +95,18 @@
   background: transparent;
 }
 
+.pricing .pricing-table {
+  transition: all 0.3s ease;
+
+  > .pricing-table-inner {
+    transition: all 0.3s ease;
+  }
+
+  &:nth-child(1) {
+    z-index: 2;
+  }
+}
+
 /* Monthly state (when checked) */
 .pricing:has(.pricing-toggle-input:checked) {
   .one-time-price {
@@ -116,16 +128,12 @@
   }
 
   .pricing-table:nth-child(2) {
-      opacity: 0.3;
-      filter: blur(2px);
-      pointer-events: none;
-      user-select: none;
-      .one-time-price {
-        display: unset;
-      }
-      .monthly-price {
-        display: none;
-      } 
+    .one-time-price {
+      display: unset;
+    }
+    .monthly-price {
+      display: none;
+    } 
   }
 
   @media (min-width: 849px) {
@@ -133,14 +141,12 @@
       transform: translateX(calc(50% + 16px * 2));
     }
     .pricing-table:nth-child(2) {
-      transform: translateX(calc(-50% - 16px * 2)) scale(0.85);
+      pointer-events: none;
+      user-select: none;
+      transform: translateX(calc(-50% - 16px * 2)) scale(0.9);
+      > .pricing-table-inner {
+        filter: blur(5px);
+      }
     }
-  }
-}
-
-.pricing .pricing-table {
-  transition: all 0.3s ease;
-  &:nth-child(1) {
-    z-index: 2;
   }
 }
