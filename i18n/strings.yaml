@@ -64,7 +64,7 @@ free2P: >
 free3H: "One-Click Setup"
 free3P: >
   SQLite Viewer doesn't rely on binaries on your machine. It ships its own, so that __simply clicking 'Install' completes
-  the setup__. The entire extension weighs only 7 MB.
+  the setup__. The entire extension weighs only 10 MB.
 free4H: "Works Anywhere"
 free4P: >
   Whether you're using Cursor, VS Codium, CodeSandbox, GitPod, Google IDX, or other VS Code forks, __SQLite Viewer adapts to its environment__
@@ -81,10 +81,12 @@ usedAcrossIndustry: "Used across the industry, including at {NASA}"
 pricingTitle: "No Subscription, No Problem"
 pricingContent: >
   SQLite Viewer PRO is a __One-Time Purchase__ and grants you a __Perpetual License__. It works for as long as VS Code does.
+pricingContentIi: >
+  _A monthly subscription is also available for short-term projects, or if your organization requires recurring payments_.
 pricingFooter: "" #   __🌿&nbsp;Spring Sale 2025: -20% on all purchases&nbsp;🍃__
 oneTimePurchase: "One-Time Purchase"
-sameAsCalc1: "Same as $7.41/month for 12 months"
-sameAsCalc2: "Same as $12.42/month for 12 months"
+monthlySubscription: "Monthly Subscription"
+perpetualLicense: "Perpetual License"
 plusVat: "+ VAT"
 priceFeat1: "Editing and export features"
 priceFeat2: "Ad-free experience"
@@ -119,6 +121,32 @@ faq3Content: >
   and paste it into the input field at the end of the Offline License Activation wizard.<br><br>
   Devices enrolled through this method will never attempt to connect to the license server, 
   provided a Business Edition key was used and the "Business Edition evaluation" checkbox was not checked when generating the token.
+faq4Summary: What datetime formats are supported?
+faq4Content: >
+  SQLite Viewer PRO supports a wide range of datetime formats for columns defined as `DATE` or `DATETIME`. Supported input formats include:<br><br>
+  • SQLite ISO-like strings<br>
+  • ISO-8601 strings<br>
+  • Julian Day numbers<br>
+  • Seconds since 1970 (Unix timestamp)<br>
+  • Milliseconds since 1970<br>
+  • Microseconds since 1970<br>
+  • Excel serial date (1900 system)<br>
+  • Windows FILETIME since 1601<br>
+  • .NET Ticks since 0001<br><br>
+  When a valid date is recognized, it can be displayed in one of 4 formats:<br>
+  • Localized, human-readable strings (default)<br>
+  • Localized, human-readable time-ago strings (e.g. "6 months ago")<br>
+  • Machine-friendly ISO-8601 strings<br>
+  • Raw values<br><br>
+  Values can be edited using a generic date picker or by modifying the interpreted ISO string. The extension preserves the original format when saving to disk.
+faq5Summary: Can I use the PRO version to view production databases?
+faq5Content: >
+  Yes, but it is highly recommended that you make preparations.<br><br>
+  If you intend to view data only, open the live database in read-only mode to prevent accidental modification. 
+  Right-click the file, click __"Open With…"__ and select __"SQLite Viewer (read-only)"__.<br><br>
+  If you intend to modify the live database, it is highly recommended to enable the __"Sqlite Viewer: Instant Commit"__ feature from the VS Code settings menu. 
+  This will prevent the extension from opening long-running transactions that could block other SQLite processes accessing the same database.
+  However, please note that undo/redo functionality can be limited in this mode.<br><br>
 footnote1: "Offline Activation is required if a company firewall prevents the extension from connecting to the license server."
 footnote2: "When a device is enrolled through offline activation, the extension can be used without ever needing to connect to the license server."
 allRightsReserved: "All rights reserved"
@@ -140,3 +168,9 @@ comingSoon: Coming Soon
 changelogTitle: Updates, Continuously Delivered
 changelogSubtitle: "SQLite Viewer PRO keeps getting better with regular updates and new features. See what's new below:"
 preview: Preview
+oneTime: "One-Time"
+monthly: "Monthly"
+perMonth: "/ month"
+subscribe: "Subscribe"
+cancelAnytime: "Cancel Anytime"
+sixMonthCommitment: "6-Month Commitment"

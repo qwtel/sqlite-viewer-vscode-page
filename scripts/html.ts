@@ -24,7 +24,7 @@ async function buildHtmlFiles() {
       asset: 'dist/[dir]/[name].[ext]',
       chunk: 'dist/[name].[ext]',
     },
-    minify: true,
+    minify: !process.env.DEV,
   });
 
   if (!result.success) {

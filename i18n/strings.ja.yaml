@@ -67,7 +67,7 @@ free2P: >
 free3H: "ワンクリックセットアップ"
 free3P: >
   SQLite Viewerはマシン上のバイナリに依存しません。独自のバイナリを持ち、**「インストール」をクリックするだけでセットアップが完了**します。
-  拡張機能全体のサイズはわずか7 MBです。
+  拡張機能全体のサイズはわずか10 MBです。
 free4H: "どこでも動作"
 free4P: >
   Cursor、VS Codium、CodeSandbox、GitPod、Google IDX、その他のVS Codeフォークを使用している場合でも、
@@ -84,10 +84,12 @@ usedAcrossIndustry: "業界全体で使用されており、{NASA}でも使用�
 pricingTitle: "サブスクリプションなし、問題なし"
 pricingContent: >
   SQLite Viewer PROは**一度の購入**で**永久ライセンス**を提供します。VS Codeが動作する限り動作します。
+pricingContentIi: >
+  _短期プロジェクトや組織が定期的な支払いを必要とする場合、月額サブスクリプションも利用できます_。
 pricingFooter: "" # **🌿&nbsp;2025年春のセール: 全商品20%オフ&nbsp;🍃**
 oneTimePurchase: "一度の購入"
-sameAsCalc1: "12か月で月額$7.41と同じ"
-sameAsCalc2: "12か月で月額$12.42と同じ"
+monthlySubscription: "月額サブスクリプション"
+perpetualLicense: "永久ライセンス"
 plusVat: "+ 消費税"
 priceFeat1: "編集およびエクスポート機能"
 priceFeat2: "広告なしの体験"
@@ -149,3 +151,9 @@ comingSoon: 近日公開
 changelogTitle: 更新、継続的に配信
 changelogSubtitle: "SQLite Viewer PROは定期的なアップデートと新機能で常に改善されています。以下で新機能をご確認ください："
 preview: プレビュー
+oneTime: "一度"
+monthly: "月額"
+perMonth: "/月"
+subscribe: "サブスクライブ"
+cancelAnytime: "いつでもキャンセル可能"
+sixMonthCommitment: "6ヶ月のコミットメント"

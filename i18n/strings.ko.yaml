@@ -56,7 +56,8 @@ free2P: >
   불일치한 사용자 인터페이스와 작별하세요. SQLite Viewer는 **자동으로 VS Code 테마에 맞춰 조정**되어 기존 VS Code 경험에 원활하게 통합됩니다.
 free3H: "원클릭 설정"
 free3P: >
-  SQLite Viewer는 머신에 있는 바이너리에 의존하지 않습니다. 자체적으로 제공되므로 **'설치'를 클릭하는 것만으로 설정이 완료됩니다**. 전체 확장 프로그램의 크기는 7MB에 불과합니다.
+  SQLite Viewer는 머신에 있는 바이너리에 의존하지 않습니다. 자체적으로 제공되므로 **'설치'를 클릭하는 것만으로 설정이 완료됩니다**.
+  전체 확장 프로그램의 크기는 10MB에 불과합니다.
 free4H: "어디서나 작동"
 free4P: >
   Cursor, VS Codium, CodeSandbox, GitPod, Google IDX 또는 기타 VS Code 포크를 사용하든, **SQLite Viewer는 환경에 맞춰 조정**되어 가능한 많은 기능을 제공합니다.
@@ -71,10 +72,12 @@ usedAcrossIndustry: "{NASA}를 포함한 업계 전반에서 사용됨"
 pricingTitle: "구독 없음, 문제 없음"
 pricingContent: >
   SQLite Viewer PRO는 **일회성 구매**이며 **영구 라이선스**를 부여합니다. VS Code가 작동하는 한 작동합니다.
+pricingContentIi: >
+  _단기 프로젝트나 조직에서 정기 결제가 필요한 경우 월 구독도 이용할 수 있습니다_.
 pricingFooter: "" # **🌿&nbsp;2025년 봄 세일: 모든 구매 -20% 할인&nbsp;🍃**
 oneTimePurchase: "일회성 구매"
-sameAsCalc1: "12개월 동안 월 $7.41와 동일"
-sameAsCalc2: "12개월 동안 월 $12.42와 동일"
+monthlySubscription: "월 구독"
+perpetualLicense: "영구 라이선스"
 plusVat: "+ 부가세"
 priceFeat1: "편집 및 내보내기 기능"
 priceFeat2: "광고 없는 경험"
@@ -130,3 +133,9 @@ comingSoon: 곧 출시
 changelogTitle: 업데이트, 지속적으로 제공
 changelogSubtitle: "SQLite Viewer PRO는 정기적인 업데이트와 새로운 기능으로 계속 개선되고 있습니다. 아래에서 새로운 기능을 확인하세요:"
 preview: 미리보기
+oneTime: "일회"
+monthly: "월"
+perMonth: "/월"
+subscribe: "구독"
+cancelAnytime: "언제든지 취소 가능"
+sixMonthCommitment: "6개월 약정"

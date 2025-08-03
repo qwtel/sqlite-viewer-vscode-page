@@ -66,7 +66,7 @@ free2P: >
 free3H: "Installation en un clic"
 free3P: >
   SQLite Viewer ne dépend pas de binaires sur votre machine. Il apporte ses propres, de sorte que __cliquer simplement
-  sur 'Installer' complète la configuration__. L'extension entière ne pèse que 7 MB.
+  sur 'Installer' complète la configuration__. L'extension entière ne pèse que 10 MB.
 free4H: "Fonctionne partout"
 free4P: >
   Que vous utilisiez Cursor, VS Codium, CodeSandbox, GitPod, Google IDX ou d'autres forks de VS Code, __SQLite Viewer s'adapte
@@ -84,10 +84,12 @@ pricingTitle: "Pas d'abonnement, pas de problème"
 pricingContent: >
   SQLite Viewer PRO est un __achat unique__ et vous accorde une __licence perpétuelle__. Il fonctionne aussi longtemps
   que VS Code le fait.
+pricingContentIi: >
+  _Un abonnement mensuel est également disponible pour les projets à court terme, ou si votre organisation nécessite des paiements récurrents_.
 pricingFooter: "" # __🌿&nbsp;Soldes de Printemps 2025 : -20% sur tous les achats&nbsp;🍃__
 oneTimePurchase: "Achat unique"
-sameAsCalc1: "Équivalent à 7,41$/mois sur 12 mois"
-sameAsCalc2: "Équivalent à 12,42$/mois sur 12 mois"
+monthlySubscription: "Abonnement mensuel"
+perpetualLicense: "Licence perpétuelle"
 plusVat: "+ TVA"
 priceFeat1: "Fonctionnalités d'édition et d'exportation"
 priceFeat2: "Expérience sans publicité"
@@ -148,3 +150,9 @@ comingSoon: Bientôt
 changelogTitle: Mises à jour, livrées en continu
 changelogSubtitle: "SQLite Viewer PRO ne cesse de s'améliorer avec des mises à jour régulières et de nouvelles fonctionnalités. Découvrez ce qui est nouveau ci-dessous :"
 preview: Aperçu
+oneTime: "Unique"
+monthly: "Mensuel"
+perMonth: "/ mois"
+subscribe: "S'abonner"
+cancelAnytime: "Annuler à tout moment"
+sixMonthCommitment: "Engagement de 6 mois"

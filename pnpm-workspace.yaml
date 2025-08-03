@@ -1,9 +1,0 @@
-onlyBuiltDependencies:
-  - bun
-  - esbuild
-  - gifsicle
-  - jpegtran-bin
-  - msgpackr-extract
-  - optipng-bin
-  - sharp
-  - workerd
