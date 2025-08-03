@@ -18,6 +18,17 @@
   flex-wrap: wrap;
   gap: 2.5rem;
   justify-content: center;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    max-width: 100%;
+    height: 445px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-image: url('../../images/pricing-illustration.svg');
+  }
 }
 
 .pricing-table {
@@ -25,22 +36,6 @@
   width: 368px;
   max-width: 425px;
   flex-grow: 1;
-
-  &:first-of-type:before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    width: 175%;
-    max-width: 175%;
-    height: 435px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100%;
-    bottom: 18.8%;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
-    background-image: url('../../images/pricing-illustration.svg');
-  }
 }
 
 .pricing-table-header,

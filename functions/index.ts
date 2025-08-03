@@ -66,7 +66,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const vscode = searchParams.has('css-vars')
 
   let rewriter = new HTMLRewriter()
-    .on('a[href^="#purchase"]', {
+    .on('a[href^="#purchase"], a[href^="#subscribe"]', {
       element(el) {
         const href = el.getAttribute('href')!;
         let newHref = '';

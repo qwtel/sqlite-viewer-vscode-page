@@ -233,5 +233,4 @@
     observer.observe(carouselSection);
   }
 
-
 })();

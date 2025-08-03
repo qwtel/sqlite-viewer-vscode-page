@@ -114,4 +114,33 @@
     color: var(--color-typography-2);
     background: transparent;
   }
-} 
+
+  .pricing-table:nth-child(2) {
+      opacity: 0.3;
+      filter: blur(2px);
+      pointer-events: none;
+      user-select: none;
+      .one-time-price {
+        display: unset;
+      }
+      .monthly-price {
+        display: none;
+      } 
+  }
+
+  @media (min-width: 849px) {
+    .pricing-table:nth-child(1) {
+      transform: translateX(calc(50% + 16px * 2));
+    }
+    .pricing-table:nth-child(2) {
+      transform: translateX(calc(-50% - 16px * 2)) scale(0.85);
+    }
+  }
+}
+
+.pricing .pricing-table {
+  transition: all 0.3s ease;
+  &:nth-child(1) {
+    z-index: 2;
+  }
+}
