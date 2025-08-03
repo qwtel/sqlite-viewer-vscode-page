@@ -85,6 +85,7 @@ pricingContentIi: >
   _A monthly subscription is also available for short-term projects, or if your organization requires recurring payments_.
 pricingFooter: "" #   __🌿&nbsp;Spring Sale 2025: -20% on all purchases&nbsp;🍃__
 oneTimePurchase: "One-Time Purchase"
+monthlySubscription: "Monthly Subscription"
 perpetualLicense: "Perpetual License"
 plusVat: "+ VAT"
 priceFeat1: "Editing and export features"
@@ -167,3 +168,9 @@ comingSoon: Coming Soon
 changelogTitle: Updates, Continuously Delivered
 changelogSubtitle: "SQLite Viewer PRO keeps getting better with regular updates and new features. See what's new below:"
 preview: Preview
+oneTime: "One-Time"
+monthly: "Monthly"
+perMonth: "/ month"
+subscribe: "Subscribe"
+cancelAnytime: "Cancel Anytime"
+sixMonthCommitment: "6-Month Commitment"

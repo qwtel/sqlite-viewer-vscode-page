@@ -85,8 +85,12 @@ usedAcrossIndustry: "Eingesetzt in allen Branchen, einschließlich der {NASA}"
 pricingTitle: "Kein Abo, kein Problem"
 pricingContent: >
   SQLite Viewer PRO ist ein __Einmalkauf__ und gewährt eine __dauerhafte Lizenz__. Funktioniert so lange, wie VS Code funktioniert.
+pricingContentIi: >
+  _Ein monatliches Abonnement ist auch für kurzfristige Projekte verfügbar oder wenn Ihre Organisation wiederkehrende Zahlungen benötigt_.
 pricingFooter: "" # __🌿&nbsp;Frühlingsverkauf 2025: -20% auf alle Einkäufe&nbsp;🍃__
 oneTimePurchase: "Einmalzahlung"
+monthlySubscription: "Monatliches Abonnement"
+perpetualLicense: "Dauerhafte Lizenz"
 sameAsCalc1: "Entspricht $6,58/Monat für 12 Monate"
 sameAsCalc2: "Entspricht $11,58/Monat für 12 Monate"
 plusVat: "+ MwSt."
@@ -149,3 +153,9 @@ comingSoon: Demnächst
 changelogTitle: Updates, kontinuierlich geliefert
 changelogSubtitle: "SQLite Viewer PRO wird mit regelmäßigen Updates und neuen Features immer besser. Sehen Sie unten, was neu ist:"
 preview: Vorabversion
+oneTime: "Einmal"
+monthly: "Monatlich"
+perMonth: "/ Monat"
+subscribe: "Abonnieren"
+cancelAnytime: "Jederzeit kündbar"
+sixMonthCommitment: "6-Monats-Verpflichtung"

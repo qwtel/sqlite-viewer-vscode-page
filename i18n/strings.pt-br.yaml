@@ -83,8 +83,12 @@ usedAcrossIndustry: "Usado em toda a indústria, incluindo em {NASA}"
 pricingTitle: "Sem Assinatura, Sem Problema"
 pricingContent: >
   O SQLite Viewer PRO é uma __Compra Única__ e concede a você uma __Licença Perpétua__. Funciona enquanto o VS Code funcionar.
+pricingContentIi: >
+  _Uma assinatura mensal também está disponível para projetos de curto prazo, ou se sua organização requer pagamentos recorrentes_.
 pricingFooter: "" # __🌿&nbsp;Oferta de Primavera 2025: -20% em todas as compras&nbsp;🍃__
 oneTimePurchase: "Compra Única"
+monthlySubscription: "Assinatura Mensal"
+perpetualLicense: "Licença Perpétua"
 sameAsCalc1: "Equivalente a $6,58/mês por 12 meses"
 sameAsCalc2: "Equivalente a $11,58/mês por 12 meses"
 plusVat: "+ IVA"
@@ -147,3 +151,9 @@ comingSoon: Em Breve
 changelogTitle: Atualizações, entregues continuamente
 changelogSubtitle: "SQLite Viewer PRO continua melhorando com atualizações regulares e novos recursos. Veja o que há de novo abaixo:"
 preview: Visualização
+oneTime: "Única"
+monthly: "Mensal"
+perMonth: "/ mês"
+subscribe: "Assinar"
+cancelAnytime: "Cancelar a qualquer momento"
+sixMonthCommitment: "Compromisso de 6 meses"
