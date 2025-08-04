@@ -50,3 +50,11 @@
 body:not(.app) .scroller { 
   overscroll-behavior: initial!important; 
 } 
+
+:root {
+  scrollbar-gutter: stable;
+}
+
+:root:has(.app) {
+  scrollbar-gutter: auto;
+}
