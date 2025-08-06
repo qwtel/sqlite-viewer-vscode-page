@@ -51,6 +51,28 @@
           
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
+          <h3 class="changelog-version" id="v25.8.1-(pre-release)"><span class="version-number">v25.8.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span></h3>
+        </div>
+        <div class="changelog-content">
+          <h4><sl-badge variant="primary" size="small">PRO</sl-badge> Drop File as BLOB</h4>
+<p>You can now drag and drop a file into the sidebar or modal fieldset to upload its content as a <code>BLOB</code> in the corresponding column. This is an alternative to the file picker and not limited to <code>BLOB</code> columns.
+This works with both OS files from the File Explorer/Finder as well as VS Code files from the file tree.</p>
+<h4>Changes</h4>
+<ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Removed per-cell datetime formats. The datetime format is now guessed per column.</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Datetime format is now always shown in the header cell and its behavior is now the same as the one in the sidebar.</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed editing cell values in VS Code when column names include <code>/</code>.</li>
+</ul>
+<h4>Known Issues</h4>
+<ul>
+<li>Poor performance for uploading larger files</li>
+<li>Missing loading indicators when undoing file uploads</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
           <h3 class="changelog-version" id="v25.8.0-(pre-release)"><span class="version-number">v25.8.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-07-31">August 1, 2025</time></h3>
         </div>
         <div class="changelog-content">

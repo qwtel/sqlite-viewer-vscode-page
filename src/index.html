@@ -500,6 +500,30 @@
       <sl-carousel-item>
         <div class="changelog-card changelog-card-landing">
           <div class="changelog-header">
+            <h4 class="changelog-version" id="v25.8.1-(pre-release)"><span class="version-number">v25.8.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span></h4>
+          </div>
+          <div class="changelog-content text-sm">
+            <h5><sl-badge variant="primary" size="small">PRO</sl-badge> Drop File as BLOB</h5>
+<p>You can now drag and drop a file into the sidebar or modal fieldset to upload its content as a <code>BLOB</code> in the corresponding column. This is an alternative to the file picker and not limited to <code>BLOB</code> columns.
+This works with both OS files from the File Explorer/Finder as well as VS Code files from the file tree.</p>
+<h5>Changes</h5>
+<ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Removed per-cell datetime formats. The datetime format is now guessed per column.</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Datetime format is now always shown in the header cell and its behavior is now the same as the one in the sidebar.</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed editing cell values in VS Code when column names include <code>/</code>.</li>
+</ul>
+<h5>Known Issues</h5>
+<ul>
+<li>Poor performance for uploading larger files</li>
+<li>Missing loading indicators when undoing file uploads</li>
+</ul>
+
+          </div>
+        </div>
+      </sl-carousel-item>
+      <sl-carousel-item>
+        <div class="changelog-card changelog-card-landing">
+          <div class="changelog-header">
             <h4 class="changelog-version" id="v25.8.0-(pre-release)"><span class="version-number">v25.8.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-07-31">August 1, 2025</time></h4>
           </div>
           <div class="changelog-content text-sm">
@@ -583,17 +607,6 @@ Exported data is written directly to a file. </p>
 <li>Updated SQLite and SQLite WASM to 3.50.1</li>
 <li>Various other changes and fixes</li>
 </ul>
-
-          </div>
-        </div>
-      </sl-carousel-item>
-      <sl-carousel-item>
-        <div class="changelog-card changelog-card-landing">
-          <div class="changelog-header">
-            <h4 class="changelog-version" id="v25.5.4-(pre-release)"><span class="version-number">v25.5.4 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-05-08">May 9, 2025</time></h4>
-          </div>
-          <div class="changelog-content text-sm">
-            <p>Fixed visual row number alignment issue</p>
 
           </div>
         </div>
