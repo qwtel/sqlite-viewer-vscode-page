@@ -76,7 +76,7 @@ Rather than overwriting the entire JSON value, only the properties that changed 
           <h3 class="changelog-version" id="v2581-pre-release"><span class="version-number">v25.8.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-08-06">August 7, 2025</time></h3>
         </div>
         <div class="changelog-content">
-          <h4 id="pro-drag-&amp;-drop-file-as-blob"><sl-badge variant="primary" size="small">PRO</sl-badge> Drag &amp; Drop File as BLOB</h4><p>You can now drag and drop a file into the sidebar or modal fieldset to upload its content as a <code>BLOB</code> in the corresponding column. This is an alternative to the file picker and not limited to <code>BLOB</code> columns.
+          <h4 id="pro-drag--drop-file-as-blob"><sl-badge variant="primary" size="small">PRO</sl-badge> Drag &amp; Drop File as BLOB</h4><p>You can now drag and drop a file into the sidebar or modal fieldset to upload its content as a <code>BLOB</code> in the corresponding column. This is an alternative to the file picker and not limited to <code>BLOB</code> columns.
 This works with both OS files from the File Explorer/Finder as well as VS Code files from the file tree.</p>
 <h4 id="changes">Changes</h4><ul>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Removed per-cell datetime formats. The datetime format is now guessed per column.</li>
@@ -282,7 +282,7 @@ Hopefully, more functionality from SQLite&#39;s <code>SET</code> statement can b
           <h3 class="changelog-version" id="v2540-pre-release"><span class="version-number">v25.4.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-04-18">April 19, 2025</time></h3>
         </div>
         <div class="changelog-content">
-          <h4 id="pro-date/time-support"><sl-badge variant="primary" size="small">PRO</sl-badge> Date/Time Support</h4><p>Columns that are defined as either <code>DATE</code> or <code>DATETIME</code> and have structured data in them are now shown as formatted dates. Supported formats are:</p>
+          <h4 id="pro-datetime-support"><sl-badge variant="primary" size="small">PRO</sl-badge> Date/Time Support</h4><p>Columns that are defined as either <code>DATE</code> or <code>DATETIME</code> and have structured data in them are now shown as formatted dates. Supported formats are:</p>
 <ul>
 <li>SQLite ISO-like strings</li>
 <li>ISO-8601 strings</li>
@@ -342,7 +342,7 @@ When viewing a column in machine-friendly format and exporting for Excel, the da
           <h4 id="better-dynamic-typing-support">Better Dynamic Typing Support</h4><p>The viewer will now better differentiate between column types (as defined by <code>CREATE TABLE</code>) and the actual types of individual values. 
 The labels in the detail view have been updated to indicate this. 
 For example, when a <code>TEXT</code> value was inserted in a <code>BLOB</code> column, the label will be <code>TEXT→BLOB</code> instead of just <code>BLOB</code>.</p>
-<h4 id="basic-<code>jsonb</code>-support">Basic <code>JSONB</code> Support</h4><ul>
+<h4 id="basic-jsonb-support">Basic <code>JSONB</code> Support</h4><ul>
 <li>Values in <code>JSONB</code> columns are now rendered in their textual representation instead of downloadable blobs</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Values inserted or updated in <code>JSONB</code> columns are now automatically wrapped in <code>jsonb(?)</code></li>
 </ul>
@@ -384,7 +384,7 @@ For example, when a <code>TEXT</code> value was inserted in a <code>BLOB</code> 
           <h3 class="changelog-version" id="v010"><span class="version-number">v0.10</span></h3>
         </div>
         <div class="changelog-content">
-          <h4 id="localization-🇩🇪-🇫🇷-🇧🇷-🇯🇵-🇪🇸-🇰🇷">Localization 🇩🇪 🇫🇷 🇧🇷 🇯🇵 🇪🇸 🇰🇷</h4><p>This extension now includes translations for German, French, Portuguese (Brazil), Japanese, Spanish and Korean.
+          <h4 id="localization-----">Localization 🇩🇪 🇫🇷 🇧🇷 🇯🇵 🇪🇸 🇰🇷</h4><p>This extension now includes translations for German, French, Portuguese (Brazil), Japanese, Spanish and Korean.
 If your VS Code display language is set to one of these, the extension will adjust automatically. 
 You can change your VS Code display language from the Command Palette using &quot;Configure Display Language&quot;.</p>
 
@@ -570,7 +570,7 @@ You can change your VS Code display language from the Command Palette using &quo
           <h3 class="changelog-version" id="v08"><span class="version-number">v0.8</span></h3>
         </div>
         <div class="changelog-content">
-          <h4 id="<a-href="https://vscodesqliteviewerapp">sqlite-viewer-pro</a>"><a href="https://vscode.sqliteviewer.app">SQLite Viewer PRO</a></h4><p>You can now upgrade SQLite Viewer to a read-write database editor by upgrading to SQLite Viewer PRO. 
+          <h4 id="sqlite-viewer-pro"><a href="https://vscode.sqliteviewer.app">SQLite Viewer PRO</a></h4><p>You can now upgrade SQLite Viewer to a read-write database editor by upgrading to SQLite Viewer PRO. 
 Like the base version, it&#39;s designed to <em>just work</em>, even in remote workspaces like WSL, SSH, and containers. For more information check out <a href="https://vscode.sqliteviewer.app">vscode.sqliteviewer.app</a> or the info popup inside the viewer. 
 Users of the free version are not affected by this.</p>
 <h4 id="secondary-sidebar">Secondary Sidebar</h4><p>SQLite Viewer now features a second sidebar 🎉. It shows either the current row selection or metadata about the current table.</p>
@@ -1040,7 +1040,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
 <li>Fixed showing <code>ROWID</code> column for tables that are created without a <code>ROWID</code></li>
 <li>Fixed an issue that prevented the extension from loading on github.dev in Safari</li>
 </ul>
-<h3 id="v0412-–-v0413">v0.4.12 – v0.4.13</h3><p><em>Released on April 30, 2024</em></p>
+<h3 id="v0412--v0413">v0.4.12 – v0.4.13</h3><p><em>Released on April 30, 2024</em></p>
 <p>Fixed an issue that prevented text selection when using the extension on the web in the latest version of Chrome</p>
 
         </div>
@@ -1191,7 +1191,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
         </div>
         <div class="changelog-content">
           <p>Initial v0.4 release</p>
-<h3 id="v030-–-v3024">v0.3.0 – v3.0.24</h3><p><em>Released on May 25, 2023</em></p>
+<h3 id="v030--v3024">v0.3.0 – v3.0.24</h3><p><em>Released on May 25, 2023</em></p>
 <p>Minor bug fixes and previews</p>
 
         </div>
@@ -1337,7 +1337,7 @@ You can easily restore the old behavior through VSCode&#39;s Open With menu.</li
 <h4 id="fixes">Fixes</h4><ul>
 <li>Fixed a transparency issue with fixed columns with certain color themes</li>
 </ul>
-<h3 id="v001-–-v0024">v0.0.1 – v0.0.24</h3><ul>
+<h3 id="v001--v0024">v0.0.1 – v0.0.24</h3><ul>
 <li>Replaced Emojis with Codicons for better VSCode integration</li>
 <li>Added support for pinning columns and rows</li>
 <li>Added reload button </li>

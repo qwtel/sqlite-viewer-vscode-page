@@ -98,10 +98,11 @@ async function processReleaseContent(content: string, headlineAdjustment: number
   // Create a custom renderer to add IDs to headings
   const renderer = new marked.Renderer();
   renderer.heading = ({ tokens, depth }) => {
-    // Parse the tokens to get the text content using the parser
-    const text = renderer.parser.parseInline(tokens);
+    // Extract plain text from tokens
+    const text = tokens.map(token => 'text' in token ? token.text : '').join('');
     const id = generateMarkdownId(text);
-    return `<h${depth} id="${id}">${text}</h${depth}>`;
+    const html = renderer.parser.parseInline(tokens);
+    return `<h${depth} id="${id}">${html}</h${depth}>`;
   };
   
   // Parse markdown content with custom renderer
@@ -123,9 +124,8 @@ async function processReleaseContent(content: string, headlineAdjustment: number
 function generateMarkdownId(text: string): string {
   return text
     .toLowerCase()
-    .replace(/[.()[\]]/g, '') // Remove parentheses
-    .replace(/\s+/g, '-') // Replace spaces with hyphens
-    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+    .replace(/[^\p{L}\p{N}\s\-_]/gu, '') // Keep only letters, numbers, spaces, hyphens, underscores
+    .replace(/\s/g, '-') // Replace spaces with hyphens
     .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
 }
 
