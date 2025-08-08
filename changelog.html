@@ -51,20 +51,39 @@
           
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v25.8.1-(pre-release)"><span class="version-number">v25.8.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-08-06">August 7, 2025</time></h3>
+          <h3 class="changelog-version" id="v2582-pre-release"><span class="version-number">v25.8.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span></h3>
         </div>
         <div class="changelog-content">
-          <h4><sl-badge variant="primary" size="small">PRO</sl-badge> Drop File as BLOB</h4>
-<p>You can now drag and drop a file into the sidebar or modal fieldset to upload its content as a <code>BLOB</code> in the corresponding column. This is an alternative to the file picker and not limited to <code>BLOB</code> columns.
-This works with both OS files from the File Explorer/Finder as well as VS Code files from the file tree.</p>
-<h4>Changes</h4>
+          <h4 id="pro-json-patch"><sl-badge variant="primary" size="small">PRO</sl-badge> JSON Patch</h4><p>Updating JSON values will now attempt to update the structure sparsely using SQLite&#39;s built-in <code>json_patch</code> and <code>jsonb_patch</code> utilities. 
+This can be useful when another process has modified the JSON value while manually editing the value through the extension UI.
+Rather than overwriting the entire JSON value, only the properties that changed in the edit will be applied, preserving non-conflicting external changes. </p>
+<p>This should be particularly useful when <a href="/changelog#pro-edit-in-vs-code">editing values in a VS Code tab</a> and the <a href="/changelog#v2560-pre-release">Instant Commit</a> setting.</p>
+<p>Beware that this feature is still experimental and has a few sharp edges:</p>
 <ul>
+<li>Conflicts will still be resolved in favor of last-write, same as in the case of non-JSON values. </li>
+<li>This is subject to the limitations of SQLite&#39;s <a href="https://www.sqlite.org/json1.html#jpatch">patch functions</a>, specifically with respect to arrays, which are overwritten in whole.</li>
+<li>For textual <code>JSON</code> values, it will only attempt the new patch behavior if both values are strict RFC-8259 JSON values. SQLite supports a more relaxed standard for JSON, which also allows code comments. Applying patches through <code>json_patch</code> would not preserve these. 
+<code>JSONB</code> columns do not have this limitation.</li>
+</ul>
+<h4 id="fixes">Fixes</h4><ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Editing a <code>BLOB</code> value in a VS Code Tab (using a hex editor extension) should now correctly store it as a <code>BLOB</code> value in SQLite instead of incorrectly coercing to UTF-8.</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
+          <h3 class="changelog-version" id="v2581-pre-release"><span class="version-number">v25.8.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-08-06">August 7, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <h4 id="pro-drag-&amp;-drop-file-as-blob"><sl-badge variant="primary" size="small">PRO</sl-badge> Drag &amp; Drop File as BLOB</h4><p>You can now drag and drop a file into the sidebar or modal fieldset to upload its content as a <code>BLOB</code> in the corresponding column. This is an alternative to the file picker and not limited to <code>BLOB</code> columns.
+This works with both OS files from the File Explorer/Finder as well as VS Code files from the file tree.</p>
+<h4 id="changes">Changes</h4><ul>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Removed per-cell datetime formats. The datetime format is now guessed per column.</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Datetime format is now always shown in the header cell and its behavior is now the same as the one in the sidebar.</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed editing cell values in VS Code when column names include <code>/</code>.</li>
 </ul>
-<h4>Known Issues</h4>
-<ul>
+<h4 id="known-issues">Known Issues</h4><ul>
 <li>Poor performance for uploading larger files</li>
 <li>Missing loading indicators when undoing file uploads</li>
 </ul>
@@ -73,18 +92,16 @@ This works with both OS files from the File Explorer/Finder as well as VS Code f
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v25.8.0-(pre-release)"><span class="version-number">v25.8.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-07-31">August 1, 2025</time></h3>
+          <h3 class="changelog-version" id="v2580-pre-release"><span class="version-number">v25.8.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-07-31">August 1, 2025</time></h3>
         </div>
         <div class="changelog-content">
-          <h4><sl-badge variant="primary" size="small">PRO</sl-badge> Edit in VS Code</h4>
-<p>You can now edit individual cell values in a tab in VS Code, making full use of VS Code&#39;s text editing features, installed extensions (Vim mode!), 
+          <h4 id="pro-edit-in-vs-code"><sl-badge variant="primary" size="small">PRO</sl-badge> Edit in VS Code</h4><p>You can now edit individual cell values in a tab in VS Code, making full use of VS Code&#39;s text editing features, installed extensions (Vim mode!), 
 syntax highlighting, and more. This should be particularly useful when editing JSON(B) columns. </p>
 <p>You can access this feature through the &quot;Edit in VS Code to the Side&quot; icon button in the top right corner of a text area (visible on hover).
 There is now also a VS Code setting to configure the behavior of a cell double-click, allowing you to open it in the new VS Code tab feature instead of the built-in modal dialog.</p>
 <p>This feature also makes use of VS Code&#39;s text syntax detection feature to open tabs with appropriate formatting pre-applied. This can be useful when storing HTML responses or Markdown content in SQLite.</p>
 <p>For improved ergonomics, the behavior of the SQLite Viewer sidebar has been modified to auto-close when space is running low (i.e., when a VS Code tab opens to the side) and to auto-show when it becomes available again.</p>
-<h4>Changes</h4>
-<ul>
+<h4 id="changes">Changes</h4><ul>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> UTC/local time zone toggle is now always visible in column headers</li>
 <li>Improved queries for tables without <code>ROWID</code> and multiple primary keys</li>
 <li>Using BLOBs as primary keys in tables without <code>ROWID</code> now works, provided they are small (&lt;= 48 bytes).</li>
@@ -97,8 +114,7 @@ There is now also a VS Code setting to configure the behavior of a cell double-c
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed invalid output when exporting a table with exactly 1 row as a JSON object</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug that prevented deleting rows in tables without <code>ROWID</code></li>
 </ul>
-<h4>Known Issues</h4>
-<ul>
+<h4 id="known-issues">Known Issues</h4><ul>
 <li>Exporting from within the viewer is broken when multiples DBs of the same name are open (export from the command pallette not affected)</li>
 </ul>
 
@@ -106,17 +122,15 @@ There is now also a VS Code setting to configure the behavior of a cell double-c
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v25.7.0-(pre-release)"><span class="version-number">v25.7.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-07-16">July 17, 2025</time></h3>
+          <h3 class="changelog-version" id="v2570-pre-release"><span class="version-number">v25.7.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-07-16">July 17, 2025</time></h3>
         </div>
         <div class="changelog-content">
-          <h4><sl-badge variant="primary" size="small">PRO</sl-badge> Export Dialog</h4>
-<p>Introduced a new export command for saving table data in multiple formats.
+          <h4 id="pro-export-dialog"><sl-badge variant="primary" size="small">PRO</sl-badge> Export Dialog</h4><p>Introduced a new export command for saving table data in multiple formats.
 This feature is designed as an alternative to the selection/clipboard-based export, especially for larger tables. 
 Exported data is written directly to a file. </p>
 <p>You can launch the export either as a standalone command from the Command Palette or through a modal dialog within the viewer. The modal dialog supports sorting and filtering, just like the clipboard export.</p>
 <p>While this method can handle larger datasets than the clipboard export, it is still limited by JS&#39; performance and the overhead of data marshalling. For exporting large tables (1M+ rows), a dedicated export tool is recommended.</p>
-<h4>Fixes</h4>
-<ul>
+<h4 id="fixes">Fixes</h4><ul>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug that prevented images from being embedded in exported data.</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> The cutoff for inlined BLOBs can now be configured from the export dialog (also affects clipboard export) and now defaults to 10KB.</li>
 <li>Fixed an issue where the left sidebar could not be snapped to its minimum position.</li>
@@ -127,7 +141,7 @@ Exported data is written directly to a file. </p>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v25.6.1-(pre-release)"><span class="version-number">v25.6.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-06-29">June 30, 2025</time></h3>
+          <h3 class="changelog-version" id="v2561-pre-release"><span class="version-number">v25.6.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-06-29">June 30, 2025</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -141,7 +155,7 @@ Exported data is written directly to a file. </p>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v25.6.0-(pre-release)"><span class="version-number">v25.6.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-06-22">June 23, 2025</time></h3>
+          <h3 class="changelog-version" id="v2560-pre-release"><span class="version-number">v25.6.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-06-22">June 23, 2025</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -155,7 +169,7 @@ Exported data is written directly to a file. </p>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v25.5.4-(pre-release)"><span class="version-number">v25.5.4 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-05-08">May 9, 2025</time></h3>
+          <h3 class="changelog-version" id="v2554-pre-release"><span class="version-number">v25.5.4 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-05-08">May 9, 2025</time></h3>
         </div>
         <div class="changelog-content">
           <p>Fixed visual row number alignment issue</p>
@@ -164,7 +178,7 @@ Exported data is written directly to a file. </p>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v25.5.3-(pre-release)"><span class="version-number">v25.5.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-05-08">May 9, 2025</time></h3>
+          <h3 class="changelog-version" id="v2553-pre-release"><span class="version-number">v25.5.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-05-08">May 9, 2025</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -186,18 +200,15 @@ The download button is now on the right side, no longer in the same spot as imag
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v25.5.2-(pre-release)"><span class="version-number">v25.5.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-05-06">May 7, 2025</time></h3>
+          <h3 class="changelog-version" id="v2552-pre-release"><span class="version-number">v25.5.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-05-06">May 7, 2025</time></h3>
         </div>
         <div class="changelog-content">
-          <h4><sl-badge variant="primary" size="small">PRO</sl-badge> Pragma Editor</h4>
-<p>PRO users now have access to a experimental PRAGMA editor. It is located in a new tab in the sidebar.</p>
-<h4>Changes</h4>
-<ul>
+          <h4 id="pro-pragma-editor"><sl-badge variant="primary" size="small">PRO</sl-badge> Pragma Editor</h4><p>PRO users now have access to a experimental PRAGMA editor. It is located in a new tab in the sidebar.</p>
+<h4 id="changes">Changes</h4><ul>
 <li>Changed icons in datetime text input to match icons in cells</li>
 <li>Changed rendering of datetime values to omit the <code>T</code> in the UI (export not affected)</li>
 </ul>
-<h4>Fixes</h4>
-<ul>
+<h4 id="fixes">Fixes</h4><ul>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed an issue that caused an extra entry on the undo history when an SQLite error occurred during an operation</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a memory leak related to event listeners</li>
 </ul>
@@ -206,7 +217,7 @@ The download button is now on the right side, no longer in the same spot as imag
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v25.5.0-(pre-release)"><span class="version-number">v25.5.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-05-01">May 2, 2025</time></h3>
+          <h3 class="changelog-version" id="v2550-pre-release"><span class="version-number">v25.5.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-05-01">May 2, 2025</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -219,7 +230,7 @@ The download button is now on the right side, no longer in the same spot as imag
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v25.4.3-(pre-release)"><span class="version-number">v25.4.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-04-27">April 28, 2025</time></h3>
+          <h3 class="changelog-version" id="v2543-pre-release"><span class="version-number">v25.4.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-04-27">April 28, 2025</time></h3>
         </div>
         <div class="changelog-content">
           <p>Fixed a potential issue during file opening</p>
@@ -228,23 +239,20 @@ The download button is now on the right side, no longer in the same spot as imag
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v25.4.2-(pre-release)"><span class="version-number">v25.4.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-04-27">April 28, 2025</time></h3>
+          <h3 class="changelog-version" id="v2542-pre-release"><span class="version-number">v25.4.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-04-27">April 28, 2025</time></h3>
         </div>
         <div class="changelog-content">
-          <h4><sl-badge variant="primary" size="small">PRO</sl-badge> Improved Logging</h4>
-<p>The Log has moved to VS Code&#39;s Output tab. This enables syntax highlighting, search, filtering, and also improves logging performance.</p>
+          <h4 id="pro-improved-logging"><sl-badge variant="primary" size="small">PRO</sl-badge> Improved Logging</h4><p>The Log has moved to VS Code&#39;s Output tab. This enables syntax highlighting, search, filtering, and also improves logging performance.</p>
 <ul>
 <li>Clicking the Log tab in the sidebar now opens VS Code&#39;s Output pane with the SQLite Viewer log pre-selected</li>
 <li>Added <code>[read]</code> and <code>[WRITE]</code> to all log lines, making it easier to scan for unsaved edits, both visually and when using the UI filter</li>
 <li>Added <code>[${filename}]</code> to all log lines. This allows you to use the quick filter to limit the output to specific files</li>
 </ul>
-<h4><sl-badge variant="primary" size="small">PRO</sl-badge> Basic Batch Updates</h4>
-<p>Added basic multi-select and batch editing. When selecting two or more rows, the sidebar now shows the number of distinct values in the selection, or the single common value. 
+<h4 id="pro-basic-batch-updates"><sl-badge variant="primary" size="small">PRO</sl-badge> Basic Batch Updates</h4><p>Added basic multi-select and batch editing. When selecting two or more rows, the sidebar now shows the number of distinct values in the selection, or the single common value. 
 Changing a value in the sidebar will apply it to all selected rows. 
 For now, this is limited to fixed values. 
 Hopefully, more functionality from SQLite&#39;s <code>SET</code> statement can be surfaced in a future update.</p>
-<h4>Fixes</h4>
-<ul>
+<h4 id="fixes">Fixes</h4><ul>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug that caused the extension to hang after encountering certain SQLite errors, such as foreign key mismatches</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed the UI not updating when reverting unsaved changes through VS Code</li>
 <li>Fixed a bug when using <code>\</code> in search terms</li>
@@ -256,7 +264,7 @@ Hopefully, more functionality from SQLite&#39;s <code>SET</code> statement can b
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v25.4.1-(pre-release)"><span class="version-number">v25.4.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-04-22">April 23, 2025</time></h3>
+          <h3 class="changelog-version" id="v2541-pre-release"><span class="version-number">v25.4.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-04-22">April 23, 2025</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -271,11 +279,10 @@ Hopefully, more functionality from SQLite&#39;s <code>SET</code> statement can b
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v25.4.0-(pre-release)"><span class="version-number">v25.4.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-04-18">April 19, 2025</time></h3>
+          <h3 class="changelog-version" id="v2540-pre-release"><span class="version-number">v25.4.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-04-18">April 19, 2025</time></h3>
         </div>
         <div class="changelog-content">
-          <h4><sl-badge variant="primary" size="small">PRO</sl-badge> Date/Time Support</h4>
-<p>Columns that are defined as either <code>DATE</code> or <code>DATETIME</code> and have structured data in them are now shown as formatted dates. Supported formats are:</p>
+          <h4 id="pro-date/time-support"><sl-badge variant="primary" size="small">PRO</sl-badge> Date/Time Support</h4><p>Columns that are defined as either <code>DATE</code> or <code>DATETIME</code> and have structured data in them are now shown as formatted dates. Supported formats are:</p>
 <ul>
 <li>SQLite ISO-like strings</li>
 <li>ISO-8601 strings</li>
@@ -299,8 +306,7 @@ Hopefully, more functionality from SQLite&#39;s <code>SET</code> statement can b
 When exporting to JSON, dates will generally be included as ISO strings, unless raw is selected.
 When exporting to human-readable formats like Markdown and HTML, the output will generally match what&#39;s on screen.
 When viewing a column in machine-friendly format and exporting for Excel, the dates will be included in Excel&#39;s serial date format. </p>
-<h4><sl-badge variant="primary" size="small">PRO</sl-badge> Exports</h4>
-<ul>
+<h4 id="pro-exports"><sl-badge variant="primary" size="small">PRO</sl-badge> Exports</h4><ul>
 <li>Renamed the default export format from &quot;TSV&quot; to &quot;Excel&quot; to better reflect its intended purpose</li>
 <li>Changed HTML export to also populate the <code>text/html</code> MIME type in the clipboard. This can help pasting structured content into some applications. The old TSV export also made use of this behavior.</li>
 <li>Added a plain &quot;TSV&quot; export format</li>
@@ -309,15 +315,13 @@ When viewing a column in machine-friendly format and exporting for Excel, the da
 <li><code>JSONB</code> columns are now exported as <code>jsonb(&#39;...&#39;)</code> when picking SQLite as export format</li>
 <li><code>NULL</code> values are now omitted when exporting to Excel, CSV, TSV, HTML, or Markdown instead of being included as &quot;NULL&quot; strings</li>
 </ul>
-<h4>Additions</h4>
-<ul>
+<h4 id="additions">Additions</h4><ul>
 <li><code>JSONB</code> values are now rendered correctly regardless of column type</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> <code>JSONB</code> values can now be edited regardless of column type</li>
 <li>Small <code>BLOB</code> values (&lt;= 48 bytes) are now rendered as hexadecimal in text inputs</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Small <code>BLOB</code> values can now be inserted and updated in hexadecimal from within the extension. Common formats like UUIDs and IPv6 addresses can be pasted directly into the text field.</li>
 </ul>
-<h4>Fixes</h4>
-<ul>
+<h4 id="fixes">Fixes</h4><ul>
 <li>Various improvements to translations </li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed lost precision when viewing integers above 2^53 - 1 and below -(2^53 - 1)</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed potential issue when inserting or updating values in tables that have special characters in the name</li>
@@ -326,27 +330,23 @@ When viewing a column in machine-friendly format and exporting for Excel, the da
 <li>Arrow icons in column type labels now look identical across platforms</li>
 <li>Fixed hex size cutoff mismatch between UI (48) and exports (32)</li>
 </ul>
-<h3>March 2025</h3>
-<p>This extension is now published using Calendar Versioning of shape: <code>YY.MM.MICRO</code>. Using SemVer for a UI client never made much sense, nor was there a clear cutoff when this extension went from 0 to 1. Going forward, all versions will be a date + incremental number.</p>
+<h3 id="march-2025">March 2025</h3><p>This extension is now published using Calendar Versioning of shape: <code>YY.MM.MICRO</code>. Using SemVer for a UI client never made much sense, nor was there a clear cutoff when this extension went from 0 to 1. Going forward, all versions will be a date + incremental number.</p>
 
         </div>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v25.3.1-(pre-release)"><span class="version-number">v25.3.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-03-22">March 23, 2025</time></h3>
+          <h3 class="changelog-version" id="v2531-pre-release"><span class="version-number">v25.3.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-03-22">March 23, 2025</time></h3>
         </div>
         <div class="changelog-content">
-          <h4>Better Dynamic Typing Support</h4>
-<p>The viewer will now better differentiate between column types (as defined by <code>CREATE TABLE</code>) and the actual types of individual values. 
+          <h4 id="better-dynamic-typing-support">Better Dynamic Typing Support</h4><p>The viewer will now better differentiate between column types (as defined by <code>CREATE TABLE</code>) and the actual types of individual values. 
 The labels in the detail view have been updated to indicate this. 
 For example, when a <code>TEXT</code> value was inserted in a <code>BLOB</code> column, the label will be <code>TEXT→BLOB</code> instead of just <code>BLOB</code>.</p>
-<h4>Basic <code>JSONB</code> Support</h4>
-<ul>
+<h4 id="basic-<code>jsonb</code>-support">Basic <code>JSONB</code> Support</h4><ul>
 <li>Values in <code>JSONB</code> columns are now rendered in their textual representation instead of downloadable blobs</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Values inserted or updated in <code>JSONB</code> columns are now automatically wrapped in <code>jsonb(?)</code></li>
 </ul>
-<h4>Other</h4>
-<ul>
+<h4 id="other">Other</h4><ul>
 <li>Reduced cutoff for rendering <code>BLOB</code> columns in hex format from 256 to 48 bytes </li>
 <li>Download button in cells is now always aligned left</li>
 <li>Size in bytes is now displayed even when showing a preview image in a cell</li>
@@ -366,7 +366,7 @@ For example, when a <code>TEXT</code> value was inserted in a <code>BLOB</code> 
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v25.3.0-(pre-release)"><span class="version-number">v25.3.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-03-14">March 15, 2025</time></h3>
+          <h3 class="changelog-version" id="v2530-pre-release"><span class="version-number">v25.3.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-03-14">March 15, 2025</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -381,11 +381,10 @@ For example, when a <code>TEXT</code> value was inserted in a <code>BLOB</code> 
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.10"><span class="version-number">v0.10</span></h3>
+          <h3 class="changelog-version" id="v010"><span class="version-number">v0.10</span></h3>
         </div>
         <div class="changelog-content">
-          <h4>Localization 🇩🇪 🇫🇷 🇧🇷 🇯🇵 🇪🇸 🇰🇷</h4>
-<p>This extension now includes translations for German, French, Portuguese (Brazil), Japanese, Spanish and Korean.
+          <h4 id="localization-🇩🇪-🇫🇷-🇧🇷-🇯🇵-🇪🇸-🇰🇷">Localization 🇩🇪 🇫🇷 🇧🇷 🇯🇵 🇪🇸 🇰🇷</h4><p>This extension now includes translations for German, French, Portuguese (Brazil), Japanese, Spanish and Korean.
 If your VS Code display language is set to one of these, the extension will adjust automatically. 
 You can change your VS Code display language from the Command Palette using &quot;Configure Display Language&quot;.</p>
 
@@ -393,7 +392,7 @@ You can change your VS Code display language from the Command Palette using &quo
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.10.5"><span class="version-number">v0.10.5</span> <time class="version-date" datetime="2025-03-11">March 12, 2025</time></h3>
+          <h3 class="changelog-version" id="v0105"><span class="version-number">v0.10.5</span> <time class="version-date" datetime="2025-03-11">March 12, 2025</time></h3>
         </div>
         <div class="changelog-content">
           <p>Fixed an issue that prevented the editor from opening in the latest VS Code preview build.</p>
@@ -402,7 +401,7 @@ You can change your VS Code display language from the Command Palette using &quo
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.10.4-(pre-release)"><span class="version-number">v0.10.4 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-03-10">March 11, 2025</time></h3>
+          <h3 class="changelog-version" id="v0104-pre-release"><span class="version-number">v0.10.4 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-03-10">March 11, 2025</time></h3>
         </div>
         <div class="changelog-content">
           <p>Retrying previous release</p>
@@ -411,7 +410,7 @@ You can change your VS Code display language from the Command Palette using &quo
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.10.3-(pre-release)"><span class="version-number">v0.10.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-03-10">March 11, 2025</time></h3>
+          <h3 class="changelog-version" id="v0103-pre-release"><span class="version-number">v0.10.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-03-10">March 11, 2025</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -425,7 +424,7 @@ You can change your VS Code display language from the Command Palette using &quo
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.10.2"><span class="version-number">v0.10.2</span> <time class="version-date" datetime="2025-02-13">February 14, 2025</time></h3>
+          <h3 class="changelog-version" id="v0102"><span class="version-number">v0.10.2</span> <time class="version-date" datetime="2025-02-13">February 14, 2025</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -438,7 +437,7 @@ You can change your VS Code display language from the Command Palette using &quo
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.10.1"><span class="version-number">v0.10.1</span> <time class="version-date" datetime="2025-02-10">February 11, 2025</time></h3>
+          <h3 class="changelog-version" id="v0101"><span class="version-number">v0.10.1</span> <time class="version-date" datetime="2025-02-10">February 11, 2025</time></h3>
         </div>
         <div class="changelog-content">
           <p>Added Japanese, Spanish and Korean translations.</p>
@@ -447,7 +446,7 @@ You can change your VS Code display language from the Command Palette using &quo
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.10.0"><span class="version-number">v0.10.0</span> <time class="version-date" datetime="2025-02-07">February 8, 2025</time></h3>
+          <h3 class="changelog-version" id="v0100"><span class="version-number">v0.10.0</span> <time class="version-date" datetime="2025-02-07">February 8, 2025</time></h3>
         </div>
         <div class="changelog-content">
           <p>Added German, French and Portuguese translations.</p>
@@ -456,20 +455,17 @@ You can change your VS Code display language from the Command Palette using &quo
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.9"><span class="version-number">v0.9</span></h3>
+          <h3 class="changelog-version" id="v09"><span class="version-number">v0.9</span></h3>
         </div>
         <div class="changelog-content">
-          <h4>Features</h4>
-<ul>
+          <h4 id="features">Features</h4><ul>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> You can now change values in <code>BLOB</code> columns through a new file input field in the modal and sidebar</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Added a button to set a <code>BLOB</code> value to <code>NULL</code> in the modal and sidebar</li>
 </ul>
-<h4>Changes</h4>
-<ul>
+<h4 id="changes">Changes</h4><ul>
 <li>Image previews are now only fetched from the db when they are visible in the viewport</li>
 </ul>
-<h4>Fixes</h4>
-<ul>
+<h4 id="fixes">Fixes</h4><ul>
 <li>Added a small amount of buffering that prevents many stale and unnecessary queries from being run. This should also prevent freezes and excessive load times in some cases</li>
 <li>Fixed a bug that caused image previews to not update when refreshing the table</li>
 <li>Disabled row count caching, which could cause incorrect row numbers to be displayed in some cases.</li>
@@ -483,7 +479,7 @@ You can change your VS Code display language from the Command Palette using &quo
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.9.6"><span class="version-number">v0.9.6</span> <time class="version-date" datetime="2025-01-09">January 10, 2025</time></h3>
+          <h3 class="changelog-version" id="v096"><span class="version-number">v0.9.6</span> <time class="version-date" datetime="2025-01-09">January 10, 2025</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -495,7 +491,7 @@ You can change your VS Code display language from the Command Palette using &quo
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.9.5"><span class="version-number">v0.9.5</span> <time class="version-date" datetime="2024-11-21">November 22, 2024</time></h3>
+          <h3 class="changelog-version" id="v095"><span class="version-number">v0.9.5</span> <time class="version-date" datetime="2024-11-21">November 22, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -509,7 +505,7 @@ You can change your VS Code display language from the Command Palette using &quo
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.9.4"><span class="version-number">v0.9.4</span> <time class="version-date" datetime="2024-11-17">November 18, 2024</time></h3>
+          <h3 class="changelog-version" id="v094"><span class="version-number">v0.9.4</span> <time class="version-date" datetime="2024-11-17">November 18, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -523,7 +519,7 @@ You can change your VS Code display language from the Command Palette using &quo
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.9.3"><span class="version-number">v0.9.3</span> <time class="version-date" datetime="2024-11-09">November 10, 2024</time></h3>
+          <h3 class="changelog-version" id="v093"><span class="version-number">v0.9.3</span> <time class="version-date" datetime="2024-11-09">November 10, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -535,7 +531,7 @@ You can change your VS Code display language from the Command Palette using &quo
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.9.2"><span class="version-number">v0.9.2</span> <time class="version-date" datetime="2024-11-06">November 7, 2024</time></h3>
+          <h3 class="changelog-version" id="v092"><span class="version-number">v0.9.2</span> <time class="version-date" datetime="2024-11-06">November 7, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -548,7 +544,7 @@ You can change your VS Code display language from the Command Palette using &quo
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.9.1"><span class="version-number">v0.9.1</span> <time class="version-date" datetime="2024-11-05">November 6, 2024</time></h3>
+          <h3 class="changelog-version" id="v091"><span class="version-number">v0.9.1</span> <time class="version-date" datetime="2024-11-05">November 6, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -562,7 +558,7 @@ You can change your VS Code display language from the Command Palette using &quo
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.9.0"><span class="version-number">v0.9.0</span> <time class="version-date" datetime="2024-10-31">November 1, 2024</time></h3>
+          <h3 class="changelog-version" id="v090"><span class="version-number">v0.9.0</span> <time class="version-date" datetime="2024-10-31">November 1, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Initial v0.9 release</p>
@@ -571,21 +567,19 @@ You can change your VS Code display language from the Command Palette using &quo
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.8"><span class="version-number">v0.8</span></h3>
+          <h3 class="changelog-version" id="v08"><span class="version-number">v0.8</span></h3>
         </div>
         <div class="changelog-content">
-          <h4><a href="https://vscode.sqliteviewer.app">SQLite Viewer PRO</a></h4>
-<p>You can now upgrade SQLite Viewer to a read-write database editor by upgrading to SQLite Viewer PRO. 
+          <h4 id="<a-href="https://vscodesqliteviewerapp">sqlite-viewer-pro</a>"><a href="https://vscode.sqliteviewer.app">SQLite Viewer PRO</a></h4><p>You can now upgrade SQLite Viewer to a read-write database editor by upgrading to SQLite Viewer PRO. 
 Like the base version, it&#39;s designed to <em>just work</em>, even in remote workspaces like WSL, SSH, and containers. For more information check out <a href="https://vscode.sqliteviewer.app">vscode.sqliteviewer.app</a> or the info popup inside the viewer. 
 Users of the free version are not affected by this.</p>
-<h4>Secondary Sidebar</h4>
-<p>SQLite Viewer now features a second sidebar 🎉. It shows either the current row selection or metadata about the current table.</p>
+<h4 id="secondary-sidebar">Secondary Sidebar</h4><p>SQLite Viewer now features a second sidebar 🎉. It shows either the current row selection or metadata about the current table.</p>
 
         </div>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.8.9"><span class="version-number">v0.8.9</span></h3>
+          <h3 class="changelog-version" id="v089"><span class="version-number">v0.8.9</span></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -597,7 +591,7 @@ Users of the free version are not affected by this.</p>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.8.8"><span class="version-number">v0.8.8</span> <time class="version-date" datetime="2024-10-29">October 30, 2024</time></h3>
+          <h3 class="changelog-version" id="v088"><span class="version-number">v0.8.8</span> <time class="version-date" datetime="2024-10-29">October 30, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -609,7 +603,7 @@ Users of the free version are not affected by this.</p>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.8.7"><span class="version-number">v0.8.7</span> <time class="version-date" datetime="2024-10-25">October 26, 2024</time></h3>
+          <h3 class="changelog-version" id="v087"><span class="version-number">v0.8.7</span> <time class="version-date" datetime="2024-10-25">October 26, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -620,7 +614,7 @@ Users of the free version are not affected by this.</p>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.8.6"><span class="version-number">v0.8.6</span> <time class="version-date" datetime="2024-10-21">October 22, 2024</time></h3>
+          <h3 class="changelog-version" id="v086"><span class="version-number">v0.8.6</span> <time class="version-date" datetime="2024-10-21">October 22, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -631,15 +625,13 @@ Users of the free version are not affected by this.</p>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.8.5"><span class="version-number">v0.8.5</span> <time class="version-date" datetime="2024-10-21">October 22, 2024</time></h3>
+          <h3 class="changelog-version" id="v085"><span class="version-number">v0.8.5</span> <time class="version-date" datetime="2024-10-21">October 22, 2024</time></h3>
         </div>
         <div class="changelog-content">
-          <h4>Features</h4>
-<ul>
+          <h4 id="features">Features</h4><ul>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Added basic logging to the sidebar for better insight into what SQLite Viewer is doing behind the scenes.</li>
 </ul>
-<h4>Fixes</h4>
-<ul>
+<h4 id="fixes">Fixes</h4><ul>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug that caused a SQLite transaction to be started before making any changes</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug that caused unsaved edits to be lost when closing and reopening VSCode 2+ times</li>
 <li>Fixed some unnecessary queries being run</li>
@@ -649,7 +641,7 @@ Users of the free version are not affected by this.</p>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.8.4"><span class="version-number">v0.8.4</span> <time class="version-date" datetime="2024-10-19">October 20, 2024</time></h3>
+          <h3 class="changelog-version" id="v084"><span class="version-number">v0.8.4</span> <time class="version-date" datetime="2024-10-19">October 20, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -663,7 +655,7 @@ Users of the free version are not affected by this.</p>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.8.3"><span class="version-number">v0.8.3</span> <time class="version-date" datetime="2024-10-17">October 18, 2024</time></h3>
+          <h3 class="changelog-version" id="v083"><span class="version-number">v0.8.3</span> <time class="version-date" datetime="2024-10-17">October 18, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Minor fixes. Bumped to main release channel.</p>
@@ -672,7 +664,7 @@ Users of the free version are not affected by this.</p>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.8.2-(pre-release)"><span class="version-number">v0.8.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-10-17">October 18, 2024</time></h3>
+          <h3 class="changelog-version" id="v082-pre-release"><span class="version-number">v0.8.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-10-17">October 18, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>No outside visible changes</p>
@@ -681,7 +673,7 @@ Users of the free version are not affected by this.</p>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.8.1-(pre-release)"><span class="version-number">v0.8.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-10-16">October 17, 2024</time></h3>
+          <h3 class="changelog-version" id="v081-pre-release"><span class="version-number">v0.8.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-10-16">October 17, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p><sl-badge variant="primary" size="small">PRO</sl-badge> Performance improvements</p>
@@ -690,7 +682,7 @@ Users of the free version are not affected by this.</p>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.8.0-(pre-release)"><span class="version-number">v0.8.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-10-16">October 17, 2024</time></h3>
+          <h3 class="changelog-version" id="v080-pre-release"><span class="version-number">v0.8.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-10-16">October 17, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Initial 0.8 release</p>
@@ -699,7 +691,7 @@ Users of the free version are not affected by this.</p>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.7.3"><span class="version-number">v0.7.3</span> <time class="version-date" datetime="2024-09-28">September 29, 2024</time></h3>
+          <h3 class="changelog-version" id="v073"><span class="version-number">v0.7.3</span> <time class="version-date" datetime="2024-09-28">September 29, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -713,7 +705,7 @@ Users of the free version are not affected by this.</p>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.7.2"><span class="version-number">v0.7.2</span> <time class="version-date" datetime="2024-09-27">September 28, 2024</time></h3>
+          <h3 class="changelog-version" id="v072"><span class="version-number">v0.7.2</span> <time class="version-date" datetime="2024-09-27">September 28, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Fixed telemetry connection string error</p>
@@ -722,7 +714,7 @@ Users of the free version are not affected by this.</p>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.7.1"><span class="version-number">v0.7.1</span> <time class="version-date" datetime="2024-09-27">September 28, 2024</time></h3>
+          <h3 class="changelog-version" id="v071"><span class="version-number">v0.7.1</span> <time class="version-date" datetime="2024-09-27">September 28, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Fixed version update banner from being shown again</p>
@@ -731,7 +723,7 @@ Users of the free version are not affected by this.</p>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.7.0"><span class="version-number">v0.7.0</span> <time class="version-date" datetime="2024-09-27">September 28, 2024</time></h3>
+          <h3 class="changelog-version" id="v070"><span class="version-number">v0.7.0</span> <time class="version-date" datetime="2024-09-27">September 28, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -749,18 +741,17 @@ Please <a href="https://github.com/qwtel/sqlite-viewer-vscode/issues">report</a>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.6-(pre-release)"><span class="version-number">v0.6 <sl-badge variant="neutral" size="small">Preview</sl-badge></span></h3>
+          <h3 class="changelog-version" id="v06-pre-release"><span class="version-number">v0.6 <sl-badge variant="neutral" size="small">Preview</sl-badge></span></h3>
         </div>
         <div class="changelog-content">
-          <h4>Secondary Sidebar</h4>
-<p><del>SQLite Viewer now features a second sidebar 🎉. It shows either the current row selection or metadata about the current table.</del>
+          <h4 id="secondary-sidebar">Secondary Sidebar</h4><p><del>SQLite Viewer now features a second sidebar 🎉. It shows either the current row selection or metadata about the current table.</del>
 This has been shelved for now, please remain on the pre-release channel if you need the sidebar.</p>
 
         </div>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.6.7-(pre-release)"><span class="version-number">v0.6.7 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-09-23">September 24, 2024</time></h3>
+          <h3 class="changelog-version" id="v067-pre-release"><span class="version-number">v0.6.7 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-09-23">September 24, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Code refactoring, no externally visible changes</p>
@@ -769,7 +760,7 @@ This has been shelved for now, please remain on the pre-release channel if you n
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.6.6-(pre-release)"><span class="version-number">v0.6.6 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-09-08">September 9, 2024</time></h3>
+          <h3 class="changelog-version" id="v066-pre-release"><span class="version-number">v0.6.6 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-09-08">September 9, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Replaced 3rd party ad with 1st party ad: Check out <a href="https://hydejack.com/?ref=vscode">Hydejack</a>, a Jekyll theme for hackers, nerds, and academics, made by yours truly.</p>
@@ -778,7 +769,7 @@ This has been shelved for now, please remain on the pre-release channel if you n
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.6.5-(pre-release)"><span class="version-number">v0.6.5 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-08-27">August 28, 2024</time></h3>
+          <h3 class="changelog-version" id="v065-pre-release"><span class="version-number">v0.6.5 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-08-27">August 28, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Code refactoring, no externally visible changes</p>
@@ -787,7 +778,7 @@ This has been shelved for now, please remain on the pre-release channel if you n
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.6.4-(pre-release)"><span class="version-number">v0.6.4 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-07-09">July 10, 2024</time></h3>
+          <h3 class="changelog-version" id="v064-pre-release"><span class="version-number">v0.6.4 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-07-09">July 10, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>It is now possible to <strong>open more than one SQLite Viewer instance per file</strong>. 
@@ -797,7 +788,7 @@ Additionally, opening large files (~1GB) is now much faster, and opening additio
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.6.3-(pre-release)"><span class="version-number">v0.6.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-06-30">July 1, 2024</time></h3>
+          <h3 class="changelog-version" id="v063-pre-release"><span class="version-number">v0.6.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-06-30">July 1, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Included latest changes from 0.5 branch</p>
@@ -806,7 +797,7 @@ Additionally, opening large files (~1GB) is now much faster, and opening additio
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.6.2-(pre-release)"><span class="version-number">v0.6.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-06-17">June 18, 2024</time></h3>
+          <h3 class="changelog-version" id="v062-pre-release"><span class="version-number">v0.6.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-06-17">June 18, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -819,7 +810,7 @@ Additionally, opening large files (~1GB) is now much faster, and opening additio
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.6.1-(pre-release)"><span class="version-number">v0.6.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-06-16">June 17, 2024</time></h3>
+          <h3 class="changelog-version" id="v061-pre-release"><span class="version-number">v0.6.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-06-16">June 17, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Added basic keyboard support to table explorer and main view</p>
@@ -828,11 +819,10 @@ Additionally, opening large files (~1GB) is now much faster, and opening additio
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.5"><span class="version-number">v0.5</span></h3>
+          <h3 class="changelog-version" id="v05"><span class="version-number">v0.5</span></h3>
         </div>
         <div class="changelog-content">
-          <h4>WAL Mode Support</h4>
-<p>This version introduces support for <strong>reading WAL mode databases</strong>. It works across all VSCode file systems including local, remote, and even on github.dev.</p>
+          <h4 id="wal-mode-support">WAL Mode Support</h4><p>This version introduces support for <strong>reading WAL mode databases</strong>. It works across all VSCode file systems including local, remote, and even on github.dev.</p>
 <p>This fixes a common issue that caused the contents of a <code>-wal</code> file not being shown in the UI when the auto checkpoint limit hadn&#39;t been reached.
 This led to unsatisfying workarounds such as disabling WAL mode, triggering checkpoints manually or reducing the auto checkpoint limit.</p>
 <p>While this update removes the need for the above workarounds, it does not change the read-only nature of the extension or remove the need to reload the file for updates to be visible in the UI.</p>
@@ -842,7 +832,7 @@ This led to unsatisfying workarounds such as disabling WAL mode, triggering chec
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.5.13"><span class="version-number">v0.5.13</span> <time class="version-date" datetime="2024-05-18">May 19, 2024</time></h3>
+          <h3 class="changelog-version" id="v0513"><span class="version-number">v0.5.13</span> <time class="version-date" datetime="2024-05-18">May 19, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -853,7 +843,7 @@ This led to unsatisfying workarounds such as disabling WAL mode, triggering chec
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.5.12"><span class="version-number">v0.5.12</span> <time class="version-date" datetime="2024-05-18">May 19, 2024</time></h3>
+          <h3 class="changelog-version" id="v0512"><span class="version-number">v0.5.12</span> <time class="version-date" datetime="2024-05-18">May 19, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -864,7 +854,7 @@ This led to unsatisfying workarounds such as disabling WAL mode, triggering chec
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.5.11"><span class="version-number">v0.5.11</span> <time class="version-date" datetime="2024-05-18">May 19, 2024</time></h3>
+          <h3 class="changelog-version" id="v0511"><span class="version-number">v0.5.11</span> <time class="version-date" datetime="2024-05-18">May 19, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -875,7 +865,7 @@ This led to unsatisfying workarounds such as disabling WAL mode, triggering chec
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.5.10"><span class="version-number">v0.5.10</span> <time class="version-date" datetime="2024-05-18">May 19, 2024</time></h3>
+          <h3 class="changelog-version" id="v0510"><span class="version-number">v0.5.10</span> <time class="version-date" datetime="2024-05-18">May 19, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -887,7 +877,7 @@ This led to unsatisfying workarounds such as disabling WAL mode, triggering chec
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.5.9"><span class="version-number">v0.5.9</span> <time class="version-date" datetime="2024-06-30">July 1, 2024</time></h3>
+          <h3 class="changelog-version" id="v059"><span class="version-number">v0.5.9</span> <time class="version-date" datetime="2024-06-30">July 1, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Improved column filtering:</p>
@@ -908,7 +898,7 @@ This led to unsatisfying workarounds such as disabling WAL mode, triggering chec
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.5.8"><span class="version-number">v0.5.8</span> <time class="version-date" datetime="2024-06-10">June 11, 2024</time></h3>
+          <h3 class="changelog-version" id="v058"><span class="version-number">v0.5.8</span> <time class="version-date" datetime="2024-06-10">June 11, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -922,7 +912,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.5.7"><span class="version-number">v0.5.7</span> <time class="version-date" datetime="2024-06-09">June 10, 2024</time></h3>
+          <h3 class="changelog-version" id="v057"><span class="version-number">v0.5.7</span> <time class="version-date" datetime="2024-06-09">June 10, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>The extension now adds configuration settings for nesting SQLite-related files:</p>
@@ -930,8 +920,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
 <p>This has no effect if you aren&#39;t using VSCode&#39;s File Nesting feature. You may enable it in settings under &quot;Explorer &gt; File Nesting: Enabled&quot;.</p>
 <p>If you use file nesting, but do not want to nest SQLite files, you can manually delete the patterns from the settings page under &quot;Explorer &gt; File Nesting: Patterns&quot;. SQLite Viewer will not attempt to set the patterns again, unless explicitly requested through the command &quot;SQLite Viewer: Add SQLite File Nesting Patterns&quot;.</p>
 <p>This version also changes the file name of downloaded blobs to be prefixed with <code>-x-</code>, e.g. <code>favicons.sqlite-x-moz_icons-10-data.bin</code>. This ensures that downloaded blobs will be sorted below <code>-wal</code>, <code>-shm</code> and <code>-journal</code> files, reducing the risk of accidentally interacting with them when range-selecting downloaded files.</p>
-<h4>Fixes</h4>
-<ul>
+<h4 id="fixes">Fixes</h4><ul>
 <li>Downgraded minimum vscode version to 1.83.1. This should make the Open VSX version of the extension work with Google IDX</li>
 <li>Removed special characters from codicons asset path. This should make icons render correctly when using the Open VSX version of the extension in GitPod</li>
 <li>Fixed an error when setting max file size to 0</li>
@@ -941,7 +930,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.5.6"><span class="version-number">v0.5.6</span> <time class="version-date" datetime="2024-05-31">June 1, 2024</time></h3>
+          <h3 class="changelog-version" id="v056"><span class="version-number">v0.5.6</span> <time class="version-date" datetime="2024-05-31">June 1, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Fixed a potential memory issue by limiting memory usage to configured file size limit</p>
@@ -950,12 +939,11 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.5.5"><span class="version-number">v0.5.5</span> <time class="version-date" datetime="2024-05-31">June 1, 2024</time></h3>
+          <h3 class="changelog-version" id="v055"><span class="version-number">v0.5.5</span> <time class="version-date" datetime="2024-05-31">June 1, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Bumped WAL Mode support to main channel.</p>
-<h4>Changes</h4>
-<ul>
+<h4 id="changes">Changes</h4><ul>
 <li>Autofocus in detail view should now work when the query takes longer to finish</li>
 <li>Added better loading indicator to detail view</li>
 <li>Minor performance improvement for detail view query</li>
@@ -965,7 +953,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.5.4-(pre-release)"><span class="version-number">v0.5.4 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-05-22">May 23, 2024</time></h3>
+          <h3 class="changelog-version" id="v054-pre-release"><span class="version-number">v0.5.4 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-05-22">May 23, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -977,7 +965,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.5.3-(pre-release)"><span class="version-number">v0.5.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-05-21">May 22, 2024</time></h3>
+          <h3 class="changelog-version" id="v053-pre-release"><span class="version-number">v0.5.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-05-21">May 22, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Fixed an issue that prevented the extension from loading on github.dev in Safari</p>
@@ -986,7 +974,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.5.2-(pre-release)"><span class="version-number">v0.5.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-05-20">May 21, 2024</time></h3>
+          <h3 class="changelog-version" id="v052-pre-release"><span class="version-number">v0.5.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-05-20">May 21, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Added Content-Security-Policy to extension webview</p>
@@ -995,7 +983,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.5.1-(pre-release)"><span class="version-number">v0.5.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-05-18">May 19, 2024</time></h3>
+          <h3 class="changelog-version" id="v051-pre-release"><span class="version-number">v0.5.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-05-18">May 19, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>No publicly visible changes</p>
@@ -1004,7 +992,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.5.0-(pre-release)"><span class="version-number">v0.5.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-05-17">May 18, 2024</time></h3>
+          <h3 class="changelog-version" id="v050-pre-release"><span class="version-number">v0.5.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2024-05-17">May 18, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Initial v0.5 pre-release</p>
@@ -1013,11 +1001,10 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.4"><span class="version-number">v0.4</span></h3>
+          <h3 class="changelog-version" id="v04"><span class="version-number">v0.4</span></h3>
         </div>
         <div class="changelog-content">
-          <h4>Solid Rewrite</h4>
-<p>SQLite Viewer 0.4 is a complete rewrite of this extension with a focus on improved performance.</p>
+          <h4 id="solid-rewrite">Solid Rewrite</h4><p>SQLite Viewer 0.4 is a complete rewrite of this extension with a focus on improved performance.</p>
 <p>It also implements SQLite Viewer&#39;s <strong>most requested feature</strong>: Default file association for <code>.db</code> files! </p>
 <p>Additionally, version 0.4 ships many quality of life improvements:</p>
 <ul>
@@ -1033,13 +1020,11 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
 <li>Downloading a blob will now automatically add an appropriate file extension if it can be inferred</li>
 <li>Column sizes and pinning now persist when switching to another table (but not after closing the tab/file)</li>
 </ul>
-<h4>Performance</h4>
-<ul>
+<h4 id="performance">Performance</h4><ul>
 <li>Faster virtualized scrolling</li>
 <li>Faster columns resizing</li>
 </ul>
-<h4>Style</h4>
-<ul>
+<h4 id="style">Style</h4><ul>
 <li>Many aspects of the extension&#39;s UI should match VSCode&#39;s style closer</li>
 </ul>
 
@@ -1047,7 +1032,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.4.14"><span class="version-number">v0.4.14</span> <time class="version-date" datetime="2024-04-29">April 30, 2024</time></h3>
+          <h3 class="changelog-version" id="v0414"><span class="version-number">v0.4.14</span> <time class="version-date" datetime="2024-04-29">April 30, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -1055,15 +1040,14 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
 <li>Fixed showing <code>ROWID</code> column for tables that are created without a <code>ROWID</code></li>
 <li>Fixed an issue that prevented the extension from loading on github.dev in Safari</li>
 </ul>
-<h3>v0.4.12 – v0.4.13</h3>
-<p><em>Released on April 30, 2024</em></p>
+<h3 id="v0412-–-v0413">v0.4.12 – v0.4.13</h3><p><em>Released on April 30, 2024</em></p>
 <p>Fixed an issue that prevented text selection when using the extension on the web in the latest version of Chrome</p>
 
         </div>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.4.11"><span class="version-number">v0.4.11</span> <time class="version-date" datetime="2024-04-29">April 30, 2024</time></h3>
+          <h3 class="changelog-version" id="v0411"><span class="version-number">v0.4.11</span> <time class="version-date" datetime="2024-04-29">April 30, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -1076,7 +1060,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.4.10"><span class="version-number">v0.4.10</span> <time class="version-date" datetime="2024-04-29">April 30, 2024</time></h3>
+          <h3 class="changelog-version" id="v0410"><span class="version-number">v0.4.10</span> <time class="version-date" datetime="2024-04-29">April 30, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -1088,7 +1072,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.4.9"><span class="version-number">v0.4.9</span> <time class="version-date" datetime="2024-05-05">May 6, 2024</time></h3>
+          <h3 class="changelog-version" id="v049"><span class="version-number">v0.4.9</span> <time class="version-date" datetime="2024-05-05">May 6, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Fixed an issue that prevented files from loading correctly when connected to a workspace via SSH</p>
@@ -1097,7 +1081,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.4.8"><span class="version-number">v0.4.8</span> <time class="version-date" datetime="2024-05-05">May 6, 2024</time></h3>
+          <h3 class="changelog-version" id="v048"><span class="version-number">v0.4.8</span> <time class="version-date" datetime="2024-05-05">May 6, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -1109,7 +1093,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.4.7"><span class="version-number">v0.4.7</span> <time class="version-date" datetime="2024-05-03">May 4, 2024</time></h3>
+          <h3 class="changelog-version" id="v047"><span class="version-number">v0.4.7</span> <time class="version-date" datetime="2024-05-03">May 4, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -1121,7 +1105,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.4.6"><span class="version-number">v0.4.6</span> <time class="version-date" datetime="2024-05-03">May 4, 2024</time></h3>
+          <h3 class="changelog-version" id="v046"><span class="version-number">v0.4.6</span> <time class="version-date" datetime="2024-05-03">May 4, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -1134,7 +1118,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.4.5"><span class="version-number">v0.4.5</span> <time class="version-date" datetime="2024-05-02">May 3, 2024</time></h3>
+          <h3 class="changelog-version" id="v045"><span class="version-number">v0.4.5</span> <time class="version-date" datetime="2024-05-02">May 3, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Fixed an issue that caused the extension to go blank when opening an external link</p>
@@ -1143,23 +1127,20 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.4.4"><span class="version-number">v0.4.4</span> <time class="version-date" datetime="2024-05-02">May 3, 2024</time></h3>
+          <h3 class="changelog-version" id="v044"><span class="version-number">v0.4.4</span> <time class="version-date" datetime="2024-05-02">May 3, 2024</time></h3>
         </div>
         <div class="changelog-content">
-          <h4>Features</h4>
-<p>Improved JSON column support</p>
+          <h4 id="features">Features</h4><p>Improved JSON column support</p>
 <ul>
 <li>JSON columns are now shown as textarea instead of a one-line input in detail view</li>
 <li>JSON textarea defaults to 6 rows instead of 2 in detail view</li>
 <li>JSON values are now rendered in monospace font</li>
 <li>JSON values are now pretty printed in detail view</li>
 </ul>
-<h4>Fixes</h4>
-<ul>
+<h4 id="fixes">Fixes</h4><ul>
 <li>Unknown column types now default to textarea instead of one-line input</li>
 </ul>
-<h4>Style</h4>
-<ul>
+<h4 id="style">Style</h4><ul>
 <li>Better differentiation between empty strings and NULL by showing them as <code>&quot;&quot;</code> instead of <code>NULL</code></li>
 </ul>
 
@@ -1167,11 +1148,10 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.4.3"><span class="version-number">v0.4.3</span> <time class="version-date" datetime="2024-05-01">May 2, 2024</time></h3>
+          <h3 class="changelog-version" id="v043"><span class="version-number">v0.4.3</span> <time class="version-date" datetime="2024-05-01">May 2, 2024</time></h3>
         </div>
         <div class="changelog-content">
-          <h4>Fixes</h4>
-<ul>
+          <h4 id="fixes">Fixes</h4><ul>
 <li>Added back search functionality for tables</li>
 <li>Fixed ROWID column sizing</li>
 <li>Fixed a browser history issue when using the extension on the web</li>
@@ -1181,18 +1161,16 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.4.2"><span class="version-number">v0.4.2</span> <time class="version-date" datetime="2024-04-30">May 1, 2024</time></h3>
+          <h3 class="changelog-version" id="v042"><span class="version-number">v0.4.2</span> <time class="version-date" datetime="2024-04-30">May 1, 2024</time></h3>
         </div>
         <div class="changelog-content">
-          <h4>Fixes</h4>
-<ul>
+          <h4 id="fixes">Fixes</h4><ul>
 <li>Fixed column widths resetting when refreshing a file</li>
 <li>Fixed column order resetting when refreshing a file</li>
 <li>Fixed an issue causing the grid to collapse when refreshing a file</li>
 <li>Fixed sidebar column order not updating when pinning a column</li>
 </ul>
-<h4>Style</h4>
-<ul>
+<h4 id="style">Style</h4><ul>
 <li>Increased default column width by 20%</li>
 </ul>
 
@@ -1200,7 +1178,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.4.1"><span class="version-number">v0.4.1</span> <time class="version-date" datetime="2024-04-29">April 30, 2024</time></h3>
+          <h3 class="changelog-version" id="v041"><span class="version-number">v0.4.1</span> <time class="version-date" datetime="2024-04-29">April 30, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Added essential application reporting</p>
@@ -1209,19 +1187,18 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.4.0"><span class="version-number">v0.4.0</span> <time class="version-date" datetime="2024-04-29">April 30, 2024</time></h3>
+          <h3 class="changelog-version" id="v040"><span class="version-number">v0.4.0</span> <time class="version-date" datetime="2024-04-29">April 30, 2024</time></h3>
         </div>
         <div class="changelog-content">
           <p>Initial v0.4 release</p>
-<h3>v0.3.0 – v3.0.24</h3>
-<p><em>Released on May 25, 2023</em></p>
+<h3 id="v030-–-v3024">v0.3.0 – v3.0.24</h3><p><em>Released on May 25, 2023</em></p>
 <p>Minor bug fixes and previews</p>
 
         </div>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.2.4"><span class="version-number">v0.2.4</span> <time class="version-date" datetime="2023-04-10">April 11, 2023</time></h3>
+          <h3 class="changelog-version" id="v024"><span class="version-number">v0.2.4</span> <time class="version-date" datetime="2023-04-10">April 11, 2023</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -1232,7 +1209,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.2.3"><span class="version-number">v0.2.3</span> <time class="version-date" datetime="2023-03-03">March 4, 2023</time></h3>
+          <h3 class="changelog-version" id="v023"><span class="version-number">v0.2.3</span> <time class="version-date" datetime="2023-03-03">March 4, 2023</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -1246,7 +1223,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.2.2"><span class="version-number">v0.2.2</span> <time class="version-date" datetime="2023-03-02">March 3, 2023</time></h3>
+          <h3 class="changelog-version" id="v022"><span class="version-number">v0.2.2</span> <time class="version-date" datetime="2023-03-02">March 3, 2023</time></h3>
         </div>
         <div class="changelog-content">
           <p>Prerelease version</p>
@@ -1255,7 +1232,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.2.1"><span class="version-number">v0.2.1</span> <time class="version-date" datetime="2023-03-01">March 2, 2023</time></h3>
+          <h3 class="changelog-version" id="v021"><span class="version-number">v0.2.1</span> <time class="version-date" datetime="2023-03-01">March 2, 2023</time></h3>
         </div>
         <div class="changelog-content">
           <p>Prerelease version</p>
@@ -1264,7 +1241,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.2.0"><span class="version-number">v0.2.0</span> <time class="version-date" datetime="2022-03-20">March 21, 2022</time></h3>
+          <h3 class="changelog-version" id="v020"><span class="version-number">v0.2.0</span> <time class="version-date" datetime="2022-03-20">March 21, 2022</time></h3>
         </div>
         <div class="changelog-content">
           <p>Prerelease version</p>
@@ -1273,7 +1250,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.1.5"><span class="version-number">v0.1.5</span> <time class="version-date" datetime="2022-02-22">February 23, 2022</time></h3>
+          <h3 class="changelog-version" id="v015"><span class="version-number">v0.1.5</span> <time class="version-date" datetime="2022-02-22">February 23, 2022</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -1288,7 +1265,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.1.4"><span class="version-number">v0.1.4</span> <time class="version-date" datetime="2022-01-23">January 24, 2022</time></h3>
+          <h3 class="changelog-version" id="v014"><span class="version-number">v0.1.4</span> <time class="version-date" datetime="2022-01-23">January 24, 2022</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -1303,7 +1280,7 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.1.3"><span class="version-number">v0.1.3</span> <time class="version-date" datetime="2021-12-15">December 16, 2021</time></h3>
+          <h3 class="changelog-version" id="v013"><span class="version-number">v0.1.3</span> <time class="version-date" datetime="2021-12-15">December 16, 2021</time></h3>
         </div>
         <div class="changelog-content">
           <ul>
@@ -1314,16 +1291,14 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.1.2"><span class="version-number">v0.1.2</span> <time class="version-date" datetime="2021-12-14">December 15, 2021</time></h3>
+          <h3 class="changelog-version" id="v012"><span class="version-number">v0.1.2</span> <time class="version-date" datetime="2021-12-14">December 15, 2021</time></h3>
         </div>
         <div class="changelog-content">
-          <h4>Fixes</h4>
-<ul>
+          <h4 id="fixes">Fixes</h4><ul>
 <li>Opening files with the R*Tree extension will no longer produce an error</li>
 <li>Binary values are now always rendered as download buttons, even when not specified as <code>BLOB</code> type</li>
 </ul>
-<h4>Other</h4>
-<ul>
+<h4 id="other">Other</h4><ul>
 <li>Updated dependencies<ul>
 <li>Updated React to v18 Release Candidate</li>
 </ul>
@@ -1334,11 +1309,10 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.1.1"><span class="version-number">v0.1.1</span> <time class="version-date" datetime="2021-12-12">December 13, 2021</time></h3>
+          <h3 class="changelog-version" id="v011"><span class="version-number">v0.1.1</span> <time class="version-date" datetime="2021-12-12">December 13, 2021</time></h3>
         </div>
         <div class="changelog-content">
-          <h4>Fixes</h4>
-<ul>
+          <h4 id="fixes">Fixes</h4><ul>
 <li>Show error message when trying to open SQLite file using extensions</li>
 </ul>
 
@@ -1346,13 +1320,12 @@ This should (finally) make this extension work with GitPod and Google IDX.</li>
       </div>
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
-          <h3 class="changelog-version" id="v0.1.0"><span class="version-number">v0.1.0</span> <time class="version-date" datetime="2021-11-27">November 28, 2021</time></h3>
+          <h3 class="changelog-version" id="v010"><span class="version-number">v0.1.0</span> <time class="version-date" datetime="2021-11-27">November 28, 2021</time></h3>
         </div>
         <div class="changelog-content">
           <p>You can now open any file with SQLite Viewer and set SQLite Viewer as default for any file extension:</p>
 <p><img src="documentation/new.gif" alt="Open With"></p>
-<h4>Changes</h4>
-<ul>
+<h4 id="changes">Changes</h4><ul>
 <li>Removed the <code>.db</code> file association, as it is too generic to be permanently associated with SQLite Viewer. 
 You can easily restore the old behavior through VSCode&#39;s Open With menu.</li>
 <li>Updated dependencies<ul>
@@ -1361,12 +1334,10 @@ You can easily restore the old behavior through VSCode&#39;s Open With menu.</li
 </ul>
 </li>
 </ul>
-<h4>Fixes</h4>
-<ul>
+<h4 id="fixes">Fixes</h4><ul>
 <li>Fixed a transparency issue with fixed columns with certain color themes</li>
 </ul>
-<h3>v0.0.1 – v0.0.24</h3>
-<ul>
+<h3 id="v001-–-v0024">v0.0.1 – v0.0.24</h3><ul>
 <li>Replaced Emojis with Codicons for better VSCode integration</li>
 <li>Added support for pinning columns and rows</li>
 <li>Added reload button </li>

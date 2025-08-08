@@ -500,20 +500,41 @@
       <sl-carousel-item>
         <div class="changelog-card changelog-card-landing">
           <div class="changelog-header">
-            <h4 class="changelog-version" id="v25.8.1-(pre-release)"><span class="version-number">v25.8.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-08-06">August 7, 2025</time></h4>
+            <h4 class="changelog-version" id="v2582-pre-release"><span class="version-number">v25.8.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span></h4>
           </div>
           <div class="changelog-content text-sm">
-            <h5><sl-badge variant="primary" size="small">PRO</sl-badge> Drop File as BLOB</h5>
-<p>You can now drag and drop a file into the sidebar or modal fieldset to upload its content as a <code>BLOB</code> in the corresponding column. This is an alternative to the file picker and not limited to <code>BLOB</code> columns.
-This works with both OS files from the File Explorer/Finder as well as VS Code files from the file tree.</p>
-<h5>Changes</h5>
+            <h5 id="pro-json-patch"><sl-badge variant="primary" size="small">PRO</sl-badge> JSON Patch</h5><p>Updating JSON values will now attempt to update the structure sparsely using SQLite&#39;s built-in <code>json_patch</code> and <code>jsonb_patch</code> utilities. 
+This can be useful when another process has modified the JSON value while manually editing the value through the extension UI.
+Rather than overwriting the entire JSON value, only the properties that changed in the edit will be applied, preserving non-conflicting external changes. </p>
+<p>This should be particularly useful when <a href="/changelog#pro-edit-in-vs-code">editing values in a VS Code tab</a> and the <a href="/changelog#v2560-pre-release">Instant Commit</a> setting.</p>
+<p>Beware that this feature is still experimental and has a few sharp edges:</p>
 <ul>
+<li>Conflicts will still be resolved in favor of last-write, same as in the case of non-JSON values. </li>
+<li>This is subject to the limitations of SQLite&#39;s <a href="https://www.sqlite.org/json1.html#jpatch">patch functions</a>, specifically with respect to arrays, which are overwritten in whole.</li>
+<li>For textual <code>JSON</code> values, it will only attempt the new patch behavior if both values are strict RFC-8259 JSON values. SQLite supports a more relaxed standard for JSON, which also allows code comments. Applying patches through <code>json_patch</code> would not preserve these. 
+<code>JSONB</code> columns do not have this limitation.</li>
+</ul>
+<h5 id="fixes">Fixes</h5><ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Editing a <code>BLOB</code> value in a VS Code Tab (using a hex editor extension) should now correctly store it as a <code>BLOB</code> value in SQLite instead of incorrectly coercing to UTF-8.</li>
+</ul>
+
+          </div>
+        </div>
+      </sl-carousel-item>
+      <sl-carousel-item>
+        <div class="changelog-card changelog-card-landing">
+          <div class="changelog-header">
+            <h4 class="changelog-version" id="v2581-pre-release"><span class="version-number">v25.8.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-08-06">August 7, 2025</time></h4>
+          </div>
+          <div class="changelog-content text-sm">
+            <h5 id="pro-drag-&amp;-drop-file-as-blob"><sl-badge variant="primary" size="small">PRO</sl-badge> Drag &amp; Drop File as BLOB</h5><p>You can now drag and drop a file into the sidebar or modal fieldset to upload its content as a <code>BLOB</code> in the corresponding column. This is an alternative to the file picker and not limited to <code>BLOB</code> columns.
+This works with both OS files from the File Explorer/Finder as well as VS Code files from the file tree.</p>
+<h5 id="changes">Changes</h5><ul>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Removed per-cell datetime formats. The datetime format is now guessed per column.</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Datetime format is now always shown in the header cell and its behavior is now the same as the one in the sidebar.</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed editing cell values in VS Code when column names include <code>/</code>.</li>
 </ul>
-<h5>Known Issues</h5>
-<ul>
+<h5 id="known-issues">Known Issues</h5><ul>
 <li>Poor performance for uploading larger files</li>
 <li>Missing loading indicators when undoing file uploads</li>
 </ul>
@@ -524,18 +545,16 @@ This works with both OS files from the File Explorer/Finder as well as VS Code f
       <sl-carousel-item>
         <div class="changelog-card changelog-card-landing">
           <div class="changelog-header">
-            <h4 class="changelog-version" id="v25.8.0-(pre-release)"><span class="version-number">v25.8.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-07-31">August 1, 2025</time></h4>
+            <h4 class="changelog-version" id="v2580-pre-release"><span class="version-number">v25.8.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-07-31">August 1, 2025</time></h4>
           </div>
           <div class="changelog-content text-sm">
-            <h5><sl-badge variant="primary" size="small">PRO</sl-badge> Edit in VS Code</h5>
-<p>You can now edit individual cell values in a tab in VS Code, making full use of VS Code&#39;s text editing features, installed extensions (Vim mode!), 
+            <h5 id="pro-edit-in-vs-code"><sl-badge variant="primary" size="small">PRO</sl-badge> Edit in VS Code</h5><p>You can now edit individual cell values in a tab in VS Code, making full use of VS Code&#39;s text editing features, installed extensions (Vim mode!), 
 syntax highlighting, and more. This should be particularly useful when editing JSON(B) columns. </p>
 <p>You can access this feature through the &quot;Edit in VS Code to the Side&quot; icon button in the top right corner of a text area (visible on hover).
 There is now also a VS Code setting to configure the behavior of a cell double-click, allowing you to open it in the new VS Code tab feature instead of the built-in modal dialog.</p>
 <p>This feature also makes use of VS Code&#39;s text syntax detection feature to open tabs with appropriate formatting pre-applied. This can be useful when storing HTML responses or Markdown content in SQLite.</p>
 <p>For improved ergonomics, the behavior of the SQLite Viewer sidebar has been modified to auto-close when space is running low (i.e., when a VS Code tab opens to the side) and to auto-show when it becomes available again.</p>
-<h5>Changes</h5>
-<ul>
+<h5 id="changes">Changes</h5><ul>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> UTC/local time zone toggle is now always visible in column headers</li>
 <li>Improved queries for tables without <code>ROWID</code> and multiple primary keys</li>
 <li>Using BLOBs as primary keys in tables without <code>ROWID</code> now works, provided they are small (&lt;= 48 bytes).</li>
@@ -548,8 +567,7 @@ There is now also a VS Code setting to configure the behavior of a cell double-c
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed invalid output when exporting a table with exactly 1 row as a JSON object</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug that prevented deleting rows in tables without <code>ROWID</code></li>
 </ul>
-<h5>Known Issues</h5>
-<ul>
+<h5 id="known-issues">Known Issues</h5><ul>
 <li>Exporting from within the viewer is broken when multiples DBs of the same name are open (export from the command pallette not affected)</li>
 </ul>
 
@@ -559,17 +577,15 @@ There is now also a VS Code setting to configure the behavior of a cell double-c
       <sl-carousel-item>
         <div class="changelog-card changelog-card-landing">
           <div class="changelog-header">
-            <h4 class="changelog-version" id="v25.7.0-(pre-release)"><span class="version-number">v25.7.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-07-16">July 17, 2025</time></h4>
+            <h4 class="changelog-version" id="v2570-pre-release"><span class="version-number">v25.7.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-07-16">July 17, 2025</time></h4>
           </div>
           <div class="changelog-content text-sm">
-            <h5><sl-badge variant="primary" size="small">PRO</sl-badge> Export Dialog</h5>
-<p>Introduced a new export command for saving table data in multiple formats.
+            <h5 id="pro-export-dialog"><sl-badge variant="primary" size="small">PRO</sl-badge> Export Dialog</h5><p>Introduced a new export command for saving table data in multiple formats.
 This feature is designed as an alternative to the selection/clipboard-based export, especially for larger tables. 
 Exported data is written directly to a file. </p>
 <p>You can launch the export either as a standalone command from the Command Palette or through a modal dialog within the viewer. The modal dialog supports sorting and filtering, just like the clipboard export.</p>
 <p>While this method can handle larger datasets than the clipboard export, it is still limited by JS&#39; performance and the overhead of data marshalling. For exporting large tables (1M+ rows), a dedicated export tool is recommended.</p>
-<h5>Fixes</h5>
-<ul>
+<h5 id="fixes">Fixes</h5><ul>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug that prevented images from being embedded in exported data.</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> The cutoff for inlined BLOBs can now be configured from the export dialog (also affects clipboard export) and now defaults to 10KB.</li>
 <li>Fixed an issue where the left sidebar could not be snapped to its minimum position.</li>
@@ -582,7 +598,7 @@ Exported data is written directly to a file. </p>
       <sl-carousel-item>
         <div class="changelog-card changelog-card-landing">
           <div class="changelog-header">
-            <h4 class="changelog-version" id="v25.6.1-(pre-release)"><span class="version-number">v25.6.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-06-29">June 30, 2025</time></h4>
+            <h4 class="changelog-version" id="v2561-pre-release"><span class="version-number">v25.6.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-06-29">June 30, 2025</time></h4>
           </div>
           <div class="changelog-content text-sm">
             <ul>
@@ -590,22 +606,6 @@ Exported data is written directly to a file. </p>
 <li>Moved &#39;Expand All&#39; button inside the sidebar (only visible on hover; same as VS Code explorer)</li>
 <li>Section headers in the left sidebar are now sticky</li>
 <li>Updated various dependencies</li>
-</ul>
-
-          </div>
-        </div>
-      </sl-carousel-item>
-      <sl-carousel-item>
-        <div class="changelog-card changelog-card-landing">
-          <div class="changelog-header">
-            <h4 class="changelog-version" id="v25.6.0-(pre-release)"><span class="version-number">v25.6.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-06-22">June 23, 2025</time></h4>
-          </div>
-          <div class="changelog-content text-sm">
-            <ul>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Added an &quot;Instant Commit&quot; setting that prevents the extension from opening long-running transactions that block other SQLite processes. Use with caution, as undo/redo functionality is limited in this mode.</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Added &quot;Instant Commit&quot; toggle to viewer UI to temporarily toggle the instant commit feature per database. Note that this toggle is only visible if the global setting applies to the given file.</li>
-<li>Updated SQLite and SQLite WASM to 3.50.1</li>
-<li>Various other changes and fixes</li>
 </ul>
 
           </div>

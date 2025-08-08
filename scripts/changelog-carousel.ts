@@ -95,14 +95,27 @@ async function processReleaseContent(content: string, headlineAdjustment: number
     return '#'.repeat(Math.min(hashes.length + headlineAdjustment, 6)) + ' ';
   });
   
-  // Parse markdown content
+  // Create a custom renderer to add IDs to headings
+  const renderer = new marked.Renderer();
+  renderer.heading = ({ tokens, depth }) => {
+    // Parse the tokens to get the text content using the parser
+    const text = renderer.parser.parseInline(tokens);
+    const id = generateMarkdownId(text);
+    return `<h${depth} id="${id}">${text}</h${depth}>`;
+  };
+  
+  // Parse markdown content with custom renderer
   let parsedContent = await marked.parse(contentWithAdjustedHeadlines, { 
     gfm: true,
-    breaks: false
+    breaks: false,
+    renderer
   });
   
   // Replace [PRO] with sl-badge elements
   parsedContent = parsedContent.replace(/\[PRO\]/g, html`<sl-badge variant="primary" size="small">PRO</sl-badge>`);
+  
+  // Transform fragment links to point to changelog.html
+  parsedContent = parsedContent.replace(/href="#([^"]+)"/g, 'href="/changelog#$1"');
   
   return parsedContent;
 }
@@ -110,6 +123,7 @@ async function processReleaseContent(content: string, headlineAdjustment: number
 function generateMarkdownId(text: string): string {
   return text
     .toLowerCase()
+    .replace(/[.()[\]]/g, '') // Remove parentheses
     .replace(/\s+/g, '-') // Replace spaces with hyphens
     .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
     .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
