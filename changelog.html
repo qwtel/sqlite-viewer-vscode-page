@@ -51,28 +51,42 @@
           
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
+          <h3 class="changelog-version" id="v2583-pre-release"><span class="version-number">v25.8.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span></h3>
+        </div>
+        <div class="changelog-content">
+          <h4 id="pro-datetime-improvements"><sl-badge variant="primary" size="small">PRO</sl-badge> Datetime Improvements</h4><p>Columns containing date/time values can now be displayed as <code>DATE</code>/<code>TIME</code> columns, no matter what their declared column type is. 
+This is especially helpful for <code>STRICT</code> tables, where date/times must be declared as either <code>TEXT</code>, <code>INTEGER</code>, or <code>REAL</code>.</p>
+<p>You can enable the datetime UI for a column by clicking the column type icon in the header row.</p>
+<h4 id="changes">Changes</h4><ul>
+<li>The UTC toggle and format toggle have been moved to the left of the type icon in the header row to prevent layout shifts when changing the column type.</li>
+<li>Changed default timezone to UTC</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
           <h3 class="changelog-version" id="v2582-pre-release"><span class="version-number">v25.8.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-08-08">August 9, 2025</time></h3>
         </div>
         <div class="changelog-content">
           <h4 id="pro-json-patch"><sl-badge variant="primary" size="small">PRO</sl-badge> JSON Patch</h4><p>Updating JSON values will now attempt to update the structure sparsely using SQLite&#39;s built-in <code>json_patch</code> and <code>jsonb_patch</code> utilities. 
-This can be useful when another process has modified the JSON value while manually editing the value through the extension UI.
+This can be useful when another process has modified the JSON value while you are manually editing the value through the extension UI.
 Rather than overwriting the entire JSON value, only the properties that changed in the edit will be applied, preserving non-conflicting external changes. </p>
-<p>This should be particularly useful when <a href="/changelog#pro-edit-in-vs-code">editing values in a VS Code tab</a> and the <a href="/changelog#v2560-pre-release">Instant Commit</a> setting.</p>
-<p>Beware that this feature is still experimental and has a few sharp edges:</p>
+<p>This should be particularly useful when <a href="/changelog#pro-edit-in-vs-code">editing values in a VS Code tab</a> and with the <a href="/changelog#v2560-pre-release">Instant Commit</a> setting.</p>
+<p>Be aware that this feature is still experimental and has a few sharp edges:</p>
 <ul>
-<li>Conflicts will still be resolved in favor of last-write, same as in the case of non-JSON values. </li>
+<li>Conflicts will still be resolved in favor of last-write, the same as with non-JSON values. </li>
 <li>This is subject to the limitations of SQLite&#39;s <a href="https://www.sqlite.org/json1.html#jpatch">patch functions</a>, specifically with respect to arrays, which are overwritten in whole.</li>
-<li>For textual <code>JSON</code> values, it will only attempt the new patch behavior if both values are strict RFC-8259 JSON values. SQLite supports a more relaxed standard for JSON, which also allows code comments. Applying patches through <code>json_patch</code> would not preserve these. 
-<code>JSONB</code> columns do not have this limitation.</li>
-<li>This feature is not available for batch updates</li>
+<li>For textual <code>JSON</code> values, it will only attempt the new patch behavior if both values are strict RFC-8259 JSON values. SQLite supports a more relaxed standard for JSON, which also allows code comments. Applying patches through <code>json_patch</code> would not preserve these. </li>
+<li>This feature is not available for batch updates.</li>
 </ul>
 <h4 id="fixes">Fixes</h4><ul>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed file upload UI not showing correctly when dropping a file onto a field in the &#39;New Row&#39; dialog</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug that made entering numeric values in the &#39;New Row&#39; dialog difficult</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> JSON/B input field are now rendered correctly in &#39;New Row&#39; dialog</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed file upload UI not showing correctly when dropping a file onto a field in the &#39;New Row&#39; dialog.</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug that made entering numeric values in the &#39;New Row&#39; dialog difficult.</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> JSON/B input fields are now rendered correctly in the &#39;New Row&#39; dialog.</li>
 </ul>
 <h4 id="known-issues">Known Issues</h4><ul>
-<li>Editing <code>BLOB</code>s with the &#39;Edit in VS Code&#39; feature and the Hex Editor extension will write incorrect results back to the db.</li>
+<li>Editing <code>BLOB</code>s with the &#39;Edit in VS Code&#39; feature and the Hex Editor extension will write incorrect results back to the database.</li>
 </ul>
 
         </div>
