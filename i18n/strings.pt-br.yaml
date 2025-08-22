@@ -119,8 +119,8 @@ faq3Summary: "Como funciona a ativação de licença offline?"
 faq3Content: >
   Ao selecionar __"Ativação de Licença Offline"__ da __Paleta de comandos__, você será redirecionado para a página de ativação offline.
   _Você pode abrir esta página em qualquer dispositivo_. Digite sua chave de licença e você receberá um token de ativação.
-  Você pode então enviar este token para o dispositivo de destino através de qualquer canal (ex. email, Slack)
-  e colá-lo no campo de entrada no final do assistente de Ativação de Licença Offline.<br><br>
+  Você pode então enviar este token para o dispositivo de destino através de qualquer canal (ex. email, Slack, pendrive)
+  e colá-lo no campo de entrada no final do assistente de Ativação de Licença Offline. Nenhuma conexão com a internet é necessária para verificar o token.<br><br>
   Dispositivos registrados através deste método nunca tentarão se conectar ao servidor de licença,
   desde que uma chave Business Edition tenha sido usada e a caixa "Avaliação Business Edition" não tenha sido marcada ao gerar o token.
 footnote1: >
