@@ -84,7 +84,7 @@ pricingTitle: "Sin suscripción, sin problema"
 pricingContent: >
   SQLite Viewer PRO es una __Compra Única__ y te otorga una __Licencia Perpetua__. Funciona mientras VS Code funcione.
 pricingContentIi: >
-  _Una suscripción mensual también está disponible para proyectos a corto plazo, o si su organización requiere pagos recurrentes_.
+  _Una suscripción mensual también está disponible si su organización requiere pagos recurrentes_.
 pricingFooter: "" # __🌿&nbsp;Oferta de Primavera 2025: -20% en todas las compras&nbsp;🍃__
 oneTimePurchase: "Compra Única"
 monthlySubscription: "Suscripción Mensual"
@@ -106,21 +106,21 @@ ctaP: >
 faq1Summary: "__¿Cómo instalo la versión PRO después de la compra?__"
 faq1Content: >
   ¡Ya tienes instalada la versión PRO! Todo lo que se necesita es activarla. Después de completar la compra, recibirás un correo electrónico del comerciante
-  con instrucciones sobre cómo reclamar la clave de licencia. __La activación se realiza directamente en VS Code y solo toma unos segundos__:<br><br>
+  con instrucciones sobre cómo reclamar la clave de licencia. _La activación se realiza directamente en VS Code y solo toma unos segundos_:<br><br>
   Abre la __Paleta de comandos__ y escribe __"Activar Clave de Licencia"__. Alternativamente, puedes abrir el diálogo __"Actualizar a PRO"__
   en una pestaña de SQLite Viewer, desplazarte hasta el final de la página y hacer clic en __"Enter License Key"__. Se abrirá un campo de entrada
   en la parte superior de la ventana de VS Code. Pega la clave de licencia y presiona enter. Un diálogo del sistema confirmará la activación en unos segundos.
 faq2Summary: "¿Puedo usar la versión PRO en múltiples dispositivos?"
 faq2Content: >
-  Puedes activar SQLite Viewer PRO en un número ilimitado de dispositivos y usarlo en hasta 3 dispositivos simultáneamente.<br><br>
+  Puedes activar SQLite Viewer PRO en un _número ilimitado de dispositivos_, y usarlo en _hasta 3 dispositivos simultáneamente_.<br><br>
   Hay algunas restricciones en la frecuencia de activación, pero estas están únicamente en su lugar para prevenir el intercambio/publicación de claves y otros abusos.
   _La gran mayoría de los clientes nunca encuentran problemas de licenciamiento_.
 faq3Summary: "¿Cómo funciona la activación de licencia offline?"
 faq3Content: >
   Al seleccionar __"Activación de Licencia Offline"__ desde la __Paleta de comandos__, serás redirigido a la página de activación offline.
   _Puedes abrir esta página en cualquier dispositivo_. Ingresa tu clave de licencia y recibirás un token de activación.
-  Puedes enviar este token al dispositivo destinado a través de cualquier canal (ej. email, Slack)
-  y pegarlo en el campo de entrada al final del asistente de Activación de Licencia Offline.<br><br>
+  Puedes enviar este token al dispositivo destinado a través de cualquier canal (ej. email, Slack, USB dongle)
+  y pegarlo en el campo de entrada al final del asistente de Activación de Licencia Offline. No se requiere conexión a internet para verificar el token.<br><br>
   Los dispositivos registrados a través de este método nunca intentarán conectarse al servidor de licencias,
   siempre que se haya usado una clave Business Edition y la casilla "Evaluación Business Edition" no haya sido marcada al generar el token.
 footnote1: >

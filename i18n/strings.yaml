@@ -82,7 +82,7 @@ pricingTitle: "No Subscription, No Problem"
 pricingContent: >
   SQLite Viewer PRO is a __One-Time Purchase__ and grants you a __Perpetual License__. It works for as long as VS Code does.
 pricingContentIi: >
-  _A monthly subscription is also available for short-term projects, or if your organization requires recurring payments_.
+  _A monthly subscription is also available if your organization requires recurring payments_.
 pricingFooter: "" #   __🌿&nbsp;Spring Sale 2025: -20% on all purchases&nbsp;🍃__
 oneTimePurchase: "One-Time Purchase"
 monthlySubscription: "Monthly Subscription"
@@ -104,21 +104,21 @@ ctaP: >
 faq1Summary: How do I install the PRO version after the purchase?
 faq1Content: >
   You already have the PRO version installed! All that's required is to activate it. After the purchase is complete, you will receive an email from the
-  merchant of record with instructions on how to claim the license key. __Activation happens within VS Code itself and only takes a couple of seconds__:<br><br>
+  merchant of record with instructions on how to claim the license key. _Activation happens within VS Code itself and only takes a couple of seconds_:<br><br>
   Open the __Command Palette__ and type __"Activate License Key"__. Alternatively, you can open the __"Upgrade to PRO"__ dialog within a SQLite Viewer tab,
   scroll to the bottom of the page and click __"Enter License Key"__. An input field will open at the top of the VS Code window. Paste the license key and hit enter.
   A system dialog will confirm the activation within a few seconds.
 faq2Summary: Can I use the PRO version on multiple devices?
 faq2Content: >
-  You can activate SQLite Viewer PRO on an unlimited number of devices, and use it on up to 3 devices simultaneously.<br><br>
+  You can activate SQLite Viewer PRO on an _unlimited number of devices_, and use it on _up to 3 devices simultaneously_.<br><br>
   There are some restrictions on activation frequency, but these are solely in place to prevent key sharing/publishing and other misuse.
   _The vast majority of customers never encounter any licensing issues_.
 faq3Summary: How does offline license activation work?
 faq3Content: >
   When selecting __"Offline License Activation"__ from the __Command Palette__, you will be redirected to the offline activation page.
   _You can open this page on any device_. Enter your license key and you will receive an activation token.
-  You can then send this token to the intended device through any channel (e.g. email, Slack) 
-  and paste it into the input field at the end of the Offline License Activation wizard.<br><br>
+  You can then send this token to the intended device through any channel (e.g. email, Slack, USB dongle) 
+  and paste it into the input field at the end of the Offline License Activation wizard. No internet connection is required to verify the token.<br><br>
   Devices enrolled through this method will never attempt to connect to the license server, 
   provided a Business Edition key was used and the "Business Edition evaluation" checkbox was not checked when generating the token.
 faq4Summary: What datetime formats are supported?

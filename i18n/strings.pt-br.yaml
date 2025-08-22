@@ -84,7 +84,7 @@ pricingTitle: "Sem Assinatura, Sem Problema"
 pricingContent: >
   O SQLite Viewer PRO é uma __Compra Única__ e concede a você uma __Licença Perpétua__. Funciona enquanto o VS Code funcionar.
 pricingContentIi: >
-  _Uma assinatura mensal também está disponível para projetos de curto prazo, ou se sua organização requer pagamentos recorrentes_.
+  _Uma assinatura mensal também está disponível se sua organização requer pagamentos recorrentes_.
 pricingFooter: "" # __🌿&nbsp;Oferta de Primavera 2025: -20% em todas as compras&nbsp;🍃__
 oneTimePurchase: "Compra Única"
 monthlySubscription: "Assinatura Mensal"
@@ -106,13 +106,13 @@ ctaP: >
 faq1Summary: "__Como instalo a versão PRO após a compra?__"
 faq1Content: >
   Você já tem a versão PRO instalada! Tudo o que é necessário é ativá-la. Após a compra, você receberá um e-mail do comerciante
-  com instruções sobre como reivindicar a chave de licença. __A ativação ocorre diretamente no VS Code e leva apenas alguns segundos__:<br><br>
+  com instruções sobre como reivindicar a chave de licença. _A ativação ocorre diretamente no VS Code e leva apenas alguns segundos_:<br><br>
   Abra a __Paleta de comandos__ e digite __"Ativar Chave de Licença"__. Alternativamente, você pode abrir o diálogo __"Atualizar para PRO"__
   em uma aba do SQLite Viewer, rolar até o final da página e clicar em __"Enter License Key"__. Um campo de entrada será aberto
   no topo da janela do VS Code. Cole a chave de licença e pressione enter. Um diálogo do sistema confirmará a ativação em alguns segundos.
 faq2Summary: "Posso usar a versão PRO em múltiplos dispositivos?"
 faq2Content: >
-  Você pode ativar SQLite Viewer PRO em um número ilimitado de dispositivos e usá-lo em até 3 dispositivos simultaneamente.<br><br>
+  Você pode ativar SQLite Viewer PRO em um _número ilimitado de dispositivos_, e usá-lo em _até 3 dispositivos simultaneamente_.<br><br>
   Existem algumas restrições na frequência de ativação, mas estas estão apenas em vigor para prevenir compartilhamento/publicação de chaves e outros abusos.
   _A grande maioria dos clientes nunca encontra problemas de licenciamento_.
 faq3Summary: "Como funciona a ativação de licença offline?"

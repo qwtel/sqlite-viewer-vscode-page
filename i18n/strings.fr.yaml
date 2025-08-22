@@ -85,7 +85,7 @@ pricingContent: >
   SQLite Viewer PRO est un __achat unique__ et vous accorde une __licence perpétuelle__. Il fonctionne aussi longtemps
   que VS Code le fait.
 pricingContentIi: >
-  _Un abonnement mensuel est également disponible pour les projets à court terme, ou si votre organisation nécessite des paiements récurrents_.
+  _Un abonnement mensuel est également disponible si votre organisation nécessite des paiements récurrents_.
 pricingFooter: "" # __🌿&nbsp;Soldes de Printemps 2025 : -20% sur tous les achats&nbsp;🍃__
 oneTimePurchase: "Achat unique"
 monthlySubscription: "Abonnement mensuel"
@@ -107,21 +107,21 @@ ctaP: >
 faq1Summary: "__Comment installer la version PRO après l'achat ?__"
 faq1Content: >
   Vous avez déjà la version PRO installée ! Tout ce qui est nécessaire est de l'activer. Après l'achat, vous recevrez un email du marchand
-  avec des instructions sur comment réclamer la clé de licence. __L'activation se fait directement dans VS Code et ne prend que quelques secondes__:<br><br>
+  avec des instructions sur comment réclamer la clé de licence. _L'activation se fait directement dans VS Code et ne prend que quelques secondes_:<br><br>
   Ouvrez la __Palette de commandes__ et tapez __"Activer la clé de licence"__. Sinon, vous pouvez ouvrir le dialogue __"Passer à PRO"__
   dans un onglet SQLite Viewer, faites défiler jusqu'en bas de la page et cliquez sur __"Enter License Key"__. Un champ d'entrée s'ouvrira
   en haut de la fenêtre VS Code. Collez la clé de licence et appuyez sur entrée. Une boîte de dialogue système confirmera l'activation en quelques secondes.
 faq2Summary: "Puis-je utiliser la version PRO sur plusieurs appareils ?"
 faq2Content: >
-  Vous pouvez activer SQLite Viewer PRO sur un nombre illimité d'appareils et l'utiliser sur jusqu'à 3 appareils simultanément.<br><br>
+  Vous pouvez activer SQLite Viewer PRO sur un _nombre illimité d'appareils_, et l'utiliser sur _jusqu'à 3 appareils simultanément_.<br><br>
   Il y a quelques restrictions sur la fréquence d'activation, mais celles-ci sont uniquement en place pour empêcher le partage/publication de clés et autres abus.
   _La grande majorité des clients ne rencontrent jamais de problèmes de licence_.
 faq3Summary: "Comment fonctionne l'activation de licence hors ligne ?"
 faq3Content: >
   En sélectionnant __"Activation de licence hors ligne"__ depuis la __Palette de commandes__, vous serez redirigé vers la page d'activation hors ligne.
   _Vous pouvez ouvrir cette page sur n'importe quel appareil_. Entrez votre clé de licence et vous recevrez un token d'activation.
-  Vous pouvez ensuite envoyer ce token à l'appareil destiné par n'importe quel canal (ex. email, Slack)
-  et le coller dans le champ de saisie à la fin de l'assistant d'activation de licence hors ligne.<br><br>
+  Vous pouvez ensuite envoyer ce token à l'appareil destiné par n'importe quel canal (ex. email, Slack, clé USB)
+  et le coller dans le champ de saisie à la fin de l'assistant d'activation de licence hors ligne. Aucune connexion internet n'est requise pour vérifier le token.<br><br>
   Les appareils enregistrés par cette méthode ne tenteront jamais de se connecter au serveur de licence,
   à condition qu'une clé Business Edition ait été utilisée et que la case "Évaluation Business Edition" n'ait pas été cochée lors de la génération du token.
 footnote1: >
