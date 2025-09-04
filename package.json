@@ -30,8 +30,8 @@
     "dev": "run-s build watch"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250722.0",
-    "@types/bun": "^1.2.19",
+    "@cloudflare/workers-types": "^4.20250904.0",
+    "@types/bun": "^1.2.21",
     "autoprefixer": "^10.4.21",
     "imagemin-cli": "^8.0.0",
     "mkdirp": "^3.0.1",
@@ -39,21 +39,20 @@
     "onchange": "^7.1.0",
     "postcss-cli": "^11.0.1",
     "rimraf": "^6.0.1",
-    "sass": "^1.89.2",
+    "sass": "^1.92.0",
     "uglify-es": "^3.3.10",
-    "wrangler": "^4.25.0"
+    "wrangler": "^4.33.2"
   },
   "homepage": "https://bitbucket.org/pasqualevitiello/solid#readme",
   "dependencies": {
-    "@polar-sh/sdk": "^0.34.6",
+    "@polar-sh/sdk": "^0.34.15",
     "@types/accept-language-parser": "^1.5.8",
     "@worker-tools/html": "2.0.0-pre.13",
     "@worker-tools/middleware": "0.1.0-pre.36",
     "@worker-tools/response-creators": "1.2.0-pre.6",
     "accept-language-parser": "^1.5.0",
     "jose": "=5.10.0",
-    "marked": "^15.0.12",
-    "yaml": "^2.8.0"
+    "marked": "=15.0.12"
   },
-  "packageManager": "bun@1.2.19"
+  "packageManager": "bun@1.2.21"
 }

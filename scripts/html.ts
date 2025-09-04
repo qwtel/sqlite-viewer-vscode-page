@@ -1,6 +1,5 @@
 /// <reference types="bun-types" />
 
-import { $ } from "bun";
 import * as fs from 'fs/promises';
 import URL from 'url';
 import path from 'path'
