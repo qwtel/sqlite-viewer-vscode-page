@@ -500,16 +500,19 @@
       <sl-carousel-item>
         <div class="changelog-card changelog-card-landing">
           <div class="changelog-header">
-            <h4 class="changelog-version" id="v2583-pre-release"><span class="version-number">v25.8.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span></h4>
+            <h4 class="changelog-version" id="v2590-pre-release"><span class="version-number">v25.9.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span></h4>
           </div>
           <div class="changelog-content text-sm">
-            <h5 id="pro-datetime-improvements"><sl-badge variant="primary" size="small">PRO</sl-badge> Datetime Improvements</h5><p>Columns containing date/time values can now be displayed as <code>DATE</code>/<code>TIME</code> columns, no matter what their declared column type is. 
-This is especially helpful for <code>STRICT</code> tables, where date/times must be declared as either <code>TEXT</code>, <code>INTEGER</code>, or <code>REAL</code>.</p>
+            <h5 id="pro-datetime-improvements"><sl-badge variant="primary" size="small">PRO</sl-badge> Datetime Improvements</h5><p>Columns containing date/time values can now be displayed as <code>DATE</code>/<code>TIME</code> columns, regardless of their declared column type. 
+This is especially helpful for <code>STRICT</code> tables, where date/time values must be declared as either <code>TEXT</code>, <code>INTEGER</code>, or <code>REAL</code>.</p>
 <p>You can enable the datetime UI for a column by clicking the column type icon in the header row.</p>
 <h5 id="changes">Changes</h5><ul>
-<li>The UTC toggle and format toggle have been moved to the left of the type icon in the header row to prevent layout shifts when changing the column type.</li>
-<li>Changed default timezone to UTC</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug in the export feature that caused invalid JSON when table size was a multiple of batch size</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> The UTC toggle and format toggle have been moved to the left of the type icon in the header row to prevent layout shifts when changing the column type.</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Changed the default timezone to UTC.</li>
+</ul>
+<h5 id="fixes">Fixes</h5><ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug that corrupted the undo history and prevented saving the document when deleting rows.</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug in the export feature that caused invalid JSON when the table size was a multiple of the batch size.</li>
 </ul>
 
           </div>
