@@ -153,7 +153,7 @@ const buildOutputs = await buildHtmlFiles();
 // Then inline the built files using build outputs
 await Promise.all([
   inlineHtmlFromBuild(buildOutputs, 'index.html', './index.html'),
-  inlineHtmlFromBuild(buildOutputs, 'app.html', '../sqlite-viewer-core/web/index.html'),
+  !process.env.DEV ? inlineHtmlFromBuild(buildOutputs, 'app.html', '../sqlite-viewer-core/web/index.html') : Promise.resolve(),
 ]);
 
 console.log("Done!");
