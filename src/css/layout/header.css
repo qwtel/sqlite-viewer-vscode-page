@@ -7,7 +7,7 @@
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 3;
   padding: 10px 0;
   height: 55px;
   background: rgb(from var(--x-background)  r g b / 50%);
