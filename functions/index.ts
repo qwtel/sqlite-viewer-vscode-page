@@ -114,7 +114,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   if (hasDiscount) {
     rewriter = rewriter
-      .on('.i18n-hide, .pricing-toggle-container, .monthly-price', {
+      .on('.i18n-hide, .pricing-toggle-container, .monthly-price, .fall-sale-banner', {
         element(el) {
           el.remove();
         }
