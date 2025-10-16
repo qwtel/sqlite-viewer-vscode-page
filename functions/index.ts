@@ -17,6 +17,16 @@ const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 
 const ns = 'sqlite-viewer-vscode-page.8';
 const ttlDay = 60 * 60 * 24;
 
+const discountHtml = (price: number, discountPercent: number) => html`
+  <del class="pricing-table-price-currency h2 o-50" title="USD">$</del><del class="pricing-table-price-amount h1 o-50">${price}</del>
+  <span class="pricing-table-price-currency h2" title="USD">$</span><span class="pricing-table-price-amount h1">${formatPrice(price * (1 - discountPercent/100))}</span>
+  <small class="text-xxs">+&nbsp;VAT</small>
+`;
+
+const discountHintHtml = (discountPercent: number, country: string, flag: string) => html`
+  <span class="price-hint text-xxs nowrap">${discountPercent}% off for all visitors from ${country} ${flag}</span>
+`;
+
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const DEV = context.env.DEV;
 
@@ -83,9 +93,6 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
           case '#subscribe':
             newHref = context.env.PRO_SUBSCRIBE_HREF;
             break;
-          case '#subscribe-be':
-            newHref = context.env.BE_SUBSCRIBE_HREF;
-            break;
         }
         el.setAttribute('href', newHref);
       },
@@ -141,18 +148,14 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         element(element) {
           const price = Number(element.getAttribute('data-price') ?? 0);
           if (!price || Number.isNaN(price)) return;
-          element.setInnerContent(html`
-            <del class="pricing-table-price-currency h2 o-50" title="USD">$</del><del class="pricing-table-price-amount h1 o-50">${price}</del>
-            <span class="pricing-table-price-currency h2" title="USD">$</span><span class="pricing-table-price-amount h1">${formatPrice(price * (1 - discountPercent/100))}</span><small class="text-xxs">&nbsp;+&nbsp;VAT</small>
-          `, { html: true });
+          element.setInnerContent(discountHtml(price, discountPercent), { html: true });
         },
       })
       .on(".price-hint", { 
         element(el) { 
           const [countryName, flag] = CountryInfo[country]; 
-          console.log('price-hint', ...el.attributes);  
           if (el.getAttribute('class')?.includes('monthly-price')) return;
-          el.replace(html`<span class="price-hint text-xxs nowrap">${discountPercent}% off for all visitors from ${countryName} ${flag}</span>`, { html: true })
+          el.replace(discountHintHtml(discountPercent, countryName, flag), { html: true })
         } 
       })
   }
