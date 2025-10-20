@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title data-i18n-key="title">SQLite Viewer PRO for Web</title>
+  <meta property="og:title" content="SQLite Viewer PRO for Web" data-i18n-content="title">
+  <meta property="og:description" content="Upgrade to unlock export and copy features in your browser.">
+  <meta property="og:image" content="https://sqliteviewer.app/dist/images/twitter-image.jpg">
+  <meta property="og:url" content="https://sqliteviewer.app/upgrade">
+  <meta property="og:type" content="website">
+  <meta name="twitter:title" content="SQLite Viewer PRO for Web" data-i18n-content="title">
+  <meta name="twitter:description" content="Upgrade to unlock export and copy features in your browser.">
+  <meta name="twitter:image" content="https://sqliteviewer.app/dist/images/twitter-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="../favicon.ico">
+  <link rel="canonical" href="https://sqliteviewer.app/upgrade">
+  <link rel="stylesheet" href="./css/style.css">
+  <script>
+    function scrollToHash(event, hash, block) {
+      event.preventDefault(); 
+      document.querySelector(hash || event.currentTarget.hash).scrollIntoView({ block: block || 'start', behavior: 'smooth' });
+    }
+  </script>
+</head>
+<body class="is-boxed has-animations">
+  <script>
+    const searchParams = new URLSearchParams(location.search);
+    const colorScheme = searchParams.get('color-scheme');
+    document.head.querySelector('meta[name="color-scheme"]').content = colorScheme || 'dark light';
+    document.body.classList.toggle('vscode', searchParams.has('css-vars'));
+    document.body.classList.toggle(colorScheme, !!colorScheme);
+    try { Object.entries(JSON.parse(searchParams.get('css-vars') || '{}')).forEach(([key, value]) => document.body.style.setProperty(key, value)) } catch {}
+  </script>
+  <div class="body-wrap">
+    <header class="site-header">
+      <div class="container">
+        <div class="site-header-inner">
+          <div class="brand header-brand mr-8">
+            <h1 class="m-0 header-brand-title">
+              <a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' });">
+                <img class="header-logo-image" src="./images/logo_70_mac.png" alt="Logo" width="35" height="35">
+              </a>
+              <div class="ml-8 color-50" data-i18n-key="for-web">
+                <span class="color">SQLite Viewer PRO</span> for Web
+              </div>
+            </h1>
+          </div>
+          <div class="flex min-w-0">
+            <a id="open-in-browser" class="button button-default button-sm vscode-only ellipsis mr-8 display-none" target="_blank" title="Open in New Tab" data-i18n-title="open-in-browser"><span data-i18n-key="open-in-browser">Open in New Tab</span>&nbsp;↗</a>
+            <script>
+              if (searchParams.has('css-vars')) {
+                document.getElementById('open-in-browser').classList.remove('display-none');
+                document.getElementById('open-in-browser').classList.add('display-inline');
+                document.getElementById('open-in-browser').href = location.origin + `/upgrade?ref=vscode`;
+              }
+            </script>
+            <a class="button button-primary button-sm" href="#pricing" onclick="scrollToHash(event, null, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)" data-i18n-key="see-pricing">See Pricing</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero hero-bg">
+        <div class="container">
+          <div class="hero-inner">
+            <div class="hero-copy hero-left">
+              <h1 id="hero-title" class="hero-title mt-0" data-i18n-key="hero-title">Upgrade to Unlock Export and Copy Features</h1>
+              <!-- <script>
+                let heroTitle;
+                if (searchParams.has('css-vars')) {
+                  heroTitle = document.getElementById('hero-title').textContent;
+                  document.getElementById('hero-title').textContent = 'Upgrade to Unlock PRO Features';
+                }
+              </script> -->
+              <p class="hero-paragraph" data-i18n-key="hero-paragraph">Use powerful <strong>export</strong> and <strong>copy-as</strong> workflows directly in your browser. Copy rows as TSV, CSV, SQL inserts, JSON, HTML, or Markdown — no installation required.</p>
+              <div class="hero-cta">
+                <a class="button button-default" href="#card-1"><span data-i18n-key="learn-more">Watch Clips</span>&nbsp;↓</a>
+                <a class="button button-primary" href="#pricing" onclick="scrollToHash(event, null, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)" data-i18n-key="see-pricing">See Pricing</a>
+              </div>
+              <span class="text-xs fall-sale-banner" data-i18n-key="hero-footer">
+                <!-- <strong>🌿&nbsp;Spring Sale 2025: -20% on all purchases&nbsp;🍃</strong> -->
+                <!-- <strong>🍂&nbsp;Fall Sale 2025: -$20 on all licenses&nbsp;🍁</strong> -->
+              </span>
+              <div class="flex items-center mt-32">
+                <div class="avatar-stack flex">
+                  <img class="avatar-stack-item" src="https://www.gravatar.com/avatar/5513fd2c2ead3371af0eb6b99c0abe7f4075ae29a8171021a07b2db5640d7b09?d=blank">
+                  <img class="avatar-stack-item" src="https://www.gravatar.com/avatar/5513fd2c2ead3371af0eb6b99c0abe7f4075ae29a8171021a07b2db5640d7b09?d=blank">
+                  <img class="avatar-stack-item" src="https://www.gravatar.com/avatar/5513fd2c2ead3371af0eb6b99c0abe7f4075ae29a8171021a07b2db5640d7b09?d=blank">
+                </div>
+                <span class="purchased-n-times text-xxs ml-8" data-i18n-content="purchased-n-times" content="Purchased {n} times last month">Purchased {n} times last month</span>
+              </div>
+            </div>
+            <div class="hero-figure anime-element">
+              <svg class="placeholder" width="528" height="396" viewBox="0 0 528 396">
+                <rect width="528" height="396" class="fill-transparent" />
+              </svg>
+              <div class="hero-figure-box hero-figure-box-01" data-rotation="45deg"></div>
+              <div class="hero-figure-box hero-figure-box-02" data-rotation="-45deg"></div>
+              <div class="hero-figure-box hero-figure-box-03" data-rotation="0deg"></div>
+              <div class="hero-figure-box hero-figure-box-04" data-rotation="-135deg"></div>
+              <div class="hero-figure-box hero-figure-box-05">
+                <picture>
+                  <source media="(prefers-color-scheme: light)" type="image/avif" srcset="./images/screenshot.avif">
+                  <source media="(prefers-color-scheme: light)" type="image/webp" srcset="./images/screenshot.webp">
+                  <source media="(prefers-color-scheme: light)" type="image/png" srcset="./images/screenshot.png">
+                  <source media="(prefers-color-scheme: dark)" type="image/avif" srcset="./images/screenshot-dark.avif">
+                  <source media="(prefers-color-scheme: dark)" type="image/webp" srcset="./images/screenshot-dark.webp">
+                  <source media="(prefers-color-scheme: dark)" type="image/png" srcset="./images/screenshot-dark.png">
+                  <img class="img" src="./images/screenshot-dark.png" alt="Screenshot" width="528" height="396" fetchpriority="high">
+                </picture>
+              </div>
+              <div class="hero-figure-box hero-figure-box-06"></div>
+              <div class="hero-figure-box hero-figure-box-07"></div>
+              <div class="hero-figure-box hero-figure-box-08" data-rotation="-22deg"></div>
+              <div class="hero-figure-box hero-figure-box-09" data-rotation="-52deg"></div>
+              <div class="hero-figure-box hero-figure-box-10" data-rotation="-50deg"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- <section id="logo-graveyard" class="section">
+        <div class="container">
+          <div class="logo-graveyard text-center text-xxs color-50 mb-32 flex items-center o-50 pt-16 pb-16 mb-128" data-i18n-key="used-by-at">
+            Used by engineers at
+            <img src="./images/Apple_logo_black.svg" title="Apple" alt="Apple" style="height:32px" class="o-50">
+            <img src="./images/NASA_Worm_logo.svg" title="NASA" alt="NASA" style="height:32px" class="o-50 pt-5">
+            <img src="./images/Verizon_2024.svg" title="Verizon" alt="Verizon" style="height:32px" class="o-50">
+            <img src="./images/Abbott_Laboratories_logo.svg" title="Abbott Laboratories" alt="Abbott Laboratories" style="height:32px" class="o-50 mb-n5">
+            & others*
+          </div>
+        </div>
+      </section> -->
+
+      <section class="section">
+        <div class="container">
+          <div class="text-center mb-64">
+            <h2 id="cards-title" class="cards-title section-title h3 color-unset" data-i18n-key="cards-title">Upgrade to unlock exclusive PRO workflows</h2>
+            <p class="section-paragraph mb-0" data-i18n-key="cards-paragraph">
+              SQLite Viewer PRO unlocks new workflows. With its deep integration into VS Code, it enables some workflows that are unique and not possible with any other SQLite editor.
+            </p>
+            <!-- <script>
+              if (searchParams.has('css-vars')) {
+                document.getElementById('cards-title').textContent = heroTitle;
+              }
+            </script> -->
+            <!-- <p class="section-paragraph mb-0">Check ou the card stack below.</p> -->
+          </div>
+          <div id="cards" class="cards cards-stack" style="--num-cards: 4;">
+            <div class="spy" id="card-1" style="--index: 1"></div>
+            <div class="card" style="--index: 1">
+              <div class="card__content">
+                <a class="card__header" href="#card-1"></a>
+                <div>
+                  <h3 data-i18n-key="card-1-h">Export data in a variety of formats</h3>
+                  <p class="text-sm" data-i18n-key="card-1-p">You can copy rows directly from the viewer in a variety of formats. Supported formats are: TSV, CSV, SQLite inserts, JSON objects, JSON arrays, HTML, and Markdown.</p>
+                </div>
+                <figure>
+                  <video muted loop playsinline style="width:100%"></video>
+                </figure>
+              </div>
+            </div>
+            <div class="spy" id="card-2" style="--index: 2"></div>
+            <div class="card" style="--index: 2">
+              <div class="card__content">
+                <a class="card__header" href="#card-2"></a>
+                <div>
+                  <h3 data-i18n-key="card-2-h">Access Anywhere</h3>
+                  <p class="text-sm" data-i18n-key="card-2-p">Open databases in your browser and use export and copy-as tools from any device. No installation required.</p>
+                </div>
+                <figure>
+                  <video muted loop playsinline style="width:100%"></video>
+                </figure>
+              </div>
+            </div>
+            <div class="spy" id="card-3" style="--index: 3"></div>
+            <div class="card" style="--index: 3">
+              <div class="card__content">
+                <a class="card__header" href="#card-3"></a>
+                <div>
+                  <h3 data-i18n-key="card-3-h">Work with Large Datasets</h3>
+                  <p class="text-sm" data-i18n-key="card-3-p">Browse and filter efficiently. Export subsets of rows without hitting clipboard limits.</p>
+                </div>
+                <figure>
+                  <video muted loop playsinline style="width:100%"></video>
+                </figure>
+              </div>
+            </div>
+            <div class="spy" id="card-4" style="--index: 4"></div>
+            <div class="card"  style="--index: 4">
+              <div class="card__content">
+                <a class="card__header" href="#card-4"></a>
+                <div>
+                  <h3 data-i18n-key="card-4-h">Beautiful, Fast Interface</h3>
+                  <p class="text-sm" data-i18n-key="card-4-p">A responsive, high-performance UI designed for the web so you can get in, export, and move on quickly.</p>
+                </div>
+                <figure>
+                  <video muted loop playsinline style="width:100%"></video>
+                </figure>
+              </div>
+            </div>
+            <!-- <div class="spy" id="card-5" style="--index: 5"></div>
+            <div class="card" style="--index: 5">
+              <div class="card__content">
+                <a class="card__header" href="#card-5"></a>
+                <div>
+                  <h3 data-i18n-key="card-5-h">Privacy First</h3>
+                  <p class="text-sm" data-i18n-key="card-5-p">Your data stays in your browser. No server uploads required for export and copy-as operations.</p>
+                </div>
+                <figure>
+                  <video muted loop playsinline style="width:100%"></video>
+                </figure>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </section>
+
+      <!-- <section class="features section">
+        <div class="container">
+          <div class="features-inner section-inner">
+            <div class="features-header text-center mt-128 mb-56">
+              <h3 class="section-title h3 mt-128 color-unset" data-i18n-key="section-title-i">Re-engineered for PRO demands</h3>
+              <p class="section-paragraph mb-0 text-sm" data-i18n-key="section-paragraph-i">
+                You can think of the PRO version as <em>SQLite Viewer 2</em>. It's not just feature flags, but a completely new engine under the hood. Comes with SQLite failover guarantees and large file support.
+              </p>
+            </div>
+            <div class="features-wrap">
+              <div class="feature text-center is-revealing">
+                <div class="feature-inner">
+                  <div class="feature-icon">
+                    <img src="./images/native.webp" alt="Native SQLite Client" class="h-100 scale-85">
+                  </div>
+                  <h4 class="feature-title mt-24" data-i18n-key="feat-1-h">Native SQLite Client</h4>
+                  <p class="text-sm mb-0" data-i18n-key="feat-1-p">The PRO version uses the <strong>canonical SQLite implementation</strong>, which provides the full set of failover guarantees. The old readonly client remains as a fallback.</p>
+                </div>
+              </div>
+              <div class="feature text-center is-revealing">
+                <div class="feature-inner">
+                  <div class="feature-icon">
+                    <img src="./images/lfs.webp" alt="Large File Support" class="h-100">
+                  </div>
+                  <h4 class="feature-title mt-24" data-i18n-key="feat-2-h">Large File Support</h4>
+                  <p class="text-sm mb-0" data-i18n-key="feat-2-p">All restrictions on file size are lifted, <strong>even during remote sessions</strong>. Only the data needed to render the UI is transferred to your local machine. Powered by <em>VS Code Server</em>.</p>
+                </div>
+              </div>
+              <div class="feature text-center is-revealing">
+                <div class="feature-inner">
+                  <div class="feature-icon">
+                    <img src="./images/adblock.webp" alt="Ad-Free Experience" class="h-100 scale-85">
+                  </div>
+                  <h4 class="feature-title mt-24" data-i18n-key="feat-3-h">Ad-Free Experience</h4>
+                  <p class="text-sm mb-0" data-i18n-key="feat-3-p">PRO customers enjoy an ad-free experience — <strong>perfect for screen sharing and recordings</strong>. Additionally, PRO customers receive an exclusive PRO icon (<img class="img inline-block" width="18" height="18" src="./images/favicon-pro.png" />) in the UI.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section> -->
+
+      <!-- <section class="section">
+        <div class="container">
+          <div class="text-center mb-64">
+            <h2 id="cards-title-2" class="cards-title section-title h3 color-unset" data-i18n-key="cards-title-2">Additional PRO Features</h2>
+            <p class="section-paragraph mb-0" data-i18n-key="cards-paragraph-2">
+              Discover additional capabilities that make SQLite Viewer PRO the most cozy and convenient database management tool for VS Code.
+            </p>
+          </div>
+          <div id="cards-2" class="cards cards-stack cards-stack--text-right" style="--num-cards: 4;">
+            <div class="spy" id="card-2-1" style="--index: 1"></div>
+            <div class="card" style="--index: 1">
+              <div class="card__content">
+                <a class="card__header" href="#card-2-1"></a>
+                <figure>
+                  <picture>
+                    <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-6-light.webp">
+                    <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-6-light.png">
+                    <source media="(prefers-color-scheme: dark)" srcset="http://bun-ignore/dist/images/card-6.webp">
+                    <source media="(prefers-color-scheme: dark)" srcset="http://bun-ignore/dist/images/card-6.png">
+                    <img src="http://bun-ignore/dist/images/card-6.png" alt="Datetime rendering and input" width="528" height="396">
+                  </picture>
+                </figure>
+                <div>
+                  <h3 data-i18n-key="card-2-1-h">Datetime rendering and input</h3>
+                  <p class="text-sm" data-i18n-key="card-2-1-p">Display date columns in human-friendly formats (localized, relative, or ISO) and edit using standard date pickers.</p>
+                </div>
+              </div>
+            </div>
+            <div class="spy" id="card-2-2" style="--index: 2"></div>
+            <div class="card" style="--index: 2">
+              <div class="card__content">
+                <a class="card__header" href="#card-2-2"></a>
+                <figure>
+                  <picture>
+                    <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-7-light.webp">
+                    <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-7-light.png">
+                    <source media="(prefers-color-scheme: dark)" srcset="http://bun-ignore/dist/images/card-7.webp">
+                    <source media="(prefers-color-scheme: dark)" srcset="http://bun-ignore/dist/images/card-7.png">
+                    <img src="http://bun-ignore/dist/images/card-7.png" alt="Full logging" width="528" height="396">
+                  </picture>
+                </figure>
+                <div>
+                  <h3 data-i18n-key="card-2-2-h">Full logging</h3>
+                  <p class="text-sm" data-i18n-key="card-2-2-p">Comprehensive logging system that tracks all database operations, queries, and changes. Perfect for debugging, auditing, and understanding database activity.</p>
+                </div>
+              </div>
+            </div>
+            <div class="spy" id="card-2-3" style="--index: 3"></div>
+            <div class="card" style="--index: 3">
+              <div class="card__content">
+                <a class="card__header" href="#card-2-3"></a>
+                <figure>
+                  <picture>
+                    <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-8-light.webp">
+                    <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-8-light.png">
+                    <source media="(prefers-color-scheme: dark)" srcset="http://bun-ignore/dist/images/card-8.webp">
+                    <source media="(prefers-color-scheme: dark)" srcset="http://bun-ignore/dist/images/card-8.png">
+                    <img src="http://bun-ignore/dist/images/card-8.png" alt="Pragma Editor" width="528" height="396">
+                  </picture>
+                </figure>
+                <div>
+                  <h3 data-i18n-key="card-2-3-h">Pragma Editor</h3>
+                  <p class="text-sm" data-i18n-key="card-2-3-p">Advanced PRAGMA editor for fine-tuning SQLite settings. Configure database behavior, performance options, and debugging features with ease.</p>
+                </div>
+              </div>
+            </div>
+            <div class="spy" id="card-2-4" style="--index: 4"></div>
+            <div class="card" style="--index: 4">
+              <div class="card__content">
+                <a class="card__header" href="#card-2-4"></a>
+                <figure>
+                  <picture>
+                    <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-9-light.webp">
+                    <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-9-light.png">
+                    <source media="(prefers-color-scheme: dark)" srcset="http://bun-ignore/dist/images/card-9.webp">
+                    <source media="(prefers-color-scheme: dark)" srcset="http://bun-ignore/dist/images/card-9.png">
+                    <img src="http://bun-ignore/dist/images/card-9.png" alt="Export Dialog" width="528" height="396">
+                  </picture>
+                </figure>
+                <div>
+                  <h3 data-i18n-key="card-2-4-h">Export Dialog</h3>
+                  <p class="text-sm" data-i18n-key="card-2-4-p">Export large datasets directly to files with batched processing. Perfect for handling larger tables that exceed clipboard limits.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section> -->
+
+      <section class="features section">
+        <div class="container">
+          <div class="features-inner section-inner">
+            <div class="features-header text-center mb-56">
+              <h3 class="section-title h3 mt-128 color-unset" data-i18n-key="section-title-ii">Includes everything you like about the free version</h3>
+              <p class="section-paragraph mb-0 text-sm" data-i18n-key="section-paragraph-ii">
+                Upgrading to SQLite Viewer PRO is a seamless experience. Just enter the license key and you're good to go. 
+                In addition to new and exclusive PRO features, everything you like about the free version stays as is.
+              </p>
+            </div>
+            <div class="features-wrap">
+              <div class="feature text-center is-revealing">
+                <div class="feature-inner">
+                  <div class="feature-icon">
+                    <img src="./images/perf.webp" alt="Performant UI" class="h-100 scale-85">
+                  </div>
+                  <h4 class="feature-title mt-24" data-i18n-key="free-1-h">Performant UI</h4>
+                  <p class="text-sm mb-0" data-i18n-key="free-1-p">SQLite Viewer is built with performance in mind. It uses the best tools the web stack has to offer and is <strong>routinely tested on older hardware</strong> to ensure performance remains top-notch.</p>
+                </div>
+              </div>
+              <div class="feature text-center is-revealing">
+                <div class="feature-inner">
+                  <div class="feature-icon">
+                    <img src="./images/autotheme.webp" alt="Matching Theme" width="100" height="100" class="square-100 feature-icon-mask">
+                  </div>
+                  <h4 class="feature-title mt-24" data-i18n-key="free-2-h">Matching Theme</h4>
+                  <p class="text-sm mb-0" data-i18n-key="free-2-p">Say goodbye to disjointed user interfaces. SQLite Viewer <strong>automatically adjusts to your VS Code theme</strong> and seamlessly blends into the existing VS Code experience.</p>
+                </div>
+              </div>
+              <div class="feature text-center is-revealing">
+                <div class="feature-inner">
+                  <div class="feature-icon">
+                    <picture>
+                      <source media="(prefers-color-scheme: light)" srcset="./images/install-dark.webp">
+                      <source media="(prefers-color-scheme: dark)" srcset="./images/install-light.webp">
+                      <img src="./images/install-light.webp" alt="One-Click Setup" width="100" height="100" class="square-100 feature-icon-mask">
+                    </picture>
+                  </div>
+                  <h4 class="feature-title mt-24" data-i18n-key="free-3-h">One-Click Setup</h4>
+                  <p class="text-sm mb-0" data-i18n-key="free-3-p">SQLite Viewer doesn't rely on binaries on your machine. It ships its own, so that <strong>simply clicking 'Install' completes the setup</strong>. The entire extension weighs only 2.5 MB.</p>
+                </div>
+              </div>
+              <!-- <div class="feature text-center is-revealing">
+                <div class="feature-inner">
+                  <div class="feature-icon">
+                    <img src="./images/openvsx.webp" alt="Works Anywhere" class="h-100 scale-72">
+                  </div>
+                  <h4 class="feature-title mt-24" data-i18n-key="free-4-h">Works Anywhere</h4>
+                  <p class="text-sm mb-0" data-i18n-key="free-4-p">Whether you're using VS Codium, CodeSandbox, GitPod, Google IDX or other VS Code forks, <strong>SQLite Viewer adapts to its environment</strong> and provides as many features as possible.</p>
+                </div>
+              </div>
+              <div class="feature text-center is-revealing">
+                <div class="feature-inner">
+                  <div class="feature-icon">
+                    <img src="./images/owner.webp" alt="Owner Operated" class="h-100 scale-85">
+                  </div>
+                  <h4 class="feature-title mt-24" data-i18n-key="free-5-h">Owner Operated</h4>
+                  <p class="text-sm mb-0" data-i18n-key="free-5-p">SQLite Viewer is crafted by a single, dedicated developer. It enjoys a <strong>coherent vision and attention to detail</strong> that is rarely found in purely commercial products.</p>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+    
+
+      <!-- <section class="proof section">
+        <div class="container">
+          <div class="proof-inner section-inner has-top-divider has-bottom-divider p-0">
+            <div class="is-revealing pt-32">
+              <div class="logo-graveyard o-50 text-center text-sm flex center pb-24" data-i18n-key="used-by-at">
+                Used by engineers at
+                <img src="./images/Apple_logo_black.svg" title="Apple" alt="Apple" class="o-50" style="height:32px">
+                <img src="./images/NASA_Worm_logo.svg" title="NASA" alt="NASA" class="o-50 pt-5" style="height:32px">
+                <img src="./images/Verizon_2024.svg" title="Verizon" alt="Verizon" class="o-50" style="height:32px">
+                <img src="./images/Abbott_Laboratories_logo.svg" title="Abbott Laboratories" alt="Abbott Laboratories" class="o-50 mb-n5" style="height:32px">
+                & others*
+              </div>
+            </div>
+            <div class="is-revealing flex center pb-24">
+              <div class="avatar-stack flex">
+                <img class="avatar-stack-item" src="https://www.gravatar.com/avatar/a168c3adc2ff12683020de05635822eb950fa3292b342195b0aa3dba3649fc8d?d=blank">
+                <img class="avatar-stack-item" src="https://www.gravatar.com/avatar/6ebc966376b7d21cfe559b9a4e3a7e217745fb589c08839e7a3c4b1dc8c2542d?d=blank">
+                <img class="avatar-stack-item" src="https://www.gravatar.com/avatar/aa88d350b312a6ec6dc27c389fd755bd1a90bc515c7c607a1683aa5efc70950c?d=blank">
+                <img class="avatar-stack-item" src="https://www.gravatar.com/avatar/c953de6a81a6b5fd5a1f983b86d6680816f3bf83a3fcca71d223f98923a892f6?d=blank">
+                <img class="avatar-stack-item" src="https://www.gravatar.com/avatar/091069191e05f8d6d7dd4c0a3f3d9e99727bbd9f691382181231d75ee9b5135b?d=blank">
+              </div>
+              <span class="purchased-n-times text-sm ml-8 bold" data-i18n-content="purchased-n-times" content="Purchased {n} times last month">Purchased {n} times last month</span>
+            </div>
+          </div>
+        </div>
+      </section> -->
+
+    <section class="pricing section">
+        <div class="container-sm">
+          <div id="pricing" class="pricing-inner section-inner">
+            <div class="pricing-header text-center">
+              <h2 class="mt-0" data-i18n-key="pricing-title">Choose Your Plan</h2>
+              <p class="mb-0">
+                <span data-i18n-key="pricing-content">Get <strong>14-day access</strong> for temporary projects or <strong>monthly subscription</strong> for ongoing use.</span>
+                <span class="fall-sale-banner" data-i18n-key="pricing-footer">
+                  <!-- <strong>🌿&nbsp;Spring Sale 2025: -20% on all purchases&nbsp;🍃</strong> -->
+                  <!-- <strong>🍂&nbsp;Fall Sale 2025: -$20 on all licenses&nbsp;🍁</strong> -->
+                </span>
+              </p>
+            </div>
+            
+            <!-- Pricing Toggle -->
+            <div class="pricing-toggle-container text-center mt-32 mb-32">
+              <div class="pricing-toggle-wrapper">
+                <label class="pricing-toggle-label pricing-toggle-one-time" for="pricing-toggle" data-i18n-key="monthly">Monthly</label>
+                <label class="pricing-toggle">
+                  <input type="checkbox" id="pricing-toggle" class="pricing-toggle-input">
+                  <span class="pricing-toggle-slider"></span>
+                </label>
+                <label class="pricing-toggle-label pricing-toggle-monthly" for="pricing-toggle" data-i18n-key="yearly">Yearly</label>
+              </div>
+            </div>
+
+            <div class="pricing-tables-wrap">
+              <div class="pricing-table">
+                <div class="pricing-table-inner is-revealing">
+                  <div class="pricing-table-main">
+                    <div class="pricing-table-header pb-24">
+                      <div class="pricing-table-price" data-price="79">
+                        <span class="pricing-table-price-currency h2 one-time-price" title="USD">$</span><span class="pricing-table-price-amount h1 one-time-price">79</span>
+                        <small class="text-xxs" data-i18n-key="plus-vat">+&nbsp;VAT</small>
+                      </div>
+                      <div class="ellipsis">
+                        <strong class="text-xs one-time-price" data-i18n-key="14-day-pass">14-Day Pass</strong>
+                        <em class="price-hint text-xxs nowrap one-time-price" data-i18n-key="no-renewal">No Renewal</em>
+                      </div>
+                    </div>
+                    <div class="pricing-table-features-title pt-16 pb-8">14-Day Pass</div>
+                    <ul class="pricing-table-features list-reset text-xs">
+                      <li>
+                        <span><span data-i18n-key="price-feat-1">Editing and export features</span></span>
+                      </li>
+                      <li>
+                        <span><span data-i18n-key="price-feat-2">Ad-free experience</span></span>
+                      </li>
+                      <li>
+                        <span><span data-i18n-key="price-feat-3">Exclusive PRO icon (<img class="img inline-block" width="18" height="18" src="./images/favicon-pro.png" />)</span></span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="pricing-table-cta mb-8">
+                    <a class="button button-primary button-shadow button-block one-time-price" href="#purchase" data-polar-checkout target="_blank"><span data-i18n-key="purchase">Purchase</span><!--&nbsp;↗--></a>
+                    <!-- <a>14-Day Refund Guarantee</a> -->
+                  </div>
+                </div>
+              </div>
+              <div class="pricing-table">
+                <div class="pricing-table-inner is-revealing">
+                  <div class="pricing-table-main">
+                    <div class="pricing-table-header pb-24">
+                      <div class="pricing-table-price" data-price="69">
+                        <span class="pricing-table-price-currency h2 one-time-price" title="USD">$</span><span class="pricing-table-price-amount h1 one-time-price">69</span>
+                        <span class="pricing-table-price-currency h2 monthly-price" title="USD">$</span><span class="pricing-table-price-amount h1 monthly-price">499</span>
+                        <small class="text-xxs" data-i18n-key="plus-vat">+&nbsp;VAT</small>
+                        <small class="text-xxs one-time-price" data-i18n-key="per-month">/ month</small>
+                        <small class="text-xxs monthly-price" data-i18n-key="per-year">/ year</small>
+                      </div>
+                      <div class="ellipsis">
+                        <strong class="text-xs one-time-price" data-i18n-key="monthly-subscription">Monthly Subscription</strong>
+                        <strong class="text-xs monthly-price" data-i18n-key="yearly-subscription">Yearly Subscription</strong>
+                        <em class="price-hint text-xxs nowrap one-time-price" data-i18n-key="cancel-anytime">Cancel Anytime</em>
+                        <em class="price-hint text-xxs nowrap monthly-price" data-i18n-key="auto-renewal">Save 40%</em>
+                      </div>
+                    </div>
+                    <div class="pricing-table-features-title pt-16 pb-8">PRO Pass</div>
+                    <ul class="pricing-table-features list-reset text-xs">
+                      <li>
+                        <span><span data-i18n-key="price-feat-1">Copy & Paste to Excel</span></span>
+                      </li>
+                      <li>
+                        <span><span data-i18n-key="price-feat-2">Export to file (CSV, JSON & more)</span></span>
+                      </li>
+                      <li>
+                        <span><span data-i18n-key="price-feat-3">Ad-free experience</span></span>
+                      </li>
+                      <li>
+                        <span><span data-i18n-key="price-feat-6">2 tickets per month, each up to 30 minutes</span></span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="pricing-table-cta mb-8">
+                    <a class="button button-primary button-shadow button-block one-time-price" href="#subscribe" data-polar-checkout target="_blank"><span data-i18n-key="subscribe">Subscribe</span><!--&nbsp;↗--></a>
+                    <a class="button button-primary button-shadow button-block monthly-price" href="#subscribe-yearly" data-polar-checkout target="_blank"><span data-i18n-key="subscribe">Subscribe</span><!--&nbsp;↗--></a>
+                    <!-- <a>14-Day Refund Guarantee</a> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <!-- <p class="text-xs" data-i18n-key="cta-p">
+              You can evaluate SQLite Viewer PRO for up to two weeks by making use of the <a href="./refunds.html">14-day refund guarantee</a>.
+            </p> -->
+            <p class="text-xxs mb-16 o-50" data-i18n-key="payment-info">Orders are processed by our online reseller <a href="https://polar.sh" target="_blank" class="no-decoration"><picture>
+              <source media="(prefers-color-scheme: light)" srcset="./images/polar.svg">
+              <source media="(prefers-color-scheme: dark)" srcset="./images/polar-dark.svg">
+              <img class="display-inline-block pl-2 mb-n3" style="height:16px;" src="./images/polar.svg" alt="Polar">
+            </picture></a>. Payments secured by <picture>
+              <source media="(prefers-color-scheme: light)" srcset="./images/Stripe_wordmark_-_slate.svg">
+              <source media="(prefers-color-scheme: dark)" srcset="./images/Stripe_wordmark_-_white.svg">
+              <img class="display-inline-block" style="height:24px; margin:0 -3px -7.5px" src="./images/Stripe_wordmark_-_slate.svg" alt="Stripe">
+            </picture>.</p>
+            <!-- <p class="payment-providers text-xxs flex flex-wrap gap-8 justify-center align-center" data-i18n-key="payment-providers">
+              <span>Accepts</span>
+              <img class="payment-provider-icon mr-n2" style="height:16px" src="./images/google-pay.svg" alt="Google Pay" title="Google Pay">
+              <img class="payment-provider-icon" style="height:16px" src="./images/apple-pay.svg" alt="Apple Pay" title="Apple Pay">
+              <img class="payment-provider-icon" style="height:16px" src="./images/cashapp-pay.svg" alt="CashApp Pay" title="CashApp Pay">
+              <span>& more</span>
+            </p> -->
+          </div>
+        </div>
+      </section>
+
+      <!-- <section class="cta section">
+        <div class="container">
+          <div class="cta-inner section-inner">
+            <div class="cta-inner-x">
+              <h3 class="cta-title mt-0 h5" data-i18n-key="cta-h">Hobbyist, student, open-source developer, volunteer, artist?</h3>
+              <div class="cta-cta">
+                <a class="button button-default button-wide-mobile" href="./refunds.html">Contact</a>
+              </div>
+            </div>
+            <p class="mt-24 mb-0" data-i18n-key="cta-p">
+              If you are a hobbyist, student, open-source developer, volunteer, artist, or otherwise in need of a discount, 
+              you can reach out to <a href="mailto:discounts@sqliteviewer.app">discounts@sqliteviewer.app</a> to request a personalized discount code.
+            </p>
+          </div>
+        </div>
+      </section> -->
+
+      <section class="cta section">
+        <div class="container">
+          <div class="cta-inner section-inner">
+            <div class="cta-inner-x">
+              <!-- <h3 class="cta-title mt-0 h5" data-i18n-key="cta-h">Want to try it first? Use the 14-Day Refund Guarantee</h3> -->
+            </div>
+            <!-- <p class="mt-24 mb-0" data-i18n-key="cta-p">
+              You can evaluate SQLite Viewer PRO for up to two weeks by making use of the <a href="./refunds.html">14-Day Refund Guarantee</a>.<br>
+              To request a refund, contact <a href="mailto:refunds@sqliteviewer.app">refunds@sqliteviewer.app</a> with the email used at checkout — no explanation needed.<br>
+            </p> -->
+          </div>
+        </div>
+      </section>
+
+      <section class="faq section">
+        <div class="container">
+          <div class="section-inner">
+            <h3 class="mb-48" data-i18n-key="faq-title">Frequently Asked Questions</h3>
+
+            <details name="faq" class="">
+              <summary class="" data-i18n-key="faq-1-summary">How do I install the PRO version after the purchase?</summary>
+              <div class="mt-16 text-sm" data-i18n-key="faq-1-content">
+                You already have the PRO version installed! All that's required is to activate it.
+                After the purchase is complete, you will receive an email from the merchant of record with instructions on how claim the license key.
+                <strong>Activation happens within VS Code itself and only takes a couple of seconds</strong>:<br><br>
+                Open the Command Palette and type "Activate License Key". 
+                Alternatively, you can open the "Upgrade to PRO" dialog within a SQLite Viewer tab, scroll to the bottom of the page and click "Enter License Key". 
+                An input field will open at the top of the VS Code window. 
+                Paste the license key and hit enter. A system dialog will confirm the activation within a few seconds.
+              </div>
+            </details>
+
+            <details name="faq" class="">
+              <summary class="" data-i18n-key="faq-2-summary">How does Offline License Activation work?</summary>
+              <div class="mt-16 text-sm" data-i18n-key="faq-2-content">
+                When selecting <strong>"Offline License Activation"</strong> form the <strong>Command Palette</strong>, you will directed to a <a href="https://vscode.sqliteviewer.app/api/register">webpage</a> you can open on any device.
+                There you can enter your license key and you will receive a permanent activation token. 
+                You can then send the activation token to the device through an permitted channel (e.g. email, Slack, etc.) and enter it in the <strong>Offline Activation</strong> dialog in the extension.
+              </div>
+            </details>
+
+            <details name="faq" class="">
+              <summary class="" data-i18n-key="faq-3-summary">Can I activate the license on multiple devices?</summary>
+              <div class="mt-16 text-sm" data-i18n-key="faq-3-content">
+                You can activate SQLite Viewer PRO on as many devices as you like, and up to 5 devices simultaneously.
+              </div>
+            </details>
+
+            <!-- <details name="faq" class="">
+              <summary class="" data-i18n-key="faq-4-summary">What datetime formats are supported?</summary>
+              <div class="mt-16 text-sm" data-i18n-key="faq-4-content">
+                SQLite Viewer PRO supports a wide range of datetime formats for columns defined as `DATE` or `DATETIME`. Supported input formats include:<br><br>
+                • SQLite ISO-like strings<br>
+                • ISO-8601 strings<br>
+                • Julian Day numbers<br>
+                • Seconds since 1970 (Unix timestamp)<br>
+                • Milliseconds since 1970<br>
+                • Microseconds since 1970<br>
+                • Excel serial date (1900 system)<br>
+                • Windows FILETIME since 1601<br>
+                • .NET Ticks since 0001<br><br>
+                When a valid date is recognized, it can be displayed in one of 4 formats:<br>
+                • Localized, human-readable strings (default)<br>
+                • Localized, human-readable time-ago strings (e.g. "6 months ago")<br>
+                • Machine-friendly ISO-8601 strings<br>
+                • Raw values<br><br>
+                Values can be edited using a generic date picker or by modifying the interpreted ISO string. The extension preserves the original format when saving to disk.
+              </div>
+            </details> -->
+
+            <!-- <details name="faq" class="">
+              <summary class="" data-i18n-key="faq-5-summary">Can I use SQLite Viewer PRO to view production databases?</summary>
+              <div class="mt-16 text-sm" data-i18n-key="faq-5-content">
+                Yes, but it is highly recommended that you make preparations.<br><br>
+                If you intend to view data only, open the live database in read-only mode to prevent accidental modification. Right-click the file, click "Open With" and select "SQLite Viewer (read-only)".<br><br>
+                If you intend to modify the live database, it is highly recommended to enable the "SQLite Viewer: Instant Commit" feature from the settings. This will prevent the extension from opening long-running transactions that could block other SQLite processes accessing the same database.<br><br>
+                When Instant Commit is enabled, changes are committed immediately without being wrapped in a transaction. This ensures that other applications can continue to access the database without interference. However, please note that undo/redo functionality is limited in this mode.<br><br>
+                You can enable Instant Commit globally in VS Code settings, or use the toggle in the viewer UI to temporarily enable it for specific databases. The toggle is only visible when the global setting applies to the current file.
+              </div>
+            </details> -->
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container text-xxs">
+          <hr/>
+          <ol>
+            <li data-i18n-key="footnote-1">Offline Activation is required if a company firewall prevents the extension from connecting to the license server.</li>
+            <li data-i18n-key="footnote-2">When a device is enrolled through offline activation, the extension can be used without ever needing to reconnect to the license server.</li>
+            <!-- <li>Provided on a best-effort basis. See <a href="./terms-be.html">Terms of Use (Business Edition)</a> for details.</li> -->
+          </ol>
+          <hr/>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="site-footer-inner">
+          <div class="brand footer-brand">
+            <a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' })">
+              <img class="header-logo-image" src="./images/logo_70_mac.png" data-no-inline alt="Logo" width="35" height="35" fetchpriority="low">
+            </a>
+          </div>
+          <div class="footer-links-wrapper">
+            <ul id="footer-links" class="footer-links list-reset">
+              <li><a href="./terms.html" data-i18n-key="terms">Terms</a></li>
+              <li><a href="./privacy.html" data-i18n-key="privacy">Privacy</a></li>
+              <li><a href="./refunds.html" data-i18n-key="refunds">Refunds</a></li>
+              <!-- <li><a href="./changelog.html"><span data-i18n-key="changelog">Changelog</span></a></li> -->
+              <li><a href="mailto:mail@sqliteviewer.app"><span data-i18n-key="contact">Contact</span>&nbsp;↗</a></li>
+            </ul>
+          </div>
+          <ul class="footer-social-links list-reset">
+            <li>
+              <a href="https://github.com/qwtel/sqlite-viewer-vscode" title="GitHub">
+                <span class="screen-reader-text">GitHub</span>
+                <svg style="width:16px;height:16px" viewBox="0 0 1024 1024" width="1024" height="1024" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="#0270D7" fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z" transform="scale(64)"/>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a href="https://x.com/qwtel" title="X">
+                <span class="screen-reader-text">X</span>
+                <svg style="width:16px;height:16px" viewBox="0 0 300 300.251" width="300" height="300.251" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="#0270D7" d="M178.57 127.15 290.27 0h-26.46l-97.03 110.38L89.34 0H0l117.13 166.93L0 300.25h26.46l102.4-116.59 81.8 116.59h89.34M36.01 19.54H76.66l187.13 262.13h-40.66"/>
+                </svg>
+              </a>
+            </li>
+          </ul>
+          <div class="footer-copyright column"><p>
+            &copy; 2025 Florian Klampfer. <span data-i18n-key="all-rights-reserved">All rights reserved</span>.<br><br>
+            <span data-i18n-key="disclaimer-1">“SQLite” is a trademark of Hipp, Wyrick & Company, Inc. “Visual Studio Code” (VS Code) is a trademark of Microsoft Corporation. This extension is an independent product and is not affiliated with the respective trademark holders.</span><br><br>
+            <span data-i18n-key="disclaimer-2">Design based on <a href="https://preview.cruip.com/solid">Solid</a>. Licensed under <a href="https://github.com/qwtel/sqlite-viewer-vscode-page">GPL-3.0</a>.</span><br><br>
+            <span data-i18n-key="disclaimer-3">All prices are in United States Dollars (USD) and exclude VAT. VAT may be added at checkout. Your credit card provider may charge a currency conversion fee.</span><br><br>
+            <!-- <span data-i18n-key="disclaimer-4">* Company logos displayed on this page are used for illustrative purposes only and do not constitute endorsement, sponsorship, or affiliation with these organizations.</span><br><br> -->
+          </p></div>
+        </div>
+        <div class="site-footer-inner">
+          <!-- <div class="footer-copyright column"><p data-i18n-key="lang-disclaimer"></p></div>
+          <div class="footer-links-wrapper">
+            <ul id="lang-links" class="footer-links list-reset">
+              <li><a href="/en/">English</a></li>
+              <li><a href="/de/">Deutsch</a></li>
+              <li><a href="/fr/">Français</a></li>
+              <li><a href="/pt-br/">Português</a></li>
+              <li><a href="/es/">Español</a></li>
+              <li><a href="/ja/">日本語</a></li>
+              <li><a href="/ko/">한국어</a></li>
+            </ul>
+          </div> -->
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script>
+    const theme = colorScheme || window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.querySelectorAll('[data-polar-checkout]').forEach(el => {
+      el.setAttribute('data-polar-checkout-theme', theme);
+    });
+  </script>
+  <script>
+    document.querySelectorAll('a[href^="#card-"]').forEach(a => {
+      a.addEventListener('click', ev => scrollToHash(ev));
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+  <script type="module" src="./index.js"></script>
+  <script defer id="counterscale-script" src="https://counterscale.sqliteviewer.app/tracker.js"></script>
+  <script defer data-domain="vscode.sqliteviewer.app" src="https://plausible.io/js/script.js"></script>
+</body>
+</html>

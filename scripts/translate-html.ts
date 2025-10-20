@@ -18,7 +18,7 @@ const glob = new Bun.Glob('*');
 for await (const name of glob.scan(resolve('./i18n'))) {
   const [, lang] = name.match(/\.(.+)\.yaml$/) ?? [, 'en'];
   // @ts-ignore: Bun.YAML is not typed yet
-  const ts = Bun.YAML.parse(await Bun.file(resolve('./i18n', name)).text());
+  const ts = Bun.YAML.parse(await Bun.file(resolve('./i18n', name)).text()) as Record<string, string>;
   translations[lang] = ts;
 }
 
@@ -59,7 +59,7 @@ const logos = html`
 const indexTs = `
 /// <reference types="@cloudflare/workers-types/2023-07-01" />
 export { onRequestGet } from "../index.ts";
-`;
+`.trimStart();
 
 async function translateHtml(inFile: string, lang: string, outFile: string) {
   const htmlStr = Bun.file(resolve(inFile))

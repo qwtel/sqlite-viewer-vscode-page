@@ -5,6 +5,7 @@
   overflow: hidden;
   overflow: clip;
   border: 1px solid var(--color-bg-4);
+  border-radius: 0.5rem;
 }
 
 @media (display-mode: window-controls-overlay) or (display-mode: standalone) {

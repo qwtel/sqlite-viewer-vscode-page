@@ -27,7 +27,7 @@ const discountHintHtml = (discountPercent: number, country: string, flag: string
   <span class="price-hint text-xxs nowrap">${discountPercent}% off for all visitors from ${country} ${flag}</span>
 `;
 
-export const onRequestGet: PagesFunction<Env> = async (context) => {
+const mkOnRequest: (isGET?: boolean) => PagesFunction<Env> = (isGET = true) => async (context) => {
   const DEV = context.env.DEV;
 
   let [numPurchases, avatarUrls] = await Promise.all([
@@ -64,7 +64,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     }
   }
 
-  const response = await context.env.ASSETS.fetch(url);
+  const response = await context.env.ASSETS.fetch(url, { method: isGET ? 'GET' : 'HEAD' });
 
   const PROHrefByTier = context.env.PRO_HREFS.trim().split('\n');
   const BEHrefByTier = context.env.BE_HREFS.trim().split('\n');
@@ -171,10 +171,34 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   if (response.status === 200) {
     if (!isDedicatedLangPage) transformedResponse.headers.append('Vary', 'Accept-Language');
     transformedResponse.headers.append('Vary', 'CF-IPCountry');
-    transformedResponse.headers.set('Cache-Control', 'public, max-age=600') 
+    transformedResponse.headers.set('Cache-Control', 'public, max-age=600');
+    
+    // Add CORP header only for specific origins that need to embed this page
+    const origin = context.request.headers.get('Origin');
+    const referer = context.request.headers.get('Referer');
+    
+    let isAllowed = false;
+    
+    if (origin) {
+      const originUrl = new URL(origin);
+      isAllowed = originUrl.hostname.endsWith('sqliteviewer.app') || originUrl.hostname === 'localhost';
+    } else if (referer) {
+      // For iframe embedding, check the Referer header
+      const refererUrl = new URL(referer);
+      isAllowed = refererUrl.hostname.endsWith('sqliteviewer.app') || refererUrl.hostname === 'localhost';
+    }
+    
+    if (isAllowed) {
+      transformedResponse.headers.set('Cross-Origin-Resource-Policy', 'cross-origin');
+      transformedResponse.headers.set('Cross-Origin-Embedder-Policy', 'credentialless');
+    }
+    
   }
   return transformedResponse;
 }
+
+export const onRequestHead = mkOnRequest(false)
+export const onRequestGet = mkOnRequest()
 
 const formatPrice = (price: number) => {
   if (Math.floor(price) === price) return price.toString();

@@ -17,7 +17,11 @@ async function buildHtmlFiles() {
   console.log('Building HTML files...');
   
   const result = await Bun.build({
-    entrypoints: ['./src/index.html', './src/app.html'],
+    entrypoints: [
+      './src/index.html', 
+      './src/app.html', 
+      './src/upgrade.html', 
+    ],
     outdir: '.',
     naming: {
       asset: 'dist/[dir]/[name].[ext]',
@@ -153,6 +157,7 @@ const buildOutputs = await buildHtmlFiles();
 // Then inline the built files using build outputs
 await Promise.all([
   inlineHtmlFromBuild(buildOutputs, 'index.html', './index.html'),
+  inlineHtmlFromBuild(buildOutputs, 'upgrade.html', './upgrade.html'),
   !process.env.DEV ? inlineHtmlFromBuild(buildOutputs, 'app.html', '../sqlite-viewer-core/web/index.html') : Promise.resolve(),
 ]);
 

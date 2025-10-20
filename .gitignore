@@ -175,6 +175,8 @@ $RECYCLE.BIN/
 # Ignore generated files
 /index.html
 /index-*
+/upgrade.html
+/upgrade-*
 /app.html
 /app-*
 
