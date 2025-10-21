@@ -45,16 +45,25 @@
   <div class="body-wrap">
     <header class="site-header">
       <div class="container">
-        <div class="site-header-inner">
-          <div class="brand header-brand mr-8">
+        <div class="site-header-inner gap-16">
+          <div class="brand header-brand flex-fixed">
             <h1 class="m-0 header-brand-title">
               <a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' });">
                 <img class="header-logo-image" src="./images/logo_70_mac.png" alt="Logo" width="35" height="35">
               </a>
               <div class="ml-8 color-50" data-i18n-key="for-vs-code">
-                <span class="color">SQLite Viewer PRO</span> for VS Code
+                <span class="color">SQLite Viewer PRO</span><br>for VS Code
               </div>
             </h1>
+          </div>
+          <div class="header-links flex min-w-0 overflow-h">
+            <ul class="flex items-center gap-24 text-xs" style="flex: 1; list-style: none; padding: 0; margin: 0;">
+              <li><a class="opacity-link" href="#card-1">Clips</a></li>
+              <li><a class="opacity-link" onclick="scrollToHash(event)" href="#features-title">Features</a></li>
+              <li><a class="opacity-link" onclick="scrollToHash(event)" href="#changelog-title">Changelog</a></li>
+              <li><a class="opacity-link" onclick="scrollToHash(event)" href="#pricing">Pricing</a></li>
+              <li><a class="opacity-link" onclick="scrollToHash(event)" href="#faq">FAQ</a></li>
+            </ul>
           </div>
           <div class="flex min-w-0">
             <a id="open-in-browser" class="button button-default button-sm vscode-only ellipsis mr-8 display-none" target="_blank" title="Open in Browser" data-i18n-title="open-in-browser"><span data-i18n-key="open-in-browser">Open in Browser</span>&nbsp;↗</a>
@@ -65,7 +74,7 @@
                 document.getElementById('open-in-browser').href = location.origin + `?ref=vscode`;
               }
             </script>
-            <a class="button button-primary button-sm" href="#pricing" onclick="scrollToHash(event, null, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)" data-i18n-key="see-pricing">See Pricing</a>
+            <a class="button button-primary button-sm block-ellipsis" href="#pricing" onclick="scrollToHash(event, null, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)" data-i18n-key="see-pricing">See Pricing</a>
           </div>
         </div>
       </div>
@@ -257,7 +266,7 @@
         <div class="container">
           <div class="features-inner section-inner">
             <div class="features-header text-center mt-128 mb-56">
-              <h3 class="section-title h3 mt-128 color-unset" data-i18n-key="section-title-i">Re-engineered for PRO demands</h3>
+              <h3 id="features-title" class="section-title h3 mt-128 color-unset" data-i18n-key="section-title-i">Re-engineered for PRO demands</h3>
               <p class="section-paragraph mb-0 text-sm" data-i18n-key="section-paragraph-i">
                 You can think of the PRO version as <em>SQLite Viewer 2</em>. It's not just feature flags, but a completely new engine under the hood. Comes with SQLite failover guarantees and large file support.
               </p>
@@ -490,7 +499,7 @@
       <div class="container">
         <div class="section-inner">
           <div class="text-center mb-48">
-            <h3 class="h3 mt-0 color-unset" data-i18n-key="changelog-title">Recent Updates</h3>
+            <h3 id="changelog-title"class="h3 mt-0 color-unset" data-i18n-key="changelog-title">Recent Updates</h3>
             <p class="section-paragraph mb-0 text-sm" data-i18n-key="changelog-subtitle">
               Stay up to date with the latest features and improvements in SQLite Viewer PRO.
             </p>
@@ -817,7 +826,7 @@ Exported data is written directly to a file. </p>
       <section class="faq section">
         <div class="container">
           <div class="section-inner">
-            <h3 class="mb-48" data-i18n-key="faq-title">Frequently Asked Questions</h3>
+            <h3 id="faq" class="mb-48" data-i18n-key="faq-title">Frequently Asked Questions</h3>
 
             <details name="faq" class="">
               <summary class="" data-i18n-key="faq-1-summary">How do I install the PRO version after the purchase?</summary>

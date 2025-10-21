@@ -220,7 +220,7 @@ async function generateCarouselHTML(): Promise<string|null> {
       <div class="container">
         <div class="section-inner">
           <div class="text-center mb-48">
-            <h3 class="h3 mt-0 color-unset" data-i18n-key="changelog-title">Recent Updates</h3>
+            <h3 id="changelog-title"class="h3 mt-0 color-unset" data-i18n-key="changelog-title">Recent Updates</h3>
             <p class="section-paragraph mb-0 text-sm" data-i18n-key="changelog-subtitle">
               Stay up to date with the latest features and improvements in SQLite Viewer PRO.
             </p>

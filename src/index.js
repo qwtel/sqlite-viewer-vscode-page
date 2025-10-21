@@ -233,4 +233,107 @@
     observer.observe(carouselSection);
   }
 
+  // Navigation active state observer
+  {
+    class NavigationObserver {
+      constructor() {
+        this.navLinks = document.querySelectorAll('.opacity-link[href^="#"]');
+        this.sections = new Map();
+        this.activeLink = null;
+        
+        this.init();
+      }
+      
+      init() {
+        // Create a map of href -> section element
+        this.navLinks.forEach(link => {
+          const href = link.getAttribute('href');
+          const section = document.querySelector(href);
+          if (section) {
+            this.sections.set(href, section);
+          }
+        });
+        
+        // Create intersection observer
+        this.observer = new IntersectionObserver(
+          (entries) => this.handleIntersection(entries),
+          {
+            root: null,
+            rootMargin: '-20% 0px -60% 0px', // Trigger when section is 20% from top
+            threshold: 0
+          }
+        );
+        
+        // Observe all sections
+        this.sections.forEach(section => {
+          this.observer.observe(section);
+        });
+        
+        // Handle initial state
+        this.setInitialActive();
+      }
+      
+      handleIntersection(entries) {
+        // Find the section that's most visible
+        let mostVisible = null;
+        let maxRatio = 0;
+        
+        entries.forEach(entry => {
+          if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+            maxRatio = entry.intersectionRatio;
+            mostVisible = entry.target;
+          }
+        });
+        
+        if (mostVisible) {
+          this.setActiveLink(mostVisible.id);
+        }
+      }
+      
+      setActiveLink(sectionId) {
+        // Remove active class from all links
+        this.navLinks.forEach(link => {
+          link.classList.remove('active');
+        });
+        
+        // Add active class to matching link
+        const activeLink = document.querySelector(`a[href="#${sectionId}"]`);
+        if (activeLink) {
+          activeLink.classList.add('active');
+          this.activeLink = activeLink;
+        }
+      }
+      
+      setInitialActive() {
+        // Set initial active state based on current scroll position
+        const scrollY = window.scrollY;
+        let closestSection = null;
+        let minDistance = Infinity;
+        
+        this.sections.forEach((section, href) => {
+          const rect = section.getBoundingClientRect();
+          const distance = Math.abs(rect.top);
+          
+          if (distance < minDistance && rect.top <= 100) {
+            minDistance = distance;
+            closestSection = section;
+          }
+        });
+        
+        if (closestSection) {
+          this.setActiveLink(closestSection.id);
+        }
+      }
+      
+      destroy() {
+        if (this.observer) {
+          this.observer.disconnect();
+        }
+      }
+    }
+
+    // Initialize navigation observer
+    new NavigationObserver();
+  }
+
 })();
