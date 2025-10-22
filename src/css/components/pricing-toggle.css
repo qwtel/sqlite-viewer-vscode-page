@@ -77,13 +77,8 @@
 }
 
 /* Default state (one-time) */
-.pricing .one-time-price {
-  display: unset;
-}
-
-.pricing .monthly-price {
-  display: none;
-}
+.pricing .one-time-price { display: unset }
+.pricing .monthly-price { display: none }
 
 .pricing .pricing-toggle-one-time {
   color: var(--color-typography-1);
@@ -101,22 +96,19 @@
   > .pricing-table-inner {
     transition: all 0.3s ease;
   }
-
-  &:nth-child(1) {
-    z-index: 2;
-  }
 }
 
 /* Monthly state (when checked) */
+.pricing {
+  --dir: 1;
+  &:has(.back-card + .front-card) {
+    --dir: -1;
+  }
+  .pricing-table.front-card {
+    z-index: 2;
+  }
+}
 .pricing:has(.pricing-toggle-input:checked) {
-  .one-time-price {
-    display: none;
-  }
-
-  .monthly-price {
-    display: unset;
-  }
-
   .pricing-toggle-monthly {
     color: var(--color-typography-1);
     background: var(--color-bg-1);
@@ -127,26 +119,28 @@
     background: transparent;
   }
 
-  .pricing-table:nth-child(2) {
-    .one-time-price {
-      display: unset;
+  .pricing-table {
+    &.front-card {
+      .one-time-price { display: none }
+      .monthly-price { display: unset }
     }
-    .monthly-price {
-      display: none;
-    } 
-  }
-
-  @media (min-width: 849px) {
-    .pricing-table:nth-child(1) {
-      transform: translateX(calc(50% + 16px * 2));
+    &.back-card {
+      .one-time-price { display: unset }
+      .monthly-price { display: none }
     }
-    .pricing-table:nth-child(2) {
-      pointer-events: none;
-      user-select: none;
-      transform: translateX(calc(-50% - 16px * 2)) scale(0.9);
-      > .pricing-table-inner {
-        filter: blur(5px);
+    @media (min-width: 849px) {
+      &.front-card {
+        transform: translateX(calc(var(--dir) * (50% + 16px * 2)));
+      }
+      &.back-card {
+        pointer-events: none;
+        user-select: none;
+        transform: translateX(calc(var(--dir) * (-50% - 16px * 2))) scale(0.9);
+        > .pricing-table-inner {
+          filter: blur(5px);
+        }
       }
     }
   }
 }
+
