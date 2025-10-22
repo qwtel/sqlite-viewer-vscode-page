@@ -143,4 +143,13 @@ body {
   --font-family-heading: var(--x-font-family);
   --font-family-code: var(--x-font-family-mono);
   --font-family-pre: var(--x-font-family-mono);
+}
+
+/* Toggle class for sqlite-viewer-core color scheme */
+body.sky-colors {
+  /* Primary Colors - Matching sqlite-viewer-core sky colors */
+  --color-primary-1: hsl(200.4 98% 39.4%); /* sky-600 light */
+  --color-primary-2: hsl(198.7 97.9% 57.2%); /* sky-600 dark */
+  --color-primary-3: hsl(201.3 96.3% 32.2%); /* sky-700 light */
 } 
+

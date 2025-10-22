@@ -25,7 +25,7 @@
     }
   </script>
 </head>
-<body class="is-boxed has-animations">
+<body class="is-boxed has-animations sky-colors">
   <script>
     const searchParams = new URLSearchParams(location.search);
     const colorScheme = searchParams.get('color-scheme');
@@ -37,16 +37,24 @@
   <div class="body-wrap">
     <header class="site-header">
       <div class="container">
-        <div class="site-header-inner">
-          <div class="brand header-brand mr-8">
+        <div class="site-header-inner gap-16">
+          <div class="brand header-brand flex-fixed">
             <h1 class="m-0 header-brand-title">
               <a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' });">
                 <img class="header-logo-image" src="./images/logo_70_mac.png" alt="Logo" width="35" height="35">
               </a>
               <div class="ml-8 color-50" data-i18n-key="for-web">
-                <span class="color">SQLite Viewer PRO</span> for Web
+                <span class="color">SQLite Viewer PRO</span><br>for Web
               </div>
             </h1>
+          </div>
+          <div class="header-links flex min-w-0 overflow-h">
+            <ul class="flex items-center gap-24 text-xs" style="flex: 1; list-style: none; padding: 0; margin: 0;">
+              <li><a class="opacity-link" href="#card-1" data-i18n-key="clips">Clips</a></li>
+              <li><a class="opacity-link" onclick="scrollToHash(event)" href="#features-title" data-i18n-key="features">Features</a></li>
+              <li><a class="opacity-link" onclick="scrollToHash(event)" href="#pricing" data-i18n-key="pricing">Pricing</a></li>
+              <li><a class="opacity-link" onclick="scrollToHash(event)" href="#faq" data-i18n-key="faq">FAQ</a></li>
+            </ul>
           </div>
           <div class="flex min-w-0">
             <a id="open-in-browser" class="button button-default button-sm vscode-only ellipsis mr-8 display-none" target="_blank" title="Open in New Tab" data-i18n-title="open-in-browser"><span data-i18n-key="open-in-browser">Open in New Tab</span>&nbsp;↗</a>
@@ -76,7 +84,7 @@
                   document.getElementById('hero-title').textContent = 'Upgrade to Unlock PRO Features';
                 }
               </script> -->
-              <p class="hero-paragraph" data-i18n-key="hero-paragraph">Use powerful <strong>export</strong> and <strong>copy-as</strong> workflows directly in your browser. Copy rows as TSV, CSV, SQL inserts, JSON, HTML, or Markdown — no installation required.</p>
+              <p class="hero-paragraph" data-i18n-key="hero-paragraph">Use powerful <strong>export</strong> and <strong>copy-as</strong> workflows directly in your browser. Copy rows as TSV, CSV, SQL inserts, JSON, HTML, or Markdown — no installation required. 🎯</p>
               <div class="hero-cta">
                 <a class="button button-default" href="#card-1"><span data-i18n-key="learn-more">Watch Clips</span>&nbsp;↓</a>
                 <a class="button button-primary" href="#pricing" onclick="scrollToHash(event, null, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)" data-i18n-key="see-pricing">See Pricing</a>
@@ -85,14 +93,14 @@
                 <!-- <strong>🌿&nbsp;Spring Sale 2025: -20% on all purchases&nbsp;🍃</strong> -->
                 <!-- <strong>🍂&nbsp;Fall Sale 2025: -$20 on all licenses&nbsp;🍁</strong> -->
               </span>
-              <div class="flex items-center mt-32">
+              <!-- <div class="flex items-center mt-32">
                 <div class="avatar-stack flex">
                   <img class="avatar-stack-item" src="https://www.gravatar.com/avatar/5513fd2c2ead3371af0eb6b99c0abe7f4075ae29a8171021a07b2db5640d7b09?d=blank">
                   <img class="avatar-stack-item" src="https://www.gravatar.com/avatar/5513fd2c2ead3371af0eb6b99c0abe7f4075ae29a8171021a07b2db5640d7b09?d=blank">
                   <img class="avatar-stack-item" src="https://www.gravatar.com/avatar/5513fd2c2ead3371af0eb6b99c0abe7f4075ae29a8171021a07b2db5640d7b09?d=blank">
                 </div>
-                <span class="purchased-n-times text-xxs ml-8" data-i18n-content="purchased-n-times" content="Purchased {n} times last month">Purchased {n} times last month</span>
-              </div>
+                <span class="purchased-n-times text-xxs ml-8" data-i18n-content="purchased-n-times" content="Purchased {n} times last month">🔥 Purchased {n} times last month</span>
+              </div> -->
             </div>
             <div class="hero-figure anime-element">
               <svg class="placeholder" width="528" height="396" viewBox="0 0 528 396">
@@ -139,7 +147,7 @@
       <section class="section">
         <div class="container">
           <div class="text-center mb-64">
-            <h2 id="cards-title" class="cards-title section-title h3 color-unset" data-i18n-key="cards-title">Upgrade to unlock exclusive PRO workflows</h2>
+            <h2 id="cards-title" class="cards-title section-title h3 color-unset" data-i18n-key="cards-title">⚡ Upgrade to unlock exclusive PRO workflows</h2>
             <p class="section-paragraph mb-0" data-i18n-key="cards-paragraph">
               SQLite Viewer PRO unlocks new workflows. With its deep integration into VS Code, it enables some workflows that are unique and not possible with any other SQLite editor.
             </p>
@@ -156,7 +164,7 @@
               <div class="card__content">
                 <a class="card__header" href="#card-1"></a>
                 <div>
-                  <h3 data-i18n-key="card-1-h">Export data in a variety of formats</h3>
+                  <h3 data-i18n-key="card-1-h">📊 Export data in a variety of formats</h3>
                   <p class="text-sm" data-i18n-key="card-1-p">You can copy rows directly from the viewer in a variety of formats. Supported formats are: TSV, CSV, SQLite inserts, JSON objects, JSON arrays, HTML, and Markdown.</p>
                 </div>
                 <figure>
@@ -169,7 +177,7 @@
               <div class="card__content">
                 <a class="card__header" href="#card-2"></a>
                 <div>
-                  <h3 data-i18n-key="card-2-h">Access Anywhere</h3>
+                  <h3 data-i18n-key="card-2-h">🌐 Access Anywhere</h3>
                   <p class="text-sm" data-i18n-key="card-2-p">Open databases in your browser and use export and copy-as tools from any device. No installation required.</p>
                 </div>
                 <figure>
@@ -182,8 +190,26 @@
               <div class="card__content">
                 <a class="card__header" href="#card-3"></a>
                 <div>
-                  <h3 data-i18n-key="card-3-h">Work with Large Datasets</h3>
+                  <h3 data-i18n-key="card-3-h">💪 Work with Large Datasets</h3>
                   <p class="text-sm" data-i18n-key="card-3-p">Browse and filter efficiently. Export subsets of rows without hitting clipboard limits.</p>
+                  <p id="storage-info" class="text-sm" style="display: none;">
+                    <span id="storage-text">Up to <span id="storage-amount">--</span> MB on this device.</span>
+                  </p>
+                  <script type="module">
+                    (async () => {
+                      if ('storage' in navigator && 'estimate' in navigator.storage) {
+                        const estimate = await navigator.storage.estimate();
+                        const quota = estimate.quota;
+                        
+                        if (quota) {
+                          // Convert bytes to MB and round to 1 decimal place
+                          const quotaMB = Math.round(quota / (1024 * 1024) * 10) / 10;
+                          document.getElementById('storage-amount').textContent = quotaMB;
+                          document.getElementById('storage-info').style.display = 'block';
+                        }
+                      }
+                    })().catch(console.warn);
+                  </script>
                 </div>
                 <figure>
                   <video muted loop playsinline style="width:100%"></video>
@@ -195,7 +221,7 @@
               <div class="card__content">
                 <a class="card__header" href="#card-4"></a>
                 <div>
-                  <h3 data-i18n-key="card-4-h">Beautiful, Fast Interface</h3>
+                  <h3 data-i18n-key="card-4-h">✨ Beautiful, Fast Interface</h3>
                   <p class="text-sm" data-i18n-key="card-4-p">A responsive, high-performance UI designed for the web so you can get in, export, and move on quickly.</p>
                 </div>
                 <figure>
@@ -220,11 +246,11 @@
         </div>
       </section>
 
-      <!-- <section class="features section">
+      <section class="features section">
         <div class="container">
           <div class="features-inner section-inner">
             <div class="features-header text-center mt-128 mb-56">
-              <h3 class="section-title h3 mt-128 color-unset" data-i18n-key="section-title-i">Re-engineered for PRO demands</h3>
+              <h3 id="features-title" class="section-title h3 mt-128 color-unset" data-i18n-key="section-title-i">🔧 Re-engineered for PRO demands</h3>
               <p class="section-paragraph mb-0 text-sm" data-i18n-key="section-paragraph-i">
                 You can think of the PRO version as <em>SQLite Viewer 2</em>. It's not just feature flags, but a completely new engine under the hood. Comes with SQLite failover guarantees and large file support.
               </p>
@@ -232,8 +258,8 @@
             <div class="features-wrap">
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
-                  <div class="feature-icon">
-                    <img src="./images/native.webp" alt="Native SQLite Client" class="h-100 scale-85">
+                  <div class="feature-icon feature-emoji">
+                    🗄️
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="feat-1-h">Native SQLite Client</h4>
                   <p class="text-sm mb-0" data-i18n-key="feat-1-p">The PRO version uses the <strong>canonical SQLite implementation</strong>, which provides the full set of failover guarantees. The old readonly client remains as a fallback.</p>
@@ -241,8 +267,8 @@
               </div>
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
-                  <div class="feature-icon">
-                    <img src="./images/lfs.webp" alt="Large File Support" class="h-100">
+                  <div class="feature-icon feature-emoji">
+                    📁
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="feat-2-h">Large File Support</h4>
                   <p class="text-sm mb-0" data-i18n-key="feat-2-p">All restrictions on file size are lifted, <strong>even during remote sessions</strong>. Only the data needed to render the UI is transferred to your local machine. Powered by <em>VS Code Server</em>.</p>
@@ -250,8 +276,8 @@
               </div>
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
-                  <div class="feature-icon">
-                    <img src="./images/adblock.webp" alt="Ad-Free Experience" class="h-100 scale-85">
+                  <div class="feature-icon feature-emoji">
+                    🚫
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="feat-3-h">Ad-Free Experience</h4>
                   <p class="text-sm mb-0" data-i18n-key="feat-3-p">PRO customers enjoy an ad-free experience — <strong>perfect for screen sharing and recordings</strong>. Additionally, PRO customers receive an exclusive PRO icon (<img class="img inline-block" width="18" height="18" src="./images/favicon-pro.png" />) in the UI.</p>
@@ -260,102 +286,13 @@
             </div>
           </div>
         </div>
-      </section> -->
-
-      <!-- <section class="section">
-        <div class="container">
-          <div class="text-center mb-64">
-            <h2 id="cards-title-2" class="cards-title section-title h3 color-unset" data-i18n-key="cards-title-2">Additional PRO Features</h2>
-            <p class="section-paragraph mb-0" data-i18n-key="cards-paragraph-2">
-              Discover additional capabilities that make SQLite Viewer PRO the most cozy and convenient database management tool for VS Code.
-            </p>
-          </div>
-          <div id="cards-2" class="cards cards-stack cards-stack--text-right" style="--num-cards: 4;">
-            <div class="spy" id="card-2-1" style="--index: 1"></div>
-            <div class="card" style="--index: 1">
-              <div class="card__content">
-                <a class="card__header" href="#card-2-1"></a>
-                <figure>
-                  <picture>
-                    <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-6-light.webp">
-                    <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-6-light.png">
-                    <source media="(prefers-color-scheme: dark)" srcset="http://bun-ignore/dist/images/card-6.webp">
-                    <source media="(prefers-color-scheme: dark)" srcset="http://bun-ignore/dist/images/card-6.png">
-                    <img src="http://bun-ignore/dist/images/card-6.png" alt="Datetime rendering and input" width="528" height="396">
-                  </picture>
-                </figure>
-                <div>
-                  <h3 data-i18n-key="card-2-1-h">Datetime rendering and input</h3>
-                  <p class="text-sm" data-i18n-key="card-2-1-p">Display date columns in human-friendly formats (localized, relative, or ISO) and edit using standard date pickers.</p>
-                </div>
-              </div>
-            </div>
-            <div class="spy" id="card-2-2" style="--index: 2"></div>
-            <div class="card" style="--index: 2">
-              <div class="card__content">
-                <a class="card__header" href="#card-2-2"></a>
-                <figure>
-                  <picture>
-                    <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-7-light.webp">
-                    <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-7-light.png">
-                    <source media="(prefers-color-scheme: dark)" srcset="http://bun-ignore/dist/images/card-7.webp">
-                    <source media="(prefers-color-scheme: dark)" srcset="http://bun-ignore/dist/images/card-7.png">
-                    <img src="http://bun-ignore/dist/images/card-7.png" alt="Full logging" width="528" height="396">
-                  </picture>
-                </figure>
-                <div>
-                  <h3 data-i18n-key="card-2-2-h">Full logging</h3>
-                  <p class="text-sm" data-i18n-key="card-2-2-p">Comprehensive logging system that tracks all database operations, queries, and changes. Perfect for debugging, auditing, and understanding database activity.</p>
-                </div>
-              </div>
-            </div>
-            <div class="spy" id="card-2-3" style="--index: 3"></div>
-            <div class="card" style="--index: 3">
-              <div class="card__content">
-                <a class="card__header" href="#card-2-3"></a>
-                <figure>
-                  <picture>
-                    <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-8-light.webp">
-                    <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-8-light.png">
-                    <source media="(prefers-color-scheme: dark)" srcset="http://bun-ignore/dist/images/card-8.webp">
-                    <source media="(prefers-color-scheme: dark)" srcset="http://bun-ignore/dist/images/card-8.png">
-                    <img src="http://bun-ignore/dist/images/card-8.png" alt="Pragma Editor" width="528" height="396">
-                  </picture>
-                </figure>
-                <div>
-                  <h3 data-i18n-key="card-2-3-h">Pragma Editor</h3>
-                  <p class="text-sm" data-i18n-key="card-2-3-p">Advanced PRAGMA editor for fine-tuning SQLite settings. Configure database behavior, performance options, and debugging features with ease.</p>
-                </div>
-              </div>
-            </div>
-            <div class="spy" id="card-2-4" style="--index: 4"></div>
-            <div class="card" style="--index: 4">
-              <div class="card__content">
-                <a class="card__header" href="#card-2-4"></a>
-                <figure>
-                  <picture>
-                    <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-9-light.webp">
-                    <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-9-light.png">
-                    <source media="(prefers-color-scheme: dark)" srcset="http://bun-ignore/dist/images/card-9.webp">
-                    <source media="(prefers-color-scheme: dark)" srcset="http://bun-ignore/dist/images/card-9.png">
-                    <img src="http://bun-ignore/dist/images/card-9.png" alt="Export Dialog" width="528" height="396">
-                  </picture>
-                </figure>
-                <div>
-                  <h3 data-i18n-key="card-2-4-h">Export Dialog</h3>
-                  <p class="text-sm" data-i18n-key="card-2-4-p">Export large datasets directly to files with batched processing. Perfect for handling larger tables that exceed clipboard limits.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> -->
+      </section>
 
       <section class="features section">
         <div class="container">
           <div class="features-inner section-inner">
             <div class="features-header text-center mb-56">
-              <h3 class="section-title h3 mt-128 color-unset" data-i18n-key="section-title-ii">Includes everything you like about the free version</h3>
+              <h3 class="section-title h3 mt-128 color-unset" data-i18n-key="section-title-ii">🎁 Includes everything you like about the free version</h3>
               <p class="section-paragraph mb-0 text-sm" data-i18n-key="section-paragraph-ii">
                 Upgrading to SQLite Viewer PRO is a seamless experience. Just enter the license key and you're good to go. 
                 In addition to new and exclusive PRO features, everything you like about the free version stays as is.
@@ -364,8 +301,8 @@
             <div class="features-wrap">
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
-                  <div class="feature-icon">
-                    <img src="./images/perf.webp" alt="Performant UI" class="h-100 scale-85">
+                  <div class="feature-icon feature-emoji">
+                    🚀
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="free-1-h">Performant UI</h4>
                   <p class="text-sm mb-0" data-i18n-key="free-1-p">SQLite Viewer is built with performance in mind. It uses the best tools the web stack has to offer and is <strong>routinely tested on older hardware</strong> to ensure performance remains top-notch.</p>
@@ -373,8 +310,8 @@
               </div>
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
-                  <div class="feature-icon">
-                    <img src="./images/autotheme.webp" alt="Matching Theme" width="100" height="100" class="square-100 feature-icon-mask">
+                  <div class="feature-icon feature-emoji">
+                    🎨
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="free-2-h">Matching Theme</h4>
                   <p class="text-sm mb-0" data-i18n-key="free-2-p">Say goodbye to disjointed user interfaces. SQLite Viewer <strong>automatically adjusts to your VS Code theme</strong> and seamlessly blends into the existing VS Code experience.</p>
@@ -382,21 +319,17 @@
               </div>
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
-                  <div class="feature-icon">
-                    <picture>
-                      <source media="(prefers-color-scheme: light)" srcset="./images/install-dark.webp">
-                      <source media="(prefers-color-scheme: dark)" srcset="./images/install-light.webp">
-                      <img src="./images/install-light.webp" alt="One-Click Setup" width="100" height="100" class="square-100 feature-icon-mask">
-                    </picture>
+                  <div class="feature-icon feature-emoji">
+                    ⚡
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="free-3-h">One-Click Setup</h4>
                   <p class="text-sm mb-0" data-i18n-key="free-3-p">SQLite Viewer doesn't rely on binaries on your machine. It ships its own, so that <strong>simply clicking 'Install' completes the setup</strong>. The entire extension weighs only 2.5 MB.</p>
                 </div>
               </div>
-              <!-- <div class="feature text-center is-revealing">
+              <div class="feature text-center is-revealing">
                 <div class="feature-inner">
-                  <div class="feature-icon">
-                    <img src="./images/openvsx.webp" alt="Works Anywhere" class="h-100 scale-72">
+                  <div class="feature-icon feature-emoji">
+                    🌐
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="free-4-h">Works Anywhere</h4>
                   <p class="text-sm mb-0" data-i18n-key="free-4-p">Whether you're using VS Codium, CodeSandbox, GitPod, Google IDX or other VS Code forks, <strong>SQLite Viewer adapts to its environment</strong> and provides as many features as possible.</p>
@@ -404,13 +337,13 @@
               </div>
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
-                  <div class="feature-icon">
-                    <img src="./images/owner.webp" alt="Owner Operated" class="h-100 scale-85">
+                  <div class="feature-icon feature-emoji">
+                    👨‍💻
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="free-5-h">Owner Operated</h4>
                   <p class="text-sm mb-0" data-i18n-key="free-5-p">SQLite Viewer is crafted by a single, dedicated developer. It enjoys a <strong>coherent vision and attention to detail</strong> that is rarely found in purely commercial products.</p>
                 </div>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>
@@ -450,7 +383,7 @@
         <div class="container-sm">
           <div id="pricing" class="pricing-inner section-inner">
             <div class="pricing-header text-center">
-              <h2 class="mt-0" data-i18n-key="pricing-title">Choose Your Plan</h2>
+              <h2 class="mt-0" data-i18n-key="pricing-title">💰 Choose Your Plan</h2>
               <p class="mb-0">
                 <span data-i18n-key="pricing-content">Get <strong>14-day access</strong> for temporary projects or <strong>monthly subscription</strong> for ongoing use.</span>
                 <span class="fall-sale-banner" data-i18n-key="pricing-footer">
@@ -606,7 +539,7 @@
       <section class="faq section">
         <div class="container">
           <div class="section-inner">
-            <h3 class="mb-48" data-i18n-key="faq-title">Frequently Asked Questions</h3>
+            <h3 id="faq" class="mb-48" data-i18n-key="faq-title">❓ Frequently Asked Questions</h3>
 
             <details name="faq" class="">
               <summary class="" data-i18n-key="faq-1-summary">How do I install the PRO version after the purchase?</summary>
