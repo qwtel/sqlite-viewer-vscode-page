@@ -119,12 +119,12 @@ body {
   --color-typography-2: color-mix(
     in oklab, 
     color-mix(in oklab, var(--x-color) 55%, var(--x-background)) 100%,
-    #0270D7 12.5%
+    var(--color-primary-1) 12.5%
   );
   --color-typography-3: color-mix(
     in oklab, 
     color-mix(in oklab, var(--x-color) 75%, var(--x-background)) 100%,
-    #0270D7 12.5%
+    var(--color-primary-1) 12.5%
   );
   
   /* Background Colors */

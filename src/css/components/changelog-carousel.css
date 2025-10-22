@@ -6,7 +6,7 @@
 
 /* Minimal Changelog Carousel Styles */
 .changelog-carousel {
-  --sl-color-primary-600: #0270D7;
+  --sl-color-primary-600: var(--color-primary-1);
 
   .carousel-container {
     /* max-width: 800px; */

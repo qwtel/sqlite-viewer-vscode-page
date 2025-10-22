@@ -97,7 +97,7 @@
   top: 41.9%;
   width: 28.03%;
   height: 37.37%;
-  background: linear-gradient(to left top, #00BFFB, rgba(from #00BFFB r g b / 0));
+  background: linear-gradient(to left top, var(--color-primary-2), rgba(from var(--color-primary-2) r g b / 0));
   transform: rotateZ(45deg);
 
   &::before {
@@ -125,7 +125,7 @@
   top: -56.8%;
   width: 56.81%;
   height: 75.75%;
-  background: linear-gradient(to left top, #00BFFB, rgba(from #00BFFB r g b / 0));
+  background: linear-gradient(to left top, var(--color-primary-2), rgba(from var(--color-primary-2) r g b / 0));
 
   &::before {
     background: linear-gradient(to left, var(--color-bg-1) 0%, rgb(from var(--color-bg-1)  r g b / 0%) 60%);
@@ -197,7 +197,7 @@
   top: -17.9%;
   width: 6.63%;
   height: 8.83%;
-  background: #00BFFB;
+  background: var(--color-primary-2);
   transform: rotateZ(-52deg);
 
   &::before {
@@ -211,7 +211,7 @@
   top: 4.3%;
   width: 3.03%;
   height: 4.04%;
-  background: rgba(from #00BFFB r g b / 0.32);
+  background: rgba(from var(--color-primary-2) r g b / 0.32);
   transform: rotateZ(-50deg);
 }
 
