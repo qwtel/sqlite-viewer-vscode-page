@@ -112,7 +112,7 @@ faq1Content: >
   Merchant of Record mit Anweisungen, wie Sie den Lizenzschlüssel einlösen können. _Die Aktivierung erfolgt direkt in VS Code selbst und dauert nur
   wenige Sekunden_:<br><br>
   Öffnen Sie die __Befehlspalette__ und geben Sie __"Lizenzschlüssel aktivieren"__ ein. Alternativ können Sie den Dialog __"Auf PRO upgraden"__
-  in einem SQLite Viewer-Tab öffnen, zum unteren Ende der Seite scrollen und auf __"Enter License Key"__ klicken. Ein Eingabefeld wird am oberen Rand des
+  in einem SQLite Viewer-Tab öffnen, zum unteren Ende der Seite scrollen und auf __"Lizenzschlüssel eingeben"__ klicken. Ein Eingabefeld wird am oberen Rand des
   VS Code-Fensters geöffnet. Fügen Sie den Lizenzschlüssel ein und drücken Sie die Eingabetaste. Ein Systemdialog bestätigt die Aktivierung innerhalb weniger Sekunden.
 faq2Summary: "Kann ich die PRO-Version auf mehreren Geräten verwenden?"
 faq2Content: >
@@ -161,3 +161,4 @@ clips: "Demo"
 features: "Features"
 pricing: "Preise"
 faq: "FAQ"
+enterLicenseKey: "Lizenzschlüssel eingeben"

@@ -108,7 +108,7 @@ faq1Content: >
   ¡Ya tienes instalada la versión PRO! Todo lo que se necesita es activarla. Después de completar la compra, recibirás un correo electrónico del comerciante
   con instrucciones sobre cómo reclamar la clave de licencia. _La activación se realiza directamente en VS Code y solo toma unos segundos_:<br><br>
   Abre la __Paleta de comandos__ y escribe __"Activar Clave de Licencia"__. Alternativamente, puedes abrir el diálogo __"Actualizar a PRO"__
-  en una pestaña de SQLite Viewer, desplazarte hasta el final de la página y hacer clic en __"Enter License Key"__. Se abrirá un campo de entrada
+  en una pestaña de SQLite Viewer, desplazarte hasta el final de la página y hacer clic en __"Ingresar Clave de Licencia"__. Se abrirá un campo de entrada
   en la parte superior de la ventana de VS Code. Pega la clave de licencia y presiona enter. Un diálogo del sistema confirmará la activación en unos segundos.
 faq2Summary: "¿Puedo usar la versión PRO en múltiples dispositivos?"
 faq2Content: >
@@ -159,3 +159,4 @@ clips: "Demo"
 features: "Características"
 pricing: "Precios"
 faq: "FAQ"
+enterLicenseKey: "Ingresar Clave de Licencia"
