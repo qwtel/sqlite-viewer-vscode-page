@@ -1,6 +1,7 @@
 (async () => {
   {
-    if (document.body.classList.contains('vscode')) {
+    const el = document.getElementById('license-key');
+    if (el && document.body.classList.contains('vscode')) {
       const Comlink = await import("./vendor/comlink.js");
       const parentEndpoint = Comlink.windowEndpoint(self.parent);
       const wrappedParent = Comlink.wrap(parentEndpoint);
@@ -10,7 +11,7 @@
           wrappedParent.openLink(a.href);
         });
       });
-      document.getElementById('footer-links').insertAdjacentHTML('afterbegin', '<li><a id="license-key" href="#">Enter License Key&nbsp;↑</a></li>');
+      document.getElementById('license-key').style.display = 'inline';
       document.getElementById('license-key').addEventListener('click', event => (event.preventDefault(), wrappedParent.enterLicenseKey()));
     }
   }
