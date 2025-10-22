@@ -14,7 +14,7 @@ purchasedNTimes: "Comprado {n} vezes recentemente"
 usedByAt: "Usado por engenheiros na {logos} e outros*"
 disclaimer4: >
   * Logos de empresas exibidos nesta página são usados apenas para fins ilustrativos e não constituem endosso, patrocínio ou afiliação com essas organizações.
-learnMore: "Ver clipes"
+learnMore: "Ver demo"
 card1H: "Exportar dados em vários formatos"
 card1P: >
   Você pode copiar linhas diretamente do visualizador em vários formatos. Formatos suportados são:
@@ -155,7 +155,7 @@ perMonth: "/ mês"
 subscribe: "Assinar"
 cancelAnytime: "Cancelar a qualquer momento"
 sixMonthCommitment: "Compromisso de 6 meses"
-clips: "Clipes"
+clips: "Demo"
 features: "Recursos"
 pricing: "Preços"
 faq: "FAQ"

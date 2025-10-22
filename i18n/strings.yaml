@@ -14,7 +14,7 @@ purchasedNTimes: "Purchased {n} times recently"
 usedByAt: "Used by engineers at {logos} & others†"
 disclaimer4: >
   † Company logos displayed on this page are used for illustrative purposes only and do not constitute endorsement, sponsorship, or affiliation with these organizations.
-learnMore: "Watch Clips"
+learnMore: "Watch Demo"
 card1H: "Export data in a variety of formats"
 card1P: >
   You can copy rows directly from the viewer. Supported formats include: TSV, CSV, SQLite inserts, JSON objects, JSON arrays, HTML, and Markdown.
@@ -174,7 +174,7 @@ perMonth: "/ month"
 subscribe: "Subscribe"
 cancelAnytime: "Cancel Anytime"
 sixMonthCommitment: "6-Month Commitment"
-clips: "Clips"
+clips: "Demo"
 features: "Features"
 pricing: "Pricing"
 faq: "FAQ"

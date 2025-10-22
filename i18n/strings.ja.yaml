@@ -14,7 +14,7 @@ purchasedNTimes: "最近{n}回購入されました"
 usedByAt: "{logos}などのエンジニアが使用※"
 disclaimer4: >
   ※ このページに表示されている企業ロゴは説明目的でのみ使用されており、これらの組織との承認、スポンサーシップ、または提携を構成するものではありません。
-learnMore: "クリップを見る"
+learnMore: "デモを見る"
 card1H: "さまざまな形式でデータをエクスポート"
 card1P: >
   ビューアから直接行をさまざまな形式でコピーできます。サポートされている形式は、
@@ -157,7 +157,7 @@ perMonth: "/月"
 subscribe: "サブスクライブ"
 cancelAnytime: "いつでもキャンセル可能"
 sixMonthCommitment: "6ヶ月のコミットメント"
-clips: "クリップ"
+clips: "デモ"
 features: "機能"
 pricing: "価格"
 faq: "FAQ"

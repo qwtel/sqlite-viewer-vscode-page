@@ -14,7 +14,7 @@ purchasedNTimes: "최근 {n}번 구매됨"
 usedByAt: "{logos} 등의 엔지니어가 사용※"
 disclaimer4: >
   ※ 이 페이지에 표시된 회사 로고는 설명 목적으로만 사용되며, 이러한 조직과의 승인, 후원 또는 제휴를 구성하지 않습니다.
-learnMore: "클립 보기"
+learnMore: "데모 보기"
 card1H: "다양한 형식으로 데이터 내보내기"
 card1P: >
   다양한 형식으로 뷰어에서 직접 행을 복사할 수 있습니다. 지원되는 형식은 다음과 같습니다:
@@ -139,7 +139,7 @@ perMonth: "/월"
 subscribe: "구독"
 cancelAnytime: "언제든지 취소 가능"
 sixMonthCommitment: "6개월 약정"
-clips: "클립"
+clips: "데모"
 features: "기능"
 pricing: "가격"
 faq: "FAQ"
