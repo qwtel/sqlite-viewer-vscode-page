@@ -111,7 +111,7 @@
   top: 64.1%;
   width: 37.87%;
   height: 50.50%;
-  background: linear-gradient(to left top, var(--color-primary-1), rgba(var(--color-primary-1), 0));
+  background: linear-gradient(to left top, var(--color-primary-1), rgb(from var(--color-primary-1) r g b / 0));
   transform: rotateZ(-45deg);
 
   &::before {
@@ -138,7 +138,7 @@
   top: -8%;
   width: 45.45%;
   height: 60.60%;
-  background: linear-gradient(to left top, var(--color-primary-1), rgba(var(--color-primary-1), 0));
+  background: linear-gradient(to left top, var(--color-primary-1), rgb(from var(--color-primary-1) r g b / 0));
   transform: rotateZ(-135deg);
 
   &::before {
