@@ -25,18 +25,6 @@ for await (const name of glob.scan(resolve('./i18n'))) {
 const name = html`<span class="color">SQLite Viewer PRO</span>`;
 const icon = html`<img class="img inline-block" width="18" height="18" src="./dist/images/favicon-pro.png" />`
 
-// const polar = html`<a href="https://polar.sh" target="_blank" class="no-decoration"><picture>
-//   <source media="(prefers-color-scheme: light)" srcset="./dist/images/polar.svg">
-//   <source media="(prefers-color-scheme: dark)" srcset="./dist/images/polar-dark.svg">
-//   <img class="display-inline-block h-16 pl-2 mb-n3" src="./dist/images/polar.svg" alt="Polar">
-// </picture></a>`;
-
-// const stripe = html`<a href="https://stripe.com" target="_blank" style="text-decoration:none"><picture>
-//   <source media="(prefers-color-scheme: light)" srcset="./dist/images/Stripe_wordmark_-_slate.svg">
-//   <source media="(prefers-color-scheme: dark)" srcset="./dist/images/Stripe_wordmark_-_white.svg">
-//   <img class="display-inline-block h-24" style="margin:0 -3px;margin-bottom:-7.5px" src="./dist/images/Stripe_wordmark_-_slate.svg" alt="Stripe">
-// </picture></a>`;
-
 const polar = html`<picture>
   <source media="(prefers-color-scheme: light)" srcset="./dist/images/polar.svg">
   <source media="(prefers-color-scheme: dark)" srcset="./dist/images/polar-dark.svg">

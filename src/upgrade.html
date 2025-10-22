@@ -57,14 +57,6 @@
             </ul>
           </div>
           <div class="flex min-w-0">
-            <a id="open-in-browser" class="button button-default button-sm vscode-only ellipsis mr-8 display-none" target="_blank" title="Open in New Tab" data-i18n-title="open-in-browser"><span data-i18n-key="open-in-browser">Open in New Tab</span>&nbsp;↗</a>
-            <script>
-              if (searchParams.has('css-vars')) {
-                document.getElementById('open-in-browser').classList.remove('display-none');
-                document.getElementById('open-in-browser').classList.add('display-inline');
-                document.getElementById('open-in-browser').href = location.origin + `/upgrade?ref=vscode`;
-              }
-            </script>
             <a class="button button-primary button-sm" href="#pricing" onclick="scrollToHash(event, null, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)" data-i18n-key="see-pricing">See Pricing</a>
           </div>
         </div>
@@ -111,7 +103,7 @@
               <div class="hero-figure-box hero-figure-box-03" data-rotation="0deg"></div>
               <div class="hero-figure-box hero-figure-box-04" data-rotation="-135deg"></div>
               <div class="hero-figure-box hero-figure-box-05">
-                <picture>
+                <!-- <picture>
                   <source media="(prefers-color-scheme: light)" type="image/avif" srcset="./images/screenshot.avif">
                   <source media="(prefers-color-scheme: light)" type="image/webp" srcset="./images/screenshot.webp">
                   <source media="(prefers-color-scheme: light)" type="image/png" srcset="./images/screenshot.png">
@@ -119,7 +111,7 @@
                   <source media="(prefers-color-scheme: dark)" type="image/webp" srcset="./images/screenshot-dark.webp">
                   <source media="(prefers-color-scheme: dark)" type="image/png" srcset="./images/screenshot-dark.png">
                   <img class="img" src="./images/screenshot-dark.png" alt="Screenshot" width="528" height="396" fetchpriority="high">
-                </picture>
+                </picture> -->
               </div>
               <div class="hero-figure-box hero-figure-box-06"></div>
               <div class="hero-figure-box hero-figure-box-07"></div>
@@ -422,13 +414,13 @@
                     <div class="pricing-table-features-title pt-16 pb-8">14-Day Pass</div>
                     <ul class="pricing-table-features list-reset text-xs">
                       <li>
-                        <span><span data-i18n-key="price-feat-1">Editing and export features</span></span>
+                        <span><span data-i18n-key="price-feat-1">📋 Copy & Paste to Excel</span></span>
                       </li>
                       <li>
-                        <span><span data-i18n-key="price-feat-2">Ad-free experience</span></span>
+                        <span><span data-i18n-key="price-feat-2">💾 Export to file (CSV, JSON & more)</span></span>
                       </li>
                       <li>
-                        <span><span data-i18n-key="price-feat-3">Exclusive PRO icon (<img class="img inline-block" width="18" height="18" src="./images/favicon-pro.png" />)</span></span>
+                        <span><span data-i18n-key="price-feat-3">🚫 Ad-free experience</span></span>
                       </li>
                     </ul>
                   </div>
@@ -459,16 +451,19 @@
                     <div class="pricing-table-features-title pt-16 pb-8">PRO Pass</div>
                     <ul class="pricing-table-features list-reset text-xs">
                       <li>
-                        <span><span data-i18n-key="price-feat-1">Copy & Paste to Excel</span></span>
+                        <span><span data-i18n-key="price-feat-1">📋 Copy & Paste to Excel</span></span>
                       </li>
                       <li>
-                        <span><span data-i18n-key="price-feat-2">Export to file (CSV, JSON & more)</span></span>
+                        <span><span data-i18n-key="price-feat-2">💾 Export to file (CSV, JSON & more)</span></span>
                       </li>
                       <li>
-                        <span><span data-i18n-key="price-feat-3">Ad-free experience</span></span>
+                        <span><span data-i18n-key="price-feat-3">🚫 Ad-free experience</span></span>
                       </li>
                       <li>
-                        <span><span data-i18n-key="price-feat-6">2 tickets per month, each up to 30 minutes</span></span>
+                        <span><span data-i18n-key="price-feat-6">🔑 Multiple device activations</span></span>
+                      </li>
+                      <li>
+                        <span><span data-i18n-key="price-feat-7">📧 2 support tickets per month</span></span>
                       </li>
                     </ul>
                   </div>
@@ -485,14 +480,14 @@
             <!-- <p class="text-xs" data-i18n-key="cta-p">
               You can evaluate SQLite Viewer PRO for up to two weeks by making use of the <a href="./refunds.html">14-day refund guarantee</a>.
             </p> -->
-            <p class="text-xxs mb-16 o-50" data-i18n-key="payment-info">Orders are processed by our online reseller <a href="https://polar.sh" target="_blank" class="no-decoration"><picture>
+            <p class="text-xxs mb-16 o-50" data-i18n-key="payment-info">Orders are processed by our online reseller <picture>
               <source media="(prefers-color-scheme: light)" srcset="./images/polar.svg">
               <source media="(prefers-color-scheme: dark)" srcset="./images/polar-dark.svg">
-              <img class="display-inline-block pl-2 mb-n3" style="height:16px;" src="./images/polar.svg" alt="Polar">
-            </picture></a>. Payments secured by <picture>
+              <img class="display-inline-block pl-2 mb-n3" style="height:16px" src="./images/polar.svg" alt="Polar">
+            </picture>. Payments secured by <picture>
               <source media="(prefers-color-scheme: light)" srcset="./images/Stripe_wordmark_-_slate.svg">
               <source media="(prefers-color-scheme: dark)" srcset="./images/Stripe_wordmark_-_white.svg">
-              <img class="display-inline-block" style="height:24px; margin:0 -3px -7.5px" src="./images/Stripe_wordmark_-_slate.svg" alt="Stripe">
+              <img class="display-inline-block" style="height:24px; margin:0 -3px;margin-bottom:-7.5px" src="./images/Stripe_wordmark_-_slate.svg" alt="Stripe">
             </picture>.</p>
             <!-- <p class="payment-providers text-xxs flex flex-wrap gap-8 justify-center align-center" data-i18n-key="payment-providers">
               <span>Accepts</span>
@@ -569,39 +564,6 @@
                 You can activate SQLite Viewer PRO on as many devices as you like, and up to 5 devices simultaneously.
               </div>
             </details>
-
-            <!-- <details name="faq" class="">
-              <summary class="" data-i18n-key="faq-4-summary">What datetime formats are supported?</summary>
-              <div class="mt-16 text-sm" data-i18n-key="faq-4-content">
-                SQLite Viewer PRO supports a wide range of datetime formats for columns defined as `DATE` or `DATETIME`. Supported input formats include:<br><br>
-                • SQLite ISO-like strings<br>
-                • ISO-8601 strings<br>
-                • Julian Day numbers<br>
-                • Seconds since 1970 (Unix timestamp)<br>
-                • Milliseconds since 1970<br>
-                • Microseconds since 1970<br>
-                • Excel serial date (1900 system)<br>
-                • Windows FILETIME since 1601<br>
-                • .NET Ticks since 0001<br><br>
-                When a valid date is recognized, it can be displayed in one of 4 formats:<br>
-                • Localized, human-readable strings (default)<br>
-                • Localized, human-readable time-ago strings (e.g. "6 months ago")<br>
-                • Machine-friendly ISO-8601 strings<br>
-                • Raw values<br><br>
-                Values can be edited using a generic date picker or by modifying the interpreted ISO string. The extension preserves the original format when saving to disk.
-              </div>
-            </details> -->
-
-            <!-- <details name="faq" class="">
-              <summary class="" data-i18n-key="faq-5-summary">Can I use SQLite Viewer PRO to view production databases?</summary>
-              <div class="mt-16 text-sm" data-i18n-key="faq-5-content">
-                Yes, but it is highly recommended that you make preparations.<br><br>
-                If you intend to view data only, open the live database in read-only mode to prevent accidental modification. Right-click the file, click "Open With" and select "SQLite Viewer (read-only)".<br><br>
-                If you intend to modify the live database, it is highly recommended to enable the "SQLite Viewer: Instant Commit" feature from the settings. This will prevent the extension from opening long-running transactions that could block other SQLite processes accessing the same database.<br><br>
-                When Instant Commit is enabled, changes are committed immediately without being wrapped in a transaction. This ensures that other applications can continue to access the database without interference. However, please note that undo/redo functionality is limited in this mode.<br><br>
-                You can enable Instant Commit globally in VS Code settings, or use the toggle in the viewer UI to temporarily enable it for specific databases. The toggle is only visible when the global setting applies to the current file.
-              </div>
-            </details> -->
           </div>
         </div>
       </section>
