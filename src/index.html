@@ -60,7 +60,7 @@
             <ul class="flex items-center gap-24 text-xs" style="flex: 1; list-style: none; padding: 0; margin: 0;">
               <li><a class="opacity-link" href="#card-1" data-i18n-key="clips">Clips</a></li>
               <li><a class="opacity-link" onclick="scrollToHash(event)" href="#features-title" data-i18n-key="features">Features</a></li>
-              <li><a class="opacity-link" onclick="scrollToHash(event)" href="#changelog-title" data-i18n-key="changelog">Changelog</a></li>
+              <li><a class="opacity-link" onclick="scrollToHash(event)" href="#changelog-title" data-i18n-key="changelog-short">Changelog</a></li>
               <li><a class="opacity-link" onclick="scrollToHash(event)" href="#pricing" data-i18n-key="pricing">Pricing</a></li>
               <li><a class="opacity-link" onclick="scrollToHash(event)" href="#faq" data-i18n-key="faq">FAQ</a></li>
             </ul>
@@ -829,7 +829,7 @@ Exported data is written directly to a file. </p>
           <div class="section-inner">
             <h3 id="faq" class="mb-48" data-i18n-key="faq-title">Frequently Asked Questions</h3>
 
-            <details name="faq" class="">
+            <details class="faq">
               <summary class="" data-i18n-key="faq-1-summary">How do I install the PRO version after the purchase?</summary>
               <div class="mt-16 text-sm" data-i18n-key="faq-1-content">
                 You already have the PRO version installed! All that's required is to activate it.
@@ -842,7 +842,7 @@ Exported data is written directly to a file. </p>
               </div>
             </details>
 
-            <details name="faq" class="">
+            <details class="faq">
               <summary class="" data-i18n-key="faq-2-summary">How does Offline License Activation work?</summary>
               <div class="mt-16 text-sm" data-i18n-key="faq-2-content">
                 When selecting <strong>"Offline License Activation"</strong> form the <strong>Command Palette</strong>, you will directed to a <a href="https://vscode.sqliteviewer.app/api/register">webpage</a> you can open on any device.
@@ -851,7 +851,7 @@ Exported data is written directly to a file. </p>
               </div>
             </details>
 
-            <details name="faq" class="">
+            <details class="faq">
               <summary class="" data-i18n-key="faq-3-summary">Can I activate the license on multiple devices?</summary>
               <div class="mt-16 text-sm" data-i18n-key="faq-3-content">
                 You can activate SQLite Viewer PRO on as many devices as you like, and up to 5 devices simultaneously.

@@ -152,7 +152,7 @@ div:has(> .section-title)::after, .with-divider::after {
 }
 
 /* FAQ */
-details[name="faq"] {
+details.faq {
   border: 1px solid var(--color-bg-4);
   border-radius: 3px;
   padding: 16px;
