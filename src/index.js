@@ -1,27 +1,28 @@
-(async () => {
-  {
-    const el = document.getElementById('license-key');
-    if (el && document.body.classList.contains('vscode')) {
-      const Comlink = await import("./vendor/comlink.js");
-      const parentEndpoint = Comlink.windowEndpoint(self.parent);
-      const wrappedParent = Comlink.wrap(parentEndpoint);
-      document.querySelectorAll('a[href]:not([href^="#"]').forEach(a => {
-        a.addEventListener('click', event => {
-          event.preventDefault();
-          wrappedParent.openLink(a.href);
-        });
+// Add Enter License Key Button
+async function initializeLicenseKeyButton() {
+  const el = document.getElementById('license-key');
+  if (el && document.body.classList.contains('vscode')) {
+    const Comlink = await import("./vendor/comlink.js");
+    const parentEndpoint = Comlink.windowEndpoint(self.parent);
+    const wrappedParent = Comlink.wrap(parentEndpoint);
+    document.querySelectorAll('a[href]:not([href^="#"]').forEach(a => {
+      a.addEventListener('click', event => {
+        event.preventDefault();
+        wrappedParent.openLink(a.href);
       });
-      document.getElementById('license-key').style.display = 'inline';
-      document.getElementById('license-key').addEventListener('click', event => (event.preventDefault(), wrappedParent.enterLicenseKey()));
-    }
+    });
+    document.getElementById('license-key').style.display = 'inline';
+    document.getElementById('license-key').addEventListener('click', event => (event.preventDefault(), wrappedParent.enterLicenseKey()));
   }
+}
 
-  const root = document.documentElement;
+const root = document.documentElement;
 
-  root.classList.remove('no-js')
-  root.classList.add('js')
-  root.classList.add('sr')
+root.classList.remove('no-js')
+root.classList.add('js')
+root.classList.add('sr')
 
+function initializeAnimations() {
   if (document.body.classList.contains('has-animations')) {
     const revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry, index) => {
@@ -101,8 +102,10 @@
       easing: 'easeInOutExpo'
     })
   }
+}
 
   // Handle view timeline-based card animations
+async function initializeTimelineCards() {
   !CSS.supports('view-timeline-name', '--cards-element-scrolls-in-body') && document.querySelectorAll('.cards-stack').forEach(async (cardsStack) => {
     await import("./vendor/scroll-timeline.min.js");
 
@@ -127,214 +130,257 @@
       });
     });
   });
+}
 
   // Handle scroll-based video playback
-  {
-    const cardVideos = document.getElementById('cards')?.querySelectorAll('video');
-    const inObserver = new IntersectionObserver((entries) => {
-      const windowHeight = window.innerHeight - 60 - 16 - 20; // 60px for header, 16px for padding, 20px for margin
-      for (const entry of entries) {
-        const isWindowTooSmall = entry.boundingClientRect.height > windowHeight;
-        if (entry.isIntersecting && (entry.intersectionRatio >= 1 || isWindowTooSmall)) {
-          const index = entry.target.style.getPropertyValue('--index');
-          const video = cardVideos[index - 1];
-          video && video.play();
-        } 
-        if (!entry.isIntersecting && isWindowTooSmall) {
-          const index = entry.target.style.getPropertyValue('--index');
-          const video = cardVideos[index - 1];
-          video && video.pause();
-        }
+function initializeVideoPlayback() {
+  const cardVideos = document.getElementById('cards')?.querySelectorAll('video');
+  const inObserver = new IntersectionObserver((entries) => {
+    const windowHeight = window.innerHeight - 60 - 16 - 20; // 60px for header, 16px for padding, 20px for margin
+    for (const entry of entries) {
+      const isWindowTooSmall = entry.boundingClientRect.height > windowHeight;
+      if (entry.isIntersecting && (entry.intersectionRatio >= 1 || isWindowTooSmall)) {
+        const index = entry.target.style.getPropertyValue('--index');
+        const video = cardVideos[index - 1];
+        video && video.play();
+      } 
+      if (!entry.isIntersecting && isWindowTooSmall) {
+        const index = entry.target.style.getPropertyValue('--index');
+        const video = cardVideos[index - 1];
+        video && video.pause();
       }
-    }, {
-      threshold: [0.01, 1],
-    });
+    }
+  }, {
+    threshold: [0.01, 1],
+  });
 
-    const outObserver = new IntersectionObserver((entries) => {
-      const windowHeight = window.innerHeight;
-      for (const entry of entries) {
-        if (!entry.isIntersecting && entry.boundingClientRect.height < windowHeight) {
-          const index = entry.target.style.getPropertyValue('--index');
-          const video = cardVideos[index - 1];
-          video && video.pause();
-        }
+  const outObserver = new IntersectionObserver((entries) => {
+    const windowHeight = window.innerHeight;
+    for (const entry of entries) {
+      if (!entry.isIntersecting && entry.boundingClientRect.height < windowHeight) {
+        const index = entry.target.style.getPropertyValue('--index');
+        const video = cardVideos[index - 1];
+        video && video.pause();
       }
-    }, {
-      threshold: 0.8,
-    });
+    }
+  }, {
+    threshold: 0.8,
+  });
 
-    document.querySelectorAll('.spy').forEach(div => {
-      inObserver.observe(div);
-      outObserver.observe(div);
-    });
-  }
+  document.querySelectorAll('.spy').forEach(div => {
+    inObserver.observe(div);
+    outObserver.observe(div);
+  });
+}
 
   // Show loading spinner when clicking on checkout button
-  {
-    const sheet = new CSSStyleSheet();
-    sheet.replaceSync(`.lds-ring { color: functions.color(typography, 2); } .lds-ring, .lds-ring div { box-sizing: border-box; } .lds-ring { display: inline-block; position: relative; width: 80px; height: 80px; } .lds-ring div { box-sizing: border-box; display: block; position: absolute; width: 64px; height: 64px; margin: 8px; border: 8px solid currentColor; border-radius: 50%; animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite; border-color: currentColor transparent transparent transparent; } .lds-ring div:nth-child(1) { animation-delay: -0.45s; } .lds-ring div:nth-child(2) { animation-delay: -0.3s; } .lds-ring div:nth-child(3) { animation-delay: -0.15s; } @keyframes lds-ring { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`);
-    document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
+function initializeLoadingSpinner() {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(`.lds-ring { color: functions.color(typography, 2); } .lds-ring, .lds-ring div { box-sizing: border-box; } .lds-ring { display: inline-block; position: relative; width: 80px; height: 80px; } .lds-ring div { box-sizing: border-box; display: block; position: absolute; width: 64px; height: 64px; margin: 8px; border: 8px solid currentColor; border-radius: 50%; animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite; border-color: currentColor transparent transparent transparent; } .lds-ring div:nth-child(1) { animation-delay: -0.45s; } .lds-ring div:nth-child(2) { animation-delay: -0.3s; } .lds-ring div:nth-child(3) { animation-delay: -0.15s; } @keyframes lds-ring { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`);
+  document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
 
-    const isNewTab = ev => ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.button === 1;
-    const showSpinner = () => {
-      const muOb = new MutationObserver((muts) => {
-        for (const mut of muts) {
-          for (const node of mut.addedNodes) {
-            if (node instanceof HTMLElement) {
-              const child = node.children[0];
-              if (child && child.classList.contains('polar-loader-spinner')) {
-                node.innerHTML = '';
-                node.style.position = 'fixed';
-                node.style.top = node.style.left = '0px';
-                node.style.width = node.style.height ='100%';
-                node.style.transform = ''
-                node.style.display = 'grid';
-                node.style.placeItems = 'center';
-                node.insertAdjacentHTML('beforeend', '<div class="lds-ring"><div></div><div></div><div></div><div></div></div>');
-                muOb.disconnect();
-              }
+  const isNewTab = ev => ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.button === 1;
+  const showSpinner = () => {
+    const muOb = new MutationObserver((muts) => {
+      for (const mut of muts) {
+        for (const node of mut.addedNodes) {
+          if (node instanceof HTMLElement) {
+            const child = node.children[0];
+            if (child && child.classList.contains('polar-loader-spinner')) {
+              node.innerHTML = '';
+              node.style.position = 'fixed';
+              node.style.top = node.style.left = '0px';
+              node.style.width = node.style.height ='100%';
+              node.style.transform = ''
+              node.style.display = 'grid';
+              node.style.placeItems = 'center';
+              node.insertAdjacentHTML('beforeend', '<div class="lds-ring"><div></div><div></div><div></div><div></div></div>');
+              muOb.disconnect();
             }
           }
         }
-      })
-      muOb.observe(document.body, { childList: true });
-    };
+      }
+    })
+    muOb.observe(document.body, { childList: true });
+  };
 
-    document.querySelectorAll('[data-polar-checkout]').forEach(el => {
-      el.addEventListener('click', ev => isNewTab(ev) ? ev.stopImmediatePropagation() : showSpinner());
-    });
-  }
+  document.querySelectorAll('[data-polar-checkout]').forEach(el => {
+    el.addEventListener('click', ev => isNewTab(ev) ? ev.stopImmediatePropagation() : showSpinner());
+  });
+}
 
   // Lazy load Shoelace when carousel comes into view
-  {
-    const carouselSection = document.querySelector('.changelog-carousel');
-    if (!carouselSection) return;
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // Load Shoelace CSS and JS one by one using insertAdjacentHTML
-          document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" media="(prefers-color-scheme:light)" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css"/>');
-          document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" media="(prefers-color-scheme:dark)" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/dark.css"/>');
-          import('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace.js').catch(console.error);
-          
-          // Add dark mode listener
-          const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
-          darkMode.addEventListener('change', (ev) => document.documentElement.classList.toggle('sl-theme-dark', ev.matches));
-          if (darkMode.matches) document.documentElement.classList.add('sl-theme-dark');
-          
-          // Disconnect observer since we only need to load once
-          observer.disconnect();
-        }
-      });
-    }, {
-      rootMargin: '1500px'
+function initializeLazyLoadShoelace() {
+  const carouselSection = document.querySelector('.changelog-carousel');
+  if (!carouselSection) return;
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // Load Shoelace CSS and JS one by one using insertAdjacentHTML
+        document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" media="(prefers-color-scheme:light)" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css"/>');
+        document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" media="(prefers-color-scheme:dark)" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/dark.css"/>');
+        import('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace.js').catch(console.error);
+        
+        // Add dark mode listener
+        const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
+        darkMode.addEventListener('change', (ev) => document.documentElement.classList.toggle('sl-theme-dark', ev.matches));
+        if (darkMode.matches) document.documentElement.classList.add('sl-theme-dark');
+        
+        // Disconnect observer since we only need to load once
+        observer.disconnect();
+      }
     });
-    
-    observer.observe(carouselSection);
-  }
+  }, {
+    rootMargin: '1500px'
+  });
+  
+  observer.observe(carouselSection);
+}
 
   // Navigation active state observer
-  {
-    class NavigationObserver {
-      constructor() {
-        this.navLinks = document.querySelectorAll('.opacity-link[href^="#"]');
-        this.sections = new Map();
-        this.activeLink = null;
-        
-        this.init();
-      }
+function initializeNavigationObserver() {
+  class NavigationObserver {
+    constructor() {
+      this.navLinks = document.querySelectorAll('.opacity-link[href^="#"]');
+      this.sections = new Map();
+      this.activeLink = null;
       
-      init() {
-        // Create a map of href -> section element
-        this.navLinks.forEach(link => {
-          const href = link.getAttribute('href');
-          const section = document.querySelector(href);
-          if (section) {
-            this.sections.set(href, section);
-          }
-        });
-        
-        // Create intersection observer
-        this.observer = new IntersectionObserver(
-          (entries) => this.handleIntersection(entries),
-          {
-            root: null,
-            rootMargin: '-20% 0px -60% 0px', // Trigger when section is 20% from top
-            threshold: 0
-          }
-        );
-        
-        // Observe all sections
-        this.sections.forEach(section => {
-          this.observer.observe(section);
-        });
-        
-        // Handle initial state
-        this.setInitialActive();
-      }
-      
-      handleIntersection(entries) {
-        // Find the section that's most visible
-        let mostVisible = null;
-        let maxRatio = 0;
-        
-        entries.forEach(entry => {
-          if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
-            maxRatio = entry.intersectionRatio;
-            mostVisible = entry.target;
-          }
-        });
-        
-        if (mostVisible) {
-          this.setActiveLink(mostVisible.id);
+      this.init();
+    }
+    
+    init() {
+      // Create a map of href -> section element
+      this.navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        const section = document.querySelector(href);
+        if (section) {
+          this.sections.set(href, section);
         }
-      }
+      });
       
-      setActiveLink(sectionId) {
-        // Remove active class from all links
-        this.navLinks.forEach(link => {
-          link.classList.remove('active');
-        });
-        
-        // Add active class to matching link
-        const activeLink = document.querySelector(`a[href="#${sectionId}"]`);
-        if (activeLink) {
-          activeLink.classList.add('active');
-          this.activeLink = activeLink;
+      // Create intersection observer
+      this.observer = new IntersectionObserver(
+        (entries) => this.handleIntersection(entries),
+        {
+          root: null,
+          rootMargin: '-20% 0px -60% 0px', // Trigger when section is 20% from top
+          threshold: 0
         }
-      }
+      );
       
-      setInitialActive() {
-        // Set initial active state based on current scroll position
-        const scrollY = window.scrollY;
-        let closestSection = null;
-        let minDistance = Infinity;
-        
-        this.sections.forEach((section, href) => {
-          const rect = section.getBoundingClientRect();
-          const distance = Math.abs(rect.top);
-          
-          if (distance < minDistance && rect.top <= 100) {
-            minDistance = distance;
-            closestSection = section;
-          }
-        });
-        
-        if (closestSection) {
-          this.setActiveLink(closestSection.id);
-        }
-      }
+      // Observe all sections
+      this.sections.forEach(section => {
+        this.observer.observe(section);
+      });
       
-      destroy() {
-        if (this.observer) {
-          this.observer.disconnect();
+      // Handle initial state
+      this.setInitialActive();
+    }
+    
+    handleIntersection(entries) {
+      // Find the section that's most visible
+      let mostVisible = null;
+      let maxRatio = 0;
+      
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+          maxRatio = entry.intersectionRatio;
+          mostVisible = entry.target;
         }
+      });
+      
+      if (mostVisible) {
+        this.setActiveLink(mostVisible.id);
       }
     }
-
-    // Initialize navigation observer
-    new NavigationObserver();
+    
+    setActiveLink(sectionId) {
+      // Remove active class from all links
+      this.navLinks.forEach(link => {
+        link.classList.remove('active');
+      });
+      
+      // Add active class to matching link
+      const activeLink = document.querySelector(`a[href="#${sectionId}"]`);
+      if (activeLink) {
+        activeLink.classList.add('active');
+        this.activeLink = activeLink;
+      }
+    }
+    
+    setInitialActive() {
+      // Set initial active state based on current scroll position
+      const scrollY = window.scrollY;
+      let closestSection = null;
+      let minDistance = Infinity;
+      
+      this.sections.forEach((section, href) => {
+        const rect = section.getBoundingClientRect();
+        const distance = Math.abs(rect.top);
+        
+        if (distance < minDistance && rect.top <= 100) {
+          minDistance = distance;
+          closestSection = section;
+        }
+      });
+      
+      if (closestSection) {
+        this.setActiveLink(closestSection.id);
+      }
+    }
+    
+    destroy() {
+      if (this.observer) {
+        this.observer.disconnect();
+      }
+    }
   }
 
+  // Initialize navigation observer
+  new NavigationObserver();
+}
+
+(async () => {
+  try {
+    await initializeLicenseKeyButton();
+  } catch (error) {
+    console.error('Failed to initialize license key button:', error);
+  }
+
+  try {
+    initializeAnimations();
+  } catch (error) {
+    console.error('Failed to initialize animations:', error);
+  }
+
+  try {
+    await initializeTimelineCards();
+  } catch (error) {
+    console.error('Failed to initialize timeline cards:', error);
+  }
+
+  try {
+    initializeVideoPlayback();
+  } catch (error) {
+    console.error('Failed to initialize video playback:', error);
+  }
+
+  try {
+    initializeLoadingSpinner();
+  } catch (error) {
+    console.error('Failed to initialize loading spinner:', error);
+  }
+
+  try {
+    initializeLazyLoadShoelace();
+  } catch (error) {
+    console.error('Failed to initialize lazy load Shoelace:', error);
+  }
+
+  try {
+    initializeNavigationObserver();
+  } catch (error) {
+    console.error('Failed to initialize navigation observer:', error);
+  }
 })();
