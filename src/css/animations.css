@@ -1,0 +1,46 @@
+/*--------------------------------------------------------------
+# Dynamic Storage Animations
+--------------------------------------------------------------*/
+
+/* Removed shimmer and glow effects - keeping only gradient */
+
+/* Effect C: Gradient Text Animation */
+.storage-gradient {
+  background: linear-gradient(
+    45deg,
+    var(--color-primary-1),
+    #ff6b6b,
+    #4ecdc4,
+    var(--color-primary-3)
+  );
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient 8s ease-in-out infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Fallback for browsers that don't support background-clip: text */
+@supports not (background-clip: text) {
+  .storage-gradient {
+    background: none;
+    color: var(--color-primary-2);
+    text-shadow: 
+      0 0 5px var(--color-primary-2),
+      0 0 10px var(--color-primary-2);
+  }
+}
+
+/* Theme adjustments - gradient works well in both light and dark themes */

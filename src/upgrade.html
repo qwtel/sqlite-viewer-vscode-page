@@ -18,6 +18,7 @@
   <link rel="icon" type="image/png" href="../favicon.ico">
   <link rel="canonical" href="https://sqliteviewer.app/upgrade">
   <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/animations.css">
   <script>
     function scrollToHash(event, hash, block) {
       event.preventDefault(); 
@@ -141,7 +142,7 @@
           <div class="text-center mb-64">
             <h2 id="cards-title" class="cards-title section-title h3 color-unset" data-i18n-key="cards-title">⚡ Upgrade to unlock exclusive PRO workflows</h2>
             <p class="section-paragraph mb-0" data-i18n-key="cards-paragraph">
-              SQLite Viewer PRO unlocks new workflows. With its deep integration into VS Code, it enables some workflows that are unique and not possible with any other SQLite editor.
+              SQLite Viewer PRO unlocks powerful export and copy workflows directly in your browser. No installation required, works on any device, and your data stays private.
             </p>
             <!-- <script>
               if (searchParams.has('css-vars')) {
@@ -184,24 +185,9 @@
                 <div>
                   <h3 data-i18n-key="card-3-h">Work with Large Datasets</h3>
                   <p class="text-sm" data-i18n-key="card-3-p">Browse and filter efficiently. Export subsets of rows without hitting clipboard limits.</p>
-                  <p id="storage-info" class="text-sm" style="display: none;">
-                    <span id="storage-text">Up to <span id="storage-amount">--</span> MB on this device.</span>
-                  </p>
-                  <script type="module">
-                    (async () => {
-                      if ('storage' in navigator && 'estimate' in navigator.storage) {
-                        const estimate = await navigator.storage.estimate();
-                        const quota = estimate.quota;
-                        
-                        if (quota) {
-                          // Convert bytes to MB and round to 1 decimal place
-                          const quotaMB = Math.round(quota / (1024 * 1024) * 10) / 10;
-                          document.getElementById('storage-amount').textContent = quotaMB;
-                          document.getElementById('storage-info').style.display = 'block';
-                        }
-                      }
-                    })().catch(console.warn);
-                  </script>
+                    <p class="storage-info text-sm" style="display: none;">
+                      <span class="storage-text storage-gradient">Up to <span class="storage-amount">--</span> MB on this device</span>
+                    </p>
                 </div>
                 <figure>
                   <video muted loop playsinline style="width:100%"></video>
@@ -242,28 +228,28 @@
         <div class="container">
           <div class="features-inner section-inner">
             <div class="features-header text-center mt-128 mb-56">
-              <h3 id="features-title" class="section-title h3 mt-128 color-unset" data-i18n-key="section-title-i">🔧 Re-engineered for PRO demands</h3>
+              <h3 id="features-title" class="section-title h3 mt-128 color-unset" data-i18n-key="section-title-i">🚀 Built for the modern web</h3>
               <p class="section-paragraph mb-0 text-sm" data-i18n-key="section-paragraph-i">
-                You can think of the PRO version as <em>SQLite Viewer 2</em>. It's not just feature flags, but a completely new engine under the hood. Comes with SQLite failover guarantees and large file support.
+                PRO features designed specifically for browser-based workflows. Advanced export capabilities, intelligent date/time formatting, and a completely ad-free experience — all while keeping your data private and secure.
               </p>
             </div>
             <div class="features-wrap">
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon feature-emoji">
-                    🗄️
+                    📊
                   </div>
-                  <h4 class="feature-title mt-24" data-i18n-key="feat-1-h">Native SQLite Client</h4>
-                  <p class="text-sm mb-0" data-i18n-key="feat-1-p">The PRO version uses the <strong>canonical SQLite implementation</strong>, which provides the full set of failover guarantees. The old readonly client remains as a fallback.</p>
+                  <h4 class="feature-title mt-24" data-i18n-key="feat-1-h">Export Flexibility</h4>
+                  <p class="text-sm mb-0" data-i18n-key="feat-1-p">Export your data in multiple formats: <strong>CSV, JSON, SQL inserts, HTML, Markdown</strong>, and more. Perfect for sharing data with colleagues or importing into other tools.</p>
                 </div>
               </div>
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon feature-emoji">
-                    📁
+                    🕒
                   </div>
-                  <h4 class="feature-title mt-24" data-i18n-key="feat-2-h">Large File Support</h4>
-                  <p class="text-sm mb-0" data-i18n-key="feat-2-p">All restrictions on file size are lifted, <strong>even during remote sessions</strong>. Only the data needed to render the UI is transferred to your local machine. Powered by <em>VS Code Server</em>.</p>
+                  <h4 class="feature-title mt-24" data-i18n-key="feat-2-h">Date/Time Support</h4>
+                  <p class="text-sm mb-0" data-i18n-key="feat-2-p">Intelligent date/time formatting recognizes multiple formats including <strong>ISO-8601, Unix timestamps, Excel dates</strong>, and more. Display dates in human-readable or machine-friendly formats.</p>
                 </div>
               </div>
               <div class="feature text-center is-revealing">
@@ -271,8 +257,8 @@
                   <div class="feature-icon feature-emoji">
                     🚫
                   </div>
-                  <h4 class="feature-title mt-24" data-i18n-key="feat-3-h">Ad-Free Experience</h4>
-                  <p class="text-sm mb-0" data-i18n-key="feat-3-p">PRO customers enjoy an ad-free experience — <strong>perfect for screen sharing and recordings</strong>. Additionally, PRO customers receive an exclusive PRO icon (<img class="img inline-block" width="18" height="18" src="./images/favicon-pro.png" />) in the UI.</p>
+                  <h4 class="feature-title mt-24" data-i18n-key="feat-4-h">Ad-Free Experience</h4>
+                  <p class="text-sm mb-0" data-i18n-key="feat-4-p">PRO customers enjoy a clean, distraction-free interface — <strong>perfect for focused work</strong>. No ads or promotional content to interrupt your workflow.</p>
                 </div>
               </div>
             </div>
@@ -296,26 +282,17 @@
                   <div class="feature-icon feature-emoji">
                     🚀
                   </div>
-                  <h4 class="feature-title mt-24" data-i18n-key="free-1-h">Performant UI</h4>
-                  <p class="text-sm mb-0" data-i18n-key="free-1-p">SQLite Viewer is built with performance in mind. It uses the best tools the web stack has to offer and is <strong>routinely tested on older hardware</strong> to ensure performance remains top-notch.</p>
+                  <h4 class="feature-title mt-24" data-i18n-key="free-1-h">Fast, Responsive UI</h4>
+                  <p class="text-sm mb-0" data-i18n-key="free-1-p">SQLite Viewer is built with performance in mind. It uses the best tools the web stack has to offer for <strong>smooth, responsive interactions</strong> even with large datasets.</p>
                 </div>
               </div>
               <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon feature-emoji">
-                    🎨
+                    📱
                   </div>
-                  <h4 class="feature-title mt-24" data-i18n-key="free-2-h">Matching Theme</h4>
-                  <p class="text-sm mb-0" data-i18n-key="free-2-p">Say goodbye to disjointed user interfaces. SQLite Viewer <strong>automatically adjusts to your VS Code theme</strong> and seamlessly blends into the existing VS Code experience.</p>
-                </div>
-              </div>
-              <div class="feature text-center is-revealing">
-                <div class="feature-inner">
-                  <div class="feature-icon feature-emoji">
-                    ⚡
-                  </div>
-                  <h4 class="feature-title mt-24" data-i18n-key="free-3-h">One-Click Setup</h4>
-                  <p class="text-sm mb-0" data-i18n-key="free-3-p">SQLite Viewer doesn't rely on binaries on your machine. It ships its own, so that <strong>simply clicking 'Install' completes the setup</strong>. The entire extension weighs only 2.5 MB.</p>
+                  <h4 class="feature-title mt-24" data-i18n-key="free-2-h">No Installation Required</h4>
+                  <p class="text-sm mb-0" data-i18n-key="free-2-p">Works directly in your browser — <strong>no downloads or installations</strong>. Just open the website and start viewing your SQLite files immediately.</p>
                 </div>
               </div>
               <div class="feature text-center is-revealing">
@@ -323,11 +300,20 @@
                   <div class="feature-icon feature-emoji">
                     🌐
                   </div>
-                  <h4 class="feature-title mt-24" data-i18n-key="free-4-h">Works Anywhere</h4>
-                  <p class="text-sm mb-0" data-i18n-key="free-4-p">Whether you're using VS Codium, CodeSandbox, GitPod, Google IDX or other VS Code forks, <strong>SQLite Viewer adapts to its environment</strong> and provides as many features as possible.</p>
+                  <h4 class="feature-title mt-24" data-i18n-key="free-3-h">Works on Any Device</h4>
+                  <p class="text-sm mb-0" data-i18n-key="free-3-p">Access your SQLite files from <strong>any device with a web browser</strong> — desktop, tablet, or mobile. No platform restrictions or compatibility issues.</p>
                 </div>
               </div>
               <div class="feature text-center is-revealing">
+                <div class="feature-inner">
+                  <div class="feature-icon feature-emoji">
+                    🔒
+                  </div>
+                  <h4 class="feature-title mt-24" data-i18n-key="free-4-h">Privacy-First Architecture</h4>
+                  <p class="text-sm mb-0" data-i18n-key="free-4-p">Your data never leaves your device. All processing happens locally in your browser, ensuring <strong>complete privacy and security</strong> for your sensitive information.</p>
+                </div>
+              </div>
+              <!-- <div class="feature text-center is-revealing">
                 <div class="feature-inner">
                   <div class="feature-icon feature-emoji">
                     👨‍💻
@@ -335,7 +321,7 @@
                   <h4 class="feature-title mt-24" data-i18n-key="free-5-h">Owner Operated</h4>
                   <p class="text-sm mb-0" data-i18n-key="free-5-p">SQLite Viewer is crafted by a single, dedicated developer. It enjoys a <strong>coherent vision and attention to detail</strong> that is rarely found in purely commercial products.</p>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -537,48 +523,63 @@
             <h3 id="faq" class="mb-48" data-i18n-key="faq-title">❓ Frequently Asked Questions</h3>
 
             <details class="faq">
-              <summary class="" data-i18n-key="faq-1-summary">How do I install the PRO version after the purchase?</summary>
+              <summary class="" data-i18n-key="faq-1-summary">How do I activate my license after purchase?</summary>
               <div class="mt-16 text-sm" data-i18n-key="faq-1-content">
-                You already have the PRO version installed! All that's required is to activate it.
-                After the purchase is complete, you will receive an email from the merchant of record with instructions on how claim the license key.
-                <strong>Activation happens within VS Code itself and only takes a couple of seconds</strong>:<br><br>
-                Open the Command Palette and type "Activate License Key". 
-                Alternatively, you can open the "Upgrade to PRO" dialog within a SQLite Viewer tab, scroll to the bottom of the page and click "Enter License Key". 
-                An input field will open at the top of the VS Code window. 
-                Paste the license key and hit enter. A system dialog will confirm the activation within a few seconds.
+                After your purchase is complete, you'll receive an email with your license key.
+                <strong>Activation is simple and happens directly in your browser</strong>:<br><br>
+                Click the "Activate License" button in the SQLite Viewer interface, 
+                paste your license key, and you're ready to go. 
+                The activation is instant and works across all your devices.
               </div>
             </details>
 
             <details class="faq">
-              <summary class="" data-i18n-key="faq-2-summary">How does Offline License Activation work?</summary>
+              <summary class="" data-i18n-key="faq-2-summary">What export formats are supported?</summary>
               <div class="mt-16 text-sm" data-i18n-key="faq-2-content">
-                When selecting <strong>"Offline License Activation"</strong> form the <strong>Command Palette</strong>, you will directed to a <a href="https://vscode.sqliteviewer.app/api/register">webpage</a> you can open on any device.
-                There you can enter your license key and you will receive a permanent activation token. 
-                You can then send the activation token to the device through an permitted channel (e.g. email, Slack, etc.) and enter it in the <strong>Offline Activation</strong> dialog in the extension.
+                SQLite Viewer PRO supports a wide range of export formats:<br><br>
+                • <strong>CSV</strong> - Comma-separated values for Excel and other tools<br>
+                • <strong>JSON</strong> - Both objects and arrays<br>
+                • <strong>SQL</strong> - INSERT statements for database imports<br>
+                • <strong>HTML</strong> - Formatted tables for web pages<br>
+                • <strong>Markdown</strong> - For documentation and GitHub<br>
+                • <strong>TSV</strong> - Tab-separated values<br><br>
+                All exports happen locally in your browser — no data is uploaded to servers.
               </div>
             </details>
 
             <details class="faq">
-              <summary class="" data-i18n-key="faq-3-summary">Can I activate the license on multiple devices?</summary>
+              <summary class="" data-i18n-key="faq-3-summary">How does date/time formatting work?</summary>
               <div class="mt-16 text-sm" data-i18n-key="faq-3-content">
-                You can activate SQLite Viewer PRO on as many devices as you like, and up to 5 devices simultaneously.
+                PRO includes intelligent date/time recognition for multiple formats:<br><br>
+                • <strong>Input formats</strong>: ISO-8601, Unix timestamps, Excel dates, Julian days, and more<br>
+                • <strong>Display options</strong>: Human-readable, time-ago ("6 months ago"), ISO strings, or raw values<br>
+                • <strong>Export integration</strong>: Dates maintain their format in exports (Excel serial dates for Excel, ISO for JSON, etc.)<br><br>
+                Click the date icon in column headers to cycle through display formats.
+              </div>
+            </details>
+
+            <details class="faq">
+              <summary class="" data-i18n-key="faq-4-summary">Is my data uploaded to a server?</summary>
+              <div class="mt-16 text-sm" data-i18n-key="faq-4-content">
+                <strong>No, your data never leaves your device.</strong> All processing, including exports and copy operations, happens locally in your browser. 
+                This ensures complete privacy and security for your sensitive information.
+              </div>
+            </details>
+
+            <details class="faq">
+              <summary class="" data-i18n-key="faq-5-summary">What are the storage limits?</summary>
+              <div class="mt-16 text-sm" data-i18n-key="faq-5-content">
+                Storage limits depend on your browser and device. The page automatically detects your available storage and displays it above. 
+                Most modern browsers support several GB of local storage, which is typically more than enough for SQLite files.
+              </div>
+              <div class="storage-info text-sm" style="display: none;">
+                <span class="storage-text storage-gradient">This device has a storage quota of <span class="storage-amount">--</span> MB.</span>
               </div>
             </details>
           </div>
         </div>
       </section>
 
-      <section class="section">
-        <div class="container text-xxs">
-          <hr/>
-          <ol>
-            <li data-i18n-key="footnote-1">Offline Activation is required if a company firewall prevents the extension from connecting to the license server.</li>
-            <li data-i18n-key="footnote-2">When a device is enrolled through offline activation, the extension can be used without ever needing to reconnect to the license server.</li>
-            <!-- <li>Provided on a best-effort basis. See <a href="./terms-be.html">Terms of Use (Business Edition)</a> for details.</li> -->
-          </ol>
-          <hr/>
-        </div>
-      </section>
     </main>
 
     <footer class="site-footer">
@@ -651,6 +652,21 @@
     document.querySelectorAll('a[href^="#card-"]').forEach(a => {
       a.addEventListener('click', ev => scrollToHash(ev));
     });
+  </script>
+  <script type="module">
+    (async () => {
+      if ('storage' in navigator && 'estimate' in navigator.storage) {
+        const estimate = await navigator.storage.estimate();
+        const quota = estimate.quota;
+        
+        if (quota) {
+          // Convert bytes to MB and round to 1 decimal place
+          const quotaMB = Math.round(quota / (1024 * 1024) * 10) / 10;
+          document.querySelectorAll('.storage-amount').forEach(el => el.textContent = quotaMB);
+          document.querySelectorAll('.storage-info').forEach(el => el.style.display = 'unset');
+        }
+      }
+    })().catch(console.warn);
   </script>
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
   <script type="module" src="./index.js"></script>
