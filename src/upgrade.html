@@ -77,7 +77,7 @@
                   document.getElementById('hero-title').textContent = 'Upgrade to Unlock PRO Features';
                 }
               </script> -->
-              <p class="hero-paragraph" data-i18n-key="hero-paragraph">Copy and export SQLite data in 7+ formats directly from your browser. Smart date/time handling, ad-free experience, and zero installation required. Your data never leaves your device. 🎯</p>
+              <p class="hero-paragraph" data-i18n-key="hero-paragraph">Copy & paste SQLite data to clipboard or export to files in 7+ formats directly from your browser. Smart date/time handling, ad-free experience, and zero installation required. Your data never leaves your device. 🎯</p>
               <div class="hero-cta">
                 <a class="button button-default" href="#card-1"><span data-i18n-key="learn-more">Watch Clips</span>&nbsp;↓</a>
                 <a class="button button-primary" href="#pricing" onclick="scrollToHash(event, null, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)" data-i18n-key="see-pricing">See Pricing</a>
@@ -140,9 +140,9 @@
       <section class="section">
         <div class="container">
           <div class="text-center mb-64">
-            <h2 id="cards-title" class="cards-title section-title h3 color-unset" data-i18n-key="cards-title">⚡ Upgrade to unlock exclusive PRO workflows</h2>
+            <h2 id="cards-title" class="cards-title section-title h3 color-unset" data-i18n-key="cards-title">⚡ Unlock professional data workflows</h2>
             <p class="section-paragraph mb-0" data-i18n-key="cards-paragraph">
-              Get professional-grade data export tools without the bloat. Copy as CSV for Excel, JSON for APIs, or SQL for migrations — all with intelligent date formatting and zero setup.
+              Get advanced export tools, work anywhere, handle massive datasets — exclusive PRO features that transform how you work with data.
             </p>
             <!-- <script>
               if (searchParams.has('css-vars')) {
@@ -151,14 +151,14 @@
             </script> -->
             <!-- <p class="section-paragraph mb-0">Check ou the card stack below.</p> -->
           </div>
-          <div id="cards" class="cards cards-stack" style="--num-cards: 4;">
+          <div id="cards" class="cards cards-stack" style="--num-cards: 3;">
             <div class="spy" id="card-1" style="--index: 1"></div>
             <div class="card" style="--index: 1">
               <div class="card__content">
                 <a class="card__header" href="#card-1"></a>
                 <div>
-                  <h3 data-i18n-key="card-1-h">Export data in a variety of formats</h3>
-                  <p class="text-sm" data-i18n-key="card-1-p">Copy rows to clipboard in 7 formats optimized for different workflows: CSV for Excel, JSON for APIs, SQL for migrations, HTML for docs, and Markdown for GitHub. Or export directly to files for larger datasets. One click, instant results.</p>
+                  <h3 data-i18n-key="card-1-h">Copy & Paste to Excel</h3>
+                  <p class="text-sm" data-i18n-key="card-1-p">Copy rows to clipboard in 7 formats optimized for different workflows: CSV for Excel, JSON for APIs, SQL for migrations, HTML for docs, and Markdown for GitHub. One click, instant results.</p>
                 </div>
                 <figure>
                   <video muted loop playsinline style="width:100%"></video>
@@ -170,8 +170,11 @@
               <div class="card__content">
                 <a class="card__header" href="#card-2"></a>
                 <div>
-                  <h3 data-i18n-key="card-2-h">Access Anywhere</h3>
-                  <p class="text-sm" data-i18n-key="card-2-p">Works on your laptop, tablet, or phone. Open a database, export what you need, and close the tab. No software to install, update, or configure.</p>
+                  <h3 data-i18n-key="card-2-h">Export to Files</h3>
+                  <p class="text-sm" data-i18n-key="card-2-p">Export entire tables directly to files using the export dialog for larger datasets. Bypass clipboard limits and save your data in multiple formats. Perfect for sharing and archiving your SQLite data.</p>
+                    <p class="storage-info text-sm" style="display: none;">
+                      <span class="storage-text storage-gradient">Up to <span class="storage-amount">--</span> MB on this device<sup class="o-50">3</sup></span>
+                    </p>
                 </div>
                 <figure>
                   <video muted loop playsinline style="width:100%"></video>
@@ -183,24 +186,8 @@
               <div class="card__content">
                 <a class="card__header" href="#card-3"></a>
                 <div>
-                  <h3 data-i18n-key="card-3-h">Work with Large Datasets</h3>
-                  <p class="text-sm" data-i18n-key="card-3-p">Filter down millions of rows, then export exactly what you need. Direct-to-file exports bypass clipboard limits. Handles databases up to [storage quota] on this device.</p>
-                    <p class="storage-info text-sm" style="display: none;">
-                      <span class="storage-text storage-gradient">Up to <span class="storage-amount">--</span> MB on this device</span>
-                    </p>
-                </div>
-                <figure>
-                  <video muted loop playsinline style="width:100%"></video>
-                </figure>
-              </div>
-            </div>
-            <div class="spy" id="card-4" style="--index: 4"></div>
-            <div class="card"  style="--index: 4">
-              <div class="card__content">
-                <a class="card__header" href="#card-4"></a>
-                <div>
-                  <h3 data-i18n-key="card-4-h">Beautiful, Fast Interface</h3>
-                  <p class="text-sm" data-i18n-key="card-4-p">Virtualized scrolling and lazy-loading mean instant performance, even with massive tables. Dark/light mode support. Designed for quick, focused work — not endless configuration.</p>
+                  <h3 data-i18n-key="card-3-h">Smart Date/Time Handling</h3>
+                  <p class="text-sm" data-i18n-key="card-3-p">Auto-detects 9 date formats: Unix timestamps, ISO-8601, Excel dates, Julian days. Switch between human-readable, ISO format, or raw values. Exports preserve your format for seamless data workflows.</p>
                 </div>
                 <figure>
                   <video muted loop playsinline style="width:100%"></video>
@@ -228,9 +215,9 @@
         <div class="container">
           <div class="features-inner section-inner">
             <div class="features-header text-center mt-128 mb-56">
-              <h3 id="features-title" class="section-title h3 mt-128 color-unset" data-i18n-key="section-title-i">🚀 Built for the modern web</h3>
+              <h3 id="features-title" class="section-title h3 mt-128 color-unset" data-i18n-key="section-title-i">🚀 Unlock PRO Features</h3>
               <p class="section-paragraph mb-0 text-sm" data-i18n-key="section-paragraph-i">
-                Three powerful features that make the web version feel like native software — without the native software headaches.
+                Upgrade to access these powerful features that transform your SQLite workflow. Export data in multiple formats, handle complex date/time values, and enjoy an ad-free experience.
               </p>
             </div>
             <div class="features-wrap">
@@ -240,7 +227,7 @@
                     📊
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="feat-1-h">Export Flexibility</h4>
-                  <p class="text-sm mb-0" data-i18n-key="feat-1-p">Seven export formats, each optimized for real workflows: copy & paste into Excel (CSV), send to APIs (JSON), migrate databases (SQL), document findings (HTML/Markdown). Choose between instant clipboard copy or direct file download for larger datasets.</p>
+                  <p class="text-sm mb-0" data-i18n-key="feat-1-p">Seven export formats optimized for real workflows: CSV for Excel, JSON for APIs, SQL for migrations, HTML/Markdown for docs. Choose clipboard copy or file download.</p>
                 </div>
               </div>
               <div class="feature text-center is-revealing">
@@ -249,7 +236,7 @@
                     🕒
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="feat-2-h">Date/Time Support</h4>
-                  <p class="text-sm mb-0" data-i18n-key="feat-2-p">Automatically detects 9 date formats (Unix timestamps, ISO-8601, Excel dates, Julian days...) and lets you switch between human-readable ('2 months ago'), machine-friendly (ISO), or raw values. Exports preserve your chosen format.</p>
+                  <p class="text-sm mb-0" data-i18n-key="feat-2-p">Auto-detects 9 date formats: Unix timestamps, ISO-8601, Excel dates, Julian days. Switch between human-readable, ISO format, or raw values. Exports preserve your format.</p>
                 </div>
               </div>
               <div class="feature text-center is-revealing">
@@ -282,7 +269,7 @@
                     🚀
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="free-1-h">Fast, Responsive UI</h4>
-                  <p class="text-sm mb-0" data-i18n-key="free-1-p">Virtualized rendering keeps the UI responsive even with 100K+ row tables. Built with modern web technologies (WebAssembly, Web Workers) for native-like performance.</p>
+                  <p class="text-sm mb-0" data-i18n-key="free-1-p">Virtualized rendering keeps the UI responsive even with 100K+ row tables. Built with modern web technologies including WebAssembly and Web Workers for native-like performance.</p>
                 </div>
               </div>
               <div class="feature text-center is-revealing">
@@ -291,7 +278,7 @@
                     📱
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="free-2-h">No Installation Required</h4>
-                  <p class="text-sm mb-0" data-i18n-key="free-2-p">Bookmark the URL, that's it. No app store reviews, no permission dialogs, no update notifications. Works the moment you need it.</p>
+                  <p class="text-sm mb-0" data-i18n-key="free-2-p">Bookmark the URL, that's it. No app store reviews, no permission downloads or installations</strong>. Just open the website and start viewing your SQLite files immediately.</p>
                 </div>
               </div>
               <div class="feature text-center is-revealing">
@@ -300,7 +287,7 @@
                     🌐
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="free-3-h">Works on Any Device</h4>
-                  <p class="text-sm mb-0" data-i18n-key="free-3-p">Mac, Windows, Linux, iPad, Android — if it runs a modern browser, it runs SQLite Viewer. Same features, same interface, everywhere.</p>
+                  <p class="text-sm mb-0" data-i18n-key="free-3-p">Access your SQLite files from <strong>any device with a web browser</strong> — desktop, tablet, or mobile. No platform restrictions or compatibility issues.</p>
                 </div>
               </div>
               <div class="feature text-center is-revealing">
@@ -309,7 +296,7 @@
                     🔒
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="free-4-h">Privacy-First Architecture</h4>
-                  <p class="text-sm mb-0" data-i18n-key="free-4-p">100% local processing. Your database files stay on your device, never uploaded to any server. Works offline after initial page load.</p>
+                  <p class="text-sm mb-0" data-i18n-key="free-4-p">Your data never leaves your device. All processing happens locally in your browser, ensuring <strong>complete privacy and security</strong> for your sensitive information.</p>
                 </div>
               </div>
               <!-- <div class="feature text-center is-revealing">
@@ -445,10 +432,10 @@
                         <span><span data-i18n-key="price-feat-3">🚫 Ad-free experience</span></span>
                       </li>
                       <li>
-                        <span><span data-i18n-key="price-feat-6">🔑 Multiple device activations</span></span>
+                        <span><span data-i18n-key="price-feat-6">🔑 Multiple device activations</span><sup class="o-50">1</sup></span>
                       </li>
                       <li>
-                        <span><span data-i18n-key="price-feat-7">📧 2 support tickets per month</span></span>
+                        <span><span data-i18n-key="price-feat-7">📧 2 support tickets per month</span><sup class="o-50">2</sup></span>
                       </li>
                     </ul>
                   </div>
@@ -524,8 +511,11 @@
             <details class="faq">
               <summary class="" data-i18n-key="faq-1-summary">How do I activate my license after purchase?</summary>
               <div class="mt-16 text-sm" data-i18n-key="faq-1-content">
-                You'll receive a license key via email. Click the 'Activate PRO' button in the app, paste the key, done. 
-                Works on up to 5 devices simultaneously — your laptop, work computer, tablet, etc.
+                After your purchase is complete, you'll receive an email with your license key.
+                <strong>Activation is simple and happens directly in your browser</strong>:<br><br>
+                Click the "Activate License" button in the SQLite Viewer interface, 
+                paste your license key, and you're ready to go. 
+                The activation is instant and works across all your devices.
               </div>
             </details>
 
@@ -539,21 +529,34 @@
                 • <strong>HTML</strong> - Formatted tables for web pages<br>
                 • <strong>Markdown</strong> - For documentation and GitHub<br>
                 • <strong>TSV</strong> - Tab-separated values<br><br>
-                Copy to clipboard for quick pastes, or export to file for batch operations. All formats support filtering and sorting. All exports happen locally in your browser — no data is uploaded to servers.
+                All exports happen locally in your browser — no data is uploaded to servers.
               </div>
             </details>
 
             <details class="faq">
-              <summary class="" data-i18n-key="faq-3-summary">How does date/time formatting work?</summary>
+              <summary class="" data-i18n-key="faq-3-summary">What datetime formats are supported?</summary>
               <div class="mt-16 text-sm" data-i18n-key="faq-3-content">
-                PRO detects 9 common date formats automatically. Click the column header to cycle between display modes: '3 months ago', '2025-01-15T10:30:00Z', or raw values. Exports use the displayed format.
+                PRO automatically detects and formats datetime values from the following input formats:<br><br>
+                • <strong>ISO-8601</strong> - Standard international date format (2024-01-15T14:30:00Z)<br>
+                • <strong>SQLite ISO-like</strong> - SQLite's text format (2024-01-15 14:30:00)<br>
+                • <strong>Unix timestamps</strong> - Seconds since 1970 (1705329000)<br>
+                • <strong>Unix microseconds</strong> - Microseconds since 1970 (1705329000000000)<br>
+                • <strong>JavaScript timestamps</strong> - Milliseconds since 1970 (1705329000000)<br>
+                • <strong>Excel serial dates</strong> - Excel's 1900 system (45310.60417)<br>
+                • <strong>Julian days</strong> - Astronomical Julian day numbers (2460327.10417)<br>
+                • <strong>Windows FILETIME</strong> - 100-nanosecond intervals since 1601 (133312320000000000)<br>
+                • <strong>.NET Ticks</strong> - 100-nanosecond intervals since 0001 (638420256000000000)<br><br>
+                <em>Display options:</em> Human-readable, time-ago ("6 months ago"), ISO strings, or raw values<br><br>
+                <em>Export integration:</em> Dates maintain their format in exports (e.g. Excel serial dates for Excel, ISO for JSON, etc.)<br><br>
+                Click the date icon in column headers to cycle through display formats.
               </div>
             </details>
 
             <details class="faq">
               <summary class="" data-i18n-key="faq-4-summary">Is my data uploaded to a server?</summary>
               <div class="mt-16 text-sm" data-i18n-key="faq-4-content">
-                <strong>Never.</strong> Everything runs in your browser using WebAssembly. No analytics on your data, no telemetry on queries, no cloud sync. The only network requests are for license validation (once) and loading the app itself.
+                <strong>No, your data never leaves your device.</strong> All processing, including exports and copy operations, happens locally in your browser. 
+                This ensures complete privacy and security for your sensitive information.
               </div>
             </details>
 
@@ -562,13 +565,24 @@
               <div class="mt-16 text-sm" data-i18n-key="faq-5-content">
                 Storage limits depend on your browser and device. The page automatically detects your available storage and displays it above. 
                 Most modern browsers support several GB of local storage, which is typically more than enough for SQLite files.
-                For reference: a 100MB database is ~800,000 rows of customer data. Most databases are under 10MB.
               </div>
               <div class="storage-info text-sm" style="display: none;">
-                <span class="storage-text storage-gradient">This device has a storage quota of <span class="storage-amount">--</span> MB.</span>
+                <span class="storage-text storage-gradient">This device has a storage quota of <span class="storage-amount">--</span> MB.<sup class="o-50">3</sup></span>
               </div>
             </details>
           </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container text-xxs">
+          <hr/>
+          <ol>
+            <li data-i18n-key="footnote-1">Subscription allows up to 50 device activations, compared to the 2 device limit of the 14-day pass.</li>
+            <li data-i18n-key="footnote-2">Email support is provided on a best-effort basis.</li>
+            <li data-i18n-key="footnote-3">Storage quota is shared between the SQLite database and exported files.</li>
+          </ol>
+          <hr/>
         </div>
       </section>
 
