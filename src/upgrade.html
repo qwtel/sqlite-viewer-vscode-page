@@ -51,7 +51,7 @@
           </div>
           <div class="header-links flex min-w-0 overflow-h">
             <ul class="flex items-center gap-24 text-xs" style="flex: 1; list-style: none; padding: 0; margin: 0;">
-              <li><a class="opacity-link" href="#card-1" data-i18n-key="clips">Clips</a></li>
+              <li><a class="opacity-link" href="#card-1" data-i18n-key="clips">Demo</a></li>
               <li><a class="opacity-link" onclick="scrollToHash(event)" href="#features-title" data-i18n-key="features">Features</a></li>
               <li><a class="opacity-link" onclick="scrollToHash(event)" href="#pricing" data-i18n-key="pricing">Pricing</a></li>
               <li><a class="opacity-link" onclick="scrollToHash(event)" href="#faq" data-i18n-key="faq">FAQ</a></li>
@@ -79,7 +79,7 @@
               </script> -->
               <p class="hero-paragraph" data-i18n-key="hero-paragraph">Copy & paste SQLite data to clipboard or export to files in 7+ formats directly from your browser. Smart date/time handling, ad-free experience, and zero installation required. Your data never leaves your device. 🎯</p>
               <div class="hero-cta">
-                <a class="button button-default" href="#card-1"><span data-i18n-key="learn-more">Watch Clips</span>&nbsp;↓</a>
+                <a class="button button-default" href="#card-1"><span data-i18n-key="learn-more">Watch Demo</span>&nbsp;↓</a>
                 <a class="button button-primary" href="#pricing" onclick="scrollToHash(event, null, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)" data-i18n-key="see-pricing">See Pricing</a>
               </div>
               <span class="text-xs fall-sale-banner" data-i18n-key="hero-footer">
@@ -151,7 +151,7 @@
             </script> -->
             <!-- <p class="section-paragraph mb-0">Check ou the card stack below.</p> -->
           </div>
-          <div id="cards" class="cards cards-stack" style="--num-cards: 3;">
+          <div id="cards" class="cards cards-stack" style="--num-cards: 4;">
             <div class="spy" id="card-1" style="--index: 1"></div>
             <div class="card" style="--index: 1">
               <div class="card__content">
@@ -172,9 +172,6 @@
                 <div>
                   <h3 data-i18n-key="card-2-h">Export to Files</h3>
                   <p class="text-sm" data-i18n-key="card-2-p">Export entire tables directly to files using the export dialog for larger datasets. Bypass clipboard limits and save your data in multiple formats. Perfect for sharing and archiving your SQLite data.</p>
-                    <p class="storage-info text-sm" style="display: none;">
-                      <span class="storage-text storage-gradient">Up to <span class="storage-amount">--</span> MB on this device<sup class="o-50">3</sup></span>
-                    </p>
                 </div>
                 <figure>
                   <video muted loop playsinline style="width:100%"></video>
@@ -186,8 +183,24 @@
               <div class="card__content">
                 <a class="card__header" href="#card-3"></a>
                 <div>
-                  <h3 data-i18n-key="card-3-h">Smart Date/Time Handling</h3>
-                  <p class="text-sm" data-i18n-key="card-3-p">Auto-detects 9 date formats: Unix timestamps, ISO-8601, Excel dates, Julian days. Switch between human-readable, ISO format, or raw values. Exports preserve your format for seamless data workflows.</p>
+                  <h3 data-i18n-key="card-3-h">Work with Large Datasets</h3>
+                  <p class="text-sm" data-i18n-key="card-3-p">Filter down millions of rows, then export exactly what you need. Direct-to-file exports bypass clipboard limits.</p>
+                    <p class="storage-info text-sm" style="display: none;">
+                      <span class="storage-text storage-gradient">Up to <span class="storage-amount">--</span> MB on this device</span>
+                    </p>
+                </div>
+                <figure>
+                  <video muted loop playsinline style="width:100%"></video>
+                </figure>
+              </div>
+            </div>
+            <div class="spy" id="card-4" style="--index: 4"></div>
+            <div class="card" style="--index: 4">
+              <div class="card__content">
+                <a class="card__header" href="#card-4"></a>
+                <div>
+                  <h3 data-i18n-key="card-4-h">Smart Date/Time Handling</h3>
+                  <p class="text-sm" data-i18n-key="card-4-p">Auto-detects 9 date formats: Unix timestamps, ISO-8601, Excel dates, Julian days. Switch between human-readable, ISO format, or raw values. Exports preserve your format for seamless data workflows.</p>
                 </div>
                 <figure>
                   <video muted loop playsinline style="width:100%"></video>
@@ -269,7 +282,7 @@
                     🚀
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="free-1-h">Fast, Responsive UI</h4>
-                  <p class="text-sm mb-0" data-i18n-key="free-1-p">Virtualized rendering keeps the UI responsive even with 100K+ row tables. Built with modern web technologies including WebAssembly and Web Workers for native-like performance.</p>
+                  <p class="text-sm mb-0" data-i18n-key="free-1-p">Virtualized rendering keeps the UI responsive even with <strong>100K+ row tables</strong>. Built with modern web technologies including <strong>WebAssembly and Web Workers</strong> for native-like performance.</p>
                 </div>
               </div>
               <div class="feature text-center is-revealing">
@@ -278,7 +291,7 @@
                     📱
                   </div>
                   <h4 class="feature-title mt-24" data-i18n-key="free-2-h">No Installation Required</h4>
-                  <p class="text-sm mb-0" data-i18n-key="free-2-p">Bookmark the URL, that's it. No app store reviews, no permission downloads or installations</strong>. Just open the website and start viewing your SQLite files immediately.</p>
+                  <p class="text-sm mb-0" data-i18n-key="free-2-p">Bookmark the URL, that's it. <strong>No permissions or installations</strong>. Just open the website and start viewing your SQLite files immediately. Install website as standalone app is optional.</p>
                 </div>
               </div>
               <div class="feature text-center is-revealing">
@@ -564,10 +577,10 @@
               <summary class="" data-i18n-key="faq-5-summary">What are the storage limits?</summary>
               <div class="mt-16 text-sm" data-i18n-key="faq-5-content">
                 Storage limits depend on your browser and device. The page automatically detects your available storage and displays it above. 
-                Most modern browsers support several GB of local storage, which is typically more than enough for SQLite files.
+                Most modern browsers support several GB of local storage, which is typically more than enough for common SQLite files.
               </div>
               <div class="storage-info text-sm" style="display: none;">
-                <span class="storage-text storage-gradient">This device has a storage quota of <span class="storage-amount">--</span> MB.<sup class="o-50">3</sup></span>
+                <span class="storage-text storage-gradient">This device has a storage quota of <span class="storage-amount">--</span> MB.<sup>3</sup></span>
               </div>
             </details>
           </div>
