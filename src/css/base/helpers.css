@@ -563,7 +563,7 @@
   color: var(--x-color);
 }
 
-.color-50 {
+.color-50, .c-50 {
   color: color-mix(in oklab, var(--x-color) 50%, var(--x-background));
 }
 
