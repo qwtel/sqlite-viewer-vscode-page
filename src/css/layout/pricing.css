@@ -18,16 +18,60 @@
   flex-wrap: wrap;
   gap: 2.5rem;
   justify-content: center;
+  position: relative;
+}
+
+.pricing-figure-box-01,
+.pricing-figure-box-02,
+.pricing-figure-box-03 {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  transform-origin: center;
+  overflow: hidden;
 
   &::before {
     content: '';
     position: absolute;
-    width: 100%;
-    max-width: 100%;
-    height: 445px;
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-image: url('../../images/pricing-illustration.svg');
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform-origin: 100% 100%;
+  }
+}
+
+.pricing-figure-box-01 {
+  background:
+    linear-gradient(29deg, var(--color-primary-2) 0%, rgba(from var(--color-primary-2) r g b / 0) 65%),
+    linear-gradient(29deg, gray 30%, rgb(from gray r g b / 0) 85%);
+  width: 300px;
+  height: 300px;
+  top: 55px;
+  left: 205px;
+  transform: rotate(61deg);
+  transform-origin: center;
+}
+
+.pricing-figure-box-02 {
+  background: rgba(from var(--color-primary-3) r g b / .72);
+  width: 34px;
+  height: 34px;
+  top: 325px;
+  left: 163px;
+  transform: rotate(57deg);
+}
+
+.pricing-figure-box-03 {
+  background: var(--color-primary-2);
+  width: 40px;
+  height: 40px;
+  top: 240px;
+  left: 610px;
+  transform: rotate(130deg);
+  &::before {
+    background: linear-gradient(to left, rgb(from var(--color-typography-1)  r g b / 0%) 0%, rgb(from var(--color-typography-1)  r g b / 48%) 100%);
+    transform: rotateZ(45deg) scale(1.5);
   }
 }
 
@@ -36,6 +80,8 @@
   width: 368px;
   max-width: 425px;
   flex-grow: 1;
+  z-index: 1;
+  /* opacity: 0; */
 }
 
 .pricing-table-header,

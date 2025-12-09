@@ -90,6 +90,8 @@
 body {
   --x-color: #fff;
   --x-background: #1D2026;
+  --x-button-color: #fff;
+  --x-button-background: #0270D7;
   --darken: black;
   --lighten: white;
 }
@@ -134,9 +136,9 @@ body {
   --color-bg-4: color-mix(in oklab, var(--x-background) 90%, var(--lighten));
   
   /* Primary Colors */
-  --color-primary-1: #0270D7;
-  --color-primary-2: #0F8AFD;
-  --color-primary-3: #0256A4;
+  --color-primary-1: var(--x-button-background, #0270D7);
+  --color-primary-2: color-mix(in oklch, var(--x-button-background, #0270D7) 88%, white 12%);
+  --color-primary-3: color-mix(in oklch, var(--x-button-background, #0270D7) 82%, black 18%);
 
   /* Font Family Variables */
   --font-family-base: var(--x-font-family);
