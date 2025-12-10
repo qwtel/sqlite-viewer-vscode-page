@@ -22,7 +22,7 @@
   background: var(--color-bg-1);
   overflow: hidden;
 
-  &::before {
+  /* &::before {
     content: '';
     position: absolute;
     right: 98px;
@@ -31,7 +31,7 @@
     height: 187px;
     background-image: url('../../images/cta-illustration.svg');
     background-repeat: no-repeat;
-  }
+  } */
 
   > * {
     position: relative; /* To display elements above hero illustrations */

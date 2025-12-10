@@ -45,7 +45,7 @@
   background: linear-gradient(29deg, var(--color-primary-1) 0%, rgba(from var(--color-primary-2) r g b / 0) 80%);
   width: 300px;
   height: 300px;
-  top: 55px;
+  top: 85px;
   left: 205px;
   transform: rotate(61deg);
 }
@@ -54,7 +54,7 @@
   background: rgba(from var(--color-primary-3) r g b / .72);
   width: 34px;
   height: 34px;
-  top: 325px;
+  top: 355px;
   left: 163px;
   transform: rotate(57deg);
 }
@@ -63,7 +63,7 @@
   background: var(--color-primary-2);
   width: 40px;
   height: 40px;
-  top: 240px;
+  top: 270px;
   left: 610px;
   transform: rotate(130deg);
   &::before {
