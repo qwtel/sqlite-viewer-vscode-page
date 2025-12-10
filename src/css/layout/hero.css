@@ -115,7 +115,7 @@
   transform: rotateZ(-45deg);
 
   &::before {
-    background: linear-gradient(to top, var(--color-bg-1) 0%, rgb(from var(--color-bg-1)  r g b / 0%) 60%);
+    background: linear-gradient(to top, var(--color-bg-1) 0%, rgb(from var(--color-bg-1) r g b / 0%) 60%);
     transform: rotateZ(-45deg) scale(1.5);
   }
 }
@@ -128,7 +128,7 @@
   background: linear-gradient(to left top, var(--color-primary-2), rgba(from var(--color-primary-2) r g b / 0));
 
   &::before {
-    background: linear-gradient(to left, var(--color-bg-1) 0%, rgb(from var(--color-bg-1)  r g b / 0%) 60%);
+    background: linear-gradient(to left, var(--color-bg-1) 0%, rgb(from var(--color-bg-1) r g b / 0%) 60%);
     transform: rotateZ(45deg) scale(1.5);
   }
 }
@@ -142,7 +142,7 @@
   transform: rotateZ(-135deg);
 
   &::before {
-    background: linear-gradient(to top, rgb(from var(--color-typography-1)  r g b / 24%) 0%, rgb(from var(--color-typography-1)  r g b / 0%) 60%);
+    background: linear-gradient(to top, rgb(from var(--color-typography-1)  r g b / 24%) 0%, rgb(from var(--color-typography-1) r g b / 0%) 60%);
     transform: rotateZ(-45deg) scale(1.5);
   }
 }

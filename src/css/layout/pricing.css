@@ -42,15 +42,12 @@
 }
 
 .pricing-figure-box-01 {
-  background:
-    linear-gradient(29deg, var(--color-primary-2) 0%, rgba(from var(--color-primary-2) r g b / 0) 65%),
-    linear-gradient(29deg, gray 30%, rgb(from gray r g b / 0) 85%);
+  background: linear-gradient(29deg, var(--color-primary-1) 0%, rgba(from var(--color-primary-2) r g b / 0) 80%);
   width: 300px;
   height: 300px;
   top: 55px;
   left: 205px;
   transform: rotate(61deg);
-  transform-origin: center;
 }
 
 .pricing-figure-box-02 {
