@@ -137,8 +137,8 @@ body {
   
   /* Primary Colors */
   --color-primary-1: var(--x-button-background, #0270D7);
-  --color-primary-2: oklch(from var(--x-button-background, #0270D7) calc(l + 0.1) c calc(h - 15));
-  --color-primary-3: oklch(from var(--x-button-background, #0270D7) calc(l - 0.1) c calc(h + 10));
+  --color-primary-2: oklch(from var(--color-primary-1) calc(l + 0.1) c calc(h - 10));
+  --color-primary-3: oklch(from var(--color-primary-1) calc(l - 0.1) c calc(h + 10));
 
   /* Font Family Variables */
   --font-family-base: var(--x-font-family);

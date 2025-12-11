@@ -111,6 +111,13 @@ ol > li {
   .footer-links,
   .footer-social-links {
     justify-content: flex-end;
+    svg {
+      filter:
+        hue-rotate(calc(var(--x-primary-h, 209deg) - 209deg))
+        saturate(calc(1 + (var(--x-primary-s, 0.98) - 0.98) * 0.85))
+        brightness(calc(1 + (var(--x-primary-l, 0.43) - 0.43) * 0.65))
+        contrast(calc(0.8 + 0.2/0.98 * var(--x-primary-s, 0.98)));
+    }
   }
 
   .footer-links-wrapper {
