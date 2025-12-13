@@ -511,6 +511,43 @@
       <sl-carousel-item>
         <div class="changelog-card changelog-card-landing">
           <div class="changelog-header">
+            <h4 class="changelog-version" id="v25122"><span class="version-number">v25.12.2</span> <time class="version-date" datetime="2025-12-12">December 13, 2025</time></h4>
+          </div>
+          <div class="changelog-content text-sm">
+            <p>Promoted version 25.12.1 to main channel. If you encounter any issues, you can revert to the prior stable version, v0.10.6.</p>
+<p>Major new features from the pre-release branch are included in this update:</p>
+<ul>
+<li><a href="/changelog#pro-datetime-support"><sl-badge variant="primary" size="small">PRO</sl-badge> Date/Time Support</a></li>
+<li><a href="/changelog#pro-basic-batch-updates"><sl-badge variant="primary" size="small">PRO</sl-badge> Basic Batch Updates</a></li>
+<li><a href="/changelog#pro-improved-logging"><sl-badge variant="primary" size="small">PRO</sl-badge> Improved Logging</a></li>
+<li><a href="/changelog#pro-pragma-editor"><sl-badge variant="primary" size="small">PRO</sl-badge> Pragma Editor</a></li>
+<li><a href="/changelog#pro-export-dialog"><sl-badge variant="primary" size="small">PRO</sl-badge> Export Dialog</a></li>
+<li><a href="/changelog#pro-edit-in-vs-code"><sl-badge variant="primary" size="small">PRO</sl-badge> Edit in VS Code</a></li>
+<li><a href="/changelog#pro-drag--drop-file-as-blob"><sl-badge variant="primary" size="small">PRO</sl-badge> Drag &amp; Drop File as BLOB</a></li>
+<li><a href="/changelog#pro-json-patch"><sl-badge variant="primary" size="small">PRO</sl-badge> JSON Patch</a></li>
+<li><a href="/changelog#pro-datetime-improvements"><sl-badge variant="primary" size="small">PRO</sl-badge> Datetime Improvements</a></li>
+</ul>
+
+          </div>
+        </div>
+      </sl-carousel-item>
+      <sl-carousel-item>
+        <div class="changelog-card changelog-card-landing">
+          <div class="changelog-header">
+            <h4 class="changelog-version" id="v25121-pre-release"><span class="version-number">v25.12.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-12-06">December 7, 2025</time></h4>
+          </div>
+          <div class="changelog-content text-sm">
+            <ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed an issue that caused the standard icon (blue) to be displayed instead of the PRO icon</li>
+<li>Fixed a potential crash when reloading a database</li>
+</ul>
+
+          </div>
+        </div>
+      </sl-carousel-item>
+      <sl-carousel-item>
+        <div class="changelog-card changelog-card-landing">
+          <div class="changelog-header">
             <h4 class="changelog-version" id="v25120-pre-release"><span class="version-number">v25.12.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-12-05">December 6, 2025</time></h4>
           </div>
           <div class="changelog-content text-sm">
@@ -519,7 +556,7 @@
 <li>Updated icons to new VS Code icon set</li>
 </ul>
 <h5 id="fixes">Fixes</h5><ul>
-<li>Includes a potential fix for <code>Promise.withResolvers</code> is not a function</li>
+<li>Includes a fix for <code>Promise.withResolvers</code> is not a function</li>
 <li>Includes a potential fix for new tabs opening when using in VS Code for Web</li>
 </ul>
 
@@ -572,59 +609,6 @@ Rather than overwriting the entire JSON value, only the properties that changed 
 </ul>
 <h5 id="known-issues">Known Issues</h5><ul>
 <li>Editing <code>BLOB</code>s with the &#39;Edit in VS Code&#39; feature and the Hex Editor extension will write incorrect results back to the database.</li>
-</ul>
-
-          </div>
-        </div>
-      </sl-carousel-item>
-      <sl-carousel-item>
-        <div class="changelog-card changelog-card-landing">
-          <div class="changelog-header">
-            <h4 class="changelog-version" id="v2581-pre-release"><span class="version-number">v25.8.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-08-06">August 7, 2025</time></h4>
-          </div>
-          <div class="changelog-content text-sm">
-            <h5 id="pro-drag--drop-file-as-blob"><sl-badge variant="primary" size="small">PRO</sl-badge> Drag &amp; Drop File as BLOB</h5><p>You can now drag and drop a file into the sidebar or modal fieldset to upload its content as a <code>BLOB</code> in the corresponding column. This is an alternative to the file picker and not limited to <code>BLOB</code> columns.
-This works with both OS files from the File Explorer/Finder as well as VS Code files from the file tree.</p>
-<h5 id="changes">Changes</h5><ul>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Removed per-cell datetime formats. The datetime format is now guessed per column.</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Datetime format is now always shown in the header cell and its behavior is now the same as the one in the sidebar.</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed editing cell values in VS Code when column names include <code>/</code>.</li>
-</ul>
-<h5 id="known-issues">Known Issues</h5><ul>
-<li>Poor performance for uploading larger files</li>
-<li>Missing loading indicators when undoing file uploads</li>
-</ul>
-
-          </div>
-        </div>
-      </sl-carousel-item>
-      <sl-carousel-item>
-        <div class="changelog-card changelog-card-landing">
-          <div class="changelog-header">
-            <h4 class="changelog-version" id="v2580-pre-release"><span class="version-number">v25.8.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-07-31">August 1, 2025</time></h4>
-          </div>
-          <div class="changelog-content text-sm">
-            <h5 id="pro-edit-in-vs-code"><sl-badge variant="primary" size="small">PRO</sl-badge> Edit in VS Code</h5><p>You can now edit individual cell values in a tab in VS Code, making full use of VS Code&#39;s text editing features, installed extensions (Vim mode!), 
-syntax highlighting, and more. This should be particularly useful when editing JSON/B columns. </p>
-<p>You can access this feature through the &quot;Edit in VS Code to the Side&quot; icon button in the top right corner of a text area (visible on hover).
-There is now also a VS Code setting to configure the behavior of a cell double-click, allowing you to open it in the new VS Code tab feature instead of the built-in modal dialog.</p>
-<p>This feature also makes use of VS Code&#39;s text syntax detection feature to open tabs with appropriate formatting pre-applied. This can be useful when storing HTML responses or Markdown content in SQLite.</p>
-<p>For improved ergonomics, the behavior of the SQLite Viewer sidebar has been modified to auto-close when space is running low (i.e., when a VS Code tab opens to the side) and to auto-show when it becomes available again.</p>
-<h5 id="changes">Changes</h5><ul>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> UTC/local time zone toggle is now always visible in column headers</li>
-<li>Improved queries for tables without <code>ROWID</code> and multiple primary keys</li>
-<li>Using BLOBs as primary keys in tables without <code>ROWID</code> now works, provided they are small (&lt;= 48 bytes).</li>
-<li>Added a &quot;Copy to clipboard&quot; button to text areas that allows copying values to the clipboard without text cutoff limits</li>
-<li>Added an ellipsis &quot;…&quot; to the end of text values that were cut off due to size</li>
-<li>&quot;Click to select&quot; on text fields should be a little less finicky now</li>
-<li>Improved responsive sidebar handling with better width management</li>
-<li>Added &quot;Open in VS Code&quot; functionality to the Table Info SQL field</li>
-<li>Improved error handling, so that the sidebar is still accessible when an error occurs</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed invalid output when exporting a table with exactly 1 row as a JSON object</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug that prevented deleting rows in tables without <code>ROWID</code></li>
-</ul>
-<h5 id="known-issues">Known Issues</h5><ul>
-<li>Exporting from within the viewer is broken when multiples DBs of the same name are open (export from the command pallette not affected)</li>
 </ul>
 
           </div>
