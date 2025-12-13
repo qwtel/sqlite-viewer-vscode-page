@@ -51,6 +51,26 @@
           
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
+          <h3 class="changelog-version" id="v25123-pre-release"><span class="version-number">v25.12.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-12-12">December 13, 2025</time></h3>
+        </div>
+        <div class="changelog-content">
+          <h4 id="improved-theme-integration">Improved theme integration</h4><p>The extension should now adjust better to many popular themes, but unexpected changes or even regressions are possible.</p>
+<ul>
+<li>Fixed missing background color for selected rows in certain themes like Catppuccin.</li>
+<li>Changed most border colors to use <code>sideBar.border</code> instead of <code>tab.border</code>, which more closely matches the intent of most themes.</li>
+<li>Fixed an issue where a &quot;border&quot; (i.e., gap) would appear in themes that set the border color to transparent.</li>
+<li>Changed muted color to always use 50% opacity of regular text instead of <code>list.deemphasizedForeground</code>, as many themes don&#39;t provide a good value for it.
+High-contrast themes are exempt from this.</li>
+<li>Fixed invisible focus outline in themes that don&#39;t define <code>list.focusOutline</code> by falling back to alternative theme colors suitable for outlines.</li>
+<li>Fixed row selection borders missing in high-contrast themes.</li>
+<li>Improved row hover state in high-contrast themes.</li>
+<li>Improved checkout page theme integration.</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
           <h3 class="changelog-version" id="v25122"><span class="version-number">v25.12.2</span> <time class="version-date" datetime="2025-12-12">December 13, 2025</time></h3>
         </div>
         <div class="changelog-content">
