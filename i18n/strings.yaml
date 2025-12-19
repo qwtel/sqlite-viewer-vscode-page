@@ -162,7 +162,7 @@ disclaimer2: >
   All prices are in United States Dollars (USD) and exclude VAT. VAT may be added at checkout. Your credit card provider may charge a currency conversion fee.
 disclaimer3: > 
   Design based on [Solid](https://preview.cruip.com/solid). Licensed under [GPL-3.0](https://github.com/qwtel/sqlite-viewer-vscode-page).
-langDisclaimer: "This page is available the following languages:"
+langDisclaimer: "This page is available in the following languages:"
 faqTitle: Frequently Asked Questions
 comingSoon: Coming Soon
 changelogTitle: Updates, Continuously Delivered
