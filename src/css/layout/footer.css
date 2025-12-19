@@ -77,6 +77,10 @@ ol > li {
   justify-content: center;
 }
 
+.site-footer-inner {
+  margin-top: 32px;
+}
+
 @media (min-width: 640px) {
   .site-footer {
     margin-top: 20px;
@@ -84,7 +88,6 @@ ol > li {
 
   .site-footer-inner {
     justify-content: space-between;
-    padding-top: 32px;
     column-gap: 24px;
 
     &:last-of-type {
