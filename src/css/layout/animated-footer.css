@@ -18,7 +18,7 @@
 
   .animated-text {
     display: block;
-    font-size: clamp(1rem, 10vw, 6.5rem);
+    font-size: clamp(1rem, 10vw, 6.25rem);
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.02em;
