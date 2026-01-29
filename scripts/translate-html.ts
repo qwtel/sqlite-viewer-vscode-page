@@ -3,8 +3,14 @@
 import * as fs from 'fs/promises';
 import URL from 'url';
 import path from 'path'
-import { marked } from 'marked';
 import { html } from './_utils';
+
+function parseInlineMarkdown(value: string): string {
+  // @ts-expect-error: markdown not yet typed
+  const result = Bun.markdown.html(value).trim();
+  const single = result.match(/^<p>(.*)<\/p>\s*$/s);
+  return single ? single[1] : result;
+}
 
 const __filename = URL.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,8 +23,7 @@ const translations = {} as { [lang: string]: Record<string, string> };
 const glob = new Bun.Glob('*');
 for await (const name of glob.scan(resolve('./i18n'))) {
   const [, lang] = name.match(/\.(.+)\.yaml$/) ?? [, 'en'];
-  // @ts-ignore: Bun.YAML is not typed yet
-  const ts = Bun.YAML.parse(await Bun.file(resolve('./i18n', name)).text());
+  const ts = Bun.YAML.parse(await Bun.file(resolve('./i18n', name)).text()) as Record<string, string>;
   translations[lang] = ts;
 }
 
@@ -93,7 +98,7 @@ async function translateHtml(inFile: string, lang: string, outFile: string) {
         const value = translations[lang][keyCamel] ?? translations['en'][keyCamel] ?? '';
         // console.log(key, dashToCamelCase(key))
         if (value) {
-          let newHtml = marked.parseInline('' + value, { gfm: true, breaks: true }) as string;
+          let newHtml = parseInlineMarkdown('' + value);
           newHtml = newHtml
             .replaceAll('{SQLiteViewerPRO}', name)
             .replaceAll('{icon}', icon)
@@ -112,7 +117,7 @@ async function translateHtml(inFile: string, lang: string, outFile: string) {
         const key = el.getAttribute('data-i18n-title')!;
         const keyCamel = dashToCamelCase(key);
         const value = translations[lang][keyCamel] ?? translations['en'][keyCamel] ?? '';
-        const newHtml = marked.parseInline('' + value, { gfm: true }) as string;
+        const newHtml = parseInlineMarkdown('' + value);
         el.setAttribute('title', newHtml);
         el.removeAttribute('data-i18n-title');
       }
@@ -122,7 +127,7 @@ async function translateHtml(inFile: string, lang: string, outFile: string) {
         const key = el.getAttribute('data-i18n-content')!;
         const keyCamel = dashToCamelCase(key);
         const value = translations[lang][keyCamel] ?? translations['en'][keyCamel] ?? '';
-        const newHtml = marked.parseInline('' + value, { gfm: true }) as string;
+        const newHtml = parseInlineMarkdown('' + value);
         el.setAttribute('content', newHtml);
         el.removeAttribute('data-i18n-content');
       }

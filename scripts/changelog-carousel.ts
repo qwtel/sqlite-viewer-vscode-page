@@ -2,7 +2,6 @@
 
 import URL from 'url';
 import path from 'path';
-import { marked } from 'marked';
 import { html } from './_utils';
 
 const __filename = URL.fileURLToPath(import.meta.url);
@@ -86,39 +85,27 @@ async function parseRecentReleases(): Promise<Release[]|null> {
   return releases.slice(0, 5);
 }
 
-async function processReleaseContent(content: string, headlineAdjustment: number = 2): Promise<string> {
-  // Clean up the content - preserve paragraph breaks
+function processReleaseContent(content: string, headlineAdjustment: number = 2): string {
   const cleanContent = content.trim();
-  
-  // Add specified levels to each headline
   const contentWithAdjustedHeadlines = cleanContent.replace(/^(#{1,6})\s/gm, (match, hashes) => {
     return '#'.repeat(Math.min(hashes.length + headlineAdjustment, 6)) + ' ';
   });
-  
-  // Create a custom renderer to add IDs to headings
-  const renderer = new marked.Renderer();
-  renderer.heading = ({ tokens, depth }) => {
-    // Extract plain text from tokens
-    const text = tokens.map(token => 'text' in token ? token.text : '').join('');
-    const id = generateMarkdownId(text);
-    const html = renderer.parser.parseInline(tokens);
-    return `<h${depth} id="${id}">${html}</h${depth}>`;
-  };
-  
-  // Parse markdown content with custom renderer
-  let parsedContent = await marked.parse(contentWithAdjustedHeadlines, { 
-    gfm: true,
-    breaks: false,
-    renderer
+
+  // @ts-expect-error: markdown not yet typed
+  let parsedContent: string = Bun.markdown.html(contentWithAdjustedHeadlines, { headingIds: true });
+
+  parsedContent = parsedContent.replace(/<h([1-6])>(.*?)<\/h\1>\n?/gs, (_, level, inner) => {
+    const id = generateMarkdownId(stripHtml(inner));
+    return `<h${level} id="${id}">${inner}</h${level}>`;
   });
-  
-  // Replace [PRO] with sl-badge elements
+
   parsedContent = parsedContent.replace(/\[PRO\]/g, html`<sl-badge variant="primary" size="small">PRO</sl-badge>`);
-  
-  // Transform fragment links to point to changelog.html
   parsedContent = parsedContent.replace(/href="#([^"]+)"/g, 'href="/changelog#$1"');
-  
   return parsedContent;
+}
+
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]+>/g, '').trim();
 }
 
 function generateMarkdownId(text: string): string {
@@ -180,7 +167,7 @@ async function generateCarouselHTML(): Promise<string|null> {
   let carouselItems = '';
   
   for (const release of releases) {
-    const parsedContent = await processReleaseContent(release.content, 2);
+    const parsedContent = processReleaseContent(release.content, 2);
     const { html: versionWithBadge, id } = formatVersionWithBadgeAndId(release.version);
     
     carouselItems += html`
@@ -243,7 +230,7 @@ async function generateFullChangelogHTML(): Promise<string|null> {
   let changelogContent = '';
   
   for (const release of releases) {
-    const parsedContent = await processReleaseContent(release.content, 1);
+    const parsedContent = processReleaseContent(release.content, 1);
     const { html: versionWithBadge, id } = formatVersionWithBadgeAndId(release.version);
     
     changelogContent += html`
