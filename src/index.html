@@ -511,6 +511,59 @@
       <sl-carousel-item>
         <div class="changelog-card changelog-card-landing">
           <div class="changelog-header">
+            <h4 class="changelog-version" id="v2620-pre-release"><span class="version-number">v26.2.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span></h4>
+          </div>
+          <div class="changelog-content text-sm">
+            <h5 id="pro-table-and-column-creation"><sl-badge variant="primary" size="small">PRO</sl-badge> Table and Column Creation</h5><p>You can add columns to existing tables, drop columns or entire tables, and edit column definitions when the table is empty.</p>
+<ul>
+<li><strong>Add column</strong>: New columns can be added to any table from the column header. Tables that already contain rows use <code>ALTER TABLE ... ADD COLUMN</code>; empty tables may be recreated to apply the change.</li>
+<li><strong>Drop column</strong>: Columns can be removed from a table via the trash icon next to each column in the table info panel. Uses <code>ALTER TABLE ... DROP COLUMN</code>.</li>
+<li><strong>Drop table</strong>: An entire table can be dropped from the database via the &quot;Drop table&quot; action in the table info panel.</li>
+<li><strong>Edit column (empty tables)</strong>: For tables with no rows, you can edit column name, type, and constraints (<code>NOT NULL</code>, <code>UNIQUE</code>, defaults, check, foreign key, etc.) and reorder columns. The table is recreated so all schema changes are applied.</li>
+</ul>
+<h5 id="pro-antifreeze-update"><sl-badge variant="primary" size="small">PRO</sl-badge> Antifreeze Update</h5><p>Long-running SQLite operations are now automatically cancelled when you navigate to a different view, so the UI stays responsive.</p>
+<h5 id="improved-keyboard-selection">Improved Keyboard Selection</h5><p>You can now select multiple rows using the keyboard by holding down shift while moving up/down using arrow keys.</p>
+<p>Pressing Enter while a cell is selected will trigger the same action as double clicking it.
+Pressing Escape will unselect all rows.</p>
+<ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Pressing Backspace while a data cell is focused sets that cell to <code>NULL</code> via the same update path as the cell editor. Pressing Delete (or Cmd/Ctrl+Backspace) deletes the selected row(s).</li>
+</ul>
+<h5 id="row-selection-undo-history">Row Selection Undo History</h5><p>Row selection now has a undo history. You can now use standard keyboard shortcuts to revert to a previous row selection. This should be useful when accidentally deselecting.</p>
+<p>In order to avoid clogging up VS Code's undo history, the selection history is kept separate and cleared when a real document edit takes place.</p>
+<h5 id="pro-text-input-undo-history"><sl-badge variant="primary" size="small">PRO</sl-badge> Text Input Undo History</h5><p>Text fields in the app now have their own local undo and redo history. This means you can use standard shortcuts to undo or redo changes made while editing an input, independent of the database history.</p>
+<h5 id="additions">Additions</h5><ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> When deleting row(s) fails due to a foreign key constraint, the error toast now offers a button to enable defer foreign keys and retry the delete.</li>
+<li>Now showing row numbers for each table in the table explorer</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Added dedicated UI for inputting booleans</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Added filter search box to the pragma editor</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Can now insert empty rows iff all columns have default values or are nullable</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Can now open empty files with the viewer and they will be initialized as a SQLite databases</li>
+</ul>
+<h5 id="changes">Changes</h5><ul>
+<li>Any column type with &quot;bool&quot; in the name will now be interpreted as boolean</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Database transaction now is closed (via <code>COMMIT</code> or <code>ROLLBACK</code>) when you return to the last saved state via undo/redo</li>
+</ul>
+<h5 id="fixes">Fixes</h5><ul>
+<li>When resizing columns, shrinking them no longer shrinks viewport along with it</li>
+<li>Fixed tabbing to 'Copy to Clipboard' button in text areas</li>
+<li>Fixed dropped tables showing up in the sidebar even after refresh</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed an issue related to undoing row inserts in tables that have Row IDs.</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed incorrect bindings in undo statements when deleting rows containing null values</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed issues relating to undo/redo after file save</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed an issue in instant commit mode that occurred when trying to redo operations that can't be undone</li>
+</ul>
+<h5 id="theming">Theming</h5><ul>
+<li>Fixed selected row background color missing in certain themes like Catpuccin</li>
+<li>Using <code>focusBorder</code> as a fallback focus outline for themes that don't define <code>list.focusOutline</code> (e.g. Catpuccin)</li>
+<li>Fixed row selection borders missing in high contrast themes</li>
+</ul>
+
+          </div>
+        </div>
+      </sl-carousel-item>
+      <sl-carousel-item>
+        <div class="changelog-card changelog-card-landing">
+          <div class="changelog-header">
             <h4 class="changelog-version" id="v25123-pre-release"><span class="version-number">v25.12.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-12-12">December 13, 2025</time></h4>
           </div>
           <div class="changelog-content text-sm">
@@ -580,28 +633,6 @@ High-contrast themes are exempt from this.</li>
 <h5 id="fixes">Fixes</h5><ul>
 <li>Includes a fix for <code>Promise.withResolvers</code> is not a function</li>
 <li>Includes a potential fix for new tabs opening when using in VS Code for Web</li>
-</ul>
-
-          </div>
-        </div>
-      </sl-carousel-item>
-      <sl-carousel-item>
-        <div class="changelog-card changelog-card-landing">
-          <div class="changelog-header">
-            <h4 class="changelog-version" id="v2590-pre-release"><span class="version-number">v25.9.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-09-15">September 16, 2025</time></h4>
-          </div>
-          <div class="changelog-content text-sm">
-            <h5 id="pro-datetime-improvements"><sl-badge variant="primary" size="small">PRO</sl-badge> Datetime Improvements</h5><p>Columns containing date/time values can now be displayed as <code>DATE</code>/<code>TIME</code> columns, regardless of their declared column type. 
-This is especially helpful for <code>STRICT</code> tables, where date/time values must be declared as either <code>TEXT</code>, <code>INTEGER</code>, or <code>REAL</code>.</p>
-<p>You can enable the datetime UI for a column by clicking the column type icon in the header row.</p>
-<h5 id="changes">Changes</h5><ul>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> The UTC toggle and format toggle have been moved to the left of the type icon in the header row to prevent layout shifts when changing the column type.</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Changed the default timezone to UTC.</li>
-</ul>
-<h5 id="fixes">Fixes</h5><ul>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug that corrupted the undo history and prevented saving the document when deleting rows.</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed a bug in the export feature that caused invalid JSON when the table size was a multiple of the batch size.</li>
-<li>Fixed a bug that prevented a manually closed sidebar from opening when resizing.</li>
 </ul>
 
           </div>
