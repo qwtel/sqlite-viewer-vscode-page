@@ -51,6 +51,25 @@
           
       <div class="changelog-card changelog-card-full">
         <div class="changelog-header">
+          <h3 class="changelog-version" id="v2621-pre-release"><span class="version-number">v26.2.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span></h3>
+        </div>
+        <div class="changelog-content">
+          <h4 id="additions">Additions</h4><ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> When adding columns to an empty table that references another table's composite primary key, the table now uses a single table-level <code>FOREIGN KEY</code> constraint instead of inline <code>REFERENCES</code> on each column</li>
+</ul>
+<h4 id="fixes">Fixes</h4><ul>
+<li>Add Table, Add Column, Drop Table, and drop column actions are now disabled when the database is read-only instead of throwing an error</li>
+<li>'Without Row ID' and 'Strict' options in the table info panel are now disabled when using the Free Version</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixes a bug when adding a <code>PRIMARY KEY</code> column without specifying a column type</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Dropping a column that is part of a composite primary key no longer fails</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed renaming of columns that is part of a composite primary key</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed moving columns to the end when renaming columns in an empty table</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="changelog-card changelog-card-full">
+        <div class="changelog-header">
           <h3 class="changelog-version" id="v2620-pre-release"><span class="version-number">v26.2.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2026-02-02">February 3, 2026</time></h3>
         </div>
         <div class="changelog-content">

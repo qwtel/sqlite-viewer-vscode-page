@@ -510,6 +510,27 @@
       <sl-carousel-item>
         <div class="changelog-card changelog-card-landing">
           <div class="changelog-header">
+            <h4 class="changelog-version" id="v2621-pre-release"><span class="version-number">v26.2.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span></h4>
+          </div>
+          <div class="changelog-content text-sm">
+            <h5 id="additions">Additions</h5><ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> When adding columns to an empty table that references another table's composite primary key, the table now uses a single table-level <code>FOREIGN KEY</code> constraint instead of inline <code>REFERENCES</code> on each column</li>
+</ul>
+<h5 id="fixes">Fixes</h5><ul>
+<li>Add Table, Add Column, Drop Table, and drop column actions are now disabled when the database is read-only instead of throwing an error</li>
+<li>'Without Row ID' and 'Strict' options in the table info panel are now disabled when using the Free Version</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixes a bug when adding a <code>PRIMARY KEY</code> column without specifying a column type</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Dropping a column that is part of a composite primary key no longer fails</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed renaming of columns that is part of a composite primary key</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed moving columns to the end when renaming columns in an empty table</li>
+</ul>
+
+          </div>
+        </div>
+      </sl-carousel-item>
+      <sl-carousel-item>
+        <div class="changelog-card changelog-card-landing">
+          <div class="changelog-header">
             <h4 class="changelog-version" id="v2620-pre-release"><span class="version-number">v26.2.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2026-02-02">February 3, 2026</time></h4>
           </div>
           <div class="changelog-content text-sm">
@@ -615,24 +636,6 @@ High-contrast themes are exempt from this.</li>
             <ul>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed an issue that caused the standard icon (blue) to be displayed instead of the PRO icon</li>
 <li>Fixed a potential crash when reloading a database</li>
-</ul>
-
-          </div>
-        </div>
-      </sl-carousel-item>
-      <sl-carousel-item>
-        <div class="changelog-card changelog-card-landing">
-          <div class="changelog-header">
-            <h4 class="changelog-version" id="v25120-pre-release"><span class="version-number">v25.12.0 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-12-05">December 6, 2025</time></h4>
-          </div>
-          <div class="changelog-content text-sm">
-            <p>Release Candidate for bumping features from the pre-release branch to mainline.</p>
-<h5 id="changes">Changes</h5><ul>
-<li>Updated icons to new VS Code icon set</li>
-</ul>
-<h5 id="fixes">Fixes</h5><ul>
-<li>Includes a fix for <code>Promise.withResolvers</code> is not a function</li>
-<li>Includes a potential fix for new tabs opening when using in VS Code for Web</li>
 </ul>
 
           </div>
