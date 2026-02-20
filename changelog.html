@@ -59,7 +59,14 @@
 <li><strong>Nested references</strong> are supported: expanding an FK can reveal further FKs in that row, each with its own expand/collapse.</li>
 <li><strong>Editing</strong> works inline: you can change values in the referenced row and save; updates apply to the correct table.</li>
 </ul>
+<h4 id="additions">Additions</h4><ul>
+<li>Primary key tooltips now list every table that references this column via foreign key</li>
+<li>The left sidebar now supports the same keyboard selection behavior as the main table</li>
+<li>Double-clicking a table or view in the left sidebar now expands or collapses it</li>
+</ul>
 <h4 id="changes">Changes</h4><ul>
+<li>Changing focus in the main view no longer scrolls the corresponding value into view in the sidebar</li>
+<li>Fieldsets in the sidebar no longer display a visual active state</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Input field placeholders for columns with default values now display the default value or expression instead of <code>NULL</code></li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Input field placeholders for generated columns now display the generation expression</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Input fields for generated columns are now disabled</li>
@@ -67,6 +74,8 @@
 </ul>
 <h4 id="fixes">Fixes</h4><ul>
 <li>The right sidebar no longer loses its scroll position when it is (auto-)closed.</li>
+<li>No accept-drop state when dragging a column over another table (sidebar or header).</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Add Column now accepts column types that contain spaces (e.g. <code>TEXT MARKDOWN</code>).</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Various invalid foreign key/autoincrement/generated statements can no longer be created via the 'Add Column' UI</li>
 </ul>
 
@@ -81,8 +90,8 @@
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> When adding columns to an empty table that references another table's composite primary key, the table now uses a single table-level <code>FOREIGN KEY</code> constraint instead of inline <code>REFERENCES</code> on each column</li>
 </ul>
 <h4 id="fixes">Fixes</h4><ul>
-<li>Add Table, Add Column, Drop Table, and drop column actions are now disabled when the database is read-only instead of throwing an error</li>
 <li>'Without Row ID' and 'Strict' options in the table info panel are now disabled when using the Free Version</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Add Table, Add Column, Drop Table, and drop column actions are now disabled when the database is read-only instead of throwing an error</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixes a bug when adding a <code>PRIMARY KEY</code> column without specifying a column type</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Dropping a column that is part of a composite primary key no longer fails</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed renaming of columns that are part of a composite primary key</li>
@@ -105,7 +114,7 @@
 <li><strong>Drop table</strong>: An entire table can be dropped from the database via the &quot;Drop table&quot; action in the table info panel.</li>
 <li><strong>Edit column (empty tables)</strong>: For tables with no rows, you can edit column name, type, and constraints (<code>NOT NULL</code>, <code>UNIQUE</code>, defaults, check, foreign key, etc.) and reorder columns. The table is recreated so all schema changes are applied.</li>
 </ul>
-<h4 id="pro-antifreeze-update"><sl-badge variant="primary" size="small">PRO</sl-badge> Antifreeze Update</h4><p>Long-running SQLite operations are now automatically cancelled when you navigate to a different view, so the UI stays responsive.</p>
+<h4 id="pro-antifreeze-update"><sl-badge variant="primary" size="small">PRO</sl-badge> Antifreeze Update</h4><p>Long-running SQLite operations are now automatically cancelled when you navigate to a different view, so the UI stays responsive. This frequently happened when sorting or filtering large tables.</p>
 <h4 id="improved-keyboard-selection">Improved Keyboard Selection</h4><p>You can now select multiple rows using the keyboard by holding down shift while moving up/down using arrow keys.</p>
 <p>Pressing Enter while a cell is selected will trigger the same action as double clicking it.
 Pressing Escape will unselect all rows.</p>
@@ -116,8 +125,8 @@ Pressing Escape will unselect all rows.</p>
 <p>In order to avoid clogging up VS Code's undo history, the selection history is kept separate and cleared when a real document edit takes place.</p>
 <h4 id="pro-text-input-undo-history"><sl-badge variant="primary" size="small">PRO</sl-badge> Text Input Undo History</h4><p>Text fields in the app now have their own local undo and redo history. This means you can use standard shortcuts to undo or redo changes made while editing an input, independent of the database history.</p>
 <h4 id="additions">Additions</h4><ul>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> When deleting row(s) fails due to a foreign key constraint, the error toast now offers a button to enable defer foreign keys and retry the delete.</li>
 <li>Now showing row numbers for each table in the table explorer</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> When deleting row(s) fails due to a foreign key constraint, the error toast now offers a button to enable defer foreign keys and retry the delete.</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Added dedicated UI for inputting booleans</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Added filter search box to the pragma editor</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Can now insert empty rows iff all columns have default values or are nullable</li>
