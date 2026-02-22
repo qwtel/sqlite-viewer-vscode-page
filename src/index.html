@@ -510,6 +510,29 @@
       <sl-carousel-item>
         <div class="changelog-card changelog-card-landing">
           <div class="changelog-header">
+            <h4 class="changelog-version" id="v2624-pre-release"><span class="version-number">v26.2.4 <sl-badge variant="neutral" size="small">Preview</sl-badge></span></h4>
+          </div>
+          <div class="changelog-content text-sm">
+            <h5 id="pro-markdown-preview"><sl-badge variant="primary" size="small">PRO</sl-badge> Markdown Preview</h5><p>Columns that store markdown can now be viewed with a rendered preview in the row detail modal. A switch lets you toggle between plain text and the rendered view; You can treat any <code>TEXT</code> column as markdown by cycling its type in the column header (same gesture as for date/datetime). Declared types such as <code>TEXT MARKDOWN</code> or <code>MDTEXT</code> are recognized by default.</p>
+<p>When you open a cell in a markdown column in VS Code, the file opens with a <code>.md</code> extension by default, so the editor uses markdown highlighting and tooling without relying on language detection.</p>
+<h5 id="changes">Changes</h5><ul>
+<li>Resized textarea heights are now remembered for the duration of the session</li>
+<li>Opening a DB now selects the first table (not the first item, which could be a view)</li>
+<li>Pragma Editor Optimize action now defaults to &quot;Dry Run&quot;</li>
+</ul>
+<h5 id="fixes">Fixes</h5><ul>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed an issue where editing a cell via &quot;Open in VS Code&quot; could leave the selection stuck on &quot;No row selected&quot;</li>
+<li>Ctrl+A (Cmd+A) in sidebar inputs selects all text in that input only</li>
+<li>View row counts in the explorer show &quot;∞&quot; (&quot;N/A&quot;) for unopened views instead of 0</li>
+<li>Deprecated pragmas are no longer shown in the Pragma Editor</li>
+</ul>
+
+          </div>
+        </div>
+      </sl-carousel-item>
+      <sl-carousel-item>
+        <div class="changelog-card changelog-card-landing">
+          <div class="changelog-header">
             <h4 class="changelog-version" id="v2623-pre-release"><span class="version-number">v26.2.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2026-02-20">February 21, 2026</time></h4>
           </div>
           <div class="changelog-content text-sm">
@@ -627,28 +650,6 @@ Pressing Escape will unselect all rows.</p>
 <li>Fixed selected row background color missing in certain themes like Catpuccin</li>
 <li>Using <code>focusBorder</code> as a fallback focus outline for themes that don't define <code>list.focusOutline</code> (e.g. Catpuccin)</li>
 <li>Fixed row selection borders missing in high contrast themes</li>
-</ul>
-
-          </div>
-        </div>
-      </sl-carousel-item>
-      <sl-carousel-item>
-        <div class="changelog-card changelog-card-landing">
-          <div class="changelog-header">
-            <h4 class="changelog-version" id="v25123-pre-release"><span class="version-number">v25.12.3 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2025-12-12">December 13, 2025</time></h4>
-          </div>
-          <div class="changelog-content text-sm">
-            <h5 id="improved-theme-integration">Improved theme integration</h5><p>The extension should now adjust better to many popular themes, but unexpected changes or even regressions are possible.</p>
-<ul>
-<li>Fixed missing background color for selected rows in certain themes like Catppuccin.</li>
-<li>Changed most border colors to use <code>sideBar.border</code> instead of <code>tab.border</code>, which more closely matches the intent of most themes.</li>
-<li>Fixed an issue where a &quot;border&quot; (i.e., gap) would appear in themes that set the border color to transparent.</li>
-<li>Changed muted color to always use 50% opacity of regular text instead of <code>list.deemphasizedForeground</code>, as many themes don't provide a good value for it.
-High-contrast themes are exempt from this.</li>
-<li>Fixed invisible focus outline in themes that don't define <code>list.focusOutline</code> by falling back to alternative theme colors suitable for outlines.</li>
-<li>Fixed row selection borders missing in high-contrast themes.</li>
-<li>Improved row hover state in high-contrast themes.</li>
-<li>Improved checkout page theme integration.</li>
 </ul>
 
           </div>
