@@ -200,9 +200,10 @@ const formatPrice = (priceAmount: number, currencyCode: string, locale: string) 
     .join('');
   const amountFrac = parts.find((part) => part.type === 'fraction')?.value;
   const amountDecimal = parts.find((part) => part.type === 'decimal')?.value ?? '';
-  // const decimalClass = amountFrac === '00' ? 'h2' : 'h2';
   const amountHtml = amountFrac 
-    ? html`<span>${amountInt}</span><span class="h2">${amountDecimal}${amountFrac}</span>` 
+    ? amountFrac === '00'
+      ? html`${amountInt}`
+      : html`<span>${amountInt}</span><span class="h2">${amountDecimal}${amountFrac}</span>` 
     : html`${amountInt}`;
   return { currencyCode, currencySymbol, amountHtml };
 }
