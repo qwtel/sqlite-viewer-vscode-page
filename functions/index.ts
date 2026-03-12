@@ -324,7 +324,7 @@ const getLocalizedPrices = async (env: Env, country: string, locale: string): Pr
   if (!env.POLAR_ACCESS_TOKEN || !env.PRO_PRODUCT_ID || !env.BE_PRODUCT_ID) return null;
   const polar = new Polar({
     accessToken: env.POLAR_ACCESS_TOKEN ?? "",
-    server: env.DEV ? "sandbox" : "production",
+    server: env.POLAR_SERVER === "sandbox" ? "sandbox" : "production",
   });
   const preferredCurrency = pickCurrencyByCountry(country);
   const [proPrices, bePrices, proSubscribePrices] = await Promise.all([
@@ -370,7 +370,7 @@ async function* genNonEmptyAvatarUrls(avatarUrls: string[]): AsyncGenerator<stri
 async function getRecentProductPurchases(env: Env): Promise<[count: number, avatarUrls: string[]]> {
   const polar = new Polar({
     accessToken: env.POLAR_ACCESS_TOKEN ?? "",
-    server: env.DEV ? "sandbox" : "production",
+    server: env.POLAR_SERVER === "sandbox" ? "sandbox" : "production",
   });
 
   const productId = [env.PRO_PRODUCT_ID, env.BE_PRODUCT_ID];

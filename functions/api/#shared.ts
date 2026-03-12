@@ -4,6 +4,7 @@ import { badRequest, paymentRequired, serviceUnavailable } from '@worker-tools/r
 
 export type Env = {
   DEV: string,
+  POLAR_SERVER?: string,
   PRODUCT_ID: string,
   JWT_PRIVATE_KEY_PKCS8: string,
   ORGANIZATION_ID: string,
@@ -103,7 +104,7 @@ export async function validateLegacy(context: EnvEventContext, licenseKey: strin
 
 
 export async function validate(context: EnvEventContext, licenseKey: string, { incrementUsage = false } = {}) {
-  const baseURL = context.env.DEV ? 'https://sandbox-api.polar.sh' : 'https://api.polar.sh';
+  const baseURL = context.env.POLAR_SERVER === 'sandbox' ? 'https://sandbox-api.polar.sh' : 'https://api.polar.sh';
   let response: Response;
   try {
     response = await fetch(new URL('/v1/customer-portal/license-keys/validate', baseURL), {
