@@ -4,6 +4,7 @@ import languageParser from 'accept-language-parser';
 import { Polar } from "@polar-sh/sdk";
 
 import { Env } from "./api/#shared"
+import { CountryInfo, PPP } from './api/#data';
 
 export const LANGS: ('en'|'de'|'fr'|'pt-br'|'ja'|'es'|'ko')[] = ['en', 'de', 'fr', 'pt-br', 'ja', 'es', 'ko'];
 const LocaleByLang = Object.freeze({
@@ -18,12 +19,22 @@ const LocaleByLang = Object.freeze({
 
 const DevCountryOverride = '';
 
-const DefaultPriceTier = 0;
+const PercentToTier = Object.freeze({ 0: 0, 20: 1, 40: 2, 60: 3 });
 
 const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
 
 const ns = 'sqlite-viewer-vscode-page.8';
 const ttlDay = 60 * 60 * 24;
+
+const discountHtml = (price: number, discountPercent: number) => html`
+  <del class="pricing-table-price-currency h2 o-50" title="USD">$</del><del class="pricing-table-price-amount h1 o-50">${price}</del>
+  <span class="pricing-table-price-currency h2" title="USD">$</span><span class="pricing-table-price-amount h1">${formatPrice(price * (1 - discountPercent/100))}</span>
+  <small class="text-xxs">+&nbsp;VAT</small>
+`;
+
+const discountHintHtml = (discountPercent: number, country: string, flag: string) => html`
+  <span class="price-hint text-xxs nowrap">${discountPercent}% off for all visitors from ${country} ${flag}</span>
+`;
 
 const EUR_COUNTRIES = new Set([
   'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR',
@@ -85,7 +96,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const BEHrefByTier = context.env.BE_HREFS.trim().split('\n');
   // console.assert(PROHrefByTier.length === 4 && BEHrefByTier.length === 4, 'Invalid PRO_HREFS or BE_HREFS');
 
-  const country = ((DEV && DevCountryOverride) || context.request.headers.get('CF-IPCountry') || 'US').toUpperCase();
+  const country = ((DEV && DevCountryOverride) || context.request.headers.get('CF-IPcountry') || 'US').toUpperCase() as keyof typeof PPP;
+  const discountPercent = PPP[country] ?? 0;
+  const discountTier = PercentToTier[discountPercent];
+  const hasDiscount = discountPercent > 0;
   const localizedPrices = await getLocalizedPrices(context.env, country, locale).catch((err) => {
     console.error(err);
     return null;
@@ -101,10 +115,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         let newHref = '';
         switch (href) {
           case '#purchase':
-            newHref = PROHrefByTier[DefaultPriceTier];
+            newHref = PROHrefByTier[discountTier];
             break;
           case '#purchase-be':
-            newHref = BEHrefByTier[DefaultPriceTier];
+            newHref = BEHrefByTier[discountTier];
             break;
           case '#subscribe':
             newHref = context.env.PRO_SUBSCRIBE_HREF;
@@ -144,6 +158,16 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       },
     });
 
+
+  if (hasDiscount) {
+    rewriter = rewriter
+      .on('.i18n-hide, .pricing-toggle-container, .monthly-price, .fall-sale-banner', {
+      element(el) {
+          el.remove();
+        }
+      })
+  }
+
   if (!vscode) {
     rewriter = rewriter
       .on('meta[name="color-scheme"]', { element(el) { el.setAttribute('content', colorScheme || 'dark light') } })
@@ -165,6 +189,24 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     });
   }
 
+  if (discountPercent) {
+    rewriter = rewriter
+      .on(".pricing-table-price", {
+        element(element) {
+          const price = Number(element.getAttribute('data-price') ?? 0);
+          if (!price || Number.isNaN(price)) return;
+          element.setInnerContent(discountHtml(price, discountPercent), { html: true });
+        },
+      })
+      .on(".price-hint", { 
+        element(el) { 
+          const [countryName, flag] = CountryInfo[country]; 
+          if (el.getAttribute('class')?.includes('monthly-price')) return;
+          el.replace(discountHintHtml(discountPercent, countryName, flag), { html: true })
+        } 
+      })
+  }
+
   let transformedResponse;
   if (DEV && response.status === 200) {
     const buf = await rewriter.transform(response).arrayBuffer();
@@ -181,7 +223,15 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   return transformedResponse;
 }
 
-const formatPrice = (priceAmount: number, currencyCode: string, locale: string) => {
+const formatPrice = (price: number) => {
+  if (Math.floor(price) === price) return price.toString();
+  const [a, b] = price.toFixed(2).split('.');
+  return b === '00'
+    ? a
+    : html`<span>${a}</span><span class="h2">.${b}</span>`;
+}
+
+const formatPriceLocalized = (priceAmount: number, currencyCode: string, locale: string) => {
   const numberFormat = new Intl.NumberFormat(locale, {
     style: 'currency',
     currency: currencyCode,
@@ -269,7 +319,7 @@ const pickLocalizedPrice = (pricesByCurrency: Map<string, number>, preferredCurr
   if (!selectedCurrency) return null;
   const selectedAmount = pricesByCurrency.get(selectedCurrency);
   if (selectedAmount == null) return null;
-  return formatPrice(selectedAmount, selectedCurrency, locale);
+  return formatPriceLocalized(selectedAmount, selectedCurrency, locale);
 }
 
 const getLocalizedPrices = async (env: Env, country: string, locale: string): Promise<{ pro: LocalizedPrice, be: LocalizedPrice, 'pro-subscribe': LocalizedPrice } | null> => {
