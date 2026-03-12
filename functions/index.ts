@@ -26,9 +26,9 @@ const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 
 const ns = 'sqlite-viewer-vscode-page.8';
 const ttlDay = 60 * 60 * 24;
 
-const discountHtml = (price: number, discountPercent: number) => html`
-  <del class="pricing-table-price-currency h2 o-50" title="USD">$</del><del class="pricing-table-price-amount h1 o-50">${price}</del>
-  <span class="pricing-table-price-currency h2" title="USD">$</span><span class="pricing-table-price-amount h1">${formatPrice(price * (1 - discountPercent/100))}</span>
+const discountHtml = (price: LocalizedPrice, discountedPrice: LocalizedPrice) => html`
+  <del class="pricing-table-price-currency h2 o-50" title="${price.currencyCode}">${price.currencySymbol}</del><del class="pricing-table-price-amount h1 o-50">${price.amountHtml}</del>
+  <span class="pricing-table-price-currency h2" title="${discountedPrice.currencyCode}">${discountedPrice.currencySymbol}</span><span class="pricing-table-price-amount h1">${discountedPrice.amountHtml}</span>
   <small class="text-xxs">+&nbsp;VAT</small>
 `;
 
@@ -48,6 +48,7 @@ type LocalizedPrice = {
   currencyCode: string,
   currencySymbol: string,
   amountHtml: string,
+  priceAmount: number,
 }
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
@@ -161,7 +162,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   if (hasDiscount) {
     rewriter = rewriter
-      .on('.i18n-hide, .pricing-toggle-container, .monthly-price, .fall-sale-banner', {
+      .on('.i18n-hide, .pricing-toggle-container, .monthly-price', {
       element(el) {
           el.remove();
         }
@@ -193,9 +194,14 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     rewriter = rewriter
       .on(".pricing-table-price", {
         element(element) {
-          const price = Number(element.getAttribute('data-price') ?? 0);
-          if (!price || Number.isNaN(price)) return;
-          element.setInnerContent(discountHtml(price, discountPercent), { html: true });
+          if (!localizedPrices) return;
+          const product = element.getAttribute('data-price-product') as Exclude<ProductKey, 'pro-subscribe'> | null;
+          if (!product) return;
+          const price = localizedPrices[product];
+          if (!price) return;
+          const discountedAmountMinor = Math.round(price.priceAmount * (1 - discountPercent / 100));
+          const discountedPrice = formatPriceLocalized(discountedAmountMinor, price.currencyCode, locale);
+          element.setInnerContent(discountHtml(price, discountedPrice), { html: true });
         },
       })
       .on(".price-hint", { 
@@ -223,14 +229,6 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   return transformedResponse;
 }
 
-const formatPrice = (price: number) => {
-  if (Math.floor(price) === price) return price.toString();
-  const [a, b] = price.toFixed(2).split('.');
-  return b === '00'
-    ? a
-    : html`<span>${a}</span><span class="h2">.${b}</span>`;
-}
-
 const formatPriceLocalized = (priceAmount: number, currencyCode: string, locale: string) => {
   const numberFormat = new Intl.NumberFormat(locale, {
     style: 'currency',
@@ -255,7 +253,7 @@ const formatPriceLocalized = (priceAmount: number, currencyCode: string, locale:
       ? html`${amountInt}`
       : html`<span>${amountInt}</span><span class="h2">${amountDecimal}${amountFrac}</span>` 
     : html`${amountInt}`;
-  return { currencyCode, currencySymbol, amountHtml };
+  return { currencyCode, currencySymbol, amountHtml, priceAmount };
 }
 
 const disambiguateCurrencySymbol = (symbol: string, currencyCode: string) => {
