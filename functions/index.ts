@@ -25,7 +25,7 @@ const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 
 
 const ns = 'sqlite-viewer-vscode-page.8';
 const ttlDay = 60 * 60 * 24;
-const JapanDisplayTaxRate = 0.1;
+// const JapanDisplayTaxRate = 0.1;
 
 const discountHtml = (price: LocalizedPrice, discountedPrice: LocalizedPrice) => html`
   <del class="pricing-table-price-currency h2 o-50" title="${price.currencyCode}">${price.currencySymbol}</del><del class="pricing-table-price-amount h1 o-50">${price.amountHtml}</del>
@@ -106,7 +106,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     console.error(err);
     return null;
   });
-  const showsInclVat = localizedPrices != null && Object.values(localizedPrices).some((price) => price.currencyCode === 'JPY');
+  // const showsInclVat = localizedPrices != null && Object.values(localizedPrices).some((price) => price.currencyCode === 'JPY');
 
   const colorScheme = lightDark(searchParams.get('color-scheme'))
   const vscode = searchParams.has('css-vars')
@@ -160,18 +160,18 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         }
       },
     })
-    .on('.plus-vat', {
-      element(el) {
-        if (showsInclVat) el.setAttribute('style', 'display: none;') 
-        else el.removeAttribute('style') 
-      },
-    })
-    .on('.incl-vat', {
-      element(el) {
-        if (showsInclVat) el.removeAttribute('style') 
-        else el.setAttribute('style', 'display: none;')
-      },
-    });
+    // .on('.plus-vat', {
+    //   element(el) {
+    //     if (showsInclVat) el.setAttribute('style', 'display: none;')
+    //     else el.removeAttribute('style')
+    //   },
+    // })
+    // .on('.incl-vat', {
+    //   element(el) {
+    //     if (showsInclVat) el.removeAttribute('style')
+    //     else el.setAttribute('style', 'display: none;')
+    //   },
+    // });
 
 
   if (hasDiscount) {
@@ -331,9 +331,9 @@ const pickLocalizedPrice = (pricesByCurrency: Map<string, number>, preferredCurr
   if (!selectedCurrency) return null;
   const selectedAmountRaw = pricesByCurrency.get(selectedCurrency);
   let selectedAmount = selectedAmountRaw;
-  if (selectedCurrency === 'JPY' && selectedAmountRaw != null) {
-    selectedAmount = Math.round(selectedAmountRaw * (1 + JapanDisplayTaxRate));
-  }
+  // if (selectedCurrency === 'JPY' && selectedAmountRaw != null) {
+  //   selectedAmount = Math.round(selectedAmountRaw * (1 + JapanDisplayTaxRate));
+  // }
   if (selectedAmount == null) return null;
   return formatPriceLocalized(selectedAmount, selectedCurrency, locale);
 }
