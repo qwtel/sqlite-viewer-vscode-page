@@ -244,6 +244,14 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       })
   }
 
+  const ua = context.request.headers.get('User-Agent') ?? '';
+  const isSafari = /Safari/i.test(ua) && !/Chrome|CriOS|FxiOS/i.test(ua);
+  if (isSafari) {
+    rewriter = rewriter.on('source[type*="video/webm"]', {
+      element(source) { source.remove(); }
+    });
+  }
+
   if (colorScheme) {
     const prefersColorScheme = new RegExp(`\\(prefers-color-scheme:\\s*${colorScheme}\\)`);
     rewriter = rewriter.on('source[media*="prefers-color-scheme"]', {
