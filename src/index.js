@@ -238,7 +238,7 @@ function initializeEmbeddedCheckoutLinks() {
         const res = await fetch('/api/checkout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ product, currency, embed_origin: window.location.origin, locale }),
+          body: JSON.stringify({ product, currency, locale, embed_origin: window.location.origin }),
         });
         const data = await res.json().catch(() => ({}));
         if (!res.ok) throw new Error(data.error || 'Checkout unavailable');
