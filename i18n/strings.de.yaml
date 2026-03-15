@@ -81,7 +81,6 @@ nMInstalls: "2.000.000+ Installationen"
 nMInstallsVerbose: "Mehr als zwei Millionen Installationen"
 rated55: "★★★★☆ Bewertung"
 rated55Verbose: "Mit 4.5/5 Sternen bewertet"
-usedAcrossIndustry: "Eingesetzt in allen Branchen, einschließlich der {NASA}"
 pricingTitle: "Kein Abo, kein Problem"
 pricingContent: >
   SQLite Viewer PRO ist ein __Einmalkauf__ und gewährt eine __dauerhafte Lizenz__. Funktioniert so lange, wie VS Code funktioniert.
@@ -93,6 +92,7 @@ monthlySubscription: "Monatliches Abonnement"
 perpetualLicense: "Dauerhafte Lizenz"
 plusVat: "+ MwSt."
 inclVat: "inkl. MwSt."
+priceCurrencyUsd: "USD"
 priceFeat1: "Bearbeitungs- und Exportfunktionen"
 priceFeat2: "Werbefreie Nutzung"
 priceFeat3: "Exklusives PRO-Symbol ({icon})"
@@ -107,6 +107,11 @@ ctaP: >
   Sie können SQLite Viewer PRO bis zu zwei Wochen lang testen und von der [14-Tage-Rückerstattungsgarantie](/refunds.html) Gebrauch machen.
   Um eine Rückerstattung zu beantragen, senden Sie einfach eine E-Mail an [*refunds@sqliteviewer.app*](mailto:refunds@sqliteviewer.app) mit der beim
   Kauf verwendeten E-Mail-Adresse – keine Erklärung erforderlich.
+volumeH: "Kauf für ein Team? Sitzplatzbasierte Preise verfügbar"
+volumeP: >
+  Die __Business Edition__ bietet Mengenrabatte für Teams:
+  __5–9 Lizenzen:__ 111,30 $ pro Lizenz _(30 % Rabatt)_. __10+ Lizenzen:__ 95,40 $ pro Lizenz _(40 % Rabatt)_.
+buySeats: "Lizenzen kaufen"
 faq1Summary: "__Wie installiere ich die PRO-Version nach dem Kauf?__"
 faq1Content: >
   Sie haben die PRO-Version bereits installiert! Alles, was benötigt wird, ist die Aktivierung. Nach Abschluss des Kaufs erhalten Sie eine E-Mail vom
@@ -128,6 +133,37 @@ faq3Content: >
   und es in das Eingabefeld am Ende des Offline-Lizenzaktivierungsassistenten einfügen. Keine Internetverbindung ist erforderlich, um das Token zu überprüfen.<br><br>
   Geräte, die über diese Methode registriert wurden, versuchen nie, sich mit dem Lizenzserver zu verbinden,
   vorausgesetzt, ein Business Edition-Schlüssel wurde verwendet und die "Business Edition-Evaluierung"-Checkbox beim Generieren des Tokens nicht aktiviert war.
+faq4Summary: "Wie beantrage ich eine Rückerstattung?"
+faq4Content: >
+  Für eine Rückerstattung wenden Sie sich an [*refunds@sqliteviewer.app*](mailto:refunds@sqliteviewer.app) mit der beim Kauf verwendeten E-Mail-Adresse.<br><br>
+  SQLite Viewer PRO bietet eine __14-Tage-Rückerstattungsgarantie__. In diesem Zeitraum können Sie aus beliebigem Grund eine vollständige Rückerstattung beantragen – keine Erklärung erforderlich.
+  Rückerstattungen außerhalb des 14-Tage-Zeitraums werden nur unter bestimmten Umständen berücksichtigt. Weitere Details finden Sie auf der Seite [Rückerstattungen](/refunds.html).
+faq5Summary: "Welche Datums- und Zeitformate werden unterstützt?"
+faq5Content: >
+  SQLite Viewer PRO unterstützt eine Vielzahl von Datums- und Zeitformaten für Spalten vom Typ `DATE` oder `DATETIME`. Unterstützte Eingabeformate sind:<br><br>
+  • SQLite-ISO-ähnliche Zeichenketten<br>
+  • ISO-8601-Zeichenketten<br>
+  • Julianische Tageszahlen<br>
+  • Sekunden seit 1970 (Unix-Zeitstempel)<br>
+  • Millisekunden seit 1970<br>
+  • Mikrosekunden seit 1970<br>
+  • Excel-Seriennummer (1900-System)<br>
+  • Windows FILETIME seit 1601<br>
+  • .NET Ticks seit 0001<br><br>
+  Wenn ein gültiges Datum erkannt wird, kann es in einem von 4 Formaten angezeigt werden:<br>
+  • Lokalisierte, menschenlesbare Zeichenketten (Standard)<br>
+  • Lokalisierte, menschenlesbare „vor X“-Zeichenketten (z. B. „vor 6 Monaten“)<br>
+  • Maschinenfreundliche ISO-8601-Zeichenketten<br>
+  • Rohwerte<br><br>
+  Werte können mit einem allgemeinen Datumsauswahlfeld bearbeitet oder durch Ändern der interpretierten ISO-Zeichenkette angepasst werden. Die Erweiterung behält das ursprüngliche Format beim Speichern auf der Festplatte bei.
+faq6Summary: "Kann ich die PRO-Version zum Anzeigen von Produktionsdatenbanken verwenden?"
+faq6Content: >
+  Ja, aber es wird dringend empfohlen, Vorbereitungen zu treffen.<br><br>
+  Wenn Sie Daten nur anzeigen möchten, öffnen Sie die Live-Datenbank im schreibgeschützten Modus, um versehentliche Änderungen zu vermeiden.
+  Klicken Sie mit der rechten Maustaste auf die Datei, klicken Sie auf __"Öffnen mit…"__ und wählen Sie __"SQLite Viewer (schreibgeschützt)"__.<br><br>
+  Wenn Sie die Live-Datenbank ändern möchten, wird dringend empfohlen, die Funktion __"Sqlite Viewer: Instant Commit"__ in den VS Code-Einstellungen zu aktivieren.
+  So verhindern Sie, dass die Erweiterung lange laufende Transaktionen öffnet, die andere SQLite-Prozesse blockieren könnten, die auf dieselbe Datenbank zugreifen.
+  Beachten Sie jedoch, dass die Undo-/Redo-Funktionalität in diesem Modus eingeschränkt sein kann.<br><br>
 footnote1: "Die Offline-Aktivierung ist erforderlich, wenn eine Unternehmens-Firewall die Verbindung zur Lizenzserver verhindert."
 footnote2: "Sobald ein Gerät durch die Offline-Aktivierung registriert wurde, kann die Erweiterung ohne erneute Verbindung zum Lizenzserver genutzt werden."
 allRightsReserved: "Alle Rechte vorbehalten"
@@ -144,9 +180,7 @@ disclaimer2: >
   Ihr Kreditkartenanbieter kann eine Gebühr für die Währungsumrechnung erheben.
 disclaimer3: >
   Design basiert auf [Solid](https://preview.cruip.com/solid). Lizenziert unter [GPL-3.0](https://github.com/qwtel/sqlite-viewer-vscode-page).
-langDisclaimer: >
-  Diese Seite wurde mit KI ins Deutsche übersetzt. Etwaige Unterschiede zwischen dem englischen Original und der Übersetzung sind unbeabsichtigt,
-  und die englische Version sollte als maßgeblich angesehen werden.
+langDisclaimer: "Diese Seite ist auch in den folgenden Sprachen verfügbar:"
 faqTitle: Häufig gestellte Fragen
 comingSoon: Demnächst
 changelogTitle: Updates, kontinuierlich geliefert

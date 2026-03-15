@@ -125,7 +125,7 @@ async function inlineHtmlFromBuild(buildOutputs: any[], htmlFileName: string, ou
   const html = await htmlOutput.text();
   const newHtml = rewriter.transform(new Response(html));
   const outFileDir = path.dirname(resolve(outFile));
-  const exists = await fs.exists(resolve(outFileDir)).catch(() => null);
+  const exists = await fs.stat(resolve(outFileDir)).catch(() => null);
   exists && await Bun.write(resolve(outFile), newHtml);
 }
 

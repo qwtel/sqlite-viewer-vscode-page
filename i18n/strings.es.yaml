@@ -79,7 +79,6 @@ nMInstalls: "2.000.000+ instalaciones únicas"
 nMInstallsVerbose: "Más de dos millones de instalaciones únicas"
 rated55: "Calificado como ★★★★☆"
 rated55Verbose: "Calificado con 4.5/5 estrellas"
-usedAcrossIndustry: "Utilizado en toda la industria, incluyendo en {NASA}"
 pricingTitle: "Sin suscripción, sin problema"
 pricingContent: >
   SQLite Viewer PRO es una __Compra Única__ y te otorga una __Licencia Perpetua__. Funciona mientras VS Code funcione.
@@ -91,6 +90,7 @@ monthlySubscription: "Suscripción Mensual"
 perpetualLicense: "Licencia Perpetua"
 plusVat: "+ IVA"
 inclVat: "IVA incl."
+priceCurrencyUsd: "USD"
 priceFeat1: "Funciones de edición y exportación"
 priceFeat2: "Experiencia sin anuncios"
 priceFeat3: "Icono PRO exclusivo ({icon})"
@@ -104,6 +104,11 @@ ctaH: "¿Quieres probarlo primero? Usa la garantía de reembolso de 14 días"
 ctaP: >
   Puedes evaluar SQLite Viewer PRO durante hasta dos semanas utilizando la [garantía de reembolso de 14 días](/refunds.html).
   Para solicitar un reembolso, contacta a [*refunds@sqliteviewer.app*](mailto:refunds@sqliteviewer.app) con el correo electrónico utilizado en la compra — no se necesita explicación.
+volumeH: "¿Comprando para un equipo? Precios por puesto disponibles"
+volumeP: >
+  La __Edición Business__ ofrece descuentos por volumen para equipos:
+  __5–9 puestos:__ 111,30 $ por puesto _(30 % de descuento)_. __10+ puestos:__ 95,40 $ por puesto _(40 % de descuento)_.
+buySeats: "Comprar puestos"
 faq1Summary: "__¿Cómo instalo la versión PRO después de la compra?__"
 faq1Content: >
   ¡Ya tienes instalada la versión PRO! Todo lo que se necesita es activarla. Después de completar la compra, recibirás un correo electrónico del comerciante
@@ -124,6 +129,37 @@ faq3Content: >
   y pegarlo en el campo de entrada al final del asistente de Activación de Licencia Offline. No se requiere conexión a internet para verificar el token.<br><br>
   Los dispositivos registrados a través de este método nunca intentarán conectarse al servidor de licencias,
   siempre que se haya usado una clave Business Edition y la casilla "Evaluación Business Edition" no haya sido marcada al generar el token.
+faq4Summary: "¿Cómo solicito un reembolso?"
+faq4Content: >
+  Para solicitar un reembolso, contacta a [*refunds@sqliteviewer.app*](mailto:refunds@sqliteviewer.app) con la dirección de correo electrónico utilizada en la compra.<br><br>
+  SQLite Viewer PRO incluye una __Garantía de Reembolso de 14 días__. Durante este período, puedes solicitar un reembolso completo por cualquier motivo — no se requiere explicación.
+  Los reembolsos fuera del período de 14 días solo se consideran en ciertas circunstancias. Para más detalles, consulta la página de [Reembolsos](/refunds.html).
+faq5Summary: "¿Qué formatos de fecha y hora se admiten?"
+faq5Content: >
+  SQLite Viewer PRO admite una amplia gama de formatos de fecha y hora para columnas definidas como `DATE` o `DATETIME`. Los formatos de entrada admitidos incluyen:<br><br>
+  • Cadenas tipo ISO de SQLite<br>
+  • Cadenas ISO-8601<br>
+  • Números de día juliano<br>
+  • Segundos desde 1970 (timestamp Unix)<br>
+  • Milisegundos desde 1970<br>
+  • Microsegundos desde 1970<br>
+  • Fecha serial de Excel (sistema 1900)<br>
+  • Windows FILETIME desde 1601<br>
+  • .NET Ticks desde 0001<br><br>
+  Cuando se reconoce una fecha válida, puede mostrarse en uno de 4 formatos:<br>
+  • Cadenas localizadas legibles (predeterminado)<br>
+  • Cadenas localizadas de tiempo relativo (ej. "hace 6 meses")<br>
+  • Cadenas ISO-8601 para máquinas<br>
+  • Valores sin procesar<br><br>
+  Los valores pueden editarse con un selector de fecha genérico o modificando la cadena ISO interpretada. La extensión preserva el formato original al guardar en disco.
+faq6Summary: "¿Puedo usar la versión PRO para ver bases de datos de producción?"
+faq6Content: >
+  Sí, pero se recomienda encarecidamente tomar precauciones.<br><br>
+  Si solo pretendes ver datos, abre la base de datos en vivo en modo solo lectura para evitar modificaciones accidentales.
+  Clic derecho en el archivo, clic en __"Abrir con…"__ y selecciona __"SQLite Viewer (solo lectura)"__.<br><br>
+  Si pretendes modificar la base de datos en vivo, se recomienda encarecidamente activar la función __"Sqlite Viewer: Instant Commit"__ en la configuración de VS Code.
+  Esto evitará que la extensión abra transacciones de larga duración que podrían bloquear otros procesos SQLite que accedan a la misma base de datos.
+  Ten en cuenta que la funcionalidad de deshacer/rehacer puede ser limitada en este modo.<br><br>
 footnote1: >
   La activación offline es necesaria si un firewall corporativo impide que la extensión se conecte al servidor de licencias.
 footnote2: >
@@ -142,9 +178,7 @@ disclaimer2: >
   Su proveedor de tarjeta de crédito puede cobrar una tarifa por conversión de moneda.
 disclaimer3: >
   Diseño basado en [Solid](https://preview.cruip.com/solid). Licenciado bajo [GPL-3.0](https://github.com/qwtel/sqlite-viewer-vscode-page).
-langDisclaimer: >
-  Esta página ha sido traducida al español utilizando IA. Cualquier diferencia entre la versión original en inglés y la traducción no es intencional,
-  y la versión en inglés debe considerarse como la definitiva.
+langDisclaimer: "Esta página también está disponible en los siguientes idiomas:"
 faqTitle: Preguntas Frecuentes
 comingSoon: Próximamente
 changelogTitle: Actualizaciones, entregadas continuamente

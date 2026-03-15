@@ -77,7 +77,6 @@ nMInstalls: "2,000,000+ unique installs"
 nMInstallsVerbose: "More than two million unique installs"
 rated55: "Rated ★★★★☆"
 rated55Verbose: "Rated 4.5/5 stars"
-usedAcrossIndustry: "Used across the industry, including at {NASA}"
 pricingTitle: "No Subscription, No Problem"
 pricingContent: >
   SQLite Viewer PRO is a __One-Time Purchase__ and grants you a __Perpetual License__. It works for as long as VS Code does.

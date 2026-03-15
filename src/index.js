@@ -231,6 +231,7 @@ function initializeEmbeddedCheckoutLinks() {
       overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.5);display:grid;place-items:center;z-index:9999;';
       overlay.innerHTML = '<div class="lds-ring" style="color:var(--color-typography-2,currentColor)"><div></div><div></div><div></div><div></div></div>';
       document.body.appendChild(overlay);
+      document.body.classList.add('polar-no-scroll');
       let checkoutUrl;
       try {
         const res = await fetch('/api/checkout', {

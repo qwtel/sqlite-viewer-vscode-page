@@ -111,6 +111,7 @@ body.currency-toggle-active {
     .price-usd { display: inline; }
     &:not(:has(#pricing-toggle:checked)) .checkout-link-usd.one-time-price { display: block !important; }
     &:has(#pricing-toggle:checked) .checkout-link-usd.monthly-price { display: block !important; }
+    .checkout-link-usd.currency-only { display: block !important; }
   }
 }
 

@@ -49,8 +49,8 @@ const stripe = html`<picture>
 </picture>`;
 
 const logos = html`
-  <img src="./dist/images/Apple_logo_black.svg" title="Apple" alt="Apple" style="height:32px" class="o-50">
-  <img src="./dist/images/NASA_Worm_logo.svg" title="NASA" alt="NASA" style="height:32px" class="o-50 pt-5">
+  <img src="./dist/images/Apple_logo_black.svg" title="Apple" alt="Apple" style="height:32px;transform:scale(1.15)" class="o-50">
+  <img src="./dist/images/Amazon_logo.svg" title="Amazon" alt="Amazon" style="height:32px;top:6px" class="o-50">
   <img src="./dist/images/Verizon_2024.svg" title="Verizon" alt="Verizon" style="height:32px" class="o-50">
   <img src="./dist/images/Abbott_Laboratories_logo.svg" title="Abbott Laboratories" alt="Abbott Laboratories" style="height:32px" class="o-50 mb-n5">
 `;
@@ -85,6 +85,11 @@ async function translateHtml(inFile: string, lang: string, outFile: string) {
         el.prepend(`<base href="/" />`, { html: true });
       }
     })
+    .on('a[href^="#"]', {
+      element(el) {
+        el.setAttribute('href', el.getAttribute('href')!.replace('#', `./${lang}/#`));
+      }
+    })
     .on('[data-i18n-key]', {
       element(el) {
         const key = el.getAttribute('data-i18n-key')!;
@@ -100,7 +105,6 @@ async function translateHtml(inFile: string, lang: string, outFile: string) {
             .replaceAll('{stripe}', stripe)
             .replaceAll('{logos}', logos)
             .replaceAll('{GooglePayApplePay}', payments)
-            .replaceAll('{NASA}', lang === 'ja' || lang === 'ko' ? 'NASA' : '')
           el.setInnerContent(newHtml, { html: true });
         }
         el.removeAttribute('data-i18n-key');

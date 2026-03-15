@@ -17,7 +17,7 @@ const LocaleByLang = Object.freeze({
   'ko': 'ko-KR',
 });
 
-const DevCountryOverride = 'BG';
+const DevCountryOverride = 'AU';
 
 const PercentToTier = Object.freeze({ 0: 0, 20: 1, 40: 2, 60: 3 });
 
@@ -117,7 +117,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         const product = el.getAttribute('data-checkout-product');
         if (!product) return;
         if (pricingData) {
-          el.setAttribute('href', `/api/checkout?product=${encodeURIComponent(product)}&currency=${encodeURIComponent(pricingData.preferredCurrency)}`);
+          el.setAttribute('href', `/api/checkout?product=${product}&currency=${pricingData.preferredCurrency.toLowerCase()}`);
           el.removeAttribute('data-polar-checkout');
           if (!pricingData.hasLocalCurrency) el.setAttribute('style', 'display:none');
         } else {
@@ -132,7 +132,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         const product = el.getAttribute('data-checkout-product');
         if (!product) return;
         if (pricingData) {
-          el.setAttribute('href', `/api/checkout?product=${encodeURIComponent(product)}&currency=USD`);
+          el.setAttribute('href', `/api/checkout?product=${product}&currency=usd`);
           el.removeAttribute('data-polar-checkout');
           el.removeAttribute('style');
         } else {
