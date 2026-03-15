@@ -17,7 +17,7 @@ const LocaleByLang = Object.freeze({
   'ko': 'ko-KR',
 });
 
-const DevCountryOverride = '';
+const DevCountryOverride = 'BG';
 
 const PercentToTier = Object.freeze({ 0: 0, 20: 1, 40: 2, 60: 3 });
 
@@ -102,32 +102,44 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const discountPercent = PPP[country] ?? 0;
   const discountTier = PercentToTier[discountPercent];
   const hasDiscount = discountPercent > 0;
-  const localizedPrices = await getLocalizedPrices(context.env, country, locale).catch((err) => {
+  const pricingData = await getLocalizedPrices(context.env, country, locale).catch((err) => {
     console.error(err);
     return null;
   });
-  // const showsInclVat = localizedPrices != null && Object.values(localizedPrices).some((price) => price.currencyCode === 'JPY');
+  const localizedPrices = pricingData?.local ?? null;
 
   const colorScheme = lightDark(searchParams.get('color-scheme'))
   const vscode = searchParams.has('css-vars')
 
   let rewriter = new HTMLRewriter()
-    .on('a[href^="#purchase"], a[href^="#subscribe"]', {
+    .on('.checkout-link-local', {
       element(el) {
-        const href = el.getAttribute('href')!;
-        let newHref = '';
-        switch (href) {
-          case '#purchase':
-            newHref = PROHrefByTier[discountTier];
-            break;
-          case '#purchase-be':
-            newHref = BEHrefByTier[discountTier];
-            break;
-          case '#subscribe':
-            newHref = context.env.PRO_SUBSCRIBE_HREF;
-            break;
+        const product = el.getAttribute('data-checkout-product');
+        if (!product) return;
+        if (pricingData) {
+          el.setAttribute('href', `/api/checkout?product=${encodeURIComponent(product)}&currency=${encodeURIComponent(pricingData.preferredCurrency)}`);
+          el.removeAttribute('data-polar-checkout');
+          if (!pricingData.hasLocalCurrency) el.setAttribute('style', 'display:none');
+        } else {
+          const staticHref = product === 'pro' ? PROHrefByTier[discountTier] : product === 'be' ? BEHrefByTier[discountTier] : context.env.PRO_SUBSCRIBE_HREF;
+          if (staticHref) el.setAttribute('href', staticHref);
+          el.setAttribute('style', 'display:none');
         }
-        el.setAttribute('href', newHref);
+      },
+    })
+    .on('.checkout-link-usd', {
+      element(el) {
+        const product = el.getAttribute('data-checkout-product');
+        if (!product) return;
+        if (pricingData) {
+          el.setAttribute('href', `/api/checkout?product=${encodeURIComponent(product)}&currency=USD`);
+          el.removeAttribute('data-polar-checkout');
+          el.removeAttribute('style');
+        } else {
+          const staticHref = product === 'pro' ? PROHrefByTier[discountTier] : product === 'be' ? BEHrefByTier[discountTier] : context.env.PRO_SUBSCRIBE_HREF;
+          if (staticHref) el.setAttribute('href', staticHref);
+          el.removeAttribute('style');
+        }
       },
     })
     .on('.purchased-n-times', {
@@ -146,11 +158,15 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     })
     .on('[data-price-product][data-price-field]', {
       element(el) {
-        if (!localizedPrices) return;
         const product = el.getAttribute('data-price-product') as ProductKey | null;
         const field = el.getAttribute('data-price-field');
+        const set = el.getAttribute('data-price-set');
         if (!product || !field) return;
-        const price = localizedPrices[product];
+        const price = set === 'usd' && pricingData
+          ? pricingData.usd[product]
+          : set === 'local' && pricingData
+            ? pricingData.local[product]
+            : localizedPrices?.[product];
         if (!price) return;
         if (field === 'currency') {
           el.setAttribute('title', price.currencyCode);
@@ -159,7 +175,38 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
           el.setInnerContent(price.amountHtml, { html: true });
         }
       },
-    })
+    });
+
+  if (pricingData?.hasLocalCurrency) {
+    rewriter = rewriter.on('body', {
+      element(el) {
+        el.setAttribute('class', (el.getAttribute('class') ?? '') + ' currency-toggle-active');
+      },
+    });
+  }
+
+  if (pricingData) {
+    rewriter = rewriter.on('#currency-toggle-wrap', {
+      element(el) {
+        if (!pricingData.hasLocalCurrency) {
+          el.setAttribute('style', 'display:none');
+          return;
+        }
+        el.removeAttribute('style');
+        const localLabel = pricingData.preferredCurrency;
+        el.setInnerContent(html`
+          <div class="toggle-wrapper">
+            <label class="toggle-label" for="currency-toggle" id="currency-toggle-local-label">${localLabel}</label>
+            <label class="toggle">
+              <input type="checkbox" id="currency-toggle" class="toggle-input">
+              <span class="toggle-slider"></span>
+            </label>
+            <label class="toggle-label" for="currency-toggle" data-i18n-key="price-currency-usd">USD</label>
+          </div>
+        `, { html: true });
+      },
+    });
+  }
     // .on('.plus-vat', {
     //   element(el) {
     //     if (showsInclVat) el.setAttribute('style', 'display: none;')
@@ -176,7 +223,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   if (hasDiscount) {
     rewriter = rewriter
-      .on('.i18n-hide, .pricing-toggle-container, .monthly-price', {
+      .on('.i18n-hide, .toggle-container--pricing, .monthly-price', {
       element(el) {
           el.remove();
         }
@@ -208,14 +255,33 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     rewriter = rewriter
       .on(".pricing-table-price", {
         element(element) {
-          if (!localizedPrices) return;
           const product = element.getAttribute('data-price-product') as Exclude<ProductKey, 'pro-subscribe'> | null;
           if (!product) return;
-          const price = localizedPrices[product];
-          if (!price) return;
-          const discountedAmountMinor = Math.round(price.priceAmount * (1 - discountPercent / 100));
-          const discountedPrice = formatPriceLocalized(discountedAmountMinor, price.currencyCode, locale);
-          element.setInnerContent(discountHtml(price, discountedPrice), { html: true });
+          const hasDualCurrency = pricingData?.hasLocalCurrency && pricingData.local[product] && pricingData.usd[product];
+          if (hasDualCurrency) {
+            const localPrice = pricingData!.local[product];
+            const usdPrice = pricingData!.usd[product];
+            const localDiscounted = formatPriceLocalized(
+              Math.round(localPrice.priceAmount * (1 - discountPercent / 100)),
+              localPrice.currencyCode,
+              locale
+            );
+            const usdDiscounted = formatPriceLocalized(
+              Math.round(usdPrice.priceAmount * (1 - discountPercent / 100)),
+              usdPrice.currencyCode,
+              locale
+            );
+            element.setInnerContent(
+              html`<span class="price-local">${discountHtml(localPrice, localDiscounted)}</span><span class="price-usd">${discountHtml(usdPrice, usdDiscounted)}</span>`,
+              { html: true }
+            );
+          } else {
+            const price = localizedPrices?.[product];
+            if (!price) return;
+            const discountedAmountMinor = Math.round(price.priceAmount * (1 - discountPercent / 100));
+            const discountedPrice = formatPriceLocalized(discountedAmountMinor, price.currencyCode, locale);
+            element.setInnerContent(discountHtml(price, discountedPrice), { html: true });
+          }
         },
       })
       .on(".price-hint", { 
@@ -338,7 +404,14 @@ const pickLocalizedPrice = (pricesByCurrency: Map<string, number>, preferredCurr
   return formatPriceLocalized(selectedAmount, selectedCurrency, locale);
 }
 
-const getLocalizedPrices = async (env: Env, country: string, locale: string): Promise<{ pro: LocalizedPrice, be: LocalizedPrice, 'pro-subscribe': LocalizedPrice } | null> => {
+type PricingData = {
+  preferredCurrency: string;
+  hasLocalCurrency: boolean;
+  local: { pro: LocalizedPrice; be: LocalizedPrice; 'pro-subscribe': LocalizedPrice };
+  usd: { pro: LocalizedPrice; be: LocalizedPrice; 'pro-subscribe': LocalizedPrice };
+};
+
+const getLocalizedPrices = async (env: Env, country: string, locale: string): Promise<PricingData | null> => {
   if (!env.POLAR_ACCESS_TOKEN || !env.PRO_PRODUCT_ID || !env.BE_PRODUCT_ID) return null;
   const polar = new Polar({
     accessToken: env.POLAR_ACCESS_TOKEN ?? "",
@@ -350,11 +423,21 @@ const getLocalizedPrices = async (env: Env, country: string, locale: string): Pr
     getProductPricesCached(env, polar, env.BE_PRODUCT_ID, 'one-time', env),
     getProductPricesCached(env, polar, env.PRO_SUBSCRIBE_PRODUCT_ID, 'monthly', env),
   ]);
-  const pro = pickLocalizedPrice(proPrices, preferredCurrency, locale);
-  const be = pickLocalizedPrice(bePrices, preferredCurrency, locale);
-  const proSubscribe = pickLocalizedPrice(proSubscribePrices, preferredCurrency, locale);
-  if (!pro || !be || !proSubscribe) return null;
-  return { pro, be, 'pro-subscribe': proSubscribe };
+  const proLocal = pickLocalizedPrice(proPrices, preferredCurrency, locale);
+  const beLocal = pickLocalizedPrice(bePrices, preferredCurrency, locale);
+  const proSubLocal = pickLocalizedPrice(proSubscribePrices, preferredCurrency, locale);
+  const proUsd = pickLocalizedPrice(proPrices, 'USD', locale);
+  const beUsd = pickLocalizedPrice(bePrices, 'USD', locale);
+  const proSubUsd = pickLocalizedPrice(proSubscribePrices, 'USD', locale);
+  if (!proLocal || !beLocal || !proSubLocal || !proUsd || !beUsd || !proSubUsd) return null;
+  const local = { pro: proLocal, be: beLocal, 'pro-subscribe': proSubLocal };
+  const usd = { pro: proUsd, be: beUsd, 'pro-subscribe': proSubUsd };
+  return {
+    preferredCurrency,
+    hasLocalCurrency: preferredCurrency !== 'USD',
+    local,
+    usd,
+  };
 }
 
 function html(strings: TemplateStringsArray, ...values: any[]) {

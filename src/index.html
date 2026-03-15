@@ -660,16 +660,19 @@
               </p>
             </div>
             
-            <!-- Pricing Toggle -->
-            <div class="pricing-toggle-container text-center mt-32 mb-32">
-              <div class="pricing-toggle-wrapper">
-                <label class="pricing-toggle-label pricing-toggle-one-time" for="pricing-toggle" data-i18n-key="one-time">One-Time</label>
-                <label class="pricing-toggle">
-                  <input type="checkbox" id="pricing-toggle" class="pricing-toggle-input">
-                  <span class="pricing-toggle-slider"></span>
-                </label>
-                <label class="pricing-toggle-label pricing-toggle-monthly" for="pricing-toggle" data-i18n-key="monthly">Monthly</label>
+            <!-- Pricing + currency toggles (side by side when space). IDs #pricing-toggle / #currency-toggle used in show/hide queries. -->
+            <div class="toggle-row mt-32 mb-32">
+              <div class="toggle-container toggle-container--pricing text-center">
+                <div class="toggle-wrapper">
+                  <label class="toggle-label" for="pricing-toggle" data-i18n-key="one-time">One-Time</label>
+                  <label class="toggle">
+                    <input type="checkbox" id="pricing-toggle" class="toggle-input">
+                    <span class="toggle-slider"></span>
+                  </label>
+                  <label class="toggle-label" for="pricing-toggle" data-i18n-key="monthly">Monthly</label>
+                </div>
               </div>
+              <div id="currency-toggle-wrap" class="toggle-container text-center" style="display:none;"></div>
             </div>
 
             <div class="pricing-tables-wrap">
@@ -681,26 +684,14 @@
                   <div class="pricing-table-main">
                     <div class="pricing-table-header pb-24">
                       <div class="pricing-table-price" data-price-product="pro">
-                        <span 
-                          class="pricing-table-price-currency h2 one-time-price" 
-                          title="USD" 
-                          data-price-product="pro" 
-                          data-price-field="currency"
-                        >$</span><span 
-                          class="pricing-table-price-amount h1 one-time-price" 
-                          data-price-product="pro" 
-                          data-price-field="amount"
-                        >99</span>
-                        <span
-                          class="pricing-table-price-currency h2 monthly-price" 
-                          title="USD" 
-                          data-price-product="pro-subscribe" 
-                          data-price-field="currency"
-                        >$</span><span 
-                          class="pricing-table-price-amount h1 monthly-price" 
-                          data-price-product="pro-subscribe" 
-                          data-price-field="amount"
-                        >24</span>
+                        <span class="price-local">
+                          <span class="pricing-table-price-currency h2 one-time-price" title="USD" data-price-product="pro" data-price-field="currency" data-price-set="local">$</span><span class="pricing-table-price-amount h1 one-time-price" data-price-product="pro" data-price-field="amount" data-price-set="local">99</span>
+                          <span class="pricing-table-price-currency h2 monthly-price" title="USD" data-price-product="pro-subscribe" data-price-field="currency" data-price-set="local">$</span><span class="pricing-table-price-amount h1 monthly-price" data-price-product="pro-subscribe" data-price-field="amount" data-price-set="local">24</span>
+                        </span>
+                        <span class="price-usd">
+                          <span class="pricing-table-price-currency h2 one-time-price" title="USD" data-price-product="pro" data-price-field="currency" data-price-set="usd">$</span><span class="pricing-table-price-amount h1 one-time-price" data-price-product="pro" data-price-field="amount" data-price-set="usd">99</span>
+                          <span class="pricing-table-price-currency h2 monthly-price" title="USD" data-price-product="pro-subscribe" data-price-field="currency" data-price-set="usd">$</span><span class="pricing-table-price-amount h1 monthly-price" data-price-product="pro-subscribe" data-price-field="amount" data-price-set="usd">24</span>
+                        </span>
                         <small class="text-xs plus-vat" data-i18n-key="plus-vat">+&nbsp;VAT</small>
                         <small class="text-xs incl-vat" data-i18n-key="incl-vat" style="display: none;">incl. VAT</small>
                         <small class="text-xs monthly-price" data-i18n-key="per-month">/ month</small>
@@ -726,8 +717,10 @@
                     </ul>
                   </div>
                   <div class="pricing-table-cta mb-8">
-                    <a class="button button-primary button-shadow button-block one-time-price" href="#purchase" data-polar-checkout target="_blank"><span data-i18n-key="purchase">Purchase</span><!--&nbsp;↗--></a>
-                    <a class="button button-primary button-shadow button-block monthly-price" href="#subscribe" data-polar-checkout target="_blank"><span data-i18n-key="subscribe">Subscribe</span><!--&nbsp;↗--></a>
+                    <a class="button button-primary button-shadow button-block one-time-price checkout-link checkout-link-local" href="#" data-checkout-product="pro" data-polar-checkout target="_blank"><span data-i18n-key="purchase">Purchase</span></a>
+                    <a class="button button-primary button-shadow button-block one-time-price checkout-link checkout-link-usd" href="#" data-checkout-product="pro" data-polar-checkout target="_blank" style="display:none"><span data-i18n-key="purchase">Purchase</span></a>
+                    <a class="button button-primary button-shadow button-block monthly-price checkout-link checkout-link-local" href="#" data-checkout-product="pro-subscribe" data-polar-checkout target="_blank"><span data-i18n-key="subscribe">Subscribe</span></a>
+                    <a class="button button-primary button-shadow button-block monthly-price checkout-link checkout-link-usd" href="#" data-checkout-product="pro-subscribe" data-polar-checkout target="_blank" style="display:none"><span data-i18n-key="subscribe">Subscribe</span></a>
                     <!-- <a>14-Day Refund Guarantee</a> -->
                   </div>
                 </div>
@@ -737,22 +730,12 @@
                   <div class="pricing-table-main">
                     <div class="pricing-table-header pb-24">
                       <div class="pricing-table-price" data-price-product="be">
-                        <span 
-                          class="pricing-table-price-currency h2 one-time-price" 
-                          title="USD" 
-                          data-price-product="be" 
-                          data-price-field="currency"
-                        >$</span><span 
-                          class="pricing-table-price-amount h1 one-time-price" 
-                          data-price-product="be"
-                          data-price-field="amount"
-                        >159</span>
-                        <!-- <span 
-                          class="pricing-table-price-currency h2 monthly-price" 
-                          title="USD"
-                        >$</span><span 
-                          class="pricing-table-price-amount h1 monthly-price"
-                        >29</span> -->
+                        <span class="price-local">
+                          <span class="pricing-table-price-currency h2 one-time-price" title="USD" data-price-product="be" data-price-field="currency" data-price-set="local">$</span><span class="pricing-table-price-amount h1 one-time-price" data-price-product="be" data-price-field="amount" data-price-set="local">159</span>
+                        </span>
+                        <span class="price-usd">
+                          <span class="pricing-table-price-currency h2 one-time-price" title="USD" data-price-product="be" data-price-field="currency" data-price-set="usd">$</span><span class="pricing-table-price-amount h1 one-time-price" data-price-product="be" data-price-field="amount" data-price-set="usd">159</span>
+                        </span>
                         <small class="text-xs plus-vat" data-i18n-key="plus-vat">+&nbsp;VAT</small>
                         <small class="text-xs incl-vat" data-i18n-key="incl-vat" style="display: none;">incl. VAT</small>
                         <small class="text-xs monthly-price" data-i18n-key="per-month">/ month</small>
@@ -784,7 +767,10 @@
                     </ul>
                   </div>
                   <div class="pricing-table-cta mb-8">
-                    <a class="button button-primary button-shadow button-block one-time-price" href="#purchase-be" data-polar-checkout target="_blank"><span data-i18n-key="purchase">Purchase</span><!--&nbsp;↗--></a>
+                    <a class="button button-primary button-shadow button-block one-time-price checkout-link checkout-link-local" href="#" data-checkout-product="be" data-polar-checkout target="_blank"><span data-i18n-key="purchase">Purchase</span></a>
+                    <a class="button button-primary button-shadow button-block one-time-price checkout-link checkout-link-usd" href="#" data-checkout-product="be" data-polar-checkout target="_blank" style="display:none"><span data-i18n-key="purchase">Purchase</span></a>
+                    <a class="button button-primary button-shadow button-block monthly-price checkout-link checkout-link-local" href="#" data-checkout-product="none" data-polar-checkout target="_blank"><span data-i18n-key="subscribe">Subscribe</span></a>
+                    <a class="button button-primary button-shadow button-block monthly-price checkout-link checkout-link-usd" href="#" data-checkout-product="none" data-polar-checkout target="_blank" style="display:none"><span data-i18n-key="subscribe">Subscribe</span></a>
                     <!-- <a class="button button-primary button-shadow button-block monthly-price" href="#subscribe-be" data-polar-checkout target="_blank"><span data-i18n-key="subscribe">Subscribe</span>&nbsp;↗</a> -->
                     <!-- <a>14-Day Refund Guarantee</a> -->
                   </div>

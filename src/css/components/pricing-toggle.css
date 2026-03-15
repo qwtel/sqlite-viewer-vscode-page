@@ -1,7 +1,19 @@
 /*--------------------------------------------------------------
-# Pricing Toggle
+# Toggle (shared: one-time/monthly + currency)
 --------------------------------------------------------------*/
-.pricing-toggle-wrapper {
+.toggle-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.toggle-container {
+  position: relative;
+}
+
+.toggle-wrapper {
   position: relative;
   z-index: 1;
   display: inline-flex;
@@ -13,7 +25,7 @@
   padding: 4px;
 }
 
-.pricing-toggle-label {
+.toggle-label {
   font-size: 14px;
   font-weight: 500;
   color: var(--color-typography-2);
@@ -24,12 +36,17 @@
   user-select: none;
 }
 
-.pricing-toggle-label.active {
+.toggle-container:not(:has(.toggle-input:checked)) .toggle-label:first-of-type {
   color: var(--color-typography-1);
-  background: var(--color-primary-1);
+  background: var(--color-bg-1);
 }
 
-.pricing-toggle {
+.toggle-container:has(.toggle-input:checked) .toggle-label:last-of-type {
+  color: var(--color-typography-1);
+  background: var(--color-bg-1);
+}
+
+.toggle {
   position: relative;
   display: inline-block;
   width: 48px;
@@ -37,13 +54,13 @@
   cursor: pointer;
 }
 
-.pricing-toggle-input {
+.toggle-input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-.pricing-toggle-slider {
+.toggle-slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -55,7 +72,7 @@
   border-radius: 24px;
 }
 
-.pricing-toggle-slider:before {
+.toggle-slider:before {
   position: absolute;
   content: "";
   height: 18px;
@@ -68,26 +85,33 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.pricing-toggle-input:checked + .pricing-toggle-slider {
+.toggle-input:checked + .toggle-slider {
   background-color: var(--color-primary-1);
 }
 
-.pricing-toggle-input:checked + .pricing-toggle-slider:before {
+.toggle-input:checked + .toggle-slider:before {
   transform: translateX(24px);
 }
 
-/* Default state (one-time) */
+/* Show/hide content by toggle state (IDs identify which toggle) */
 .pricing .one-time-price { display: unset }
 .pricing .monthly-price { display: none }
 
-.pricing .pricing-toggle-one-time {
-  color: var(--color-typography-1);
-  background: var(--color-bg-1);
-}
+/* Show/hide by currency: body.currency-toggle-active + #currency-toggle (IDs for queries only) */
+body .price-usd { display: none; }
 
-.pricing .pricing-toggle-monthly {
-  color: var(--color-typography-2);
-  background: transparent;
+body.currency-toggle-active {
+  .checkout-link-usd,
+  .price-usd { display: none; }
+  .checkout-link-usd.one-time-price,
+  .checkout-link-usd.monthly-price { display: none !important; }
+  &:has(#currency-toggle:checked) {
+    .checkout-link-local,
+    .price-local { display: none !important; }
+    .price-usd { display: inline; }
+    &:not(:has(#pricing-toggle:checked)) .checkout-link-usd.one-time-price { display: block !important; }
+    &:has(#pricing-toggle:checked) .checkout-link-usd.monthly-price { display: block !important; }
+  }
 }
 
 .pricing .pricing-table {
@@ -108,17 +132,7 @@
     z-index: 2;
   }
 }
-.pricing:has(.pricing-toggle-input:checked) {
-  .pricing-toggle-monthly {
-    color: var(--color-typography-1);
-    background: var(--color-bg-1);
-  }
-
-  .pricing-toggle-one-time {
-    color: var(--color-typography-2);
-    background: transparent;
-  }
-
+.pricing:has(#pricing-toggle:checked) {
   .pricing-table {
     &.front-card {
       .one-time-price { display: none }

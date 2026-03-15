@@ -209,6 +209,64 @@ function initializeLoadingSpinner() {
   });
 }
 
+function getCheckoutTheme() {
+  const urlScheme = new URLSearchParams(window.location.search).get('color-scheme');
+  if (urlScheme === 'dark' || urlScheme === 'light') return urlScheme;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function initializeEmbeddedCheckoutLinks() {
+  const isNewTab = ev => ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.button === 1;
+  document.querySelectorAll('a[href^="/api/checkout"], a[href^="' + window.location.origin + '/api/checkout"]').forEach((el) => {
+    el.addEventListener('click', async (ev) => {
+      if (isNewTab(ev)) return;
+      ev.preventDefault();
+      const href = el.getAttribute('href') || el.href;
+      const url = new URL(href, window.location.origin);
+      const product = url.searchParams.get('product');
+      const currency = url.searchParams.get('currency') || 'usd';
+      if (!product) return;
+      const overlay = document.createElement('div');
+      overlay.setAttribute('aria-hidden', 'true');
+      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.5);display:grid;place-items:center;z-index:9999;';
+      overlay.innerHTML = '<div class="lds-ring" style="color:var(--color-typography-2,currentColor)"><div></div><div></div><div></div><div></div></div>';
+      document.body.appendChild(overlay);
+      let checkoutUrl;
+      try {
+        const res = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ product, currency, embed_origin: window.location.origin }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || 'Checkout unavailable');
+        checkoutUrl = data.url;
+      } catch (err) {
+        console.error('Checkout fetch failed', err);
+        window.location.href = href;
+        return;
+      } finally {
+        overlay.remove();
+      }
+      if (!checkoutUrl) {
+        window.location.href = href;
+        return;
+      }
+      const EmbedCheckout = window.Polar?.EmbedCheckout;
+      if (typeof EmbedCheckout?.create === 'function') {
+        try {
+          await EmbedCheckout.create(checkoutUrl, getCheckoutTheme());
+        } catch (e) {
+          console.error('Embed open failed', e);
+          window.location.href = checkoutUrl;
+        }
+      } else {
+        window.location.href = checkoutUrl;
+      }
+    });
+  });
+}
+
   // Lazy load Shoelace when carousel comes into view
 function initializeLazyLoadShoelace() {
   const carouselSection = document.querySelector('.changelog-carousel');
@@ -370,6 +428,12 @@ function initializeNavigationObserver() {
     initializeLoadingSpinner();
   } catch (error) {
     console.error('Failed to initialize loading spinner:', error);
+  }
+
+  try {
+    initializeEmbeddedCheckoutLinks();
+  } catch (error) {
+    console.error('Failed to initialize embedded checkout links:', error);
   }
 
   try {
