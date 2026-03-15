@@ -1010,7 +1010,7 @@
     });
   </script>
   <script>
-    document.querySelectorAll('a[href^="#card-"]').forEach(a => {
+    document.querySelectorAll('a[href*="#card-"]').forEach(a => {
       a.addEventListener('click', ev => scrollToHash(ev));
     });
   </script>
