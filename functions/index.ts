@@ -17,7 +17,7 @@ const LocaleByLang = Object.freeze({
   'ko': 'ko-KR',
 });
 
-const DevCountryOverride = 'AU';
+const DevCountryOverride = 'AT';
 
 const PercentToTier = Object.freeze({ 0: 0, 20: 1, 40: 2, 60: 3 });
 
@@ -106,7 +106,9 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     console.error(err);
     return null;
   });
-  const localizedPrices = pricingData?.local ?? null;
+  const localizedPrices: Record<ProductKey, LocalizedPrice> | null = pricingData
+    ? { pro: pricingData.local.pro.price, be: pricingData.local.be.price, 'pro-subscribe': pricingData.local['pro-subscribe'].price }
+    : null;
 
   const colorScheme = lightDark(searchParams.get('color-scheme'))
   const vscode = searchParams.has('css-vars')
@@ -117,9 +119,11 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         const product = el.getAttribute('data-checkout-product');
         if (!product) return;
         if (pricingData) {
-          el.setAttribute('href', `/api/checkout?product=${product}&currency=${pricingData.preferredCurrency.toLowerCase()}`);
+          const local = pricingData.local[product as ProductKey];
+          const currency = local?.hasPreferredCurrency ? pricingData.preferredCurrency.toLowerCase() : 'usd';
+          el.setAttribute('href', `/api/checkout?product=${product}&currency=${currency}&locale=${pageLang}`);
           el.removeAttribute('data-polar-checkout');
-          if (!pricingData.hasLocalCurrency) el.setAttribute('style', 'display:none');
+          if (!pricingData.hasAnyLocalCurrency) el.setAttribute('style', 'display:none');
         } else {
           const staticHref = product === 'pro' ? PROHrefByTier[discountTier] : product === 'be' ? BEHrefByTier[discountTier] : context.env.PRO_SUBSCRIBE_HREF;
           if (staticHref) el.setAttribute('href', staticHref);
@@ -132,7 +136,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         const product = el.getAttribute('data-checkout-product');
         if (!product) return;
         if (pricingData) {
-          el.setAttribute('href', `/api/checkout?product=${product}&currency=usd`);
+          el.setAttribute('href', `/api/checkout?product=${product}&currency=usd&locale=${pageLang}`);
           el.removeAttribute('data-polar-checkout');
           el.removeAttribute('style');
         } else {
@@ -163,9 +167,9 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         const set = el.getAttribute('data-price-set');
         if (!product || !field) return;
         const price = set === 'usd' && pricingData
-          ? pricingData.usd[product]
+          ? pricingData.usd[product as ProductKey]
           : set === 'local' && pricingData
-            ? pricingData.local[product]
+            ? pricingData.local[product as ProductKey].price
             : localizedPrices?.[product];
         if (!price) return;
         if (field === 'currency') {
@@ -177,7 +181,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       },
     });
 
-  if (pricingData?.hasLocalCurrency) {
+  if (pricingData?.hasAnyLocalCurrency) {
     rewriter = rewriter.on('body', {
       element(el) {
         el.setAttribute('class', (el.getAttribute('class') ?? '') + ' currency-toggle-active');
@@ -188,7 +192,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   if (pricingData) {
     rewriter = rewriter.on('#currency-toggle-wrap', {
       element(el) {
-        if (!pricingData.hasLocalCurrency) {
+        if (!pricingData.hasAnyLocalCurrency) {
           el.setAttribute('style', 'display:none');
           return;
         }
@@ -257,9 +261,9 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         element(element) {
           const product = element.getAttribute('data-price-product') as Exclude<ProductKey, 'pro-subscribe'> | null;
           if (!product) return;
-          const hasDualCurrency = pricingData?.hasLocalCurrency && pricingData.local[product] && pricingData.usd[product];
+          const hasDualCurrency = pricingData?.hasAnyLocalCurrency && pricingData.local[product].hasPreferredCurrency;
           if (hasDualCurrency) {
-            const localPrice = pricingData!.local[product];
+            const localPrice = pricingData!.local[product].price;
             const usdPrice = pricingData!.usd[product];
             const localDiscounted = formatPriceLocalized(
               Math.round(localPrice.priceAmount * (1 - discountPercent / 100)),
@@ -406,9 +410,9 @@ const pickLocalizedPrice = (pricesByCurrency: Map<string, number>, preferredCurr
 
 type PricingData = {
   preferredCurrency: string;
-  hasLocalCurrency: boolean;
-  local: { pro: LocalizedPrice; be: LocalizedPrice; 'pro-subscribe': LocalizedPrice };
-  usd: { pro: LocalizedPrice; be: LocalizedPrice; 'pro-subscribe': LocalizedPrice };
+  hasAnyLocalCurrency: boolean;
+  local: { [K in ProductKey]: { price: LocalizedPrice; hasPreferredCurrency: boolean } };
+  usd: { [K in ProductKey]: LocalizedPrice };
 };
 
 const getLocalizedPrices = async (env: Env, country: string, locale: string): Promise<PricingData | null> => {
@@ -430,11 +434,15 @@ const getLocalizedPrices = async (env: Env, country: string, locale: string): Pr
   const beUsd = pickLocalizedPrice(bePrices, 'USD', locale);
   const proSubUsd = pickLocalizedPrice(proSubscribePrices, 'USD', locale);
   if (!proLocal || !beLocal || !proSubLocal || !proUsd || !beUsd || !proSubUsd) return null;
-  const local = { pro: proLocal, be: beLocal, 'pro-subscribe': proSubLocal };
+  const local = {
+    pro: { price: proLocal, hasPreferredCurrency: proLocal.currencyCode === preferredCurrency },
+    be: { price: beLocal, hasPreferredCurrency: beLocal.currencyCode === preferredCurrency },
+    'pro-subscribe': { price: proSubLocal, hasPreferredCurrency: proSubLocal.currencyCode === preferredCurrency },
+  };
   const usd = { pro: proUsd, be: beUsd, 'pro-subscribe': proSubUsd };
   return {
     preferredCurrency,
-    hasLocalCurrency: preferredCurrency !== 'USD',
+    hasAnyLocalCurrency: Object.values(local).some((e) => e.hasPreferredCurrency),
     local,
     usd,
   };

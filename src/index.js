@@ -225,6 +225,7 @@ function initializeEmbeddedCheckoutLinks() {
       const url = new URL(href, window.location.origin);
       const product = url.searchParams.get('product');
       const currency = url.searchParams.get('currency') || 'usd';
+      const locale = url.searchParams.get('locale') || 'en';
       if (!product) return;
       const overlay = document.createElement('div');
       overlay.setAttribute('aria-hidden', 'true');
@@ -237,7 +238,7 @@ function initializeEmbeddedCheckoutLinks() {
         const res = await fetch('/api/checkout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ product, currency, embed_origin: window.location.origin }),
+          body: JSON.stringify({ product, currency, embed_origin: window.location.origin, locale }),
         });
         const data = await res.json().catch(() => ({}));
         if (!res.ok) throw new Error(data.error || 'Checkout unavailable');
