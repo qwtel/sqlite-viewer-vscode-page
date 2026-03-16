@@ -85,11 +85,11 @@ async function translateHtml(inFile: string, lang: string, outFile: string) {
         el.prepend(`<base href="/" />`, { html: true });
       }
     })
-    .on('a[href^="#"]', {
-      element(el) {
-        el.setAttribute('href', el.getAttribute('href')!.replace('#', `./${lang}/#`));
-      }
-    })
+    // .on('a[href^="#"]', {
+    //   element(el) {
+    //     el.setAttribute('href', el.getAttribute('href')!.replace('#', `./${lang}/#`));
+    //   }
+    // })
     .on('[data-i18n-key]', {
       element(el) {
         const key = el.getAttribute('data-i18n-key')!;
