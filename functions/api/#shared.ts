@@ -11,10 +11,6 @@ export type Env = {
   BE_BENEFIT_ID: string,
   GUMROAD_ACCESS_TOKEN: string
   KV: KVNamespace
-  PRO_HREFS: string,
-  BE_HREFS: string,
-  PRO_SUBSCRIBE_HREF: string,
-  BE_SUBSCRIBE_HREF: string,
   POLAR_ACCESS_TOKEN: string,
   PRO_PRODUCT_ID: string,
   BE_PRODUCT_ID: string,

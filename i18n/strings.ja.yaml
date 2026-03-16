@@ -176,8 +176,8 @@ disclaimer1: >
   「SQLite」はHipp, Wyrick & Company, Inc.の商標です。「Visual Studio Code」（VS Code）はMicrosoft Corporationの商標です。
   この拡張機能は独立した製品であり、各商標所有者とは関係ありません。
 disclaimer2: >
-  すべての価格は米ドル（USD）で表示され、別途明記がない限り適用される税金は含まれていません。最終金額はチェックアウト時に表示されます。
-  クレジットカード提供者が通貨換算手数料を請求する場合があります。
+  すべての価格は、別途明記がない限り適用される税金を含まない金額です。最終金額はチェックアウト時に表示されます。
+  クレジットカード提供会社が通貨換算手数料を請求する場合があります。
 disclaimer3: >
   デザインは[Solid](https://preview.cruip.com/solid)に基づいています。[GPL-3.0](https://github.com/qwtel/sqlite-viewer-vscode-page)の下でライセンスされています。
 langDisclaimer: "このページは以下の言語でもご利用いただけます："
