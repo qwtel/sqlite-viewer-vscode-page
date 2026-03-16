@@ -17,7 +17,7 @@ const LocaleByLang = Object.freeze({
   'ko': 'ko-KR',
 });
 
-export const DevCountryOverride = 'JP';
+export const DevCountryOverride = '';
 
 const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
 
