@@ -19,6 +19,9 @@ export type Env = {
   PRO_PRODUCT_ID: string,
   BE_PRODUCT_ID: string,
   PRO_SUBSCRIBE_PRODUCT_ID: string,
+  PPP_DISCOUNT_ID_TIER_1?: string,
+  PPP_DISCOUNT_ID_TIER_2?: string,
+  PPP_DISCOUNT_ID_TIER_3?: string,
 }
 
 export type EnvEventContext = EventContext<Env, any, Record<string, unknown>>

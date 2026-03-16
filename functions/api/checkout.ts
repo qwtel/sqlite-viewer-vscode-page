@@ -1,13 +1,19 @@
 /// <reference types="@cloudflare/workers-types/2023-07-01" />
 
+import type { CountryAlpha2Input } from "@polar-sh/sdk/models/components/addressinput.js";
+import type { PresentmentCurrency } from "@polar-sh/sdk/models/components/presentmentcurrency.js";
+
 import { Polar } from "@polar-sh/sdk";
 import { badRequest } from '@worker-tools/response-creators';
+import { getPppDiscountTier } from './#data';
 import { corsMiddleware, corsOptions, Env } from './#shared';
+
+import { DevCountryOverride } from "..";
 
 const PRODUCT_MAP = {
   pro: 'PRO_PRODUCT_ID',
   be: 'BE_PRODUCT_ID',
-  'pro-subscribe': 'PRO_SUBSCRIBE_PRODUCT_ID',
+  prosub: 'PRO_SUBSCRIBE_PRODUCT_ID',
 } as const;
 
 export type CheckoutProduct = keyof typeof PRODUCT_MAP;
@@ -31,15 +37,20 @@ function getPolarLocale(pageLang: string | null | undefined): string {
 export const onRequestOptions = corsOptions;
 
 async function createCheckoutAndGetUrl(
-  context: { env: Env },
+  context: { env: Env; request: Request },
   product: CheckoutProduct,
   currency: string,
   locale?: string | null,
   embedOrigin?: string | null,
 ): Promise<string | null> {
+  const DEV = context.env.DEV;
+
   if (!context.env.POLAR_ACCESS_TOKEN) return null;
   const productId = context.env[PRODUCT_MAP[product]];
   if (!productId) return null;
+  const country = ((DEV && DevCountryOverride) || context.request.headers.get('CF-IPcountry') || 'US').toUpperCase() as CountryAlpha2Input;
+  const tier = getPppDiscountTier(country);
+  const discountId = tier >= 1 ? context.env[`PPP_DISCOUNT_ID_TIER_${tier}` as keyof Env] as string|undefined : undefined;
   const polar = new Polar({
     accessToken: context.env.POLAR_ACCESS_TOKEN,
     server: context.env.POLAR_SERVER === 'sandbox' ? 'sandbox' : 'production',
@@ -47,9 +58,11 @@ async function createCheckoutAndGetUrl(
   const polarLocale = getPolarLocale(locale);
   const checkout = await polar.checkouts.create({
     products: [productId],
-    currency: currency.toLowerCase() as any,
+    currency: currency.toLowerCase() as PresentmentCurrency,
     locale: polarLocale,
+    customerBillingAddress: { country },
     ...(embedOrigin && { embedOrigin }),
+    ...(discountId && { discountId, allowDiscountCodes: false }),
   });
   return checkout.url ?? null;
 }

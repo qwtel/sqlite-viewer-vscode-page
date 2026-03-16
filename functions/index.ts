@@ -17,14 +17,12 @@ const LocaleByLang = Object.freeze({
   'ko': 'ko-KR',
 });
 
-const DevCountryOverride = 'AT';
-
-const PercentToTier = Object.freeze({ 0: 0, 20: 1, 40: 2, 60: 3 });
+export const DevCountryOverride = 'JP';
 
 const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
 
-const ns = 'sqlite-viewer-vscode-page.8';
-const ttlDay = 60 * 60 * 24;
+const Ns = 'sqlite-viewer-vscode-page.8';
+const TtlDay = 60 * 60 * 24;
 // const JapanDisplayTaxRate = 0.1;
 
 const discountHtml = (price: LocalizedPrice, discountedPrice: LocalizedPrice) => html`
@@ -43,21 +41,22 @@ const EUR_COUNTRIES = new Set([
   'SI', 'ES'
 ]);
 
-type ProductKey = 'pro' | 'be' | 'pro-subscribe';
+type ProductKey = 'pro' | 'be' | 'prosub';
 
 type LocalizedPrice = {
   currencyCode: string,
   currencySymbol: string,
   amountHtml: string,
   priceAmount: number,
+  hasPreferredCurrency?: boolean,
 }
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const DEV = context.env.DEV;
 
   let [numPurchases, avatarUrls] = await Promise.all([
-    context.env.KV.get<number>(`${ns}.numPurchases`, 'json'),
-    context.env.KV.get<string[]>(`${ns}.avatarUrls`, 'json'),
+    context.env.KV.get<number>(`${Ns}.numPurchases`, 'json'),
+    context.env.KV.get<string[]>(`${Ns}.avatarUrls`, 'json'),
   ]);
 
   if (numPurchases == null || avatarUrls == null) {
@@ -68,8 +67,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     if (numPurchases != null && avatarUrls != null) {
       context.waitUntil((async () => {
         await Promise.all([
-          context.env.KV.put(`${ns}.numPurchases`, JSON.stringify(numPurchases), { expirationTtl: ttlDay }),
-          context.env.KV.put(`${ns}.avatarUrls`, JSON.stringify(avatarUrls), { expirationTtl: ttlDay }),
+          context.env.KV.put(`${Ns}.numPurchases`, JSON.stringify(numPurchases), { expirationTtl: TtlDay }),
+          context.env.KV.put(`${Ns}.avatarUrls`, JSON.stringify(avatarUrls), { expirationTtl: TtlDay }),
         ]);
       })());
     }
@@ -94,21 +93,14 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   const response = await context.env.ASSETS.fetch(url);
 
-  const PROHrefByTier = context.env.PRO_HREFS.trim().split('\n');
-  const BEHrefByTier = context.env.BE_HREFS.trim().split('\n');
-  // console.assert(PROHrefByTier.length === 4 && BEHrefByTier.length === 4, 'Invalid PRO_HREFS or BE_HREFS');
-
   const country = ((DEV && DevCountryOverride) || context.request.headers.get('CF-IPcountry') || 'US').toUpperCase() as keyof typeof PPP;
   const discountPercent = PPP[country] ?? 0;
-  const discountTier = PercentToTier[discountPercent];
   const hasDiscount = discountPercent > 0;
   const pricingData = await getLocalizedPrices(context.env, country, locale).catch((err) => {
     console.error(err);
     return null;
   });
-  const localizedPrices: Record<ProductKey, LocalizedPrice> | null = pricingData
-    ? { pro: pricingData.local.pro.price, be: pricingData.local.be.price, 'pro-subscribe': pricingData.local['pro-subscribe'].price }
-    : null;
+  const localizedPrices = pricingData?.local;
 
   const colorScheme = lightDark(searchParams.get('color-scheme'))
   const vscode = searchParams.has('css-vars')
@@ -125,8 +117,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
           el.removeAttribute('data-polar-checkout');
           if (!pricingData.hasAnyLocalCurrency) el.setAttribute('style', 'display:none');
         } else {
-          const staticHref = product === 'pro' ? PROHrefByTier[discountTier] : product === 'be' ? BEHrefByTier[discountTier] : context.env.PRO_SUBSCRIBE_HREF;
-          if (staticHref) el.setAttribute('href', staticHref);
+          el.setAttribute('href', `/api/checkout?product=${product}&currency=usd&locale=${pageLang}`);
+          el.removeAttribute('data-polar-checkout');
           el.setAttribute('style', 'display:none');
         }
       },
@@ -135,15 +127,9 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       element(el) {
         const product = el.getAttribute('data-checkout-product');
         if (!product) return;
-        if (pricingData) {
-          el.setAttribute('href', `/api/checkout?product=${product}&currency=usd&locale=${pageLang}`);
-          el.removeAttribute('data-polar-checkout');
-          el.removeAttribute('style');
-        } else {
-          const staticHref = product === 'pro' ? PROHrefByTier[discountTier] : product === 'be' ? BEHrefByTier[discountTier] : context.env.PRO_SUBSCRIBE_HREF;
-          if (staticHref) el.setAttribute('href', staticHref);
-          el.removeAttribute('style');
-        }
+        el.setAttribute('href', `/api/checkout?product=${product}&currency=usd&locale=${pageLang}`);
+        el.removeAttribute('data-polar-checkout');
+        el.removeAttribute('style');
       },
     })
     .on('.purchased-n-times', {
@@ -169,7 +155,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         const price = set === 'usd' && pricingData
           ? pricingData.usd[product as ProductKey]
           : set === 'local' && pricingData
-            ? pricingData.local[product as ProductKey].price
+            ? pricingData.local[product]
             : localizedPrices?.[product];
         if (!price) return;
         if (field === 'currency') {
@@ -209,8 +195,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
           </div>
         `, { html: true });
       },
-    });
-  }
+    })
     // .on('.plus-vat', {
     //   element(el) {
     //     if (showsInclVat) el.setAttribute('style', 'display: none;')
@@ -223,6 +208,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     //     else el.setAttribute('style', 'display: none;')
     //   },
     // });
+  }
 
 
   if (hasDiscount) {
@@ -259,12 +245,13 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     rewriter = rewriter
       .on(".pricing-table-price", {
         element(element) {
-          const product = element.getAttribute('data-price-product') as Exclude<ProductKey, 'pro-subscribe'> | null;
+          const product = element.getAttribute('data-price-product') as Exclude<ProductKey, 'prosub'> | null;
           if (!product) return;
-          const hasDualCurrency = pricingData?.hasAnyLocalCurrency && pricingData.local[product].hasPreferredCurrency;
+          const hasDualCurrency = pricingData?.hasAnyLocalCurrency && pricingData.local[product]?.hasPreferredCurrency;
           if (hasDualCurrency) {
-            const localPrice = pricingData!.local[product].price;
-            const usdPrice = pricingData!.usd[product];
+            const localPrice = pricingData?.local[product];
+            const usdPrice = pricingData?.usd[product];
+            if (!localPrice || !usdPrice) return;
             const localDiscounted = formatPriceLocalized(
               Math.round(localPrice.priceAmount * (1 - discountPercent / 100)),
               localPrice.currencyCode,
@@ -313,12 +300,13 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   return transformedResponse;
 }
 
-const formatPriceLocalized = (priceAmount: number, currencyCode: string, locale: string) => {
+const formatPriceLocalized = (priceAmount: number, currencyCode: string, locale: string, preferredCurrency?: string) => {
   const numberFormat = new Intl.NumberFormat(locale, {
     style: 'currency',
     currency: currencyCode,
     currencyDisplay: 'narrowSymbol',
   });
+
   const fractionDigits = numberFormat.resolvedOptions().maximumFractionDigits ?? 2;
   const divisor = 10 ** fractionDigits;
   const parts = numberFormat.formatToParts(priceAmount / divisor);
@@ -326,6 +314,7 @@ const formatPriceLocalized = (priceAmount: number, currencyCode: string, locale:
     parts.find((part) => part.type === 'currency')?.value ?? currencyCode,
     currencyCode,
   );
+
   const amountInt = parts
     .filter((part) => part.type === 'integer' || part.type === 'group')
     .map((part) => part.value)
@@ -337,7 +326,9 @@ const formatPriceLocalized = (priceAmount: number, currencyCode: string, locale:
       ? html`${amountInt}`
       : html`<span>${amountInt}</span><span class="h2">${amountDecimal}${amountFrac}</span>` 
     : html`${amountInt}`;
-  return { currencyCode, currencySymbol, amountHtml, priceAmount };
+
+  const hasPreferredCurrency = currencyCode === preferredCurrency;
+  return { currencyCode, currencySymbol, amountHtml, priceAmount, hasPreferredCurrency };
 }
 
 const disambiguateCurrencySymbol = (symbol: string, currencyCode: string) => {
@@ -361,15 +352,12 @@ const pickCurrencyByCountry = (country: string) => {
   return 'USD';
 }
 
-const getProductPrices = async (polar: Polar, productId: string, billingCycle: 'one-time' | 'monthly') => {
+const getProductPrices = async (polar: Polar, productId: string) => {
   const product = await polar.products.get({ id: productId });
   const pricesByCurrency = new Map<string, number>();
-  for (const price of product.prices as any[]) {
+  for (const price of product.prices) {
     if (price.isArchived) continue;
     if (price.amountType !== 'fixed') continue;
-    const isRecurring = price.type === 'recurring';
-    if (billingCycle === 'one-time' && isRecurring) continue;
-    if (billingCycle === 'monthly' && !isRecurring) continue;
     if (typeof price.priceAmount !== 'number') continue;
     if (typeof price.priceCurrency !== 'string') continue;
     pricesByCurrency.set(price.priceCurrency.toUpperCase(), price.priceAmount);
@@ -377,17 +365,18 @@ const getProductPrices = async (polar: Polar, productId: string, billingCycle: '
   return pricesByCurrency;
 }
 
-const getProductPricesCached = async (env: Env, polar: Polar, productId: string, billingCycle: 'one-time' | 'monthly', { DEV }: { DEV?: string } = {}) => {
-  const cacheKey = `${ns}.prices.${billingCycle}.${productId}`;
+const getProductPricesCached = async (env: Env, polar: Polar, productId: string, billingCycle: 'one-time'|'monthly', { DEV }: { DEV?: string } = {}) => {
+  const cacheKey = `${Ns}.prices.${billingCycle}.${productId}`;
   const cached = await env.KV.get<Record<string, number>>(cacheKey, 'json');
   DEV && console.log('cached', cached, { productId, billingCycle, DEV });
   if (cached && typeof cached === 'object') {
     return new Map(Object.entries(cached));
   }
-  const pricesByCurrency = await getProductPrices(polar, productId, billingCycle);
+  const pricesByCurrency = await getProductPrices(polar, productId);
+  DEV && console.log('pricesByCurrency', pricesByCurrency, { productId, billingCycle, DEV });
   if (pricesByCurrency.size) {
     const serializable = Object.fromEntries(pricesByCurrency.entries());
-    !DEV && await env.KV.put(cacheKey, JSON.stringify(serializable), { expirationTtl: ttlDay });
+    !DEV && await env.KV.put(cacheKey, JSON.stringify(serializable), { expirationTtl: TtlDay });
   }
   return pricesByCurrency;
 }
@@ -405,14 +394,14 @@ const pickLocalizedPrice = (pricesByCurrency: Map<string, number>, preferredCurr
   //   selectedAmount = Math.round(selectedAmountRaw * (1 + JapanDisplayTaxRate));
   // }
   if (selectedAmount == null) return null;
-  return formatPriceLocalized(selectedAmount, selectedCurrency, locale);
+  return formatPriceLocalized(selectedAmount, selectedCurrency, locale, preferredCurrency);
 }
 
 type PricingData = {
   preferredCurrency: string;
   hasAnyLocalCurrency: boolean;
-  local: { [K in ProductKey]: { price: LocalizedPrice; hasPreferredCurrency: boolean } };
-  usd: { [K in ProductKey]: LocalizedPrice };
+  local: { [K in ProductKey]: LocalizedPrice|null };
+  usd: { [K in ProductKey]: LocalizedPrice|null };
 };
 
 const getLocalizedPrices = async (env: Env, country: string, locale: string): Promise<PricingData | null> => {
@@ -430,19 +419,16 @@ const getLocalizedPrices = async (env: Env, country: string, locale: string): Pr
   const proLocal = pickLocalizedPrice(proPrices, preferredCurrency, locale);
   const beLocal = pickLocalizedPrice(bePrices, preferredCurrency, locale);
   const proSubLocal = pickLocalizedPrice(proSubscribePrices, preferredCurrency, locale);
+
   const proUsd = pickLocalizedPrice(proPrices, 'USD', locale);
   const beUsd = pickLocalizedPrice(bePrices, 'USD', locale);
   const proSubUsd = pickLocalizedPrice(proSubscribePrices, 'USD', locale);
-  if (!proLocal || !beLocal || !proSubLocal || !proUsd || !beUsd || !proSubUsd) return null;
-  const local = {
-    pro: { price: proLocal, hasPreferredCurrency: proLocal.currencyCode === preferredCurrency },
-    be: { price: beLocal, hasPreferredCurrency: beLocal.currencyCode === preferredCurrency },
-    'pro-subscribe': { price: proSubLocal, hasPreferredCurrency: proSubLocal.currencyCode === preferredCurrency },
-  };
-  const usd = { pro: proUsd, be: beUsd, 'pro-subscribe': proSubUsd };
+
+  const local = { pro: proLocal, be: beLocal, prosub: proSubLocal };
+  const usd = { pro: proUsd, be: beUsd, prosub: proSubUsd };
   return {
     preferredCurrency,
-    hasAnyLocalCurrency: preferredCurrency !== 'USD' && Object.values(local).some((e) => e.hasPreferredCurrency),
+    hasAnyLocalCurrency: preferredCurrency !== 'USD' && Object.values(local).some((e) => e?.hasPreferredCurrency),
     local,
     usd,
   };

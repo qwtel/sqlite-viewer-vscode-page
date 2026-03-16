@@ -198,6 +198,14 @@ export const PPP = Object.freeze({
   ZW: 60,
 });
 
+const PercentToTier = Object.freeze({ 0: 0, 20: 1, 40: 2, 60: 3 }) as Record<number, number>;
+
+/** PPP discount tier 0–3 from country code. Use with PPP_DISCOUNT_ID_TIER_1/2/3 env. */
+export function getPppDiscountTier(countryCode: string): 0 | 1 | 2 | 3 {
+  const percent = PPP[countryCode.toUpperCase() as keyof typeof PPP] ?? 0;
+  return (PercentToTier[percent] ?? 0) as 0 | 1 | 2 | 3;
+}
+
 export const CountryInfo = Object.freeze({
   AF: ["Afghanistan", "🇦🇫"],
   AL: ["Albania", "🇦🇱"],
