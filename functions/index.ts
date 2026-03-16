@@ -442,7 +442,7 @@ const getLocalizedPrices = async (env: Env, country: string, locale: string): Pr
   const usd = { pro: proUsd, be: beUsd, 'pro-subscribe': proSubUsd };
   return {
     preferredCurrency,
-    hasAnyLocalCurrency: Object.values(local).some((e) => e.hasPreferredCurrency),
+    hasAnyLocalCurrency: preferredCurrency !== 'USD' && Object.values(local).some((e) => e.hasPreferredCurrency),
     local,
     usd,
   };
