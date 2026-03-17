@@ -178,7 +178,9 @@ disclaimer2: >
   Seu provedor de cartão de crédito pode cobrar uma taxa de conversão de moeda.
 disclaimer3: >
   Design baseado em [Solid](https://preview.cruip.com/solid). Licenciado sob [GPL-3.0](https://github.com/qwtel/sqlite-viewer-vscode-page).
-langDisclaimer: "Esta página também está disponível nos seguintes idiomas:"
+langDisclaimer: >
+  Esta página foi traduzida para o português usando IA. Quaisquer diferenças entre a versão original em inglês e a tradução são não intencionais,
+  e a versão em inglês deve ser considerada como a definitiva.
 faqTitle: Perguntas Frequentes
 comingSoon: Em Breve
 changelogTitle: Atualizações, entregues continuamente

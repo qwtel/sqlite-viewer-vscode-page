@@ -162,7 +162,9 @@ disclaimer2: >
   신용카드 제공업체가 환전 수수료를 부과할 수 있습니다.
 disclaimer3: >
   디자인은 [Solid](https://preview.cruip.com/solid)를 기반으로 합니다. [GPL-3.0](https://github.com/qwtel/sqlite-viewer-vscode-page) 라이선스 하에 제공됩니다.
-langDisclaimer: "이 페이지는 다음 언어로도 이용 가능합니다:"
+langDisclaimer: >
+  이 페이지는 AI를 사용하여 한국어로 번역되었습니다. 영어 원본과 번역본 간의 차이는 의도하지 않은 것이며,
+  영어 버전이 최종적으로 간주되어야 합니다.
 faqTitle: 자주 묻는 질문
 comingSoon: 곧 출시
 changelogTitle: 업데이트, 지속적으로 제공

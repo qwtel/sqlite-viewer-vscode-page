@@ -180,7 +180,9 @@ disclaimer2: >
   Ihr Kreditkartenanbieter kann gegebenenfalls eine Gebühr für die Währungsumrechnung erheben.
 disclaimer3: >
   Design basiert auf [Solid](https://preview.cruip.com/solid). Lizenziert unter [GPL-3.0](https://github.com/qwtel/sqlite-viewer-vscode-page).
-langDisclaimer: "Diese Seite ist auch in den folgenden Sprachen verfügbar:"
+langDisclaimer: >
+  Diese Seite wurde mit KI ins Deutsche übersetzt. Etwaige Unterschiede zwischen dem englischen Original und der Übersetzung sind unbeabsichtigt,
+  und die englische Version sollte als maßgeblich angesehen werden.
 faqTitle: Häufig gestellte Fragen
 comingSoon: Demnächst
 changelogTitle: Updates, kontinuierlich geliefert

@@ -180,7 +180,9 @@ disclaimer2: >
   クレジットカード提供会社が通貨換算手数料を請求する場合があります。
 disclaimer3: >
   デザインは[Solid](https://preview.cruip.com/solid)に基づいています。[GPL-3.0](https://github.com/qwtel/sqlite-viewer-vscode-page)の下でライセンスされています。
-langDisclaimer: "このページは以下の言語でもご利用いただけます："
+langDisclaimer: >
+  このページはAIを使用して日本語に翻訳されました。英語のオリジナルと翻訳の間に違いがある場合、それは意図的なものではなく、
+  英語版が最終的なものと見なされるべきです。
 faqTitle: よくある質問
 comingSoon: 近日公開
 changelogTitle: 更新、継続的に配信
