@@ -35,6 +35,23 @@ const discountHintHtml = (discountPercent: number, country: string, flag: string
   <span class="price-hint text-xxs nowrap">${discountPercent}% off for all visitors from ${country} ${flag}</span>
 `;
 
+const avatarStackItemHtml = (url: string) => html`<img class="avatar-stack-item" src="${url}">`;
+
+const currencyToggleHtml = (localLabel: string) => html`
+  <div class="toggle-wrapper">
+    <label class="toggle-label" for="currency-toggle" id="currency-toggle-local-label">${localLabel}</label>
+    <label class="toggle">
+      <input type="checkbox" id="currency-toggle" class="toggle-input">
+      <span class="toggle-slider"></span>
+    </label>
+    <label class="toggle-label" for="currency-toggle" data-i18n-key="price-currency-usd">USD</label>
+  </div>
+`;
+
+const priceDualCurrencyHtml = (localPrice: LocalizedPrice, localDiscounted: LocalizedPrice, usdPrice: LocalizedPrice, usdDiscounted: LocalizedPrice) => (
+  html`<span class="price-local">${discountHtml(localPrice, localDiscounted)}</span><span class="price-usd">${discountHtml(usdPrice, usdDiscounted)}</span>`
+)
+
 const EUR_COUNTRIES = new Set([
   'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR',
   'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK',
@@ -155,7 +172,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     .on('.avatar-stack', {
       element(el) {
         const selectedAvatars = [...avatarUrls ?? []].sort(() => Math.random() - 0.5).slice(0, 5);
-        el.setInnerContent(selectedAvatars.map(url => html`<img class="avatar-stack-item" src="${url}">`).join(''), { html: true });
+        el.setInnerContent(selectedAvatars.map(avatarStackItemHtml).join(''), { html: true });
       }
     })
     .on('[data-price-product][data-price-field]', {
@@ -196,16 +213,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         }
         el.removeAttribute('style');
         const localLabel = pricingData.preferredCurrency;
-        el.setInnerContent(html`
-          <div class="toggle-wrapper">
-            <label class="toggle-label" for="currency-toggle" id="currency-toggle-local-label">${localLabel}</label>
-            <label class="toggle">
-              <input type="checkbox" id="currency-toggle" class="toggle-input">
-              <span class="toggle-slider"></span>
-            </label>
-            <label class="toggle-label" for="currency-toggle" data-i18n-key="price-currency-usd">USD</label>
-          </div>
-        `, { html: true });
+        el.setInnerContent(currencyToggleHtml(localLabel), { html: true });
       },
     })
     // .on('.plus-vat', {
@@ -274,10 +282,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
               usdPrice.currencyCode,
               locale
             );
-            element.setInnerContent(
-              html`<span class="price-local">${discountHtml(localPrice, localDiscounted)}</span><span class="price-usd">${discountHtml(usdPrice, usdDiscounted)}</span>`,
-              { html: true }
-            );
+            element.setInnerContent(priceDualCurrencyHtml(localPrice, localDiscounted, usdPrice, usdDiscounted), { html: true });
           } else {
             const price = localizedPrices?.[product];
             if (!price) return;
