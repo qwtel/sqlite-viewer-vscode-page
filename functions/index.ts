@@ -104,13 +104,20 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   const colorScheme = lightDark(searchParams.get('color-scheme'))
   const vscode = searchParams.has('css-vars')
+  const ua = context.request.headers.get('User-Agent') ?? '';
+  const isSafari = /Safari/.test(ua) && !/Chrome|Chromium/.test(ua);
+  const removeWebm = vscode || isSafari;
 
-  let rewriter = new HTMLRewriter()
-    .on('video source[src$=".webm"]', {
+  let rewriter = new HTMLRewriter();
+  if (removeWebm) {
+    rewriter = rewriter.on('video source[src$=".webm"]', {
       element(el) {
         el.remove();
       },
-    })
+    });
+  }
+
+  rewriter = rewriter
     .on('.checkout-link-local', {
       element(el) {
         const product = el.getAttribute('data-checkout-product');
