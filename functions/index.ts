@@ -106,6 +106,11 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const vscode = searchParams.has('css-vars')
 
   let rewriter = new HTMLRewriter()
+    .on('video source[src$=".webm"]', {
+      element(el) {
+        el.remove();
+      },
+    })
     .on('.checkout-link-local', {
       element(el) {
         const product = el.getAttribute('data-checkout-product');
