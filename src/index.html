@@ -29,7 +29,8 @@
   <script>
     function scrollToHash(event, hash, block) {
       event.preventDefault(); 
-      document.querySelector(hash || event.currentTarget.hash).scrollIntoView({ block: block || 'start', behavior: 'smooth' });
+      event.stopImmediatePropagation();
+      (document.querySelector(hash || event.currentTarget.hash || 'body') || document.body).scrollIntoView({ block: block || 'start', behavior: 'smooth' });
     }
   </script>
 </head>
@@ -48,7 +49,7 @@
         <div class="site-header-inner gap-16">
           <div class="brand header-brand flex-fixed">
             <h1 class="m-0 header-brand-title">
-              <a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' });">
+              <a href="#" onclick="scrollToHash(event)">
                 <img class="header-logo-image" src="./images/logo_70_mac.png" alt="Logo" width="35" height="35">
               </a>
               <div class="ml-8 color-50" data-i18n-key="for-vs-code">
@@ -928,7 +929,7 @@
       <div class="container">
         <div class="site-footer-inner">
           <div class="brand footer-brand">
-            <a href="#" onclick="event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' })">
+            <a href="#" onclick="scrollToHash(event)">
               <img class="header-logo-image" src="./images/logo_70_mac.png" data-no-inline alt="Logo" width="35" height="35" fetchpriority="low">
             </a>
           </div>
@@ -969,7 +970,7 @@
           </p></div>
         </div>
         <div class="animated-text-wrapper">
-          <a class="animated-text-link currency-only checkout-link-local" href="#" data-checkout-product="all" data-polar-checkout target="_blank">
+          <a class="animated-text-link checkout-link-local currency-only" href="#" data-checkout-product="all" data-polar-checkout target="_blank">
             <span class="animated-text">
               <span class="text-original" data-i18n-key="for-vs-code">
                 <span class="color">SQLite Viewer PRO</span><br>for VS Code
@@ -977,7 +978,7 @@
               <span class="text-hover"><span class="color" data-i18n-key="purchase">Purchase</span> ↗</span>
             </span>
           </a>
-          <a class="animated-text-link currency-only checkout-link-usd" href="#" data-checkout-product="all" data-polar-checkout target="_blank" style="display:none">
+          <a class="animated-text-link checkout-link-usd currency-only" href="#" data-checkout-product="all" data-polar-checkout target="_blank" style="display:none">
             <span class="animated-text">
               <span class="text-original" data-i18n-key="for-vs-code">
                 <span class="color">SQLite Viewer PRO</span><br>for VS Code
