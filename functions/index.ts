@@ -172,7 +172,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     .on('.avatar-stack', {
       element(el) {
         const selectedAvatars = [...avatarUrls ?? []].sort(() => Math.random() - 0.5).slice(0, 5);
-        el.setInnerContent(selectedAvatars.map(avatarStackItemHtml).join(''), { html: true });
+        el.setInnerContent(selectedAvatars.map(url => avatarStackItemHtml(url)).join(''), { html: true });
       }
     })
     .on('[data-price-product][data-price-field]', {
