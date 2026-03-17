@@ -123,7 +123,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         const product = el.getAttribute('data-checkout-product');
         if (!product) return;
         if (pricingData) {
-          const local = pricingData.local[product as ProductKey];
+          const local = pricingData.local[product !== 'all' ? product as ProductKey : 'pro'];
           const currency = local?.hasPreferredCurrency ? pricingData.preferredCurrency.toLowerCase() : 'usd';
           el.setAttribute('href', `/api/checkout?product=${product}&currency=${currency}&locale=${pageLang}`);
           el.removeAttribute('data-polar-checkout');
