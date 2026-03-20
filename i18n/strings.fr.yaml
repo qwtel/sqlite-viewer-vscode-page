@@ -75,6 +75,10 @@ free5H: "Géré par le propriétaire"
 free5P: >
   SQLite Viewer est fabriqué par un seul développeur dédié. Il bénéficie d'une __vision cohérente et d'une attention
   aux détails__ rarement trouvée dans des produits purement commerciaux.
+free6H: "Confidentialité en local"
+free6P: >
+  SQLite Viewer conserve __vos données dans votre espace de travail__. Ouvrez de vrais fichiers de base de données sur le disque—__aucun compte requis__
+  et __aucune application hébergée distincte__ entre vous et vos données.
 nMInstalls: "2 000 000+ installations"
 nMInstallsVerbose: "Plus de deux millions d'installations uniques"
 rated55: "Évalué ★★★★☆"

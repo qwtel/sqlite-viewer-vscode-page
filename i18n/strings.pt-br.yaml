@@ -75,6 +75,10 @@ free5H: "Operado pelo Proprietário"
 free5P: >
   O SQLite Viewer é desenvolvido por um único desenvolvedor dedicado. Ele desfruta de uma __visão coerente e atenção aos detalhes__ que raramente
   é encontrada em produtos puramente comerciais.
+free6H: "Privacidade Local-First"
+free6P: >
+  O SQLite Viewer mantém __seus dados no seu workspace__. Abra arquivos reais de banco de dados no disco—__sem necessidade de conta__
+  e __sem um aplicativo hospedado separado__ entre você e seus dados.
 nMInstalls: "2.000.000+ instalações únicas"
 nMInstallsVerbose: "Mais de dois milhões de instalações únicas"
 rated55: "Avaliado como ★★★★☆"
