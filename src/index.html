@@ -673,7 +673,7 @@
               </p>
             </div>
             
-            <!-- Pricing + currency toggles (side by side when space). IDs #pricing-toggle / #currency-toggle used in show/hide queries. -->
+            <!-- One-time / monthly toggle. #pricing-toggle used in show/hide queries; #currency-toggle lives in footer. -->
             <div class="toggle-row mt-32 mb-32">
               <div class="toggle-container toggle-container--pricing text-center">
                 <div class="toggle-wrapper">
@@ -685,7 +685,6 @@
                   <label class="toggle-label" for="pricing-toggle" data-i18n-key="monthly">Monthly</label>
                 </div>
               </div>
-              <div id="currency-toggle-wrap" class="toggle-container text-center" style="display:none;"></div>
             </div>
 
             <div class="pricing-tables-wrap mb-48">
@@ -954,6 +953,7 @@
               <li><a href="./changelog.html"><span data-i18n-key="changelog">Changelog</span></a></li>
               <li><a href="mailto:mail@sqliteviewer.app"><span data-i18n-key="contact">Contact</span>&nbsp;↗</a></li>
             </ul>
+            <div id="currency-toggle-wrap" class="toggle-container" style="display:none;"></div>
           </div>
           <ul class="footer-social-links list-reset">
             <li>
