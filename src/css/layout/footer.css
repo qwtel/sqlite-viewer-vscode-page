@@ -128,3 +128,9 @@ ol > li {
     margin-bottom: 0;
   }
 } 
+
+@media (max-width: 639px) {
+  #currency-toggle-wrap {
+    text-align: center;
+  }
+}
