@@ -5,17 +5,11 @@ import { Polar } from "@polar-sh/sdk";
 
 import { Env } from "./api/#shared"
 import { CountryInfo, PPP } from './api/#data';
+import { formatPriceLocalized, getLocalizedPrices, html, LocaleByPageLang, type LocalizedPrice, type ProductKey } from './api/#pricing';
+
+export type { PolarCurrencyCode } from './api/#pricing';
 
 export const LANGS: ('en'|'de'|'fr'|'pt-br'|'ja'|'es'|'ko')[] = ['en', 'de', 'fr', 'pt-br', 'ja', 'es', 'ko'];
-const LocaleByLang = Object.freeze({
-  'en': 'en-US',
-  'de': 'de-DE',
-  'fr': 'fr-FR',
-  'pt-br': 'pt-BR',
-  'ja': 'ja-JP',
-  'es': 'es-ES',
-  'ko': 'ko-KR',
-});
 
 export const DevCountryOverride = '';
 
@@ -51,22 +45,6 @@ const currencyToggleHtml = (localLabel: string) => html`
 const priceDualCurrencyHtml = (localPrice: LocalizedPrice, localDiscounted: LocalizedPrice, usdPrice: LocalizedPrice, usdDiscounted: LocalizedPrice) => (
   html`<span class="price-local">${discountHtml(localPrice, localDiscounted)}</span><span class="price-usd">${discountHtml(usdPrice, usdDiscounted)}</span>`
 )
-
-const EUR_COUNTRIES = new Set([
-  'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR',
-  'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK',
-  'SI', 'ES'
-]);
-
-type ProductKey = 'pro' | 'be' | 'prosub';
-
-type LocalizedPrice = {
-  currencyCode: string,
-  currencySymbol: string,
-  amountHtml: string,
-  priceAmount: number,
-  hasPreferredCurrency?: boolean,
-}
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const DEV = context.env.DEV;
@@ -106,7 +84,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   }
 
   const pageLang = LANGS.find((lang) => url.pathname === `/${lang}` || url.pathname.startsWith(`/${lang}/`)) ?? 'en';
-  const locale = LocaleByLang[pageLang];
+  const locale = LocaleByPageLang[pageLang as keyof typeof LocaleByPageLang] ?? 'en-US';
 
   const response = await context.env.ASSETS.fetch(url);
 
@@ -140,9 +118,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         const product = el.getAttribute('data-checkout-product');
         if (!product) return;
         if (pricingData) {
-          const local = pricingData.local[product !== 'all' ? product as ProductKey : 'pro'];
-          const currency = local?.hasPreferredCurrency ? pricingData.preferredCurrency.toLowerCase() : 'usd';
-          el.setAttribute('href', `/api/checkout?product=${product}&currency=${currency}&locale=${pageLang}`);
+          el.setAttribute('href', `/api/checkout?product=${product}&currency=local&locale=${pageLang}`);
           el.removeAttribute('data-polar-checkout');
           if (!pricingData.hasAnyLocalCurrency) el.setAttribute('style', 'display:none');
         } else {
@@ -315,146 +291,6 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     transformedResponse.headers.set('Cache-Control', 'public, max-age=600') 
   }
   return transformedResponse;
-}
-
-const formatPriceLocalized = (priceAmount: number, currencyCode: string, locale: string, preferredCurrency?: string) => {
-  const numberFormat = new Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency: currencyCode,
-    currencyDisplay: 'narrowSymbol',
-  });
-
-  const fractionDigits = numberFormat.resolvedOptions().maximumFractionDigits ?? 2;
-  const divisor = 10 ** fractionDigits;
-  const parts = numberFormat.formatToParts(priceAmount / divisor);
-  const currencySymbol = disambiguateCurrencySymbol(
-    parts.find((part) => part.type === 'currency')?.value ?? currencyCode,
-    currencyCode,
-  );
-
-  const amountInt = parts
-    .filter((part) => part.type === 'integer' || part.type === 'group')
-    .map((part) => part.value)
-    .join('');
-  const amountFrac = parts.find((part) => part.type === 'fraction')?.value;
-  const amountDecimal = parts.find((part) => part.type === 'decimal')?.value ?? '';
-  const amountHtml = amountFrac 
-    ? amountFrac === '00'
-      ? html`${amountInt}`
-      : html`<span>${amountInt}</span><span class="h2">${amountDecimal}${amountFrac}</span>` 
-    : html`${amountInt}`;
-
-  const hasPreferredCurrency = currencyCode === preferredCurrency;
-  return { currencyCode, currencySymbol, amountHtml, priceAmount, hasPreferredCurrency };
-}
-
-const disambiguateCurrencySymbol = (symbol: string, currencyCode: string) => {
-  if (symbol !== '$' || currencyCode === 'USD') return symbol;
-  if (currencyCode.length === 3 && currencyCode.endsWith('D')) return `${currencyCode[0]}$`;
-  return `${currencyCode}$`;
-}
-
-export type PolarCurrencyCode = 'USD' | 'EUR' | 'GBP' | 'CAD' | 'AUD' | 'JPY' | 'CHF' | 'SEK' | 'INR' | 'BRL';
-
-const pickCurrencyByCountry = (country: string) => {
-  if (country === 'GB') return 'GBP';
-  if (country === 'CA') return 'CAD';
-  if (country === 'AU') return 'AUD';
-  if (country === 'JP') return 'JPY';
-  if (country === 'CH' || country === 'LI') return 'CHF';
-  if (country === 'SE') return 'SEK';
-  if (country === 'IN') return 'INR';
-  if (country === 'BR') return 'BRL';
-  if (EUR_COUNTRIES.has(country)) return 'EUR';
-  return 'USD';
-}
-
-const getProductPrices = async (polar: Polar, productId: string) => {
-  const product = await polar.products.get({ id: productId });
-  const pricesByCurrency = new Map<string, number>();
-  for (const price of product.prices) {
-    if (price.isArchived) continue;
-    if (price.amountType !== 'fixed') continue;
-    if (typeof price.priceAmount !== 'number') continue;
-    if (typeof price.priceCurrency !== 'string') continue;
-    pricesByCurrency.set(price.priceCurrency.toUpperCase(), price.priceAmount);
-  }
-  return pricesByCurrency;
-}
-
-const getProductPricesCached = async (env: Env, polar: Polar, productId: string, billingCycle: 'one-time'|'monthly', { DEV }: { DEV?: string } = {}) => {
-  const cacheKey = `${Ns}.prices.${billingCycle}.${productId}`;
-  const cached = await env.KV.get<Record<string, number>>(cacheKey, 'json');
-  DEV && console.log('cached', cached, { productId, billingCycle, DEV });
-  if (cached && typeof cached === 'object') {
-    return new Map(Object.entries(cached));
-  }
-  const pricesByCurrency = await getProductPrices(polar, productId);
-  DEV && console.log('pricesByCurrency', pricesByCurrency, { productId, billingCycle, DEV });
-  if (pricesByCurrency.size) {
-    const serializable = Object.fromEntries(pricesByCurrency.entries());
-    !DEV && await env.KV.put(cacheKey, JSON.stringify(serializable), { expirationTtl: TtlDay });
-  }
-  return pricesByCurrency;
-}
-
-const pickLocalizedPrice = (pricesByCurrency: Map<string, number>, preferredCurrency: string, locale: string): LocalizedPrice | null => {
-  const selectedCurrency = pricesByCurrency.has(preferredCurrency)
-    ? preferredCurrency
-    : pricesByCurrency.has('USD')
-      ? 'USD'
-      : pricesByCurrency.keys().next().value;
-  if (!selectedCurrency) return null;
-  const selectedAmountRaw = pricesByCurrency.get(selectedCurrency);
-  let selectedAmount = selectedAmountRaw;
-  // if (selectedCurrency === 'JPY' && selectedAmountRaw != null) {
-  //   selectedAmount = Math.round(selectedAmountRaw * (1 + JapanDisplayTaxRate));
-  // }
-  if (selectedAmount == null) return null;
-  return formatPriceLocalized(selectedAmount, selectedCurrency, locale, preferredCurrency);
-}
-
-type PricingData = {
-  preferredCurrency: string;
-  hasAnyLocalCurrency: boolean;
-  local: { [K in ProductKey]: LocalizedPrice|null };
-  usd: { [K in ProductKey]: LocalizedPrice|null };
-};
-
-const getLocalizedPrices = async (env: Env, country: string, locale: string): Promise<PricingData | null> => {
-  if (!env.POLAR_ACCESS_TOKEN || !env.PRO_PRODUCT_ID || !env.BE_PRODUCT_ID) return null;
-  const polar = new Polar({
-    accessToken: env.POLAR_ACCESS_TOKEN ?? "",
-    server: env.POLAR_SERVER === "sandbox" ? "sandbox" : "production",
-  });
-  const preferredCurrency = pickCurrencyByCountry(country);
-  const [proPrices, bePrices, proSubscribePrices] = await Promise.all([
-    getProductPricesCached(env, polar, env.PRO_PRODUCT_ID, 'one-time', env),
-    getProductPricesCached(env, polar, env.BE_PRODUCT_ID, 'one-time', env),
-    getProductPricesCached(env, polar, env.PRO_SUBSCRIBE_PRODUCT_ID, 'monthly', env),
-  ]);
-  const proLocal = pickLocalizedPrice(proPrices, preferredCurrency, locale);
-  const beLocal = pickLocalizedPrice(bePrices, preferredCurrency, locale);
-  const proSubLocal = pickLocalizedPrice(proSubscribePrices, preferredCurrency, locale);
-
-  const proUsd = pickLocalizedPrice(proPrices, 'USD', locale);
-  const beUsd = pickLocalizedPrice(bePrices, 'USD', locale);
-  const proSubUsd = pickLocalizedPrice(proSubscribePrices, 'USD', locale);
-
-  const local = { pro: proLocal, be: beLocal, prosub: proSubLocal };
-  const usd = { pro: proUsd, be: beUsd, prosub: proSubUsd };
-  return {
-    preferredCurrency,
-    hasAnyLocalCurrency: preferredCurrency !== 'USD' && Object.values(local).some((e) => e?.hasPreferredCurrency),
-    local,
-    usd,
-  };
-}
-
-function html(strings: TemplateStringsArray, ...values: any[]) {
-  let str = '', i = 0;
-  for (const string of strings) str += string + (values[i++] || '');
-  return str.trim();
 }
 
 async function* genNonEmptyAvatarUrls(avatarUrls: string[]): AsyncGenerator<string, void, unknown> {
