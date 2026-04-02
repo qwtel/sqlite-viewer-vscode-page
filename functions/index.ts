@@ -11,7 +11,7 @@ export type { PolarCurrencyCode } from './api/#pricing';
 
 export const LANGS: ('en'|'de'|'fr'|'pt-br'|'ja'|'es'|'ko')[] = ['en', 'de', 'fr', 'pt-br', 'ja', 'es', 'ko'];
 
-export const DevCountryOverride = '';
+export const DevCountryOverride = 'US';
 
 const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
 
@@ -196,7 +196,12 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     .on('.plus-vat', {
       element(el) {
         if (showsInclVat) el.setAttribute('style', 'display: none;')
-        else el.removeAttribute('style')
+        else {
+          el.removeAttribute('style');
+          if (pageLang === 'en' && (country === 'US' || country === 'CA')) {
+            el.setInnerContent('+&nbsp;taxes', { html: true });
+          }
+        }
       },
     })
     .on('.incl-vat', {
