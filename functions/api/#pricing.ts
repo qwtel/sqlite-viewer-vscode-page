@@ -108,14 +108,17 @@ const getProductPricesCached = async (env: Env, polar: Polar, productId: string,
   const cacheKey = `${Ns}.prices.${billingCycle}.${productId}`;
   const cached = DEV ? null : await env.KV.get<Record<string, number>>(cacheKey, 'json');
   DEV && console.log('cached', cached, { productId, billingCycle, DEV });
-  if (cached && typeof cached === 'object') {
+
+  if (cached != null && typeof cached === 'object') {
     return new Map(Object.entries(cached));
   }
+
   const pricesByCurrency = await getProductPrices(polar, productId);
   DEV && console.log('pricesByCurrency', pricesByCurrency, { productId, billingCycle, DEV });
+
   if (pricesByCurrency.size) {
     const serializable = Object.fromEntries(pricesByCurrency.entries());
-    DEV && await env.KV.put(cacheKey, JSON.stringify(serializable), { expirationTtl: TtlDay });
+    if (!DEV) await env.KV.put(cacheKey, JSON.stringify(serializable), { expirationTtl: TtlDay });
   }
   return pricesByCurrency;
 }
