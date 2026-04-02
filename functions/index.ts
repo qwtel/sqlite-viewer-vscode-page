@@ -88,6 +88,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const response = await context.env.ASSETS.fetch(url);
 
   const country = ((DEV && DevCountryOverride) || headers.get('CF-IPcountry') || 'US').toUpperCase() as keyof typeof PPP;
+  const showsInclVat = country !== 'US' && country !== 'CA' && country !== 'IN';
   const discountPercent = PPP[country] ?? 0;
   const hasDiscount = discountPercent > 0;
   const pricingData = await getLocalizedPrices(context.env, country, locale).catch((err) => {
@@ -192,18 +193,18 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         el.setInnerContent(currencyToggleHtml(localLabel), { html: true });
       },
     })
-    // .on('.plus-vat', {
-    //   element(el) {
-    //     if (showsInclVat) el.setAttribute('style', 'display: none;')
-    //     else el.removeAttribute('style')
-    //   },
-    // })
-    // .on('.incl-vat', {
-    //   element(el) {
-    //     if (showsInclVat) el.removeAttribute('style')
-    //     else el.setAttribute('style', 'display: none;')
-    //   },
-    // });
+    .on('.plus-vat', {
+      element(el) {
+        if (showsInclVat) el.setAttribute('style', 'display: none;')
+        else el.removeAttribute('style')
+      },
+    })
+    .on('.incl-vat', {
+      element(el) {
+        if (showsInclVat) el.removeAttribute('style')
+        else el.setAttribute('style', 'display: none;')
+      },
+    });
   }
 
 
