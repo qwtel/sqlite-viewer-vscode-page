@@ -220,6 +220,20 @@ function initializeEmbeddedCheckoutLinks() {
   document.querySelectorAll('a[href^="/api/checkout"], a[href^="' + window.location.origin + '/api/checkout"]').forEach((el) => {
     el.addEventListener('click', async (ev) => {
       if (isNewTab(ev)) return;
+
+      if (window.self !== window.top) {
+        setTimeout(() => {
+          import('./vendor/comlink.js')
+            .then((Comlink) => {
+              const parentEndpoint = Comlink.windowEndpoint(self.parent);
+              const wrappedParent = Comlink.wrap(parentEndpoint);
+              wrappedParent.enterLicenseKey();
+            })
+            .catch((err) => console.error(err));
+        }, 800);
+        return;
+      }
+
       ev.preventDefault();
 
       const href = el.getAttribute('href') || el.href;

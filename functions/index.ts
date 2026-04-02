@@ -71,16 +71,15 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   const url = new URL(context.request.url);
   const { searchParams } = url;
+  const headers = context.request.headers;
 
   let isDedicatedLangPage = false;
-  if (!DEV) {
-    if (LANGS.some(lang => url.pathname.startsWith(`/${lang}`))) {
-      isDedicatedLangPage = true;
-    } else {
-      const langHeader = searchParams.get('lang') || context.request.headers.get('Accept-Language') || '';
-      const lang = languageParser.pick(LANGS, langHeader) ?? 'en';
-      url.pathname = `/${lang}${url.pathname}`;
-    }
+  if (LANGS.some(lang => url.pathname.startsWith(`/${lang}`))) {
+    isDedicatedLangPage = true;
+  } else {
+    const langHeader = searchParams.get('lang') || headers.get('Accept-Language') || '';
+    const lang = languageParser.pick(LANGS, langHeader) ?? 'en';
+    url.pathname = `/${lang}${url.pathname}`;
   }
 
   const pageLang = LANGS.find((lang) => url.pathname === `/${lang}` || url.pathname.startsWith(`/${lang}/`)) ?? 'en';
@@ -88,7 +87,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   const response = await context.env.ASSETS.fetch(url);
 
-  const country = ((DEV && DevCountryOverride) || context.request.headers.get('CF-IPcountry') || 'US').toUpperCase() as keyof typeof PPP;
+  const country = ((DEV && DevCountryOverride) || headers.get('CF-IPcountry') || 'US').toUpperCase() as keyof typeof PPP;
   const discountPercent = PPP[country] ?? 0;
   const hasDiscount = discountPercent > 0;
   const pricingData = await getLocalizedPrices(context.env, country, locale).catch((err) => {
@@ -98,8 +97,9 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const localizedPrices = pricingData?.local;
 
   const colorScheme = lightDark(searchParams.get('color-scheme'))
-  const vscode = searchParams.has('css-vars')
-  const ua = context.request.headers.get('User-Agent') ?? '';
+  const secFetchDest = headers.get('Sec-Fetch-Dest')?.toLowerCase();
+  const vscode = secFetchDest === 'iframe' || searchParams.has('css-vars');
+  const ua = headers.get('User-Agent') ?? '';
   const isSafari = /Safari/.test(ua) && !/Chrome|Chromium/.test(ua);
   const removeWebm = vscode || isSafari;
 

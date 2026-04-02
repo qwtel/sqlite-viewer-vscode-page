@@ -39,7 +39,7 @@
     const searchParams = new URLSearchParams(location.search);
     const colorScheme = searchParams.get('color-scheme');
     document.head.querySelector('meta[name="color-scheme"]').content = colorScheme || 'dark light';
-    document.body.classList.toggle('vscode', searchParams.has('css-vars'));
+    document.body.classList.toggle('vscode', window.self !== window.top);
     document.body.classList.toggle(colorScheme, !!colorScheme);
     try { Object.entries(JSON.parse(searchParams.get('css-vars') || '{}')).forEach(([key, value]) => document.body.style.setProperty(key, value)) } catch {}
   </script>
@@ -70,11 +70,11 @@
             <a id="open-in-browser" class="button button-default button-sm vscode-only mr-8 display-none flex-1 ellipsis" target="_blank" title="Open in Browser" data-i18n-title="open-in-browser"><span data-i18n-key="open-in-browser">Open in Browser</span>&nbsp;↗</a>
             <a class="button button-primary button-sm overflow-h" href="#pricing" onclick="scrollToHash(event, null, window.innerHeight < 800 && window.innerWidth >= 780 ? 'end' : undefined)"><span data-i18n-key="see-pricing">See Pricing</span></a>
             <script>
-              if (searchParams.has('css-vars')) {
+              if (window.self !== window.top) {
                 const el = document.getElementById('open-in-browser');
                 el.classList.remove('display-none');
                 el.classList.add('display-inline');
-                el.href = location.origin + `?ref=vscode`;
+                el.href = location.origin + `?ref=vscode&lang=${document.documentElement.lang || 'en'}`;
               }
             </script>
           </div>
@@ -90,7 +90,7 @@
               <h1 id="hero-title" class="hero-title mt-0" data-i18n-key="hero-title">The Best SQLite Editor is the One in Your Editor</h1>
               <!-- <script>
                 let heroTitle;
-                if (searchParams.has('css-vars')) {
+                if (window.self !== window.top) {
                   heroTitle = document.getElementById('hero-title').textContent;
                   document.getElementById('hero-title').textContent = 'Upgrade to Unlock PRO Features';
                 }
@@ -162,7 +162,7 @@
               SQLite Viewer PRO unlocks new workflows. With its deep integration into VS Code, it enables some workflows that are unique and not possible with any other SQLite editor.
             </p>
             <!-- <script>
-              if (searchParams.has('css-vars')) {
+              if (window.self !== window.top) {
                 document.getElementById('cards-title').textContent = heroTitle;
               }
             </script> -->
