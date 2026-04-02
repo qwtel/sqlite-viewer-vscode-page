@@ -22,8 +22,8 @@ const TtlDay = 60 * 60 * 24;
 const discountHtml = (price: LocalizedPrice, discountedPrice: LocalizedPrice) => html`
   <del class="pricing-table-price-currency h2 o-50" title="${price.currencyCode}">${price.currencySymbol}</del><del class="pricing-table-price-amount h1 o-50">${price.amountHtml}</del>
   <span class="pricing-table-price-currency h2" title="${discountedPrice.currencyCode}">${discountedPrice.currencySymbol}</span><span class="pricing-table-price-amount h1">${discountedPrice.amountHtml}</span>
-  <small class="text-xxs">+&nbsp;VAT</small>
 `;
+// <small class="text-xxs">+&nbsp;VAT</small>
 
 const discountHintHtml = (discountPercent: number, country: string, flag: string) => html`
   <span class="price-hint text-xxs nowrap">${discountPercent}% off for all visitors from ${country} ${flag}</span>
@@ -206,7 +206,6 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       },
     });
   }
-
 
   if (hasDiscount) {
     rewriter = rewriter
