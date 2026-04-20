@@ -26,6 +26,7 @@ export function pickCurrencyByCountry(country: string) {
   if (country === 'SE') return 'SEK';
   if (country === 'IN') return 'INR';
   if (country === 'BR') return 'BRL';
+  if (country === 'MX') return 'MXN';
   if (country === 'KR') return 'KRW';
   if (country === 'SG') return 'SGD';
   if (EurCountries.has(country)) return 'EUR';
@@ -52,7 +53,7 @@ export const LocaleByPageLang = Object.freeze({
   'ko': 'ko-KR',
 });
 
-export type PolarCurrencyCode = 'USD' | 'EUR' | 'GBP' | 'CAD' | 'AUD' | 'JPY' | 'CHF' | 'SEK' | 'INR' | 'BRL';
+export type PolarCurrencyCode = 'USD' | 'EUR' | 'GBP' | 'CAD' | 'AUD' | 'JPY' | 'CHF' | 'SEK' | 'INR' | 'BRL' | 'MXN';
 
 export const formatPriceLocalized = (priceAmount: number, currencyCode: string, locale: string, preferredCurrency?: string) => {
   const numberFormat = new Intl.NumberFormat(locale, {
@@ -88,7 +89,7 @@ export const formatPriceLocalized = (priceAmount: number, currencyCode: string, 
 const disambiguateCurrencySymbol = (symbol: string, currencyCode: string) => {
   if (symbol !== '$' || currencyCode === 'USD') return symbol;
   if (currencyCode.length === 3 && currencyCode.endsWith('D')) return `${currencyCode[0]}$`;
-  return `${currencyCode}$`;
+  return currencyCode;
 }
 
 const getProductPrices = async (polar: Polar, productId: string) => {

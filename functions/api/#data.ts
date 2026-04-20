@@ -110,7 +110,7 @@ export const PPP = Object.freeze({
   MH: 40,
   MR: 60,
   MU: 20,
-  MX: 20,
+  MX: 0, // 20,
   FM: 40,
   MD: 60,
   MC: 0,
