@@ -351,7 +351,7 @@ async function getRecentProductPurchases(env: Env): Promise<[count: number, avat
   }
 
   const validAvatarUrls: string[] = [];
-  const avatarGenerator = genNonEmptyAvatarUrls(avatarUrls);
+  const avatarGenerator = avatarUrls // genNonEmptyAvatarUrls(avatarUrls); 
   
   for await (const validUrl of avatarGenerator) {
     validAvatarUrls.push(validUrl);
