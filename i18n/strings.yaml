@@ -5,7 +5,7 @@ heroTitle: "The Best SQLite Editor is the One in Your Editor"
 heroParagraph: >
   Get work done without leaving VS Code. Unlock powerful [editing](#card-2) and [export](#card-1) features.
   Works anywhere, including [SSH and WSL](#card-5).
-# heroFooter: "__🌿&nbsp;Spring Sale 2026: -20% on all purchases&nbsp;🍃__"
+heroFooter: "__☀️&nbsp;Summer Sale 2026: -30% on all purchases&nbsp;🌊__"
 cardsTitle: "Upgrade to Unlock Exclusive PRO Workflows"
 cardsParagraph: >
   With its deep integration into VS Code, SQLite Viewer PRO enables new workflows with unmatched convenience and speed.
@@ -86,7 +86,7 @@ pricingContent: >
   SQLite Viewer PRO is a __One-Time Purchase__ and grants you a __Perpetual License__. It works for as long as VS Code does.
 pricingContentIi: >
   _A monthly subscription is also available if your organization requires recurring payments_.
-# pricingFooter: "__🌿&nbsp;Spring Sale 2026: -20% on all purchases&nbsp;🍃__"
+pricingFooter: "__☀️&nbsp;Summer Sale 2026: -30% on all purchases&nbsp;🌊__"
 oneTimePurchase: "One-Time Purchase"
 monthlySubscription: "Monthly Subscription"
 perpetualLicense: "Perpetual License"
@@ -162,6 +162,9 @@ faq6Content: >
   If you intend to modify the live database, it is highly recommended to enable the __"Sqlite Viewer: Instant Commit"__ feature from the VS Code settings menu. 
   This will prevent the extension from opening long-running transactions that could block other SQLite processes accessing the same database.
   However, please note that undo/redo functionality can be limited in this mode.<br><br>
+faq7Summary: Is there an education discount?
+faq7Content: >
+  Yes. If you're a hobbyist, in training, or affiliated with an educational institution, reach out to [*discounts@sqliteviewer.app*](mailto:discounts@sqliteviewer.app).
 footnote1: "Offline Activation is required if a company firewall prevents the extension from connecting to the license server."
 footnote2: "When a device is enrolled through offline activation, the extension can be used without ever needing to connect to the license server."
 allRightsReserved: "All rights reserved"
