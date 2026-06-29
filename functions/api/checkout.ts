@@ -5,9 +5,9 @@ import type { CountryAlpha2Input } from "@polar-sh/sdk/models/components/organiz
 
 import { Polar } from "@polar-sh/sdk";
 import { badRequest, badGateway } from '@worker-tools/response-creators';
-import { getPppDiscountTier } from './#data';
+import { PPP, getPppDiscountTier } from './#data';
 import { getLocalizedPrices, LocaleByPageLang, type ProductKey } from './#pricing';
-import { corsMiddleware, corsOptions, Env } from './#shared';
+import { corsMiddleware, corsOptions, Env, parseDiscountPercent } from './#shared';
 
 import { DevCountryOverride } from "..";
 
@@ -86,8 +86,14 @@ async function createCheckoutAndGetUrl(
   }
   if (!productIds.length) return null;
   const country = ((DEV && DevCountryOverride) || context.request.headers.get('CF-IPcountry') || 'US').toUpperCase() as CountryAlpha2Input;
+  const pppDiscountPercent = PPP[country as keyof typeof PPP] ?? 0;
   const tier = getPppDiscountTier(country);
-  const discountId = tier >= 1 ? context.env[`PPP_DISCOUNT_ID_TIER_${tier}` as keyof Env] as string|undefined : undefined;
+  const pppDiscountId = tier >= 1 ? context.env[`PPP_DISCOUNT_ID_TIER_${tier}` as keyof Env] as string|undefined : undefined;
+  const saleDiscountPercent = parseDiscountPercent(context.env.SALE_DISCOUNT_PERCENT);
+  const saleDiscountId = saleDiscountPercent > 0 ? context.env.SALE_DISCOUNT_ID : undefined;
+  const discountId = saleDiscountId && saleDiscountPercent > pppDiscountPercent
+    ? saleDiscountId
+    : pppDiscountId ?? saleDiscountId;
   const polar = new Polar({
     accessToken: context.env.POLAR_ACCESS_TOKEN,
     server: context.env.POLAR_SERVER === 'sandbox' ? 'sandbox' : 'production',

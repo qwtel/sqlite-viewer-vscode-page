@@ -3,7 +3,7 @@
 import languageParser from 'accept-language-parser';
 import { Polar } from "@polar-sh/sdk";
 
-import { Env } from "./api/#shared"
+import { Env, parseDiscountPercent } from "./api/#shared"
 import { CountryInfo, PPP } from './api/#data';
 import { formatPriceLocalized, getLocalizedPrices, html, LocaleByPageLang, type LocalizedPrice, type ProductKey } from './api/#pricing';
 
@@ -19,11 +19,16 @@ const Ns = 'sqlite-viewer-vscode-page.8';
 const TtlDay = 60 * 60 * 24;
 // const JapanDisplayTaxRate = 0.1;
 
-const discountHtml = (price: LocalizedPrice, discountedPrice: LocalizedPrice) => html`
-  <del class="pricing-table-price-currency h2 o-50" title="${price.currencyCode}">${price.currencySymbol}</del><del class="pricing-table-price-amount h1 o-50">${price.amountHtml}</del>
-  <span class="pricing-table-price-currency h2" title="${discountedPrice.currencyCode}">${discountedPrice.currencySymbol}</span><span class="pricing-table-price-amount h1">${discountedPrice.amountHtml}</span>
+const className = (base: string, extra?: string) => extra ? `${base} ${extra}` : base;
+
+const regularPriceHtml = (price: LocalizedPrice, priceClass?: string) => html`
+  <span class="${className('pricing-table-price-currency h2', priceClass)}" title="${price.currencyCode}">${price.currencySymbol}</span><span class="${className('pricing-table-price-amount h1', priceClass)}">${price.amountHtml}</span>
 `;
-// <small class="text-xxs">+&nbsp;VAT</small>
+
+const discountHtml = (price: LocalizedPrice, discountedPrice: LocalizedPrice, priceClass?: string) => html`
+  <del class="${className('pricing-table-price-currency h2 o-50', priceClass)}" title="${price.currencyCode}">${price.currencySymbol}</del><del class="${className('pricing-table-price-amount h1 o-50', priceClass)}">${price.amountHtml}</del>
+  <span class="${className('pricing-table-price-currency h2', priceClass)}" title="${discountedPrice.currencyCode}">${discountedPrice.currencySymbol}</span><span class="${className('pricing-table-price-amount h1', priceClass)}">${discountedPrice.amountHtml}</span>
+`;
 
 const discountHintHtml = (discountPercent: number, country: string, flag: string) => html`
   <span class="price-hint text-xxs nowrap">${discountPercent}% off for all visitors from ${country} ${flag}</span>
@@ -41,10 +46,6 @@ const currencyToggleHtml = (localLabel: string) => html`
     <label class="toggle-label" for="currency-toggle" data-i18n-key="price-currency-usd">USD</label>
   </div>
 `;
-
-const priceDualCurrencyHtml = (localPrice: LocalizedPrice, localDiscounted: LocalizedPrice, usdPrice: LocalizedPrice, usdDiscounted: LocalizedPrice) => (
-  html`<span class="price-local">${discountHtml(localPrice, localDiscounted)}</span><span class="price-usd">${discountHtml(usdPrice, usdDiscounted)}</span>`
-)
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const DEV = context.env.DEV;
@@ -89,13 +90,23 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   const country = ((DEV && DevCountryOverride) || headers.get('CF-IPcountry') || 'US').toUpperCase() as keyof typeof PPP;
   const showsInclVat = country !== 'US' && country !== 'CA' && country !== 'IN';
-  const discountPercent = PPP[country] ?? 0;
-  const hasDiscount = discountPercent > 0;
+  const pppDiscountPercent = PPP[country] ?? 0;
+  const saleDiscountPercent = context.env.SALE_DISCOUNT_ID
+    ? parseDiscountPercent(context.env.SALE_DISCOUNT_PERCENT)
+    : 0;
+  const discountPercent = Math.max(pppDiscountPercent, saleDiscountPercent);
+  const isSaleDiscount = saleDiscountPercent > pppDiscountPercent;
+  const isPppDiscount = pppDiscountPercent > 0 && !isSaleDiscount;
   const pricingData = await getLocalizedPrices(context.env, country, locale).catch((err) => {
     console.error(err);
     return null;
   });
   const localizedPrices = pricingData?.local;
+  const priceFor = (product: ProductKey, set: string | null) => set === 'usd' && pricingData
+    ? pricingData.usd[product]
+    : set === 'local' && pricingData
+      ? pricingData.local[product]
+      : localizedPrices?.[product];
 
   const colorScheme = lightDark(searchParams.get('color-scheme'))
   const secFetchDest = headers.get('Sec-Fetch-Dest')?.toLowerCase();
@@ -158,11 +169,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         const field = el.getAttribute('data-price-field');
         const set = el.getAttribute('data-price-set');
         if (!product || !field) return;
-        const price = set === 'usd' && pricingData
-          ? pricingData.usd[product as ProductKey]
-          : set === 'local' && pricingData
-            ? pricingData.local[product]
-            : localizedPrices?.[product];
+        const price = priceFor(product, set);
         if (!price) return;
         if (field === 'currency') {
           el.setAttribute('title', price.currencyCode);
@@ -200,6 +207,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
           el.removeAttribute('style');
           if (pageLang === 'en' && (country === 'US' || country === 'CA')) {
             el.setInnerContent('+&nbsp;taxes', { html: true });
+            el.setAttribute('title', '+ taxes');
           }
         }
       },
@@ -212,7 +220,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     });
   }
 
-  if (hasDiscount) {
+  if (isPppDiscount) {
     rewriter = rewriter
       .on('.i18n-hide, .toggle-container--pricing, .monthly-price', {
       element(el) {
@@ -243,42 +251,34 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   }
 
   if (discountPercent) {
+    const setDiscountedPrice = (element: HTMLRewriterTypes.Element, product: Exclude<ProductKey, 'prosub'>, set: 'local'|'usd') => {
+      const price = priceFor(product, set);
+      if (!price) return;
+      const discountedPrice = formatPriceLocalized(
+        Math.round(price.priceAmount * (1 - discountPercent / 100)),
+        price.currencyCode,
+        locale
+      );
+      const monthlyPrice = isSaleDiscount && product === 'pro' ? priceFor('prosub', set) : undefined;
+      const priceClass = isSaleDiscount ? 'one-time-price' : undefined;
+      element.setInnerContent(`${discountHtml(price, discountedPrice, priceClass)}${monthlyPrice ? regularPriceHtml(monthlyPrice, 'monthly-price') : ''}`, { html: true });
+    };
+
     rewriter = rewriter
-      .on(".pricing-table-price", {
-        element(element) {
-          const product = element.getAttribute('data-price-product') as Exclude<ProductKey, 'prosub'> | null;
-          if (!product) return;
-          const hasDualCurrency = pricingData?.hasAnyLocalCurrency && pricingData.local[product]?.hasPreferredCurrency;
-          if (hasDualCurrency) {
-            const localPrice = pricingData?.local[product];
-            const usdPrice = pricingData?.usd[product];
-            if (!localPrice || !usdPrice) return;
-            const localDiscounted = formatPriceLocalized(
-              Math.round(localPrice.priceAmount * (1 - discountPercent / 100)),
-              localPrice.currencyCode,
-              locale
-            );
-            const usdDiscounted = formatPriceLocalized(
-              Math.round(usdPrice.priceAmount * (1 - discountPercent / 100)),
-              usdPrice.currencyCode,
-              locale
-            );
-            element.setInnerContent(priceDualCurrencyHtml(localPrice, localDiscounted, usdPrice, usdDiscounted), { html: true });
-          } else {
-            const price = localizedPrices?.[product];
-            if (!price) return;
-            const discountedAmountMinor = Math.round(price.priceAmount * (1 - discountPercent / 100));
-            const discountedPrice = formatPriceLocalized(discountedAmountMinor, price.currencyCode, locale);
-            element.setInnerContent(discountHtml(price, discountedPrice), { html: true });
-          }
-        },
-      })
-      .on(".price-hint", { 
-        element(el) { 
-          const [countryName, flag] = CountryInfo[country]; 
+      .on('.pricing-table-price[data-price-product="pro"] .price-local', { element(el) { setDiscountedPrice(el, 'pro', 'local') } })
+      .on('.pricing-table-price[data-price-product="pro"] .price-usd', { element(el) { setDiscountedPrice(el, 'pro', 'usd') } })
+      .on('.pricing-table-price[data-price-product="be"] .price-local', { element(el) { setDiscountedPrice(el, 'be', 'local') } })
+      .on('.pricing-table-price[data-price-product="be"] .price-usd', { element(el) { setDiscountedPrice(el, 'be', 'usd') } })
+  }
+
+  if (isPppDiscount) {
+    rewriter = rewriter
+      .on(".price-hint", {
+        element(el) {
+          const [countryName, flag] = CountryInfo[country];
           if (el.getAttribute('class')?.includes('monthly-price')) return;
           el.replace(discountHintHtml(discountPercent, countryName, flag), { html: true })
-        } 
+        }
       })
   }
 

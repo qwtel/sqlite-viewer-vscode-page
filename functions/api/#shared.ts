@@ -18,9 +18,16 @@ export type Env = {
   PPP_DISCOUNT_ID_TIER_1?: string,
   PPP_DISCOUNT_ID_TIER_2?: string,
   PPP_DISCOUNT_ID_TIER_3?: string,
+  SALE_DISCOUNT_ID?: string,
+  SALE_DISCOUNT_PERCENT?: string,
 }
 
 export type EnvEventContext = EventContext<Env, any, Record<string, unknown>>
+
+export function parseDiscountPercent(raw: string | undefined | null): number {
+  const percent = Number(raw);
+  return Number.isFinite(percent) && percent > 0 ? percent : 0;
+}
 
 export const JWTPublicKeySPKI = `
 -----BEGIN PUBLIC KEY-----

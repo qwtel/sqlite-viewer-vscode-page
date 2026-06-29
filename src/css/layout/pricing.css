@@ -114,6 +114,9 @@
 
 .pricing-table-price {
   font-family: var(--font-family-heading);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   del {
     -webkit-filter: blur(1.5px);
