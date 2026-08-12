@@ -13,6 +13,19 @@ export const LANGS: ('en'|'de'|'fr'|'pt-br'|'ja'|'es'|'ko')[] = ['en', 'de', 'fr
 
 export const DevCountryOverride = 'US';
 
+export const onRequestOptions: PagesFunction = async (context) => {
+  const headers = new Headers({
+    'Access-Control-Allow-Headers': '*',
+    'Access-Control-Allow-Methods': 'GET, OPTIONS',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Max-Age': '86400',
+  });
+  if (context.request.headers.get('Access-Control-Request-Private-Network') === 'true') {
+    headers.set('Access-Control-Allow-Private-Network', 'true');
+  }
+  return new Response(null, { status: 204, headers });
+};
+
 const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
 
 const Ns = 'sqlite-viewer-vscode-page.8';
@@ -72,6 +85,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   const url = new URL(context.request.url);
   const { searchParams } = url;
+  const shadowEmbed = searchParams.get('embed') === 'shadow';
   const headers = context.request.headers;
 
   let isDedicatedLangPage = false;
@@ -110,12 +124,19 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   const colorScheme = lightDark(searchParams.get('color-scheme'))
   const secFetchDest = headers.get('Sec-Fetch-Dest')?.toLowerCase();
-  const vscode = secFetchDest === 'iframe' || searchParams.has('css-vars');
+  const vscode = shadowEmbed || secFetchDest === 'iframe' || searchParams.has('css-vars');
   const ua = headers.get('User-Agent') ?? '';
   const isSafari = /Safari/.test(ua) && !/Chrome|Chromium/.test(ua);
   const removeWebm = vscode || isSafari;
 
   let rewriter = new HTMLRewriter();
+  if (shadowEmbed) {
+    rewriter = rewriter
+      .on('script', { element(el) { el.remove(); } })
+      .on('iframe, object, embed', { element(el) { el.remove(); } })
+      .on('#vscode-external-link-dialog', { element(el) { el.remove(); } })
+      .on('img[src^="http"]', { element(el) { el.remove(); } });
+  }
   if (removeWebm) {
     rewriter = rewriter.on('video source[src$=".webm"]', {
       element(el) {
@@ -159,6 +180,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     })
     .on('.avatar-stack', {
       element(el) {
+        if (shadowEmbed) {
+          el.setInnerContent('');
+          return;
+        }
         const selectedAvatars = [...avatarUrls ?? []].sort(() => Math.random() - 0.5).slice(0, 5);
         el.setInnerContent(selectedAvatars.map(url => avatarStackItemHtml(url)).join(''), { html: true });
       }
@@ -294,6 +319,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     if (!isDedicatedLangPage) transformedResponse.headers.append('Vary', 'Accept-Language');
     transformedResponse.headers.append('Vary', 'CF-IPCountry');
     transformedResponse.headers.set('Cache-Control', 'public, max-age=600') 
+  }
+  if (shadowEmbed) {
+    transformedResponse.headers.set('Access-Control-Allow-Origin', '*');
+    transformedResponse.headers.set('Cross-Origin-Resource-Policy', 'cross-origin');
   }
   return transformedResponse;
 }
