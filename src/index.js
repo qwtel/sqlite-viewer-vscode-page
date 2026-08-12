@@ -1,19 +1,87 @@
-// Add Enter License Key Button
-async function initializeLicenseKeyButton() {
-  const el = document.getElementById('license-key');
-  if (el && document.body.classList.contains('vscode')) {
-    const Comlink = await import("./vendor/comlink.js");
-    const parentEndpoint = Comlink.windowEndpoint(self.parent);
-    const wrappedParent = Comlink.wrap(parentEndpoint);
-    document.querySelectorAll('a[href]:not([href^="#"]').forEach(a => {
-      a.addEventListener('click', event => {
-        event.preventDefault();
-        wrappedParent.openLink(a.href);
-      });
-    });
-    document.getElementById('license-key').style.display = 'inline';
-    document.getElementById('license-key').addEventListener('click', event => (event.preventDefault(), wrappedParent.enterLicenseKey()));
+function getRequiredElement(id, ElementType) {
+  const element = document.getElementById(id);
+  if (!(element instanceof ElementType)) throw new Error(`Missing #${id}`);
+  return element;
+}
+
+function initializeExternalLinkDialog() {
+  const dialog = getRequiredElement('vscode-external-link-dialog', HTMLDialogElement);
+  const input = getRequiredElement('vscode-external-link-url', HTMLInputElement);
+  const copyButton = getRequiredElement('vscode-external-link-copy', HTMLButtonElement);
+  const status = getRequiredElement('vscode-external-link-status', HTMLElement);
+  const copiedText = getRequiredElement('vscode-external-link-copied', HTMLElement).textContent;
+  const copyFailedText = getRequiredElement('vscode-external-link-copy-failed', HTMLElement).textContent;
+
+  function copySelectedText() {
+    try {
+      return document.execCommand('copy');
+    } catch {
+      return false;
+    }
   }
+
+  async function copyLink() {
+    input.focus();
+    input.select();
+
+    // The async Clipboard API may be denied in VS Code's nested iframe. Keep
+    // the copy operation inside the trusted click gesture whenever possible.
+    let copied = copySelectedText();
+    if (!copied) {
+      try {
+        await navigator.clipboard.writeText(input.value);
+        copied = true;
+      } catch {
+        copied = false;
+      }
+    }
+
+    status.textContent = copied ? copiedText : copyFailedText;
+  }
+
+  copyButton.addEventListener('click', copyLink);
+  dialog.addEventListener('close', () => {
+    input.value = '';
+    status.textContent = '';
+  });
+
+  return (href) => {
+    const url = new URL(href);
+    if (url.protocol === 'http:' || url.protocol === 'https:') {
+      url.searchParams.set('ref', 'vscode');
+    }
+
+    input.value = url.href;
+    status.textContent = '';
+    dialog.showModal();
+    void copyLink();
+  };
+}
+
+async function initializeVscodePage() {
+  if (!document.body.classList.contains('vscode')) return;
+
+  const licenseKeyLink = getRequiredElement('license-key', HTMLAnchorElement);
+  const showExternalLinkDialog = initializeExternalLinkDialog();
+
+  document.addEventListener('click', (event) => {
+    if (!(event.target instanceof Element)) return;
+    const link = event.target.closest('a[href]');
+    if (!(link instanceof HTMLAnchorElement)) return;
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#')) return;
+
+    event.preventDefault();
+    showExternalLinkDialog(link.href);
+  }, { capture: true });
+
+  const Comlink = await import('./vendor/comlink.js');
+  const wrappedParent = Comlink.wrap(Comlink.windowEndpoint(self.parent));
+  licenseKeyLink.style.display = 'inline';
+  licenseKeyLink.addEventListener('click', (event) => {
+    event.preventDefault();
+    void wrappedParent.enterLicenseKey();
+  });
 }
 
 const root = document.documentElement;
@@ -220,6 +288,7 @@ function initializeEmbeddedCheckoutLinks() {
   document.querySelectorAll('a[href^="/api/checkout"], a[href^="' + window.location.origin + '/api/checkout"]').forEach((el) => {
     el.addEventListener('click', async (ev) => {
       if (isNewTab(ev)) return;
+      if (ev.defaultPrevented) return;
 
       if (window.self !== window.top) {
         setTimeout(() => {
@@ -424,9 +493,9 @@ function initializeNavigationObserver() {
 
 (async () => {
   try {
-    await initializeLicenseKeyButton();
+    await initializeVscodePage();
   } catch (error) {
-    console.error('Failed to initialize license key button:', error);
+    console.error('Failed to initialize VS Code page integration:', error);
   }
 
   try {

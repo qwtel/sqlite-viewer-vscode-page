@@ -1,6 +1,13 @@
 title: "SQLite Viewer PRO für VS Code"
 forVsCode: "{SQLiteViewerPRO}<br>für VS Code"
 openInBrowser: "Im Browser Öffnen"
+externalLinkDialogTitle: "Im Browser fortfahren"
+externalLinkDialogCopy: "VS Code kann diesen Link nicht direkt über die eingebettete Upgrade-Seite öffnen. Kopieren Sie die unten stehende Adresse und fügen Sie sie in Ihren Browser ein, um fortzufahren."
+externalLinkDialogLabel: "Linkadresse"
+externalLinkDialogCopyFailed: "Wählen Sie den Link aus, kopieren Sie ihn und fügen Sie ihn anschließend in Ihren Browser ein."
+externalLinkDialogCopied: "Link kopiert. Fügen Sie ihn in Ihren Browser ein, um fortzufahren."
+copyLink: "Link kopieren"
+close: "Schließen"
 heroTitle: "Der beste SQLite-Editor ist der in Ihrem Editor"
 heroParagraph: >
   Erledigen Sie Ihre Arbeit, ohne VS Code zu verlassen. Nutzen Sie leistungsstarke

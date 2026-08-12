@@ -1,6 +1,13 @@
 title: "VS Code용 SQLite Viewer PRO"
 forVsCode: "VS Code용<br>{SQLiteViewerPRO}"
 openInBrowser: "브라우저에서 열기"
+externalLinkDialogTitle: "브라우저에서 계속"
+externalLinkDialogCopy: "VS Code에서는 포함된 업그레이드 페이지에서 이 링크를 직접 열 수 없습니다. 계속하려면 아래 주소를 복사하여 브라우저에 붙여 넣으세요."
+externalLinkDialogLabel: "링크 주소"
+externalLinkDialogCopyFailed: "링크를 선택하여 복사한 다음 브라우저에 붙여 넣으세요."
+externalLinkDialogCopied: "링크가 복사되었습니다. 계속하려면 브라우저에 붙여 넣으세요."
+copyLink: "링크 복사"
+close: "닫기"
 heroTitle: "최고의 SQLite 편집기는 당신의 편집기 안에 있습니다"
 heroParagraph: >
   VS Code를 떠나지 않고 작업을 완료하세요. 강력한 [편집](#card-2) 및 [내보내기](#card-1) 기능을 잠금 해제하세요.

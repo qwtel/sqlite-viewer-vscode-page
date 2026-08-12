@@ -1,6 +1,13 @@
 title: "SQLite Viewer PRO para VS Code"
 forVsCode: "{SQLiteViewerPRO}<br>para VS Code"
 openInBrowser: "Abrir no navegador"
+externalLinkDialogTitle: "Continuar no navegador"
+externalLinkDialogCopy: "O VS Code não pode abrir este link diretamente da página de atualização incorporada. Copie o endereço abaixo e cole-o no navegador para continuar."
+externalLinkDialogLabel: "Endereço do link"
+externalLinkDialogCopyFailed: "Selecione e copie o link e, em seguida, cole-o no navegador."
+externalLinkDialogCopied: "Link copiado. Cole-o no navegador para continuar."
+copyLink: "Copiar link"
+close: "Fechar"
 heroTitle: "O melhor editor SQLite é aquele no seu editor"
 heroParagraph: >
   Faça seu trabalho sem sair do VS Code. Desbloqueie poderosos recursos de [edição](#card-2) e [exportação](#card-1).

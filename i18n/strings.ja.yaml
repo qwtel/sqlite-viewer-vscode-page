@@ -1,6 +1,13 @@
 title: "VS Code用SQLite Viewer PRO"
 forVsCode: "VS Code用<br>{SQLiteViewerPRO}"
 openInBrowser: "ブラウザで開く"
+externalLinkDialogTitle: "ブラウザで続行"
+externalLinkDialogCopy: "VS Codeでは、埋め込まれたアップグレードページからこのリンクを直接開くことができません。続行するには、下のアドレスをコピーしてブラウザに貼り付けてください。"
+externalLinkDialogLabel: "リンクのアドレス"
+externalLinkDialogCopyFailed: "リンクを選択してコピーし、ブラウザに貼り付けてください。"
+externalLinkDialogCopied: "リンクをコピーしました。続行するにはブラウザに貼り付けてください。"
+copyLink: "リンクをコピー"
+close: "閉じる"
 heroTitle: "最高のSQLiteエディタはあなたのエディタの中にある"
 heroParagraph: >
   VS Codeを離れることなく作業を完了しましょう。強力な[編集](#card-2)および[エクスポート](#card-1)機能をアンロック。

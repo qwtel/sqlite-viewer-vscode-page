@@ -1015,6 +1015,23 @@
       </div>
     </footer>
   </div>
+  <dialog id="vscode-external-link-dialog" class="external-link-dialog">
+    <form method="dialog" class="external-link-dialog-form">
+      <h3 class="external-link-dialog-title" data-i18n-key="external-link-dialog-title">Continue in your browser</h3>
+      <p class="external-link-dialog-copy" data-i18n-key="external-link-dialog-copy">
+        VS Code cannot open this link directly from the embedded upgrade page. Copy the address below and paste it into your browser to continue.
+      </p>
+      <label class="external-link-dialog-label" for="vscode-external-link-url" data-i18n-key="external-link-dialog-label">Link address</label>
+      <input id="vscode-external-link-url" class="input external-link-dialog-input" type="text" readonly>
+      <p id="vscode-external-link-status" class="external-link-dialog-status" role="status" aria-live="polite"></p>
+      <span id="vscode-external-link-copied" class="display-none" data-i18n-key="external-link-dialog-copied">Link copied. Paste it into your browser to continue.</span>
+      <span id="vscode-external-link-copy-failed" class="display-none" data-i18n-key="external-link-dialog-copy-failed">Select and copy the link, then paste it into your browser.</span>
+      <div class="external-link-dialog-actions">
+        <button class="button button-default" value="cancel" data-i18n-key="close">Close</button>
+        <button id="vscode-external-link-copy" class="button button-primary" type="button" data-i18n-key="copy-link">Copy link</button>
+      </div>
+    </form>
+  </dialog>
   <script>
     const theme = colorScheme || window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     document.querySelectorAll('[data-polar-checkout]').forEach(el => {
