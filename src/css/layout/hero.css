@@ -6,10 +6,8 @@
 
 .hero {
   text-align: center;
-  padding-top: 48px;
+  padding-top: calc(48px + 24px);
   padding-bottom: 48px;
-  margin-top: 24px;
-  margin-bottom: 48px;
 }
 
 .hero-copy {
@@ -241,8 +239,8 @@
 @media (min-width: 640px) {
   .hero {
     text-align: left;
-    padding-top: 56px;
-    padding-bottom: 88px;
+    padding-top: calc(56px + 24px);
+    padding-bottom: 46px;
   }
 
   .hero-inner {

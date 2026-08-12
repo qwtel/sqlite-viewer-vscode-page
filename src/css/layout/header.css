@@ -56,7 +56,11 @@
 } */
 
 @media (min-width: 640px) {
-  .hero-bg::before {
+  .hero-bg {
+    background: var(--color-bg-3);
+    background: linear-gradient(80deg, rgb(from var(--color-bg-3)  r g b / 50%) 0%, rgb(from var(--color-bg-3)  r g b / 0%) 100%);
+  }
+  /* .hero-bg::before {
     content: '';
     z-index: 0;
     position: absolute;
@@ -69,7 +73,7 @@
     -webkit-transform-origin: 0;
     transform-origin: 0;
     transform: translateY(-115px);
-  }
+  } */
 }
 
 .header-logo-image {

@@ -124,7 +124,7 @@ div:has(> .section-title)::after, .with-divider::after {
 
 /* Logo Graveyard */
 #logo-graveyard {
-  margin-top: -82px;
+  margin-top: 8px;
 }
 
 .logo-graveyard {
