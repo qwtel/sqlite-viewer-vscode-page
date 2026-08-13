@@ -12,14 +12,25 @@ export type { PolarCurrencyCode } from './api/#pricing';
 export const LANGS: ('en'|'de'|'fr'|'pt-br'|'ja'|'es'|'ko')[] = ['en', 'de', 'fr', 'pt-br', 'ja', 'es', 'ko'];
 
 export const DevCountryOverride = 'US';
+// Public compatibility contract consumed by released extension webviews.
+const ShadowEmbedMode = 'shadow-v1';
+const ShadowEmbedVersion = '1';
+const ShadowEmbedVersionHeader = 'X-SQLite-Viewer-Embed-Version';
+
+const shadowEmbedCorsHeaders = () => new Headers({
+  'Access-Control-Allow-Methods': 'GET, OPTIONS',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Expose-Headers': ShadowEmbedVersionHeader,
+  'Access-Control-Max-Age': '86400',
+});
 
 export const onRequestOptions: PagesFunction = async (context) => {
-  const headers = new Headers({
-    'Access-Control-Allow-Headers': '*',
-    'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Max-Age': '86400',
-  });
+  const url = new URL(context.request.url);
+  if (!url.searchParams.get('embed')?.startsWith('shadow')) return context.next();
+
+  const headers = shadowEmbedCorsHeaders();
+  const requestedHeaders = context.request.headers.get('Access-Control-Request-Headers');
+  if (requestedHeaders) headers.set('Access-Control-Allow-Headers', requestedHeaders);
   if (context.request.headers.get('Access-Control-Request-Private-Network') === 'true') {
     headers.set('Access-Control-Allow-Private-Network', 'true');
   }
@@ -62,6 +73,16 @@ const currencyToggleHtml = (localLabel: string) => html`
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const DEV = context.env.DEV;
+  const url = new URL(context.request.url);
+  const { searchParams } = url;
+  const embedMode = searchParams.get('embed');
+  const shadowEmbed = embedMode === ShadowEmbedMode;
+  if (embedMode?.startsWith('shadow') && !shadowEmbed) {
+    return new Response('Unsupported landing page embed version', {
+      status: 400,
+      headers: shadowEmbedCorsHeaders(),
+    });
+  }
 
   let [numPurchases, avatarUrls] = await Promise.all([
     context.env.KV.get<number>(`${Ns}.numPurchases`, 'json'),
@@ -83,9 +104,6 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     }
   } 
 
-  const url = new URL(context.request.url);
-  const { searchParams } = url;
-  const shadowEmbed = searchParams.get('embed') === 'shadow';
   const headers = context.request.headers;
 
   let isDedicatedLangPage = false;
@@ -322,7 +340,9 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   }
   if (shadowEmbed) {
     transformedResponse.headers.set('Access-Control-Allow-Origin', '*');
+    transformedResponse.headers.set('Access-Control-Expose-Headers', ShadowEmbedVersionHeader);
     transformedResponse.headers.set('Cross-Origin-Resource-Policy', 'cross-origin');
+    transformedResponse.headers.set(ShadowEmbedVersionHeader, ShadowEmbedVersion);
   }
   return transformedResponse;
 }
