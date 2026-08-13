@@ -31,6 +31,20 @@ async function buildHtmlFiles() {
     process.exit(1);
   }
 
+  // Kept separate from the normal page bundle: the extension fetches this
+  // live, then executes it in its opaque sandbox against the async DOM API.
+  const remoteResult = await Bun.build({
+    entrypoints: ['./src/landing-page-remote.js'],
+    outdir: './dist',
+    naming: '[name].[ext]',
+    minify: !process.env.DEV,
+    target: 'browser',
+  });
+  if (!remoteResult.success) {
+    console.error('Landing-page sandbox build failed:', remoteResult.logs);
+    process.exit(1);
+  }
+
   // First, minify images if we're in production/deployment mode
   if (!process.env.DEV) {
     console.log('Minifying images for production...');
@@ -157,4 +171,3 @@ await Promise.all([
 ]);
 
 console.log("Done!");
-

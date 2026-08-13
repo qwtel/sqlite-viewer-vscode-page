@@ -1,7 +1,27 @@
+import { initializeLandingPageInteractions } from './landing-page-remote.js';
+
+window.counterscale = { q: [['set', 'siteId', 'vscode.sqliteviewer.app'], ['trackPageview']] };
+
 function getRequiredElement(id, ElementType) {
   const element = document.getElementById(id);
   if (!(element instanceof ElementType)) throw new Error(`Missing #${id}`);
   return element;
+}
+
+function initializePageAppearance() {
+  const searchParams = new URLSearchParams(location.search);
+  const colorScheme = searchParams.get('color-scheme');
+  const colorSchemeMeta = document.head.querySelector('meta[name="color-scheme"]');
+  if (colorSchemeMeta) colorSchemeMeta.content = colorScheme || 'dark light';
+  document.body.classList.toggle('vscode', window.self !== window.top);
+  if (colorScheme) document.body.classList.add(colorScheme);
+
+  try {
+    const cssVars = JSON.parse(searchParams.get('css-vars') || '{}');
+    Object.entries(cssVars).forEach(([key, value]) => document.body.style.setProperty(key, String(value)));
+  } catch {
+    // Ignore malformed optional embedding configuration.
+  }
 }
 
 function initializeExternalLinkDialog() {
@@ -62,7 +82,15 @@ async function initializeVscodePage() {
   if (!document.body.classList.contains('vscode')) return;
 
   const licenseKeyLink = getRequiredElement('license-key', HTMLAnchorElement);
+  const openInBrowserLink = getRequiredElement('open-in-browser', HTMLAnchorElement);
   const showExternalLinkDialog = initializeExternalLinkDialog();
+
+  openInBrowserLink.classList.remove('display-none');
+  openInBrowserLink.classList.add('display-inline');
+  const openInBrowserUrl = new URL('/', location.href);
+  openInBrowserUrl.searchParams.set('ref', 'vscode');
+  openInBrowserUrl.searchParams.set('lang', document.documentElement.lang || 'en');
+  openInBrowserLink.href = openInBrowserUrl.href;
 
   document.addEventListener('click', (event) => {
     if (!(event.target instanceof Element)) return;
@@ -85,10 +113,6 @@ async function initializeVscodePage() {
 }
 
 const root = document.documentElement;
-
-root.classList.remove('no-js')
-root.classList.add('js')
-root.classList.add('sr')
 
 function initializeAnimations() {
   if (document.body.classList.contains('has-animations')) {
@@ -197,47 +221,6 @@ async function initializeTimelineCards() {
         rangeEnd: `exit-crossing ${CSS.percent(index / numCards * 100)}`,
       });
     });
-  });
-}
-
-  // Handle scroll-based video playback
-function initializeVideoPlayback() {
-  const cardVideos = document.getElementById('cards')?.querySelectorAll('video');
-  const inObserver = new IntersectionObserver((entries) => {
-    const windowHeight = window.innerHeight - 60 - 16 - 20; // 60px for header, 16px for padding, 20px for margin
-    for (const entry of entries) {
-      const isWindowTooSmall = entry.boundingClientRect.height > windowHeight;
-      if (entry.isIntersecting && (entry.intersectionRatio >= 1 || isWindowTooSmall)) {
-        const index = entry.target.style.getPropertyValue('--index');
-        const video = cardVideos[index - 1];
-        video && video.play();
-      } 
-      if (!entry.isIntersecting && isWindowTooSmall) {
-        const index = entry.target.style.getPropertyValue('--index');
-        const video = cardVideos[index - 1];
-        video && video.pause();
-      }
-    }
-  }, {
-    threshold: [0.01, 1],
-  });
-
-  const outObserver = new IntersectionObserver((entries) => {
-    const windowHeight = window.innerHeight;
-    for (const entry of entries) {
-      if (!entry.isIntersecting && entry.boundingClientRect.height < windowHeight) {
-        const index = entry.target.style.getPropertyValue('--index');
-        const video = cardVideos[index - 1];
-        video && video.pause();
-      }
-    }
-  }, {
-    threshold: 0.8,
-  });
-
-  document.querySelectorAll('.spy').forEach(div => {
-    inObserver.observe(div);
-    outObserver.observe(div);
   });
 }
 
@@ -359,6 +342,13 @@ function initializeEmbeddedCheckoutLinks() {
   });
 }
 
+function initializeCheckoutTheme() {
+  const theme = getCheckoutTheme();
+  document.querySelectorAll('[data-polar-checkout]').forEach((element) => {
+    element.setAttribute('data-polar-checkout-theme', theme);
+  });
+}
+
   // Lazy load Shoelace when carousel comes into view
 function initializeLazyLoadShoelace() {
   const carouselSection = document.querySelector('.changelog-carousel');
@@ -388,114 +378,19 @@ function initializeLazyLoadShoelace() {
   observer.observe(carouselSection);
 }
 
-  // Navigation active state observer
-function initializeNavigationObserver() {
-  class NavigationObserver {
-    constructor() {
-      this.navLinks = document.querySelectorAll('.opacity-link[href^="#"]');
-      this.sections = new Map();
-      this.activeLink = null;
-      
-      this.init();
-    }
-    
-    init() {
-      // Create a map of href -> section element
-      this.navLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        const section = document.querySelector(href);
-        if (section) {
-          this.sections.set(href, section);
-        }
-      });
-      
-      // Create intersection observer
-      this.observer = new IntersectionObserver(
-        (entries) => this.handleIntersection(entries),
-        {
-          root: null,
-          rootMargin: '-20% 0px -60% 0px', // Trigger when section is 20% from top
-          threshold: 0
-        }
-      );
-      
-      // Observe all sections
-      this.sections.forEach(section => {
-        this.observer.observe(section);
-      });
-      
-      // Handle initial state
-      this.setInitialActive();
-    }
-    
-    handleIntersection(entries) {
-      // Find the section that's most visible
-      let mostVisible = null;
-      let maxRatio = 0;
-      
-      entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
-          maxRatio = entry.intersectionRatio;
-          mostVisible = entry.target;
-        }
-      });
-      
-      if (mostVisible) {
-        this.setActiveLink(mostVisible.id);
-      }
-    }
-    
-    setActiveLink(sectionId) {
-      // Remove active class from all links
-      this.navLinks.forEach(link => {
-        link.classList.remove('active');
-      });
-      
-      // Add active class to matching link
-      const activeLink = document.querySelector(`a[href="#${sectionId}"]`);
-      if (activeLink) {
-        activeLink.classList.add('active');
-        this.activeLink = activeLink;
-      }
-    }
-    
-    setInitialActive() {
-      // Set initial active state based on current scroll position
-      const scrollY = window.scrollY;
-      let closestSection = null;
-      let minDistance = Infinity;
-      
-      this.sections.forEach((section, href) => {
-        const rect = section.getBoundingClientRect();
-        const distance = Math.abs(rect.top);
-        
-        if (distance < minDistance && rect.top <= 100) {
-          minDistance = distance;
-          closestSection = section;
-        }
-      });
-      
-      if (closestSection) {
-        this.setActiveLink(closestSection.id);
-      }
-    }
-    
-    destroy() {
-      if (this.observer) {
-        this.observer.disconnect();
-      }
-    }
-  }
-
-  // Initialize navigation observer
-  new NavigationObserver();
-}
-
 (async () => {
+  initializePageAppearance();
+
   try {
     await initializeVscodePage();
   } catch (error) {
     console.error('Failed to initialize VS Code page integration:', error);
+  }
+
+  try {
+    await initializeLandingPageInteractions();
+  } catch (error) {
+    console.error('Failed to initialize shared landing-page interactions:', error);
   }
 
   try {
@@ -511,18 +406,13 @@ function initializeNavigationObserver() {
   }
 
   try {
-    initializeVideoPlayback();
-  } catch (error) {
-    console.error('Failed to initialize video playback:', error);
-  }
-
-  try {
     initializeLoadingSpinner();
   } catch (error) {
     console.error('Failed to initialize loading spinner:', error);
   }
 
   try {
+    initializeCheckoutTheme();
     initializeEmbeddedCheckoutLinks();
   } catch (error) {
     console.error('Failed to initialize embedded checkout links:', error);
@@ -534,9 +424,4 @@ function initializeNavigationObserver() {
     console.error('Failed to initialize lazy load Shoelace:', error);
   }
 
-  try {
-    initializeNavigationObserver();
-  } catch (error) {
-    console.error('Failed to initialize navigation observer:', error);
-  }
 })();
