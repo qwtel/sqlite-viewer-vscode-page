@@ -34,18 +34,25 @@
 
   /* Landing page specific styles - only applies to carousel cards */
   .changelog-card-landing {
-    padding: 2rem;
+    --card-landing-padding: 2rem;
+    padding: var(--card-landing-padding);
     border: 1px solid var(--color-bg-4);
     border-radius: 3px;
     aspect-ratio: 16/9;
-    
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+
     &::after {
       content: '';
-      position: absolute;
-      bottom: 0;
+      position: sticky;
+      bottom: calc(var(--card-landing-padding) * -1 - 1px);
       left: 0;
       right: 0;
       height: 160px;
+      width: calc(100% + var(--card-landing-padding) * 2);
+      margin-left: calc(var(--card-landing-padding) * -1);
+      display: block;
       background: linear-gradient(to bottom, transparent, var(--color-bg-2));
       pointer-events: none;
     }
@@ -84,4 +91,4 @@
       margin-bottom: 0.5rem;
     }
   }
-} 
+}
