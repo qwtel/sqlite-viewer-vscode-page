@@ -24,19 +24,19 @@ function createNativeLandingPageEnvironment() {
 
   return {
     document,
-    viewport: window,
+    viewport: {
+      get innerHeight() { return window.innerHeight; },
+      get innerWidth() { return window.innerWidth; },
+      get scrollX() { return window.scrollX; },
+      get scrollY() { return window.scrollY; },
+      get top() { return 0; },
+      getComputedStyle: (target) => getComputedStyle(target),
+      scrollBy: (...args) => window.scrollBy(...args),
+      scrollTo: (...args) => window.scrollTo(...args),
+    },
     createIntersectionObserver: (callback, options) => (
       createObserver(IntersectionObserver, callback, options)
     ),
-    createMutationObserver(callback, options) {
-      const observer = createObserver(MutationObserver, callback);
-      return {
-        observe: (target) => observer.observe(target, options),
-        unobserve: () => {},
-        disconnect: () => observer.disconnect(),
-      };
-    },
-    createResizeObserver: (callback) => createObserver(ResizeObserver, callback),
     listen(target, type, callback, options) {
       const { preventDefault = false, ...listenerOptions } = typeof options === 'object' && options
         ? options
@@ -50,6 +50,37 @@ function createNativeLandingPageEnvironment() {
       return { disconnect: () => target.removeEventListener(type, listener, nativeOptions) };
     },
   };
+}
+
+async function scrollToTarget(viewport, target, options = {}) {
+  const [rect, style, viewportHeight, viewportTop, scrollY] = await Promise.all([
+    target.getBoundingClientRect(),
+    viewport.getComputedStyle(target),
+    viewport.innerHeight,
+    viewport.top,
+    viewport.scrollY,
+  ]);
+  const [rawMarginTop, rawMarginBottom] = await Promise.all([
+    style.scrollMarginTop,
+    style.scrollMarginBottom,
+  ]);
+  const marginTop = Number.parseFloat(rawMarginTop) || 0;
+  const marginBottom = Number.parseFloat(rawMarginBottom) || 0;
+  const start = scrollY + rect.top - viewportTop - marginTop;
+  const end = scrollY + rect.bottom - viewportTop - viewportHeight + marginBottom;
+  const block = ['center', 'end', 'nearest', 'start'].includes(options.block) ? options.block : 'start';
+  const top = block === 'end'
+    ? end
+    : block === 'center'
+      ? scrollY + rect.top + rect.height / 2 - viewportTop - viewportHeight / 2
+      : block === 'nearest'
+        ? rect.top < viewportTop
+          ? start
+          : rect.bottom > viewportTop + viewportHeight
+            ? end
+            : scrollY
+        : start;
+  await viewport.scrollTo({ top, behavior: options.behavior || 'smooth' });
 }
 
 async function initializeHashNavigation(environment) {
@@ -83,7 +114,7 @@ async function initializeHashNavigation(environment) {
         && (await viewport.innerWidth) >= 780
         ? await link.getAttribute('data-scroll-block-compact')
         : 'start';
-      await target.scrollIntoView({ block: block || 'start', behavior: 'smooth' });
+      await scrollToTarget(viewport, target, { block: block || 'start', behavior: 'smooth' });
     }, { preventDefault: true });
   }));
 }
