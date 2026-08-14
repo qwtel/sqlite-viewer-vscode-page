@@ -8,6 +8,12 @@ function reportAsyncCallbackError(error) {
   console.error('Landing-page callback failed:', error);
 }
 
+function observerCallback(callback) {
+  return (...args) => {
+    Promise.resolve(callback(...args)).catch(reportAsyncCallbackError);
+  };
+}
+
 async function setProperty(target, property, value) {
   const remoteSet = await target.$set;
   if (typeof remoteSet === 'function') return remoteSet(property, value);
@@ -15,57 +21,28 @@ async function setProperty(target, property, value) {
   return true;
 }
 
-/**
- * Adapts the browser DOM to the same promise-friendly surface exposed by the
- * extension sandbox. Awaiting ordinary DOM values is harmless, so only the
- * callback-based APIs need an adapter.
- */
-function createNativeLandingPageEnvironment() {
-  const createObserver = (ObserverType, callback, options) => {
-    let observer;
-    observer = new ObserverType((entries) => {
-      Promise.resolve(callback(entries, observer)).catch(reportAsyncCallbackError);
-    }, options);
-    return observer;
-  };
+async function listen(target, type, callback, options) {
+  const remoteListen = await target.$listen;
+  if (typeof remoteListen === 'function') return remoteListen(type, callback, options);
 
-  return {
-    document,
-    viewport: {
-      get innerHeight() { return window.innerHeight; },
-      get innerWidth() { return window.innerWidth; },
-      get scrollX() { return window.scrollX; },
-      get scrollY() { return window.scrollY; },
-      get top() { return 0; },
-      getComputedStyle: (target) => getComputedStyle(target),
-      scrollBy: (...args) => window.scrollBy(...args),
-      scrollTo: (...args) => window.scrollTo(...args),
-    },
-    createIntersectionObserver: (callback, options) => (
-      createObserver(IntersectionObserver, callback, options)
-    ),
-    listen(target, type, callback, options) {
-      const { preventDefault = false, ...listenerOptions } = typeof options === 'object' && options
-        ? options
-        : {};
-      const listener = (event) => {
-        if (preventDefault && event.cancelable) event.preventDefault();
-        Promise.resolve(callback(event, event.target, event.currentTarget)).catch(reportAsyncCallbackError);
-      };
-      const nativeOptions = typeof options === 'boolean' ? options : listenerOptions;
-      target.addEventListener(type, listener, nativeOptions);
-      return { disconnect: () => target.removeEventListener(type, listener, nativeOptions) };
-    },
+  const { preventDefault = false, ...listenerOptions } = typeof options === 'object' && options
+    ? options
+    : {};
+  const listener = (event) => {
+    if (preventDefault && event.cancelable) event.preventDefault();
+    Promise.resolve(callback(event, event.target, event.currentTarget)).catch(reportAsyncCallbackError);
   };
+  const nativeOptions = typeof options === 'boolean' ? options : listenerOptions;
+  target.addEventListener(type, listener, nativeOptions);
+  return { disconnect: () => target.removeEventListener(type, listener, nativeOptions) };
 }
 
-async function scrollToTarget(viewport, target, options = {}) {
-  const [rect, style, viewportHeight, viewportTop, scrollY] = await Promise.all([
+async function scrollToTarget(window, target, options = {}) {
+  const [rect, style, viewportHeight, scrollY] = await Promise.all([
     target.getBoundingClientRect(),
-    viewport.getComputedStyle(target),
-    viewport.innerHeight,
-    viewport.top,
-    viewport.scrollY,
+    window.getComputedStyle(target),
+    window.innerHeight,
+    window.scrollY,
   ]);
   const [rawMarginTop, rawMarginBottom] = await Promise.all([
     style.scrollMarginTop,
@@ -73,25 +50,25 @@ async function scrollToTarget(viewport, target, options = {}) {
   ]);
   const marginTop = Number.parseFloat(rawMarginTop) || 0;
   const marginBottom = Number.parseFloat(rawMarginBottom) || 0;
-  const start = scrollY + rect.top - viewportTop - marginTop;
-  const end = scrollY + rect.bottom - viewportTop - viewportHeight + marginBottom;
+  const start = scrollY + rect.top - marginTop;
+  const end = scrollY + rect.bottom - viewportHeight + marginBottom;
   const block = ['center', 'end', 'nearest', 'start'].includes(options.block) ? options.block : 'start';
   const top = block === 'end'
     ? end
     : block === 'center'
-      ? scrollY + rect.top + rect.height / 2 - viewportTop - viewportHeight / 2
+      ? scrollY + rect.top + rect.height / 2 - viewportHeight / 2
       : block === 'nearest'
-        ? rect.top < viewportTop
+        ? rect.top < 0
           ? start
-          : rect.bottom > viewportTop + viewportHeight
+          : rect.bottom > viewportHeight
             ? end
             : scrollY
         : start;
-  await viewport.scrollTo({ top, behavior: options.behavior || 'smooth' });
+  await window.scrollTo({ top, behavior: options.behavior || 'smooth' });
 }
 
-async function initializeHashNavigation(environment) {
-  const { document, viewport, listen } = environment;
+async function initializeHashNavigation(window) {
+  const document = await window.document;
   const links = await collectionToArray(await document.querySelectorAll('[data-scroll-to]'));
 
   await Promise.all(links.map(async (link) => {
@@ -99,7 +76,7 @@ async function initializeHashNavigation(environment) {
       const href = await link.getAttribute('href');
       if (!href?.startsWith('#')) return;
       if (href === '#') {
-        await viewport.scrollTo({ top: 0, behavior: 'smooth' });
+        await window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
 
@@ -111,23 +88,23 @@ async function initializeHashNavigation(environment) {
       }
       const target = await document.getElementById(targetId);
       if (!target) {
-        await viewport.scrollTo({ top: 0, behavior: 'smooth' });
+        await window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
 
       const compactEnd = await link.hasAttribute('data-scroll-block-compact');
       const block = compactEnd
-        && (await viewport.innerHeight) < 800
-        && (await viewport.innerWidth) >= 780
+        && (await window.innerHeight) < 800
+        && (await window.innerWidth) >= 780
         ? await link.getAttribute('data-scroll-block-compact')
         : 'start';
-      await scrollToTarget(viewport, target, { block: block || 'start', behavior: 'smooth' });
+      await scrollToTarget(window, target, { block: block || 'start', behavior: 'smooth' });
     }, { preventDefault: true });
   }));
 }
 
-async function initializeVideoPlayback(environment) {
-  const { document, viewport, createIntersectionObserver } = environment;
+async function initializeVideoPlayback(window) {
+  const document = await window.document;
   const cards = await document.getElementById('cards');
   const cardVideos = cards ? await collectionToArray(await cards.querySelectorAll('video')) : [];
   const spies = await collectionToArray(await document.querySelectorAll('.spy'));
@@ -141,8 +118,8 @@ async function initializeVideoPlayback(environment) {
     return cardVideos[index - 1];
   };
 
-  const inObserver = await createIntersectionObserver(async (entries) => {
-    const windowHeight = (await viewport.innerHeight) - 96;
+  const inObserver = await new window.IntersectionObserver(observerCallback(async (entries) => {
+    const windowHeight = (await window.innerHeight) - 96;
     for (const entry of entries) {
       const video = await videoForTarget(entry.target);
       if (!video) continue;
@@ -153,23 +130,23 @@ async function initializeVideoPlayback(environment) {
         await video.pause();
       }
     }
-  }, { threshold: [0.01, 1] });
+  }), { threshold: [0.01, 1] });
 
-  const outObserver = await createIntersectionObserver(async (entries) => {
-    const windowHeight = await viewport.innerHeight;
+  const outObserver = await new window.IntersectionObserver(observerCallback(async (entries) => {
+    const windowHeight = await window.innerHeight;
     for (const entry of entries) {
       if (!entry.isIntersecting && entry.boundingClientRect.height < windowHeight) {
         const video = await videoForTarget(entry.target);
         if (video) await video.pause();
       }
     }
-  }, { threshold: 0.8 });
+  }), { threshold: 0.8 });
 
   await Promise.all(spies.flatMap((spy) => [inObserver.observe(spy), outObserver.observe(spy)]));
 }
 
-async function initializeNavigationObserver(environment) {
-  const { document, createIntersectionObserver } = environment;
+async function initializeNavigationObserver(window) {
+  const document = await window.document;
   const navLinks = await collectionToArray(await document.querySelectorAll('.opacity-link[href^="#"]'));
   const linksBySection = new Map();
   const sectionsById = new Map();
@@ -195,7 +172,7 @@ async function initializeNavigationObserver(environment) {
     activeLink = nextLink;
   };
 
-  const observer = await createIntersectionObserver(async (entries) => {
+  const observer = await new window.IntersectionObserver(observerCallback(async (entries) => {
     let mostVisible;
     for (const entry of entries) {
       if (entry.isIntersecting && (!mostVisible || entry.intersectionRatio > mostVisible.intersectionRatio)) {
@@ -205,7 +182,7 @@ async function initializeNavigationObserver(environment) {
     if (!mostVisible) return;
 
     await setActiveLink(await mostVisible.target.id);
-  }, {
+  }), {
     rootMargin: '-20% 0px -60% 0px',
     threshold: 0,
   });
@@ -225,16 +202,17 @@ async function initializeNavigationObserver(environment) {
   if (initialSectionId) await setActiveLink(initialSectionId);
 }
 
-export async function initializeLandingPageInteractions(environment = createNativeLandingPageEnvironment()) {
-  const root = await environment.document.documentElement;
+export async function initializeLandingPageInteractions(window = globalThis.window) {
+  const document = await window.document;
+  const root = await document.documentElement;
   const classList = await root.classList;
   await classList.remove('no-js');
   await classList.add('js', 'sr');
 
   await Promise.all([
-    initializeHashNavigation(environment),
-    initializeVideoPlayback(environment),
-    initializeNavigationObserver(environment),
+    initializeHashNavigation(window),
+    initializeVideoPlayback(window),
+    initializeNavigationObserver(window),
   ]);
 }
 
