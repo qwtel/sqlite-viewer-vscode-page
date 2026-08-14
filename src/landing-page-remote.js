@@ -8,6 +8,13 @@ function reportAsyncCallbackError(error) {
   console.error('Landing-page callback failed:', error);
 }
 
+async function setProperty(target, property, value) {
+  const remoteSet = await target.$set;
+  if (typeof remoteSet === 'function') return remoteSet(property, value);
+  target[property] = value;
+  return true;
+}
+
 /**
  * Adapts the browser DOM to the same promise-friendly surface exposed by the
  * extension sandbox. Awaiting ordinary DOM values is harmless, so only the
@@ -126,12 +133,7 @@ async function initializeVideoPlayback(environment) {
   const spies = await collectionToArray(await document.querySelectorAll('.spy'));
   if (!cardVideos.length || !spies.length) return;
 
-  for (const video of cardVideos) {
-    // Ordinary setters intentionally stay ergonomic and fire-and-forget. The
-    // checkpoint reports any denied or failed writes made before it.
-    video.muted = true;
-  }
-  await cardVideos.at(-1).$setInProgress;
+  await Promise.all(cardVideos.map((video) => setProperty(video, 'muted', true)));
 
   const videoForTarget = async (target) => {
     const style = await target.style;
@@ -238,4 +240,4 @@ export async function initializeLandingPageInteractions(environment = createNati
 
 // The opaque iframe evaluates this bundle before the extension-owned runtime
 // connects. The regular page imports the same function directly instead.
-globalThis.initializeLandingPageSandbox = initializeLandingPageInteractions;
+globalThis.initializeRemoteSandbox = initializeLandingPageInteractions;
