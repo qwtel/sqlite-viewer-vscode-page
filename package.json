@@ -27,7 +27,7 @@
     "watch:translate-html": "onchange 'index.html' 'i18n/*' 'scripts/translate-html.ts' -- run-s build:translate-html",
     "watch:changelog-carousel": "onchange '../CHANGELOG.md' -- run-s build:changelog-carousel",
     "watch": "run-p serve watch:*",
-    "dev": "run-s build watch"
+    "dev": "DEV=1 run-s build watch"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260401.1",

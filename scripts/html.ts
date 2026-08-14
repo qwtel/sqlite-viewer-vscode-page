@@ -11,6 +11,7 @@ const __dirname = path.dirname(__filename);
 const resolve = (...args: string[]) => path.resolve(__dirname, '..', ...args);
 
 const IMG_CUTOFF_KB = 25;
+const isDev = !!process.env.DEV;
 
 // Build step - equivalent to the build:build script from package.json
 async function buildHtmlFiles() {
@@ -23,7 +24,8 @@ async function buildHtmlFiles() {
       asset: 'dist/[dir]/[name].[ext]',
       chunk: 'dist/[name].[ext]',
     },
-    minify: !process.env.DEV,
+    minify: !isDev,
+    sourcemap: isDev ? 'linked' : 'none',
   });
 
   if (!result.success) {
@@ -37,7 +39,8 @@ async function buildHtmlFiles() {
     entrypoints: ['./src/landing-page-remote.js'],
     outdir: './dist',
     naming: '[name].[ext]',
-    minify: !process.env.DEV,
+    minify: !isDev,
+    sourcemap: isDev ? 'linked' : 'none',
     target: 'browser',
   });
   if (!remoteResult.success) {
@@ -46,7 +49,7 @@ async function buildHtmlFiles() {
   }
 
   // First, minify images if we're in production/deployment mode
-  if (!process.env.DEV) {
+  if (!isDev) {
     console.log('Minifying images for production...');
     try {
       const { execSync } = await import('child_process');
@@ -89,26 +92,6 @@ async function inlineHtmlFromBuild(buildOutputs: any[], htmlFileName: string, ou
         el.replace(`<style>${style}</style>`, { html: true }); 
       },
     })
-    .on('script[src]:not([src^="http"]):not([defer]):not([data-no-inline])', {
-      async element(el) {
-        const src = el.getAttribute('src') ?? '';
-        if (!src) return;
-        
-        // Read JS file from filesystem
-        const jsPath = resolve(src);
-        const type = el.getAttribute('type') ?? '';
-        let script = await Bun.file(jsPath).text();
-        el.replace(`<script${type === "module" ? ' type="module"' : ""}>${script}</script>`, { html: true });
-      },
-    })
-    .on('script[src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"]', {
-      async element(el) {
-        console.log('Inlining anime.js from CDN...');
-        const response = await fetch(el.getAttribute('src')!);
-        const script = await response.text();
-        el.replace(`<script>${script}</script>`, { html: true });
-      },
-    })
     .on('picture', { 
       element(el) { 
         inPicture = true; 
@@ -135,7 +118,31 @@ async function inlineHtmlFromBuild(buildOutputs: any[], htmlFileName: string, ou
       },
     })
 
-  console.log(`Inlining HTML for ${htmlFileName}...`);
+  if (!isDev) {
+    rewriter
+      .on('script[src]:not([src^="http"]):not([defer]):not([data-no-inline])', {
+        async element(el) {
+          const src = el.getAttribute('src') ?? '';
+          if (!src) return;
+
+          // Read JS file from filesystem
+          const jsPath = resolve(src);
+          const type = el.getAttribute('type') ?? '';
+          const script = await Bun.file(jsPath).text();
+          el.replace(`<script${type === "module" ? ' type="module"' : ""}>${script}</script>`, { html: true });
+        },
+      })
+      .on('script[src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"]', {
+        async element(el) {
+          console.log('Inlining anime.js from CDN...');
+          const response = await fetch(el.getAttribute('src')!);
+          const script = await response.text();
+          el.replace(`<script>${script}</script>`, { html: true });
+        },
+      });
+  }
+
+  console.log(`${isDev ? 'Writing' : 'Inlining'} HTML for ${htmlFileName}...`);
   const html = await htmlOutput.text();
   const newHtml = rewriter.transform(new Response(html));
   const outFileDir = path.dirname(resolve(outFile));
@@ -167,7 +174,7 @@ const buildOutputs = await buildHtmlFiles();
 // Then inline the built files using build outputs
 await Promise.all([
   inlineHtmlFromBuild(buildOutputs, 'index.html', './index.html'),
-  !process.env.DEV ? inlineHtmlFromBuild(buildOutputs, 'app.html', '../sqlite-viewer-core/web/index.html') : Promise.resolve(),
+  !isDev ? inlineHtmlFromBuild(buildOutputs, 'app.html', '../sqlite-viewer-core/web/index.html') : Promise.resolve(),
 ]);
 
 console.log("Done!");
