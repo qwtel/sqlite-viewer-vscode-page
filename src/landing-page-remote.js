@@ -8,7 +8,7 @@ function reportAsyncCallbackError(error) {
   console.error('Landing-page callback failed:', error);
 }
 
-function observerCallback(callback) {
+function asyncCallback(callback) {
   return (...args) => {
     Promise.resolve(callback(...args)).catch(reportAsyncCallbackError);
   };
@@ -19,22 +19,6 @@ async function setProperty(target, property, value) {
   if (typeof remoteSet === 'function') return remoteSet(property, value);
   target[property] = value;
   return true;
-}
-
-async function listen(target, type, callback, options) {
-  const remoteListen = await target.$listen;
-  if (typeof remoteListen === 'function') return remoteListen(type, callback, options);
-
-  const { preventDefault = false, ...listenerOptions } = typeof options === 'object' && options
-    ? options
-    : {};
-  const listener = (event) => {
-    if (preventDefault && event.cancelable) event.preventDefault();
-    Promise.resolve(callback(event, event.target, event.currentTarget)).catch(reportAsyncCallbackError);
-  };
-  const nativeOptions = typeof options === 'boolean' ? options : listenerOptions;
-  target.addEventListener(type, listener, nativeOptions);
-  return { disconnect: () => target.removeEventListener(type, listener, nativeOptions) };
 }
 
 async function scrollToTarget(window, target, options = {}) {
@@ -67,12 +51,12 @@ async function scrollToTarget(window, target, options = {}) {
   await window.scrollTo({ top, behavior: options.behavior || 'smooth' });
 }
 
-async function initializeHashNavigation(window) {
-  const document = await window.document;
+async function initializeHashNavigation(window, document) {
   const links = await collectionToArray(await document.querySelectorAll('[data-scroll-to]'));
 
   await Promise.all(links.map(async (link) => {
-    await listen(link, 'click', async () => {
+    await link.addEventListener('click', asyncCallback(async (event) => {
+      event.preventDefault();
       const href = await link.getAttribute('href');
       if (!href?.startsWith('#')) return;
       if (href === '#') {
@@ -99,12 +83,11 @@ async function initializeHashNavigation(window) {
         ? await link.getAttribute('data-scroll-block-compact')
         : 'start';
       await scrollToTarget(window, target, { block: block || 'start', behavior: 'smooth' });
-    }, { preventDefault: true });
+    }), { preventDefault: true });
   }));
 }
 
-async function initializeVideoPlayback(window) {
-  const document = await window.document;
+async function initializeVideoPlayback(window, document) {
   const cards = await document.getElementById('cards');
   const cardVideos = cards ? await collectionToArray(await cards.querySelectorAll('video')) : [];
   const spies = await collectionToArray(await document.querySelectorAll('.spy'));
@@ -118,7 +101,7 @@ async function initializeVideoPlayback(window) {
     return cardVideos[index - 1];
   };
 
-  const inObserver = await new window.IntersectionObserver(observerCallback(async (entries) => {
+  const inObserver = await new window.IntersectionObserver(asyncCallback(async (entries) => {
     const windowHeight = (await window.innerHeight) - 96;
     for (const entry of entries) {
       const video = await videoForTarget(entry.target);
@@ -132,7 +115,7 @@ async function initializeVideoPlayback(window) {
     }
   }), { threshold: [0.01, 1] });
 
-  const outObserver = await new window.IntersectionObserver(observerCallback(async (entries) => {
+  const outObserver = await new window.IntersectionObserver(asyncCallback(async (entries) => {
     const windowHeight = await window.innerHeight;
     for (const entry of entries) {
       if (!entry.isIntersecting && entry.boundingClientRect.height < windowHeight) {
@@ -145,8 +128,7 @@ async function initializeVideoPlayback(window) {
   await Promise.all(spies.flatMap((spy) => [inObserver.observe(spy), outObserver.observe(spy)]));
 }
 
-async function initializeNavigationObserver(window) {
-  const document = await window.document;
+async function initializeNavigationObserver(window, document) {
   const navLinks = await collectionToArray(await document.querySelectorAll('.opacity-link[href^="#"]'));
   const linksBySection = new Map();
   const sectionsById = new Map();
@@ -172,7 +154,7 @@ async function initializeNavigationObserver(window) {
     activeLink = nextLink;
   };
 
-  const observer = await new window.IntersectionObserver(observerCallback(async (entries) => {
+  const observer = await new window.IntersectionObserver(asyncCallback(async (entries) => {
     let mostVisible;
     for (const entry of entries) {
       if (entry.isIntersecting && (!mostVisible || entry.intersectionRatio > mostVisible.intersectionRatio)) {
@@ -210,9 +192,9 @@ export async function initializeLandingPageInteractions(window = globalThis.wind
   await classList.add('js', 'sr');
 
   await Promise.all([
-    initializeHashNavigation(window),
-    initializeVideoPlayback(window),
-    initializeNavigationObserver(window),
+    initializeHashNavigation(window, document),
+    initializeVideoPlayback(window, document),
+    initializeNavigationObserver(window, document),
   ]);
 }
 
