@@ -141,6 +141,16 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   if (shadowEmbed) {
     rewriter = rewriter
       .on('script', { element(el) { el.remove(); } })
+      .on('style, link[rel~="stylesheet"]:not([data-remote-embed])', {
+        element(el) { el.remove(); },
+      })
+      .on('head', {
+        element(el) {
+          el.append('<link rel="stylesheet" href="/dist/landing-page-embed.css" data-remote-embed>', {
+            html: true,
+          });
+        },
+      })
       .on('iframe, object, embed', { element(el) { el.remove(); } })
       .on('#vscode-external-link-dialog', { element(el) { el.remove(); } })
       .on('img[src^="http"]', { element(el) { el.remove(); } });
@@ -188,12 +198,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     })
     .on('.avatar-stack', {
       element(el) {
-        if (shadowEmbed) {
-          el.setInnerContent('');
-          return;
-        }
         const selectedAvatars = [...avatarUrls ?? []].sort(() => Math.random() - 0.5).slice(0, 5);
-        el.setInnerContent(selectedAvatars.map(url => avatarStackItemHtml(url)).join(''), { html: true });
+        if (selectedAvatars.length) {
+          el.setInnerContent(selectedAvatars.map(url => avatarStackItemHtml(url)).join(''), { html: true });
+        }
       }
     })
     .on('[data-price-product][data-price-field]', {

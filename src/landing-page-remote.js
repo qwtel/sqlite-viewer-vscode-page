@@ -1,8 +1,4 @@
-async function collectionToArray(collection) {
-  if (!collection) return [];
-  const length = await collection.length;
-  return Promise.all(Array.from({ length }, (_, index) => collection[index]));
-}
+import { createAsyncAnime } from './async-anime.js';
 
 function reportAsyncCallbackError(error) {
   console.error('Landing-page callback failed:', error);
@@ -21,41 +17,68 @@ async function setProperty(target, property, value) {
   return true;
 }
 
-async function scrollToTarget(window, target, options = {}) {
-  const [rect, style, viewportHeight, scrollY] = await Promise.all([
+async function playVideo(video) {
+  try {
+    await video.play();
+  } catch (error) {
+    // Autoplay policy and rapid observer reversals are expected races. Do not
+    // hide transport, policy, CSP, or unsupported-source failures with them.
+    if (error?.name !== 'AbortError' && error?.name !== 'NotAllowedError') throw error;
+  }
+}
+
+async function getViewportGeometry(window, document) {
+  const root = await document.documentElement;
+  const rect = await root.getBoundingClientRect();
+  const [rootTop, scrollY] = await Promise.all([rect.top, window.scrollY]);
+  // The root moves upward as the synthetic viewport scrolls. Adding scrollY
+  // recovers the fixed viewport origin in the outer webview's coordinates.
+  return { pageTop: rootTop + scrollY, scrollY };
+}
+
+async function scrollToTarget(window, document, target, options = {}) {
+  const [rect, style, viewportHeight, viewport] = await Promise.all([
     target.getBoundingClientRect(),
     window.getComputedStyle(target),
     window.innerHeight,
-    window.scrollY,
+    getViewportGeometry(window, document),
   ]);
   const [rawMarginTop, rawMarginBottom] = await Promise.all([
     style.scrollMarginTop,
     style.scrollMarginBottom,
   ]);
+  const [rawRectBottom, rectHeight, rawRectTop] = await Promise.all([
+    rect.bottom,
+    rect.height,
+    rect.top,
+  ]);
+  const rectBottom = rawRectBottom - viewport.pageTop;
+  const rectTop = rawRectTop - viewport.pageTop;
   const marginTop = Number.parseFloat(rawMarginTop) || 0;
   const marginBottom = Number.parseFloat(rawMarginBottom) || 0;
-  const start = scrollY + rect.top - marginTop;
-  const end = scrollY + rect.bottom - viewportHeight + marginBottom;
+  const start = viewport.scrollY + rectTop - marginTop;
+  const end = viewport.scrollY + rectBottom - viewportHeight + marginBottom;
   const block = ['center', 'end', 'nearest', 'start'].includes(options.block) ? options.block : 'start';
   const top = block === 'end'
     ? end
     : block === 'center'
-      ? scrollY + rect.top + rect.height / 2 - viewportHeight / 2
+      ? viewport.scrollY + rectTop + rectHeight / 2 - viewportHeight / 2
       : block === 'nearest'
-        ? rect.top < 0
+        ? rectTop < 0
           ? start
-          : rect.bottom > viewportHeight
+          : rectBottom > viewportHeight
             ? end
-            : scrollY
+            : viewport.scrollY
         : start;
   await window.scrollTo({ top, behavior: options.behavior || 'smooth' });
 }
 
 async function initializeHashNavigation(window, document) {
-  const links = await collectionToArray(await document.querySelectorAll('[data-scroll-to]'));
+  const links = await document.querySelectorAll('[data-scroll-to]');
 
-  await Promise.all(links.map(async (link) => {
-    await link.addEventListener('click', asyncCallback(async (event) => {
+  await Promise.all(Array.from(links, (link) => link.addEventListener(
+    'click',
+    asyncCallback(async (event) => {
       event.preventDefault();
       const href = await link.getAttribute('href');
       if (!href?.startsWith('#')) return;
@@ -82,18 +105,19 @@ async function initializeHashNavigation(window, document) {
         && (await window.innerWidth) >= 780
         ? await link.getAttribute('data-scroll-block-compact')
         : 'start';
-      await scrollToTarget(window, target, { block: block || 'start', behavior: 'smooth' });
-    }), { preventDefault: true });
-  }));
+      await scrollToTarget(window, document, target, { block: block || 'start', behavior: 'smooth' });
+    }),
+    { preventDefault: true },
+  )));
 }
 
 async function initializeVideoPlayback(window, document) {
   const cards = await document.getElementById('cards');
-  const cardVideos = cards ? await collectionToArray(await cards.querySelectorAll('video')) : [];
-  const spies = await collectionToArray(await document.querySelectorAll('.spy'));
+  const cardVideos = cards ? await cards.querySelectorAll('video') : [];
+  const spies = await document.querySelectorAll('.spy');
   if (!cardVideos.length || !spies.length) return;
 
-  await Promise.all(cardVideos.map((video) => setProperty(video, 'muted', true)));
+  await Promise.all(Array.from(cardVideos, (video) => setProperty(video, 'muted', true)));
 
   const videoForTarget = async (target) => {
     const style = await target.style;
@@ -103,13 +127,22 @@ async function initializeVideoPlayback(window, document) {
 
   const inObserver = await new window.IntersectionObserver(asyncCallback(async (entries) => {
     const windowHeight = (await window.innerHeight) - 96;
-    for (const entry of entries) {
-      const video = await videoForTarget(entry.target);
+    const readings = await Promise.all(entries.map(async (entry) => {
+      const [rect, intersectionRatio, isIntersecting, target] = await Promise.all([
+        entry.boundingClientRect,
+        entry.intersectionRatio,
+        entry.isIntersecting,
+        entry.target,
+      ]);
+      const [height, video] = await Promise.all([rect.height, videoForTarget(target)]);
+      return { height, intersectionRatio, isIntersecting, video };
+    }));
+    for (const { height, intersectionRatio, isIntersecting, video } of readings) {
       if (!video) continue;
-      const isWindowTooSmall = entry.boundingClientRect.height > windowHeight;
-      if (entry.isIntersecting && (entry.intersectionRatio >= 1 || isWindowTooSmall)) {
-        await video.play().catch(() => {});
-      } else if (!entry.isIntersecting && isWindowTooSmall) {
+      const isWindowTooSmall = height > windowHeight;
+      if (isIntersecting && (intersectionRatio >= 1 || isWindowTooSmall)) {
+        await playVideo(video);
+      } else if (!isIntersecting && isWindowTooSmall) {
         await video.pause();
       }
     }
@@ -117,19 +150,30 @@ async function initializeVideoPlayback(window, document) {
 
   const outObserver = await new window.IntersectionObserver(asyncCallback(async (entries) => {
     const windowHeight = await window.innerHeight;
-    for (const entry of entries) {
-      if (!entry.isIntersecting && entry.boundingClientRect.height < windowHeight) {
-        const video = await videoForTarget(entry.target);
+    const readings = await Promise.all(entries.map(async (entry) => {
+      const [rect, isIntersecting, target] = await Promise.all([
+        entry.boundingClientRect,
+        entry.isIntersecting,
+        entry.target,
+      ]);
+      const [height, video] = await Promise.all([rect.height, videoForTarget(target)]);
+      return { height, isIntersecting, video };
+    }));
+    for (const { height, isIntersecting, video } of readings) {
+      if (!isIntersecting && height < windowHeight) {
         if (video) await video.pause();
       }
     }
   }), { threshold: 0.8 });
 
-  await Promise.all(spies.flatMap((spy) => [inObserver.observe(spy), outObserver.observe(spy)]));
+  await Promise.all(Array.from(
+    spies,
+    (spy) => [inObserver.observe(spy), outObserver.observe(spy)],
+  ).flat());
 }
 
 async function initializeNavigationObserver(window, document) {
-  const navLinks = await collectionToArray(await document.querySelectorAll('.opacity-link[href^="#"]'));
+  const navLinks = await document.querySelectorAll('.opacity-link[href^="#"]');
   const linksBySection = new Map();
   const sectionsById = new Map();
 
@@ -156,9 +200,17 @@ async function initializeNavigationObserver(window, document) {
 
   const observer = await new window.IntersectionObserver(asyncCallback(async (entries) => {
     let mostVisible;
-    for (const entry of entries) {
-      if (entry.isIntersecting && (!mostVisible || entry.intersectionRatio > mostVisible.intersectionRatio)) {
-        mostVisible = entry;
+    const readings = await Promise.all(entries.map(async (entry) => {
+      const [intersectionRatio, isIntersecting, target] = await Promise.all([
+        entry.intersectionRatio,
+        entry.isIntersecting,
+        entry.target,
+      ]);
+      return { intersectionRatio, isIntersecting, target };
+    }));
+    for (const { intersectionRatio, isIntersecting, target } of readings) {
+      if (isIntersecting && (!mostVisible || intersectionRatio > mostVisible.intersectionRatio)) {
+        mostVisible = { intersectionRatio, target };
       }
     }
     if (!mostVisible) return;
@@ -169,19 +221,117 @@ async function initializeNavigationObserver(window, document) {
     threshold: 0,
   });
 
-  await Promise.all([...sectionsById.values()].map((section) => observer.observe(section)));
+  await Promise.all(Array.from(sectionsById.values(), (section) => observer.observe(section)));
 
   let initialSectionId;
   let minimumDistance = Infinity;
+  const viewport = await getViewportGeometry(window, document);
   for (const [sectionId, section] of sectionsById) {
     const rect = await section.getBoundingClientRect();
-    const distance = Math.abs(rect.top);
-    if (distance < minimumDistance && rect.top <= 100) {
+    const top = (await rect.top) - viewport.pageTop;
+    const distance = Math.abs(top);
+    if (distance < minimumDistance && top <= 100) {
       minimumDistance = distance;
       initialSectionId = sectionId;
     }
   }
   if (initialSectionId) await setActiveLink(initialSectionId);
+}
+
+async function initializeRevealAnimations(window, document) {
+  const body = await document.body;
+  if (!(await (await body.classList).contains('has-animations'))) return;
+
+  const targets = await document.querySelectorAll('.is-revealing');
+  if (!targets.length) return;
+
+  let observer;
+  observer = await new window.IntersectionObserver(asyncCallback(async (entries) => {
+    const readings = [];
+    for (const entry of entries) {
+      readings.push(Promise.all([entry.isIntersecting, entry.target]));
+    }
+
+    const updates = [];
+    let visibleIndex = 0;
+    for (const [isIntersecting, target] of await Promise.all(readings)) {
+      if (!isIntersecting || !target) continue;
+      const delay = visibleIndex++ * 100;
+      updates.push(
+        Promise.resolve().then(() => target.animate([
+          { visibility: 'visible', opacity: 0, transform: 'translateY(20px)' },
+          { visibility: 'visible', opacity: 1, transform: 'translateY(0)' },
+        ], {
+          delay,
+          duration: 600,
+          easing: 'cubic-bezier(0.5, -0.01, 0, 1.005)',
+          fill: 'forwards',
+        })).catch(reportAsyncCallbackError),
+        observer.unobserve(target),
+      );
+    }
+    await Promise.all(updates);
+  }), { threshold: 0.25 });
+
+  const observations = [];
+  for (const target of targets) {
+    observations.push(observer.observe(target));
+  }
+  await Promise.all(observations);
+}
+
+async function initializeHeroAnimations(document) {
+  const body = await document.body;
+  if (!(await (await body.classList).contains('has-animations'))) return;
+
+  const anime = createAsyncAnime(document);
+  const animations = [
+    anime.timeline({ targets: '.hero-figure-box-05' }).add({
+      duration: 400,
+      easing: 'easeInOutExpo',
+      scaleX: [0.05, 0.05],
+      scaleY: [0, 1],
+      perspective: 500,
+      delay: anime.random(0, 400),
+    }).add({
+      duration: 400,
+      easing: 'easeInOutExpo',
+      scaleX: 1,
+    }).add({
+      duration: 800,
+      rotateY: -15,
+      rotateX: 8,
+      rotateZ: -1,
+    }),
+    anime.timeline({ targets: '.hero-figure-box-06, .hero-figure-box-07' }).add({
+      duration: 400,
+      easing: 'easeInOutExpo',
+      scaleX: [0.05, 0.05],
+      scaleY: [0, 1],
+      perspective: 500,
+      delay: anime.random(0, 400),
+    }).add({
+      duration: 400,
+      easing: 'easeInOutExpo',
+      scaleX: 1,
+    }).add({
+      duration: 800,
+      rotateZ: 20,
+    }),
+    anime({
+      targets: '.hero-figure-box-01, .hero-figure-box-02, .hero-figure-box-03, .hero-figure-box-04, .hero-figure-box-08, .hero-figure-box-09, .hero-figure-box-10',
+      duration: anime.random(600, 800),
+      delay: anime.random(600, 800),
+      rotate: [anime.random(-360, 360), (element) => element.getAttribute('data-rotation')],
+      scale: [0.7, 1],
+      opacity: [0, 1],
+      easing: 'easeInOutExpo',
+    }),
+  ];
+
+  // Keep the hidden CSS gate closed until every initial keyframe is active.
+  await Promise.all(animations.map((animation) => animation.ready));
+  await (await (await document.documentElement).classList).add('anime-ready');
 }
 
 export async function initializeLandingPageInteractions(window = globalThis.window) {
@@ -195,6 +345,8 @@ export async function initializeLandingPageInteractions(window = globalThis.wind
     initializeHashNavigation(window, document),
     initializeVideoPlayback(window, document),
     initializeNavigationObserver(window, document),
+    initializeRevealAnimations(window, document),
+    initializeHeroAnimations(document),
   ]);
 }
 

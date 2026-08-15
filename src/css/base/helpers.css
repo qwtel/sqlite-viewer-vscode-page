@@ -506,20 +506,17 @@
   padding-left: 64px;
 }
 
-/* Reveal animations */
-.sr {
-  .has-animations {
-    .is-revealing {
-      visibility: hidden;
-    }
-  }
+/* The joined forms also cover the embedded page, where html and body collapse
+   into the same Shadow DOM root. */
+:is(.sr .has-animations, .sr.has-animations) .is-revealing {
+  visibility: hidden;
 }
 
 .has-animations .anime-element {
   visibility: hidden;
 }
 
-.anime-ready .has-animations .anime-element {
+:is(.anime-ready .has-animations, .anime-ready.has-animations) .anime-element {
   visibility: visible;
 }
 
@@ -755,4 +752,4 @@
 
 .mb-n3 {
   margin-bottom: -3px;
-} 
+}
