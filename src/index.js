@@ -2,6 +2,10 @@ import { initializeLandingPageInteractions } from './landing-page-remote.js';
 
 window.counterscale = { q: [['set', 'siteId', 'vscode.sqliteviewer.app'], ['trackPageview']] };
 
+// The shadow-DOM embed does not execute this entrypoint. This flag only covers
+// the iframe integration used by already-published versions of the extension.
+const isLegacyVscodeIframe = window.self !== window.top;
+
 function getRequiredElement(id, ElementType) {
   const element = document.getElementById(id);
   if (!(element instanceof ElementType)) throw new Error(`Missing #${id}`);
@@ -13,7 +17,7 @@ function initializePageAppearance() {
   const colorScheme = searchParams.get('color-scheme');
   const colorSchemeMeta = document.head.querySelector('meta[name="color-scheme"]');
   if (colorSchemeMeta) colorSchemeMeta.content = colorScheme || 'dark light';
-  document.body.classList.toggle('vscode', window.self !== window.top);
+  document.body.classList.toggle('vscode', isLegacyVscodeIframe);
   if (colorScheme) document.body.classList.add(colorScheme);
 
   try {
@@ -78,8 +82,8 @@ function initializeExternalLinkDialog() {
   };
 }
 
-async function initializeVscodePage() {
-  if (!document.body.classList.contains('vscode')) return;
+async function initializeLegacyVscodeIframe() {
+  if (!isLegacyVscodeIframe) return;
 
   const licenseKeyLink = getRequiredElement('license-key', HTMLAnchorElement);
   const openInBrowserLink = getRequiredElement('open-in-browser', HTMLAnchorElement);
@@ -112,11 +116,14 @@ async function initializeVscodePage() {
   });
 }
 
-  // Handle view timeline-based card animations
 async function initializeTimelineCards() {
-  !CSS.supports('view-timeline-name', '--cards-element-scrolls-in-body') && document.querySelectorAll('.cards-stack').forEach(async (cardsStack) => {
-    await import("./vendor/scroll-timeline.min.js");
+  if (CSS.supports('view-timeline-name', '--cards-element-scrolls-in-body')) return;
 
+  const cardStacks = document.querySelectorAll('.cards-stack');
+  if (cardStacks.length === 0) return;
+  await import('./vendor/scroll-timeline.min.js');
+
+  for (const cardsStack of cardStacks) {
     const cardContents = cardsStack.querySelectorAll('.card__content');
 
     const numCards = cardContents.length;
@@ -137,7 +144,7 @@ async function initializeTimelineCards() {
         rangeEnd: `exit-crossing ${CSS.percent(index / numCards * 100)}`,
       });
     });
-  });
+  }
 }
 
 function showSpinner() {
@@ -150,8 +157,8 @@ function showSpinner() {
             node.innerHTML = '';
             node.style.position = 'fixed';
             node.style.top = node.style.left = '0px';
-            node.style.width = node.style.height ='100%';
-            node.style.transform = ''
+            node.style.width = node.style.height = '100%';
+            node.style.transform = '';
             node.style.display = 'grid';
             node.style.placeItems = 'center';
             node.insertAdjacentHTML('beforeend', '<div class="lds-ring"><div></div><div></div><div></div><div></div></div>');
@@ -160,19 +167,15 @@ function showSpinner() {
         }
       }
     }
-  })
+  });
   muOb.observe(document.body, { childList: true });
-};
+}
 
 // Show loading spinner when clicking on checkout button
 function initializeLoadingSpinner() {
   const sheet = new CSSStyleSheet();
-  sheet.replaceSync(`.lds-ring { color: functions.color(typography, 2); } .lds-ring, .lds-ring div { box-sizing: border-box; } .lds-ring { display: inline-block; position: relative; width: 80px; height: 80px; } .lds-ring div { box-sizing: border-box; display: block; position: absolute; width: 64px; height: 64px; margin: 8px; border: 8px solid currentColor; border-radius: 50%; animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite; border-color: currentColor transparent transparent transparent; } .lds-ring div:nth-child(1) { animation-delay: -0.45s; } .lds-ring div:nth-child(2) { animation-delay: -0.3s; } .lds-ring div:nth-child(3) { animation-delay: -0.15s; } @keyframes lds-ring { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`);
+  sheet.replaceSync(`.lds-ring { color: var(--color-typography-2); } .lds-ring, .lds-ring div { box-sizing: border-box; } .lds-ring { display: inline-block; position: relative; width: 80px; height: 80px; } .lds-ring div { box-sizing: border-box; display: block; position: absolute; width: 64px; height: 64px; margin: 8px; border: 8px solid currentColor; border-radius: 50%; animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite; border-color: currentColor transparent transparent transparent; } .lds-ring div:nth-child(1) { animation-delay: -0.45s; } .lds-ring div:nth-child(2) { animation-delay: -0.3s; } .lds-ring div:nth-child(3) { animation-delay: -0.15s; } @keyframes lds-ring { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`);
   document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
-  // const isNewTab = ev => ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.button === 1;
-  // document.querySelectorAll('[data-polar-checkout]').forEach(el => {
-  //   el.addEventListener('click', ev => isNewTab(ev) ? ev.stopImmediatePropagation() : showSpinner());
-  // });
 }
 
 function getCheckoutTheme() {
@@ -188,19 +191,6 @@ function initializeEmbeddedCheckoutLinks() {
     el.addEventListener('click', async (ev) => {
       if (isNewTab(ev)) return;
       if (ev.defaultPrevented) return;
-
-      if (window.self !== window.top) {
-        setTimeout(() => {
-          import('./vendor/comlink.js')
-            .then((Comlink) => {
-              const parentEndpoint = Comlink.windowEndpoint(self.parent);
-              const wrappedParent = Comlink.wrap(parentEndpoint);
-              wrappedParent.enterLicenseKey();
-            })
-            .catch((err) => console.error(err));
-        }, 800);
-        return;
-      }
 
       ev.preventDefault();
 
@@ -265,32 +255,37 @@ function initializeCheckoutTheme() {
   });
 }
 
-  // Lazy load Shoelace when carousel comes into view
+function initializeNativeCheckout() {
+  if (isLegacyVscodeIframe) return;
+  initializeLoadingSpinner();
+  initializeCheckoutTheme();
+  initializeEmbeddedCheckoutLinks();
+}
+
 function initializeLazyLoadShoelace() {
   const carouselSection = document.querySelector('.changelog-carousel');
   if (!carouselSection) return;
-  
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        // Load Shoelace CSS and JS one by one using insertAdjacentHTML
+        // Load Shoelace when the carousel is close to the viewport.
         document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" media="(prefers-color-scheme:light)" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css"/>');
         document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" media="(prefers-color-scheme:dark)" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/dark.css"/>');
         import('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace.js').catch(console.error);
-        
+
         // Add dark mode listener
         const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
         darkMode.addEventListener('change', (ev) => document.documentElement.classList.toggle('sl-theme-dark', ev.matches));
         if (darkMode.matches) document.documentElement.classList.add('sl-theme-dark');
-        
-        // Disconnect observer since we only need to load once
+
         observer.disconnect();
       }
     });
   }, {
-    rootMargin: '1500px'
+    rootMargin: '1500px',
   });
-  
+
   observer.observe(carouselSection);
 }
 
@@ -298,7 +293,7 @@ function initializeLazyLoadShoelace() {
   initializePageAppearance();
 
   try {
-    await initializeVscodePage();
+    await initializeLegacyVscodeIframe();
   } catch (error) {
     console.error('Failed to initialize VS Code page integration:', error);
   }
@@ -316,16 +311,9 @@ function initializeLazyLoadShoelace() {
   }
 
   try {
-    initializeLoadingSpinner();
+    initializeNativeCheckout();
   } catch (error) {
-    console.error('Failed to initialize loading spinner:', error);
-  }
-
-  try {
-    initializeCheckoutTheme();
-    initializeEmbeddedCheckoutLinks();
-  } catch (error) {
-    console.error('Failed to initialize embedded checkout links:', error);
+    console.error('Failed to initialize checkout:', error);
   }
 
   try {
@@ -333,5 +321,4 @@ function initializeLazyLoadShoelace() {
   } catch (error) {
     console.error('Failed to initialize lazy load Shoelace:', error);
   }
-
 })();
