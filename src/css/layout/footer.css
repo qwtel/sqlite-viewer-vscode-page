@@ -25,7 +25,7 @@
 }
 
 ol > li {
-  margin-bottom: 1rem;
+  margin-bottom: 20px;
 }
 
 .site-footer-inner {
@@ -81,7 +81,7 @@ ol > li {
   margin-top: 32px;
 }
 
-@media (min-width: 640px) {
+@container viewport (min-width: 640px) {
   .site-footer {
     margin-top: 20px;
   }
@@ -129,7 +129,7 @@ ol > li {
   }
 } 
 
-@media (max-width: 639px) {
+@container viewport (max-width: 639px) {
   #currency-toggle-wrap {
     text-align: center;
   }

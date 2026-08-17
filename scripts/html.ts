@@ -5,7 +5,6 @@ import URL from 'url';
 import path from 'path'
 
 import { asyncReplace } from './_utils';
-import { createEmbeddedCss, EMBED_CSS_PATH } from './embed-css';
 
 const __filename = URL.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,10 +32,6 @@ async function buildHtmlFiles() {
     console.error('Build failed:', result.logs);
     process.exit(1);
   }
-
-  const pageCss = result.outputs.find((output) => output.path.endsWith('/dist/index.css'));
-  if (!pageCss) throw new Error('Landing-page CSS output is missing');
-  await Bun.write(resolve(EMBED_CSS_PATH), createEmbeddedCss(await pageCss.text()));
 
   // Kept separate from the normal page bundle: the extension fetches this
   // live, then executes it in its opaque sandbox against the async DOM API.

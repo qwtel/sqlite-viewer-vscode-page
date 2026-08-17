@@ -29,12 +29,12 @@
   }
 
   .changelog-card-full {
-    margin-bottom: 4rem;
+    margin-bottom: 80px;
   }
 
   /* Landing page specific styles - only applies to carousel cards */
   .changelog-card-landing {
-    --card-landing-padding: 2rem;
+    --card-landing-padding: 40px;
     padding: var(--card-landing-padding);
     border: 1px solid var(--color-bg-4);
     border-radius: 3px;
@@ -71,7 +71,7 @@
   }
 
   .changelog-header {
-    margin-bottom: 1rem;
+    margin-bottom: 20px;
 
     .changelog-version {
       font-weight: 600;
@@ -83,12 +83,12 @@
 
   .changelog-content {
     li {
-      margin-bottom: 0.5rem;
+      margin-bottom: 10px;
       line-height: 1.4;
     }
 
     p {
-      margin-bottom: 0.5rem;
+      margin-bottom: 10px;
     }
   }
 }

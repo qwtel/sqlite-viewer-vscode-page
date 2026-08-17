@@ -11,7 +11,7 @@
   padding-left: var(--content-padding-mobile);
   padding-right: var(--content-padding-mobile);
 
-  @media (min-width: 480px) {
+  @container viewport (min-width: 480px) {
     padding-left: var(--content-padding-desktop);
     padding-right: var(--content-padding-desktop);
   }
@@ -506,9 +506,7 @@
   padding-left: 64px;
 }
 
-/* The joined forms also cover the embedded page, where html and body collapse
-   into the same Shadow DOM root. */
-:is(.sr .has-animations, .sr.has-animations) .is-revealing {
+.page-root.sr.has-animations .is-revealing {
   visibility: hidden;
 }
 
@@ -733,13 +731,13 @@
 }
 
 .gap-8 {
-  gap: 0.5rem;
+  gap: 10px;
 }
 .gap-16 {
-  gap: 1rem;
+  gap: 20px;
 }
 .gap-24 {
-  gap: 1.5rem;
+  gap: 30px;
 }
 
 .justify-center {

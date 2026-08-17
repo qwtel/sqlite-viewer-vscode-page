@@ -4,16 +4,11 @@
 # Typography
 --------------------------------------------------------------*/
 
-html {
+body,
+.page-root {
   font-size: var(--font-size-epsilon);
   line-height: var(--line-height-epsilon);
   letter-spacing: var(--kerning-epsilon);
-
-  @media (min-width: 640px) {
-    font-size: var(--font-size-epsilon);
-    line-height: var(--line-height-epsilon);
-    letter-spacing: var(--kerning-epsilon);
-  }
 
   @media print {
     font-size: var(--print-font-size-5);
@@ -22,12 +17,14 @@ html {
   }
 }
 
-body {
+body,
+.page-root {
   color: var(--color-typography-2);
-  font-size: 1rem;
+  font-size: 20px;
 }
 
 body,
+.page-root,
 .button,
 .input,
 .select,
@@ -61,7 +58,7 @@ h1,
   line-height: var(--line-height-beta);
   letter-spacing: var(--kerning-beta);
 
-  @media (min-width: 640px) {
+  @container viewport (min-width: 640px) {
     font-size: var(--font-size-alpha);
     line-height: var(--line-height-alpha);
     letter-spacing: var(--kerning-alpha);
@@ -80,7 +77,7 @@ h2,
   line-height: var(--line-height-gamma);
   letter-spacing: var(--kerning-gamma);
 
-  @media (min-width: 640px) {
+  @container viewport (min-width: 640px) {
     font-size: var(--font-size-beta);
     line-height: var(--line-height-beta);
     letter-spacing: var(--kerning-beta);
@@ -100,7 +97,7 @@ h3,
   line-height: var(--line-height-delta);
   letter-spacing: var(--kerning-delta);
 
-  @media (min-width: 640px) {
+  @container viewport (min-width: 640px) {
     font-size: var(--font-size-gamma);
     line-height: var(--line-height-gamma);
     letter-spacing: var(--kerning-gamma);
@@ -123,7 +120,7 @@ h6,
   line-height: var(--line-height-epsilon);
   letter-spacing: var(--kerning-epsilon);
 
-  @media (min-width: 640px) {
+  @container viewport (min-width: 640px) {
     font-size: var(--font-size-delta);
     line-height: var(--line-height-delta);
     letter-spacing: var(--kerning-delta);
@@ -136,7 +133,7 @@ h6,
   }
 }
 
-@media (max-width: 639px) {
+@container viewport (max-width: 639px) {
   .h1-mobile {
     font-size: var(--font-size-beta);
     line-height: var(--line-height-beta);
@@ -339,4 +336,4 @@ strong {
     font-size: var(--print-font-size-5);
     line-height: var(--print-line-height-5);
   }
-} 
+}

@@ -97,10 +97,10 @@
 .pricing .one-time-price { display: unset }
 .pricing .monthly-price { display: none }
 
-/* Show/hide by currency: body.currency-toggle-active + #currency-toggle (IDs for queries only) */
-body .price-usd { display: none; }
+/* Show/hide by currency at the shared page root (#currency-toggle is queried only). */
+.page-root .price-usd { display: none; }
 
-body.currency-toggle-active {
+.page-root.currency-toggle-active {
   .checkout-link-usd,
   .price-usd { display: none; }
   .checkout-link-usd.one-time-price,
@@ -143,7 +143,7 @@ body.currency-toggle-active {
       .one-time-price { display: unset }
       .monthly-price { display: none }
     }
-    @media (min-width: 849px) {
+    @container viewport (min-width: 849px) {
       &.front-card {
         transform: translateX(calc(var(--dir) * (50% + 16px * 2)));
       }
@@ -158,4 +158,3 @@ body.currency-toggle-active {
     }
   }
 }
-

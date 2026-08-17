@@ -36,7 +36,7 @@
   grid-template-columns: 100%;
   grid-template-rows: repeat(var(--num-cards), 1fr);
 
-  @media (max-height: 800px) {
+  @container viewport (max-height: 800px) {
     --card-margin: 32px;
     grid-template-rows: repeat(var(--num-cards), auto);
   }
@@ -56,7 +56,7 @@
   grid-template-columns: 100%;
   grid-template-rows: repeat(var(--num-cards), 1fr);
 
-  @media (max-height: 800px) {
+  @container viewport (max-height: 800px) {
     --card-margin: 32px;
     grid-template-rows: repeat(var(--num-cards), auto);
   }
@@ -66,16 +66,16 @@
   background: var(--color-bg-3);
   aspect-ratio: 1160/600;
 
-  @media (max-aspect-ratio: 1/1) {
+  @container viewport (max-aspect-ratio: 1/1) {
     aspect-ratio: unset;
-    height: 80vh;
+    height: 80cqh;
   }
 }
 
 .cards {
-  @media (min-width: 1400px) {
-    margin-left: -2rem;
-    margin-right: -2rem;
+  @container viewport (min-width: 1400px) {
+    margin-left: -40px;
+    margin-right: -40px;
   }
 }
 
@@ -87,7 +87,7 @@
   box-shadow: 0 24px 48px color-mix(in srgb, var(--color-bg-1) 76%, #222);
   background: var(--color-bg-3);
   color: var(--color-typography-1);
-  border-radius: .25rem;
+  border-radius: 5px;
   display: grid;
   grid-template-areas: "text img";
   grid-template-columns: 1fr 2fr;
@@ -95,7 +95,7 @@
   align-items: stretch;
   outline: var(--outline-width) solid blue;
 
-  @media (max-width: 768px) {
+  @container viewport (max-width: 768px) {
     grid-template-columns: 100%;
     grid-template-rows: auto 1fr;
     grid-template-areas: "img"
@@ -108,7 +108,7 @@
   grid-template-areas: "img text";
   grid-template-columns: 2fr 1fr;
 
-  @media (max-width: 768px) {
+  @container viewport (max-width: 768px) {
     grid-template-columns: 100%;
     grid-template-rows: auto 1fr;
     grid-template-areas: "img"
@@ -132,15 +132,15 @@
   & > h3 {
     margin-top: 12px;
 
-    @media (max-width: 426px) {
+    @container viewport (max-width: 426px) {
       display: none;
     }
 
-    @media (min-width: 640px) {
+    @container viewport (min-width: 640px) {
       display: none;
     }
 
-    @media (min-width: 1024px) {
+    @container viewport (min-width: 1024px) {
       display: inherit;
     }
   }
@@ -149,8 +149,8 @@
 .card__content > figure {
   grid-area: img;
   margin: 0;
-  border-top-right-radius: .25rem;
-  border-bottom-right-radius: .25rem;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
   overflow: hidden;
   overflow: clip;
   aspect-ratio: 4 / 3;
@@ -163,12 +163,12 @@
     object-fit: cover;
   }
 
-  @media (min-width: 768px) {
+  @container viewport (min-width: 768px) {
     border-left: 1px solid var(--color-bg-4);
   }
 
-  @media (max-width: 768px) {
-    border-top-left-radius: .25rem;
+  @container viewport (max-width: 768px) {
+    border-top-left-radius: 5px;
     border-bottom-right-radius: 0;
   }
 }
@@ -177,16 +177,16 @@
 .cards-stack--text-right .card__content > figure {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  border-top-left-radius: .25rem;
-  border-bottom-left-radius: .25rem;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 
-  @media (min-width: 768px) {
+  @container viewport (min-width: 768px) {
     border-left: none;
     border-right: 1px solid var(--color-bg-4);
   }
 
-  @media (max-width: 768px) {
-    border-top-left-radius: .25rem;
+  @container viewport (max-width: 768px) {
+    border-top-left-radius: 5px;
     border-bottom-right-radius: 0;
   }
 }
@@ -212,7 +212,7 @@
   transition: transform 0.500s;
   transform: translateY(calc(var(--card-base-y) - var(--card-hover-y)));
 
-  @media (max-height: 800px) {
+  @container viewport (max-height: 800px) {
     position: static;
   }
 }
@@ -237,11 +237,11 @@ a.card__header {
   height: calc((var(--card-top-offset) + 0.125em) * 1 / (1.1 - 0.1 * var(--num-cards)));
   cursor: pointer;
   background: linear-gradient(to bottom, rgb(from var(--color-bg-4)  r g b / 50%), transparent);
-  border-top-left-radius: .25rem;
-  border-top-right-radius: .25rem;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   z-index: 1;
 
-  @media (max-height: 800px) {
+  @container viewport (max-height: 800px) {
     display: none;
   }
 }
@@ -249,7 +249,7 @@ a.card__header {
 /* Text-right card header styling for cards with text-right class */
 .cards-stack--text-right a.card__header {
   border-top-left-radius: 0;
-  border-top-right-radius: .25rem;
+  border-top-right-radius: 5px;
 }
 
 .card:has(.card__header:hover) {
@@ -273,4 +273,4 @@ a.card__header {
     animation-timeline: --cards-element-scrolls-in-body;
     animation-range: exit-crossing calc(var(--index0) / var(--num-cards) * 100%) exit-crossing calc((var(--index)) / var(--num-cards) * 100%);
   }
-} 
+}

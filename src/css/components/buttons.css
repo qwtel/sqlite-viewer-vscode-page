@@ -66,9 +66,9 @@
   width: 100%;
 }
 
-@media (max-width: 639px) {
+@container viewport (max-width: 639px) {
   .button-wide-mobile {
     width: 100%;
     max-width: 280px;
   }
-} 
+}

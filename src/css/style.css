@@ -116,7 +116,7 @@ div:has(> .section-title)::after, .with-divider::after {
   left: 0;
   right: 0;
   margin: auto;
-  width: min(8vw, 80px);
+  width: min(8cqw, 80px);
   height: 2px;
   border-radius: 1px;
   background: var(--color-bg-4);
@@ -174,8 +174,14 @@ details.faq {
 }
 
 /* Carousel Navigation */
-@media (pointer: coarse) or (max-width: 960px) {
+@media (pointer: coarse) {
   sl-carousel::part(navigation) {
     display: none;
   }
-} 
+}
+
+@container viewport (max-width: 960px) {
+  sl-carousel::part(navigation) {
+    display: none;
+  }
+}

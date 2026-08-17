@@ -5,8 +5,8 @@
 --------------------------------------------------------------*/
 
 #pricing {
-  scroll-margin-top: calc(60px + 1rem);
-  scroll-margin-bottom: 1rem;
+  scroll-margin-top: 80px;
+  scroll-margin-bottom: 20px;
 }
 
 .pricing-header {
@@ -16,7 +16,7 @@
 .pricing-tables-wrap {
   display: flex;
   flex-wrap: wrap;
-  gap: 2.5rem;
+  gap: 50px;
   justify-content: center;
   position: relative;
 }
@@ -149,7 +149,7 @@
       background-repeat: no-repeat;
     }
 
-    @media (max-height: 800px) {
+    @container viewport (max-height: 800px) {
       padding: 10px 0;
     }
   }
@@ -164,7 +164,7 @@
   font-weight: 300;
 } */
 
-@media (min-width: 640px) {
+@container viewport (min-width: 640px) {
   .section-paragraph {
     padding-left: 90px;
     padding-right: 90px;

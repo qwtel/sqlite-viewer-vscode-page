@@ -10,12 +10,12 @@
 
 .body-wrap {
   background: var(--color-bg-2);
+  /* Clip decorative horizontal overflow without becoming the page scroller. */
   overflow: clip;
   /* Sticky footer */
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 100cqh;
 }
 
 .boxed-container {
@@ -35,8 +35,8 @@ main {
   margin-bottom: 92px;
 }
 
-/* @media (min-width: 640px) {
+/* @container viewport (min-width: 640px) {
   .section-inner {
     margin-top: 128px;
   }
-} */ 
+} */

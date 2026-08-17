@@ -18,7 +18,7 @@
 
   .animated-text {
     display: block;
-    font-size: clamp(1rem, 10vw, 6.25rem);
+    font-size: clamp(20px, 10cqw, 125px);
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.02em;
@@ -37,7 +37,7 @@
     .text-hover {
       height: 100%;
       width: 100%;
-      padding: 1.5rem 0;
+      padding: 30px 0;
     }
 
     .text-original {
@@ -55,7 +55,7 @@
   }
 
   &:hover .animated-text, 
-  body.polar-no-scroll & .animated-text {
+  .page-root.polar-no-scroll & .animated-text {
     .text-original {
       transform: translateY(-100%);
     }

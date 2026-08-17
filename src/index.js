@@ -13,16 +13,26 @@ function getRequiredElement(id, ElementType) {
 }
 
 function initializePageAppearance() {
+  const page = getRequiredElement('page-root', HTMLElement);
   const searchParams = new URLSearchParams(location.search);
   const colorScheme = searchParams.get('color-scheme');
   const colorSchemeMeta = document.head.querySelector('meta[name="color-scheme"]');
   if (colorSchemeMeta) colorSchemeMeta.content = colorScheme || 'dark light';
   document.body.classList.toggle('vscode', isLegacyVscodeIframe);
-  if (colorScheme) document.body.classList.add(colorScheme);
+  page.classList.toggle('vscode', isLegacyVscodeIframe);
+  if (colorScheme) {
+    document.body.classList.add(colorScheme);
+    page.classList.add(colorScheme);
+  }
 
   try {
     const cssVars = JSON.parse(searchParams.get('css-vars') || '{}');
-    Object.entries(cssVars).forEach(([key, value]) => document.body.style.setProperty(key, String(value)));
+    Object.entries(cssVars).forEach(([key, value]) => {
+      // Keep the body assignment for already-published iframe clients while
+      // applying the same theme directly to the shared authored page root.
+      document.body.style.setProperty(key, String(value));
+      page.style.setProperty(key, String(value));
+    });
   } catch {
     // Ignore malformed optional embedding configuration.
   }
@@ -185,6 +195,7 @@ function getCheckoutTheme() {
 }
 
 function initializeEmbeddedCheckoutLinks() {
+  const page = getRequiredElement('page-root', HTMLElement);
   const isNewTab = ev => ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.button === 1;
 
   document.querySelectorAll('a[href^="/api/checkout"], a[href^="' + window.location.origin + '/api/checkout"]').forEach((el) => {
@@ -206,8 +217,8 @@ function initializeEmbeddedCheckoutLinks() {
       overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.5);display:grid;place-items:center;z-index:9999;';
       overlay.innerHTML = '<div class="lds-ring"><div></div><div></div><div></div><div></div></div>';
 
-      document.body.appendChild(overlay);
-      document.body.classList.add('polar-no-scroll');
+      page.appendChild(overlay);
+      page.classList.add('polar-no-scroll');
 
       let checkoutUrl;
       try {

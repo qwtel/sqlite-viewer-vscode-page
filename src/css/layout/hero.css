@@ -213,7 +213,7 @@
   transform: rotateZ(-50deg);
 }
 
-@media (max-width: 639px) {
+@container viewport (max-width: 639px) {
   .hero-cta {
     max-width: 280px;
     margin-left: auto;
@@ -236,7 +236,7 @@
   }
 }
 
-@media (min-width: 640px) {
+@container viewport (min-width: 640px) {
   .hero {
     text-align: left;
     padding-top: calc(56px + 24px);
@@ -285,4 +285,4 @@
   .hero-title {
     margin-top: 16px;
   }
-} 
+}

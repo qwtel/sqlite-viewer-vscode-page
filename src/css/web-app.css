@@ -17,9 +17,8 @@
   }
 
   #root {
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh;
+    width: 100cqw;
+    height: 100cqh;
     max-width: none;
     max-height: none;
     margin: 0;
@@ -38,8 +37,7 @@
 
   #root {
     width: 100%;
-    height: 100vh;
-    height: 100dvh;
+    height: 100cqh;
     max-width: none;
     max-height: none;
     margin: 0;
@@ -47,15 +45,15 @@
   }
 }
 
-body:not(.app) .scroller { 
+.page-root:not(.app) .scroller {
   overscroll-behavior: initial!important; 
 } 
 
-:root {
+html {
   scrollbar-gutter: stable;
 }
 
-:root:has(.app) {
+html:has(.page-root.app) {
   scrollbar-gutter: auto;
   overflow: clip;
 }

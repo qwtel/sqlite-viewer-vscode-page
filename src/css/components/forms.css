@@ -75,7 +75,7 @@
   margin-bottom: 8px;
 }
 
-@media (min-width: 640px) {
+@container viewport (min-width: 640px) {
   .field-grouped {
     display: flex;
 
@@ -93,4 +93,4 @@
       }
     }
   }
-} 
+}

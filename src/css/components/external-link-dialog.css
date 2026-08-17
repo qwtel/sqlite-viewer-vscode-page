@@ -6,7 +6,7 @@
   border-radius: 4px;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
   color: var(--color-typography-1);
-  max-width: min(560px, calc(100vw - 32px));
+  max-width: min(560px, calc(100cqw - 32px));
   padding: 0;
   width: 100%;
 
@@ -62,7 +62,7 @@
   margin-top: 20px;
 }
 
-@media (max-width: 479px) {
+@container viewport (max-width: 479px) {
   .external-link-dialog-actions {
     flex-direction: column-reverse;
   }

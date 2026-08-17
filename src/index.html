@@ -26,14 +26,15 @@
   <link rel="alternate" hreflang="ko" href="https://vscode.sqliteviewer.app/ko/" />
   <link rel="stylesheet" href="./css/style.css">
 </head>
-<body class="is-boxed has-animations">
+<body>
+  <div id="page-root" class="page-root is-boxed has-animations">
   <div class="body-wrap">
     <header class="site-header">
       <div class="container">
         <div class="site-header-inner gap-16">
           <div class="brand header-brand flex-fixed">
             <h1 class="m-0 header-brand-title">
-              <a href="#" data-scroll-to>
+              <a href="#">
                 <img class="header-logo-image" src="./images/logo_70_mac.png" alt="Logo" width="35" height="35">
               </a>
               <div class="ml-8 color-50" data-i18n-key="for-vs-code">
@@ -43,16 +44,16 @@
           </div>
           <div class="header-links flex min-w-0 overflow-h">
             <ul class="flex items-center gap-24 text-xs" style="flex: 1; list-style: none; padding: 0; margin: 0;">
-              <li><a class="opacity-link" href="#card-1" data-scroll-to data-i18n-key="clips">Clips</a></li>
-              <li><a class="opacity-link" href="#features-title" data-scroll-to data-i18n-key="features">Features</a></li>
-              <li><a class="opacity-link" href="#changelog-title" data-scroll-to data-i18n-key="changelog-short">Changelog</a></li>
-              <li><a class="opacity-link" href="#pricing" data-scroll-to data-i18n-key="pricing">Pricing</a></li>
-              <li><a class="opacity-link" href="#faq" data-scroll-to data-i18n-key="faq">FAQ</a></li>
+              <li><a class="opacity-link" href="#card-1" data-i18n-key="clips">Clips</a></li>
+              <li><a class="opacity-link" href="#features-title" data-i18n-key="features">Features</a></li>
+              <li><a class="opacity-link" href="#changelog-title" data-i18n-key="changelog-short">Changelog</a></li>
+              <li><a class="opacity-link" href="#pricing" data-i18n-key="pricing">Pricing</a></li>
+              <li><a class="opacity-link" href="#faq" data-i18n-key="faq">FAQ</a></li>
             </ul>
           </div>
           <div class="flex min-w-0">
             <a id="open-in-browser" class="button button-default button-sm vscode-only mr-8 display-none flex-1 ellipsis" target="_blank" title="Open in Browser" data-i18n-title="open-in-browser"><span data-i18n-key="open-in-browser">Open in Browser</span>&nbsp;↗</a>
-            <a class="button button-primary button-sm overflow-h" href="#pricing" data-scroll-to data-scroll-block-compact="end"><span data-i18n-key="see-pricing">See Pricing</span></a>
+            <a class="button button-primary button-sm overflow-h" href="#pricing" data-scroll-block-compact="end"><span data-i18n-key="see-pricing">See Pricing</span></a>
           </div>
         </div>
       </div>
@@ -73,8 +74,8 @@
               </script> -->
               <p class="hero-paragraph" data-i18n-key="hero-paragraph">Get work done without leaving VS Code. Unlock powerful <strong>editing</strong> and <strong>export</strong> features. Works anywhere, including <strong>SSH and WSL</strong>.</p>
               <div class="hero-cta">
-                <a class="button button-default" href="#card-1" data-scroll-to><span data-i18n-key="learn-more">Watch Clips</span>&nbsp;↓</a>
-                <a class="button button-primary" href="#pricing" data-scroll-to data-scroll-block-compact="end" data-i18n-key="see-pricing">See Pricing</a>
+                <a class="button button-default" href="#card-1"><span data-i18n-key="learn-more">Watch Clips</span>&nbsp;↓</a>
+                <a class="button button-primary" href="#pricing" data-scroll-block-compact="end" data-i18n-key="see-pricing">See Pricing</a>
               </div>
               <span class="text-xs fall-sale-banner" data-i18n-key="hero-footer">
                 <strong>☀️&nbsp;Summer Sale 2026: -30% on all purchases&nbsp;🌊</strong>
@@ -148,7 +149,7 @@
             <div class="spy" id="card-1" style="--index: 1"></div>
             <div class="card" style="--index: 1">
               <div class="card__content">
-                <a class="card__header" href="#card-1" data-scroll-to></a>
+                <a class="card__header" href="#card-1"></a>
                 <div>
                   <h3 data-i18n-key="card-1-h">Export data in a variety of formats</h3>
                   <p class="text-sm" data-i18n-key="card-1-p">You can copy rows directly from the viewer in a variety of formats. Supported formats are: TSV, CSV, SQLite inserts, JSON objects, JSON arrays, HTML, and Markdown.</p>
@@ -166,7 +167,7 @@
             <div class="spy" id="card-2" style="--index: 2"></div>
             <div class="card" style="--index: 2">
               <div class="card__content">
-                <a class="card__header" href="#card-2" data-scroll-to></a>
+                <a class="card__header" href="#card-2"></a>
                 <div>
                   <h3 data-i18n-key="card-2-h">Update values in place</h3>
                   <p class="text-sm" data-i18n-key="card-2-p">Update values from the sidebar or modal. All changes are automatically wrapped in a transaction and committed to disk when the file is saved.</p>
@@ -184,7 +185,7 @@
             <div class="spy" id="card-3" style="--index: 3"></div>
             <div class="card" style="--index: 3">
               <div class="card__content">
-                <a class="card__header" href="#card-3" data-scroll-to></a>
+                <a class="card__header" href="#card-3"></a>
                 <div>
                   <h3 data-i18n-key="card-3-h">Insert and delete rows</h3>
                   <p class="text-sm" data-i18n-key="card-3-p">Insert one or more rows using the modal dialog. Delete one or more rows from the explorer or using keyboard shortcuts.</p>
@@ -202,7 +203,7 @@
             <div class="spy" id="card-4" style="--index: 4"></div>
             <div class="card"  style="--index: 4">
               <div class="card__content">
-                <a class="card__header" href="#card-4" data-scroll-to></a>
+                <a class="card__header" href="#card-4"></a>
                 <div>
                   <h3 data-i18n-key="card-4-h">Undo and redo changes using VS Code</h3>
                   <p class="text-sm" data-i18n-key="card-4-p">SQLite Viewer PRO integrates with VS Code's undo/redo history. Changes are reverted through <code>ROLLBACK</code> statements before a file has been saved, and by running (inverted) SQL statements afterwards.</p>
@@ -220,7 +221,7 @@
             <div class="spy" id="card-5" style="--index: 5"></div>
             <div class="card" style="--index: 5">
               <div class="card__content">
-                <a class="card__header" href="#card-5" data-scroll-to></a>
+                <a class="card__header" href="#card-5"></a>
                 <div>
                   <h3 data-i18n-key="card-5-h">Works in containers, SSH, and WSL</h3>
                   <p class="text-sm" data-i18n-key="card-5-p">SQLite Viewer PRO can be installed inside containers, SSH hosts and WSL instances. A native SQLite instance runs alongside the database in the remote workspace, while only the webview remains on the local machine.</p>
@@ -293,7 +294,7 @@
             <div class="spy" id="card-2-1" style="--index: 1"></div>
             <div class="card" style="--index: 1">
               <div class="card__content">
-                <a class="card__header" href="#card-2-1" data-scroll-to></a>
+                <a class="card__header" href="#card-2-1"></a>
                 <figure>
                   <picture>
                     <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-6-light.webp">
@@ -312,7 +313,7 @@
             <div class="spy" id="card-2-2" style="--index: 2"></div>
             <div class="card" style="--index: 2">
               <div class="card__content">
-                <a class="card__header" href="#card-2-2" data-scroll-to></a>
+                <a class="card__header" href="#card-2-2"></a>
                 <figure>
                   <picture>
                     <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-7-light.webp">
@@ -331,7 +332,7 @@
             <div class="spy" id="card-2-3" style="--index: 3"></div>
             <div class="card" style="--index: 3">
               <div class="card__content">
-                <a class="card__header" href="#card-2-3" data-scroll-to></a>
+                <a class="card__header" href="#card-2-3"></a>
                 <figure>
                   <picture>
                     <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-8-light.webp">
@@ -350,7 +351,7 @@
             <div class="spy" id="card-2-4" style="--index: 4"></div>
             <div class="card" style="--index: 4">
               <div class="card__content">
-                <a class="card__header" href="#card-2-4" data-scroll-to></a>
+                <a class="card__header" href="#card-2-4"></a>
                 <figure>
                   <picture>
                     <source media="(prefers-color-scheme: light)" srcset="http://bun-ignore/dist/images/card-9-light.webp">
@@ -913,7 +914,7 @@
       <div class="container">
         <div class="site-footer-inner">
           <div class="brand footer-brand">
-            <a href="#" data-scroll-to>
+            <a href="#">
               <img class="header-logo-image" src="./images/logo_70_mac.png" data-no-inline alt="Logo" width="35" height="35" fetchpriority="low">
             </a>
           </div>
@@ -1006,6 +1007,7 @@
       </div>
     </form>
   </dialog>
+  </div>
   <script type="module" src="./index.js"></script>
   <!-- <script defer id="counterscale-script" src="https://counterscale.sqliteviewer.app/tracker.js"></script> -->
   <!-- <script defer data-domain="vscode.sqliteviewer.app" src="https://plausible.io/js/script.js"></script> -->

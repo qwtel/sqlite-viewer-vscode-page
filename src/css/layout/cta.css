@@ -48,7 +48,7 @@
   }
 }
 
-@media (min-width: 640px) {
+@container viewport (min-width: 640px) {
   .cta {
     text-align: left;
 
@@ -67,4 +67,4 @@
     align-items: center;
     justify-content: space-between;
   }
-} 
+}

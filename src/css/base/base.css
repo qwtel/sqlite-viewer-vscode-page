@@ -4,8 +4,23 @@
 # Base
 --------------------------------------------------------------*/
 
-html {
+/* The embedded host defines the same container for Shadow DOM content. */
+body {
+  container: viewport / size;
+  width: 100%;
+  height: 100dvh;
+}
+
+html,
+.page-root {
   box-sizing: border-box;
+}
+
+.page-root {
+  width: 100%;
+  min-height: 100%;
+  /* Scrolling belongs to the document or embedded host, never this root. */
+  overflow: visible;
 }
 
 *,
@@ -14,7 +29,8 @@ html {
   box-sizing: inherit;
 }
 
-body {
+body,
+.page-root {
   background: var(--color-bg-2); /* Fallback for when there is no custom background color defined. */
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -116,4 +132,4 @@ td:first-child {
 th:last-child,
 td:last-child {
   padding-right: 0;
-} 
+}

@@ -17,8 +17,9 @@
   </script>
   %VITE_HEAD%
 </head>
-<body class="is-boxed has-animations">
-  <script>window.localStorage.getItem('app') && document.body.classList.add('app')</script>
+<body>
+  <div id="page-root" class="page-root is-boxed has-animations">
+  <script>window.localStorage.getItem('app') && document.getElementById('page-root').classList.add('app')</script>
   <div class="body-wrap">
     <header class="site-header">
       <div class="container">
@@ -147,5 +148,6 @@
     </footer>
   </div>
   %VITE_BODY%
+  </div>
 </body>
 </html>

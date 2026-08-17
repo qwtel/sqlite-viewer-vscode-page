@@ -31,7 +31,7 @@
 
 .header-links {
   /* text-transform: uppercase; */
-  @media (max-width: 1023px) {
+  @container viewport (max-width: 1023px) {
     display: none;
   }
 }
@@ -55,7 +55,7 @@
   }
 } */
 
-@media (min-width: 640px) {
+@container viewport (min-width: 640px) {
   .hero-bg {
     background: var(--color-bg-3);
     background: linear-gradient(80deg, rgb(from var(--color-bg-3)  r g b / 50%) 0%, rgb(from var(--color-bg-3)  r g b / 0%) 100%);
@@ -83,4 +83,3 @@
     brightness(calc(1 + (var(--x-primary-l, 0.43) - 0.43) * 0.65))
     contrast(calc(0.8 + 0.2/0.98 * var(--x-primary-s, 0.98)));
 }
-

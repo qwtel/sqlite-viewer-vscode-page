@@ -12,19 +12,15 @@ export type { PolarCurrencyCode } from './api/#pricing';
 export const LANGS: ('en'|'de'|'fr'|'pt-br'|'ja'|'es'|'ko')[] = ['en', 'de', 'fr', 'pt-br', 'ja', 'es', 'ko'];
 
 export const DevCountryOverride = 'US';
-const ShadowEmbedMode = 'shadow';
 
-const shadowEmbedCorsHeaders = () => new Headers({
+const landingPageCorsHeaders = () => new Headers({
   'Access-Control-Allow-Methods': 'GET, OPTIONS',
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Max-Age': '86400',
 });
 
 export const onRequestOptions: PagesFunction = async (context) => {
-  const url = new URL(context.request.url);
-  if (url.searchParams.get('embed') !== ShadowEmbedMode) return context.next();
-
-  const headers = shadowEmbedCorsHeaders();
+  const headers = landingPageCorsHeaders();
   const requestedHeaders = context.request.headers.get('Access-Control-Request-Headers');
   if (requestedHeaders) headers.set('Access-Control-Allow-Headers', requestedHeaders);
   if (context.request.headers.get('Access-Control-Request-Private-Network') === 'true') {
@@ -71,8 +67,6 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const DEV = context.env.DEV;
   const url = new URL(context.request.url);
   const { searchParams } = url;
-  const embedMode = searchParams.get('embed');
-  const shadowEmbed = embedMode === ShadowEmbedMode;
 
   let [numPurchases, avatarUrls] = await Promise.all([
     context.env.KV.get<number>(`${Ns}.numPurchases`, 'json'),
@@ -132,29 +126,12 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   const colorScheme = lightDark(searchParams.get('color-scheme'))
   const secFetchDest = headers.get('Sec-Fetch-Dest')?.toLowerCase();
-  const vscode = shadowEmbed || secFetchDest === 'iframe' || searchParams.has('css-vars');
+  const legacyVscodeIframe = secFetchDest === 'iframe';
   const ua = headers.get('User-Agent') ?? '';
   const isSafari = /Safari/.test(ua) && !/Chrome|Chromium/.test(ua);
-  const removeWebm = vscode || isSafari;
+  const removeWebm = legacyVscodeIframe || isSafari;
 
   let rewriter = new HTMLRewriter();
-  if (shadowEmbed) {
-    rewriter = rewriter
-      .on('script', { element(el) { el.remove(); } })
-      .on('style, link[rel~="stylesheet"]:not([data-remote-embed])', {
-        element(el) { el.remove(); },
-      })
-      .on('head', {
-        element(el) {
-          el.append('<link rel="stylesheet" href="/dist/landing-page-embed.css" data-remote-embed>', {
-            html: true,
-          });
-        },
-      })
-      .on('iframe, object, embed', { element(el) { el.remove(); } })
-      .on('#vscode-external-link-dialog', { element(el) { el.remove(); } })
-      .on('img[src^="http"]', { element(el) { el.remove(); } });
-  }
   if (removeWebm) {
     rewriter = rewriter.on('video source[src$=".webm"]', {
       element(el) {
@@ -222,11 +199,12 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     });
 
   if (pricingData?.hasAnyLocalCurrency) {
-    rewriter = rewriter.on('body', {
-      element(el) {
-        el.setAttribute('class', (el.getAttribute('class') ?? '') + ' currency-toggle-active');
-      },
-    });
+    const enableCurrencyToggle = (el: HTMLRewriterTypes.Element) => {
+      el.setAttribute('class', (el.getAttribute('class') ?? '') + ' currency-toggle-active');
+    };
+    rewriter = rewriter
+      .on('body', { element: enableCurrencyToggle })
+      .on('#page-root', { element: enableCurrencyToggle });
   }
 
   if (pricingData) {
@@ -270,7 +248,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       })
   }
 
-  if (!vscode) {
+  if (!legacyVscodeIframe) {
     rewriter = rewriter
       .on('meta[name="color-scheme"]', { element(el) { el.setAttribute('content', colorScheme || 'dark light') } })
       .on('body', {
@@ -334,12 +312,11 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   if (response.status === 200) {
     if (!isDedicatedLangPage) transformedResponse.headers.append('Vary', 'Accept-Language');
     transformedResponse.headers.append('Vary', 'CF-IPCountry');
+    transformedResponse.headers.append('Vary', 'Sec-Fetch-Dest');
     transformedResponse.headers.set('Cache-Control', 'public, max-age=600') 
   }
-  if (shadowEmbed) {
-    transformedResponse.headers.set('Access-Control-Allow-Origin', '*');
-    transformedResponse.headers.set('Cross-Origin-Resource-Policy', 'cross-origin');
-  }
+  transformedResponse.headers.set('Access-Control-Allow-Origin', '*');
+  transformedResponse.headers.set('Cross-Origin-Resource-Policy', 'cross-origin');
   return transformedResponse;
 }
 

@@ -27,8 +27,7 @@ async function playVideo(video) {
   }
 }
 
-async function getViewportGeometry(window, document) {
-  const root = await document.documentElement;
+async function getViewportGeometry(window, root) {
   const rect = await root.getBoundingClientRect();
   const [rootTop, scrollY] = await Promise.all([rect.top, window.scrollY]);
   // The root moves upward as the synthetic viewport scrolls. Adding scrollY
@@ -36,12 +35,12 @@ async function getViewportGeometry(window, document) {
   return { pageTop: rootTop + scrollY, scrollY };
 }
 
-async function scrollToTarget(window, document, target, options = {}) {
+async function scrollToTarget(window, root, target, options = {}) {
   const [rect, style, viewportHeight, viewport] = await Promise.all([
     target.getBoundingClientRect(),
     window.getComputedStyle(target),
     window.innerHeight,
-    getViewportGeometry(window, document),
+    getViewportGeometry(window, root),
   ]);
   const [rawMarginTop, rawMarginBottom] = await Promise.all([
     style.scrollMarginTop,
@@ -73,15 +72,21 @@ async function scrollToTarget(window, document, target, options = {}) {
   await window.scrollTo({ top, behavior: options.behavior || 'smooth' });
 }
 
-async function initializeHashNavigation(window, document) {
-  const links = await document.querySelectorAll('[data-scroll-to]');
+async function initializeHashNavigation(window, document, root) {
+  const links = await document.querySelectorAll('a[href^="#"]');
 
   await Promise.all(Array.from(links, (link) => link.addEventListener(
     'click',
     asyncCallback(async (event) => {
       event.preventDefault();
-      const href = await link.getAttribute('href');
+      const [href, checkoutAction, id] = await Promise.all([
+        link.getAttribute('href'),
+        link.hasAttribute('data-checkout-product'),
+        link.getAttribute('id'),
+      ]);
       if (!href?.startsWith('#')) return;
+      // Their placeholder hashes are owned by separate action handlers.
+      if (checkoutAction || id === 'license-key') return;
       if (href === '#') {
         await window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
@@ -105,7 +110,7 @@ async function initializeHashNavigation(window, document) {
         && (await window.innerWidth) >= 780
         ? await link.getAttribute('data-scroll-block-compact')
         : 'start';
-      await scrollToTarget(window, document, target, { block: block || 'start', behavior: 'smooth' });
+      await scrollToTarget(window, root, target, { block: block || 'start', behavior: 'smooth' });
     }),
     { preventDefault: true },
   )));
@@ -172,7 +177,7 @@ async function initializeVideoPlayback(window, document) {
   ).flat());
 }
 
-async function initializeNavigationObserver(window, document) {
+async function initializeNavigationObserver(window, document, root) {
   const navLinks = await document.querySelectorAll('.opacity-link[href^="#"]');
   const linksBySection = new Map();
   const sectionsById = new Map();
@@ -225,7 +230,7 @@ async function initializeNavigationObserver(window, document) {
 
   let initialSectionId;
   let minimumDistance = Infinity;
-  const viewport = await getViewportGeometry(window, document);
+  const viewport = await getViewportGeometry(window, root);
   for (const [sectionId, section] of sectionsById) {
     const rect = await section.getBoundingClientRect();
     const top = (await rect.top) - viewport.pageTop;
@@ -238,9 +243,8 @@ async function initializeNavigationObserver(window, document) {
   if (initialSectionId) await setActiveLink(initialSectionId);
 }
 
-async function initializeRevealAnimations(window, document) {
-  const body = await document.body;
-  if (!(await (await body.classList).contains('has-animations'))) return;
+async function initializeRevealAnimations(window, document, root) {
+  if (!(await (await root.classList).contains('has-animations'))) return;
 
   const targets = await document.querySelectorAll('.is-revealing');
   if (!targets.length) return;
@@ -280,9 +284,8 @@ async function initializeRevealAnimations(window, document) {
   await Promise.all(observations);
 }
 
-async function initializeHeroAnimations(document) {
-  const body = await document.body;
-  if (!(await (await body.classList).contains('has-animations'))) return;
+async function initializeHeroAnimations(document, root) {
+  if (!(await (await root.classList).contains('has-animations'))) return;
 
   const anime = createAsyncAnime(document);
   const animations = [
@@ -331,22 +334,22 @@ async function initializeHeroAnimations(document) {
 
   // Keep the hidden CSS gate closed until every initial keyframe is active.
   await Promise.all(animations.map((animation) => animation.ready));
-  await (await (await document.documentElement).classList).add('anime-ready');
+  await (await root.classList).add('anime-ready');
 }
 
 export async function initializeLandingPageInteractions(window = globalThis.window) {
   const document = await window.document;
-  const root = await document.documentElement;
+  const root = await document.getElementById('page-root') || await document.documentElement;
   const classList = await root.classList;
   await classList.remove('no-js');
   await classList.add('js', 'sr');
 
   await Promise.all([
-    initializeHashNavigation(window, document),
+    initializeHashNavigation(window, document, root),
     initializeVideoPlayback(window, document),
-    initializeNavigationObserver(window, document),
-    initializeRevealAnimations(window, document),
-    initializeHeroAnimations(document),
+    initializeNavigationObserver(window, document, root),
+    initializeRevealAnimations(window, document, root),
+    initializeHeroAnimations(document, root),
   ]);
 }
 
