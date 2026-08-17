@@ -116,6 +116,36 @@ async function initializeHashNavigation(window, document, root) {
   )));
 }
 
+async function initializeEmbeddedActions(document, root, host) {
+  if (!host) return;
+
+  const [openInBrowser, licenseKey] = await Promise.all([
+    document.getElementById('open-in-browser'),
+    document.getElementById('license-key'),
+  ]);
+
+  if (openInBrowser) {
+    const href = await openInBrowser.href;
+    const url = new URL(href);
+    url.searchParams.set('ref', 'vscode');
+    url.searchParams.set('lang', await root.lang || 'en');
+    const classList = await openInBrowser.classList;
+    await Promise.all([
+      openInBrowser.setAttribute('href', url.href),
+      classList.remove('display-none'),
+      classList.add('display-inline'),
+    ]);
+  }
+
+  if (licenseKey) {
+    await (await licenseKey.style).setProperty('display', 'inline');
+    await licenseKey.addEventListener('click', asyncCallback(async (event) => {
+      event.preventDefault();
+      await host.enterLicenseKey();
+    }), { preventDefault: true });
+  }
+}
+
 async function initializeVideoPlayback(window, document) {
   const cards = await document.getElementById('cards');
   const cardVideos = cards ? await cards.querySelectorAll('video') : [];
@@ -337,7 +367,7 @@ async function initializeHeroAnimations(document, root) {
   await (await root.classList).add('anime-ready');
 }
 
-export async function initializeLandingPageInteractions(window = globalThis.window) {
+export async function initializeLandingPageInteractions(window = globalThis.window, host = null) {
   const document = await window.document;
   const root = await document.getElementById('page-root') || await document.documentElement;
   const classList = await root.classList;
@@ -345,6 +375,7 @@ export async function initializeLandingPageInteractions(window = globalThis.wind
   await classList.add('js', 'sr');
 
   await Promise.all([
+    initializeEmbeddedActions(document, root, host),
     initializeHashNavigation(window, document, root),
     initializeVideoPlayback(window, document),
     initializeNavigationObserver(window, document, root),

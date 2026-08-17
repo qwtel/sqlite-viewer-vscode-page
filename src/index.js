@@ -95,16 +95,7 @@ function initializeExternalLinkDialog() {
 async function initializeLegacyVscodeIframe() {
   if (!isLegacyVscodeIframe) return;
 
-  const licenseKeyLink = getRequiredElement('license-key', HTMLAnchorElement);
-  const openInBrowserLink = getRequiredElement('open-in-browser', HTMLAnchorElement);
   const showExternalLinkDialog = initializeExternalLinkDialog();
-
-  openInBrowserLink.classList.remove('display-none');
-  openInBrowserLink.classList.add('display-inline');
-  const openInBrowserUrl = new URL('/', location.href);
-  openInBrowserUrl.searchParams.set('ref', 'vscode');
-  openInBrowserUrl.searchParams.set('lang', document.documentElement.lang || 'en');
-  openInBrowserLink.href = openInBrowserUrl.href;
 
   document.addEventListener('click', (event) => {
     if (!(event.target instanceof Element)) return;
@@ -119,11 +110,7 @@ async function initializeLegacyVscodeIframe() {
 
   const Comlink = await import('./vendor/comlink.js');
   const wrappedParent = Comlink.wrap(Comlink.windowEndpoint(self.parent));
-  licenseKeyLink.style.display = 'inline';
-  licenseKeyLink.addEventListener('click', (event) => {
-    event.preventDefault();
-    void wrappedParent.enterLicenseKey();
-  });
+  return wrappedParent;
 }
 
 async function initializeTimelineCards() {
@@ -303,14 +290,15 @@ function initializeLazyLoadShoelace() {
 (async () => {
   initializePageAppearance();
 
+  let host;
   try {
-    await initializeLegacyVscodeIframe();
+    host = await initializeLegacyVscodeIframe();
   } catch (error) {
     console.error('Failed to initialize VS Code page integration:', error);
   }
 
   try {
-    await initializeLandingPageInteractions();
+    await initializeLandingPageInteractions(window, host);
   } catch (error) {
     console.error('Failed to initialize shared landing-page interactions:', error);
   }
