@@ -29,10 +29,10 @@ async function playVideo(video) {
 
 async function getViewportGeometry(window, root) {
   const rect = await root.getBoundingClientRect();
-  const [rootTop, scrollY] = await Promise.all([rect.top, window.scrollY]);
+  const scrollY = await window.scrollY;
   // The root moves upward as the synthetic viewport scrolls. Adding scrollY
   // recovers the fixed viewport origin in the outer webview's coordinates.
-  return { pageTop: rootTop + scrollY, scrollY };
+  return { pageTop: rect.top + scrollY, scrollY };
 }
 
 async function scrollToTarget(window, root, target, options = {}) {
@@ -46,13 +46,8 @@ async function scrollToTarget(window, root, target, options = {}) {
     style.scrollMarginTop,
     style.scrollMarginBottom,
   ]);
-  const [rawRectBottom, rectHeight, rawRectTop] = await Promise.all([
-    rect.bottom,
-    rect.height,
-    rect.top,
-  ]);
-  const rectBottom = rawRectBottom - viewport.pageTop;
-  const rectTop = rawRectTop - viewport.pageTop;
+  const rectBottom = rect.bottom - viewport.pageTop;
+  const rectTop = rect.top - viewport.pageTop;
   const marginTop = Number.parseFloat(rawMarginTop) || 0;
   const marginBottom = Number.parseFloat(rawMarginBottom) || 0;
   const start = viewport.scrollY + rectTop - marginTop;
@@ -61,7 +56,7 @@ async function scrollToTarget(window, root, target, options = {}) {
   const top = block === 'end'
     ? end
     : block === 'center'
-      ? viewport.scrollY + rectTop + rectHeight / 2 - viewportHeight / 2
+      ? viewport.scrollY + rectTop + rect.height / 2 - viewportHeight / 2
       : block === 'nearest'
         ? rectTop < 0
           ? start
@@ -154,23 +149,18 @@ async function initializeVideoPlayback(window, document) {
 
   await Promise.all(Array.from(cardVideos, (video) => setProperty(video, 'muted', true)));
 
-  const videoForTarget = async (target) => {
-    const style = await target.style;
-    const index = Number(await style.getPropertyValue('--index'));
-    return cardVideos[index - 1];
-  };
+  const videosByTarget = new Map(await Promise.all(Array.from(spies, async (target) => {
+    const index = Number(await (await target.style).getPropertyValue('--index'));
+    return [target, cardVideos[index - 1]];
+  })));
 
   const inObserver = await new window.IntersectionObserver(asyncCallback(async (entries) => {
     const windowHeight = (await window.innerHeight) - 96;
-    const readings = await Promise.all(entries.map(async (entry) => {
-      const [rect, intersectionRatio, isIntersecting, target] = await Promise.all([
-        entry.boundingClientRect,
-        entry.intersectionRatio,
-        entry.isIntersecting,
-        entry.target,
-      ]);
-      const [height, video] = await Promise.all([rect.height, videoForTarget(target)]);
-      return { height, intersectionRatio, isIntersecting, video };
+    const readings = entries.map((entry) => ({
+      height: entry.boundingClientRect.height,
+      intersectionRatio: entry.intersectionRatio,
+      isIntersecting: entry.isIntersecting,
+      video: videosByTarget.get(entry.target),
     }));
     for (const { height, intersectionRatio, isIntersecting, video } of readings) {
       if (!video) continue;
@@ -185,14 +175,10 @@ async function initializeVideoPlayback(window, document) {
 
   const outObserver = await new window.IntersectionObserver(asyncCallback(async (entries) => {
     const windowHeight = await window.innerHeight;
-    const readings = await Promise.all(entries.map(async (entry) => {
-      const [rect, isIntersecting, target] = await Promise.all([
-        entry.boundingClientRect,
-        entry.isIntersecting,
-        entry.target,
-      ]);
-      const [height, video] = await Promise.all([rect.height, videoForTarget(target)]);
-      return { height, isIntersecting, video };
+    const readings = entries.map((entry) => ({
+      height: entry.boundingClientRect.height,
+      isIntersecting: entry.isIntersecting,
+      video: videosByTarget.get(entry.target),
     }));
     for (const { height, isIntersecting, video } of readings) {
       if (!isIntersecting && height < windowHeight) {
@@ -210,23 +196,17 @@ async function initializeVideoPlayback(window, document) {
 async function initializeNavigationObserver(window, document, root) {
   const navLinks = await document.querySelectorAll('.opacity-link[href^="#"]');
   const linksBySection = new Map();
-  const sectionsById = new Map();
 
   for (const link of navLinks) {
     const href = await link.getAttribute('href');
     if (!href || href === '#') continue;
     const section = await document.querySelector(href);
-    if (section) {
-      const sectionId = await section.id;
-      linksBySection.set(sectionId, link);
-      sectionsById.set(sectionId, section);
-    }
+    if (section) linksBySection.set(section, link);
   }
   if (!linksBySection.size) return;
 
   let activeLink;
-  const setActiveLink = async (sectionId) => {
-    const nextLink = linksBySection.get(sectionId);
+  const setActiveLink = async (nextLink) => {
     if (!nextLink || nextLink === activeLink) return;
     if (activeLink) await (await activeLink.classList).remove('active');
     await (await nextLink.classList).add('active');
@@ -235,42 +215,34 @@ async function initializeNavigationObserver(window, document, root) {
 
   const observer = await new window.IntersectionObserver(asyncCallback(async (entries) => {
     let mostVisible;
-    const readings = await Promise.all(entries.map(async (entry) => {
-      const [intersectionRatio, isIntersecting, target] = await Promise.all([
-        entry.intersectionRatio,
-        entry.isIntersecting,
-        entry.target,
-      ]);
-      return { intersectionRatio, isIntersecting, target };
-    }));
-    for (const { intersectionRatio, isIntersecting, target } of readings) {
+    for (const { intersectionRatio, isIntersecting, target } of entries) {
       if (isIntersecting && (!mostVisible || intersectionRatio > mostVisible.intersectionRatio)) {
         mostVisible = { intersectionRatio, target };
       }
     }
     if (!mostVisible) return;
 
-    await setActiveLink(await mostVisible.target.id);
+    await setActiveLink(linksBySection.get(mostVisible.target));
   }), {
     rootMargin: '-20% 0px -60% 0px',
     threshold: 0,
   });
 
-  await Promise.all(Array.from(sectionsById.values(), (section) => observer.observe(section)));
+  await Promise.all(Array.from(linksBySection.keys(), (section) => observer.observe(section)));
 
-  let initialSectionId;
+  let initialLink;
   let minimumDistance = Infinity;
   const viewport = await getViewportGeometry(window, root);
-  for (const [sectionId, section] of sectionsById) {
+  for (const [section, link] of linksBySection) {
     const rect = await section.getBoundingClientRect();
-    const top = (await rect.top) - viewport.pageTop;
+    const top = rect.top - viewport.pageTop;
     const distance = Math.abs(top);
     if (distance < minimumDistance && top <= 100) {
       minimumDistance = distance;
-      initialSectionId = sectionId;
+      initialLink = link;
     }
   }
-  if (initialSectionId) await setActiveLink(initialSectionId);
+  if (initialLink) await setActiveLink(initialLink);
 }
 
 async function initializeRevealAnimations(window, document, root) {
@@ -281,14 +253,9 @@ async function initializeRevealAnimations(window, document, root) {
 
   let observer;
   observer = await new window.IntersectionObserver(asyncCallback(async (entries) => {
-    const readings = [];
-    for (const entry of entries) {
-      readings.push(Promise.all([entry.isIntersecting, entry.target]));
-    }
-
     const updates = [];
     let visibleIndex = 0;
-    for (const [isIntersecting, target] of await Promise.all(readings)) {
+    for (const { isIntersecting, target } of entries) {
       if (!isIntersecting || !target) continue;
       const delay = visibleIndex++ * 100;
       updates.push(
@@ -307,11 +274,7 @@ async function initializeRevealAnimations(window, document, root) {
     await Promise.all(updates);
   }), { threshold: 0.25 });
 
-  const observations = [];
-  for (const target of targets) {
-    observations.push(observer.observe(target));
-  }
-  await Promise.all(observations);
+  await Promise.all(Array.from(targets, (target) => observer.observe(target)));
 }
 
 async function initializeHeroAnimations(document, root) {
