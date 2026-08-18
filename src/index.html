@@ -523,6 +523,27 @@
       <sl-carousel-item>
         <div class="changelog-card changelog-card-landing">
           <div class="changelog-header">
+            <h4 class="changelog-version" id="v2680"><span class="version-number">v26.8.0</span> <time class="version-date" datetime="2026-08-17">August 18, 2026</time></h4>
+          </div>
+          <div class="changelog-content text-sm">
+            <p>Bump the latest pre-release to the main channel.</p>
+<p>Major new features from the pre-release branch are included in this update:</p>
+<ul>
+<li><a href="/changelog#pro-table-and-column-creation"><sl-badge variant="primary" size="small">PRO</sl-badge> Table and Column Creation</a> — Add, drop, and edit tables and columns, including constraints for empty tables.</li>
+<li><a href="/changelog#pro-antifreeze-update"><sl-badge variant="primary" size="small">PRO</sl-badge> Antifreeze Update</a> — Long-running SQLite operations are cancelled when navigating to another view, keeping the UI responsive.</li>
+<li><a href="/changelog#improved-keyboard-selection">Improved Keyboard Selection</a> — Select rows with Shift+Arrow and use Enter or Escape for common selection actions.</li>
+<li><a href="/changelog#row-selection-undo-history">Row Selection Undo History</a> — Undo and redo row selections independently from document edits.</li>
+<li><a href="/changelog#pro-text-input-undo-history"><sl-badge variant="primary" size="small">PRO</sl-badge> Text Input Undo History</a> — Undo and redo text-field edits independently from database history.</li>
+<li><a href="/changelog#pro-inline-foreign-keys-in-row-detail"><sl-badge variant="primary" size="small">PRO</sl-badge> Inline Foreign Keys in Row Detail</a> — Expand, edit, and save referenced rows directly in the detail modal, including nested references.</li>
+<li><a href="/changelog#pro-markdown-preview"><sl-badge variant="primary" size="small">PRO</sl-badge> Markdown Preview</a> — Render markdown stored in text columns in the row detail modal and open it with Markdown tooling in VS Code.</li>
+</ul>
+
+          </div>
+        </div>
+      </sl-carousel-item>
+      <sl-carousel-item>
+        <div class="changelog-card changelog-card-landing">
+          <div class="changelog-header">
             <h4 class="changelog-version" id="v2625-pre-release"><span class="version-number">v26.2.5 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2026-02-22">February 23, 2026</time></h4>
           </div>
           <div class="changelog-content text-sm">
@@ -607,29 +628,6 @@
 <li>No accept-drop state when dragging a column over another table (sidebar or header).</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Add Column now accepts column types that contain spaces (e.g. <code>TEXT MARKDOWN</code>).</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Various invalid foreign key/autoincrement/generated statements can no longer be created via the 'Add Column' UI</li>
-</ul>
-
-          </div>
-        </div>
-      </sl-carousel-item>
-      <sl-carousel-item>
-        <div class="changelog-card changelog-card-landing">
-          <div class="changelog-header">
-            <h4 class="changelog-version" id="v2621-pre-release"><span class="version-number">v26.2.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2026-02-04">February 5, 2026</time></h4>
-          </div>
-          <div class="changelog-content text-sm">
-            <h5 id="additions">Additions</h5><ul>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> When adding columns to an empty table that references another table's composite primary key, the table now uses a single table-level <code>FOREIGN KEY</code> constraint instead of inline <code>REFERENCES</code> on each column</li>
-</ul>
-<h5 id="fixes">Fixes</h5><ul>
-<li>'Without Row ID' and 'Strict' options in the table info panel are now disabled when using the Free Version</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Add Table, Add Column, Drop Table, and drop column actions are now disabled when the database is read-only instead of throwing an error</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixes a bug when adding a <code>PRIMARY KEY</code> column without specifying a column type</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Dropping a column that is part of a composite primary key no longer fails</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed renaming of columns that are part of a composite primary key</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed reordering columns when renaming in an empty table</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed JSONB default values when adding or editing columns</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed over-escaping of quotes in generated SQL in certain instances</li>
 </ul>
 
           </div>
