@@ -49,11 +49,13 @@
   overscroll-behavior: initial!important; 
 } 
 
-html {
+html,
+:host > .page-root {
   scrollbar-gutter: stable;
 }
 
-html:has(.page-root.app) {
+html:has(.page-root.app),
+:host > .page-root.app {
   scrollbar-gutter: auto;
   overflow: clip;
 }

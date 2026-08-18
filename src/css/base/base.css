@@ -19,8 +19,16 @@ html,
 .page-root {
   width: 100%;
   min-height: 100%;
-  /* Scrolling belongs to the document or embedded host, never this root. */
+  /* On the live site, scrolling belongs to the document, never this root. */
   overflow: visible;
+}
+
+/* In the VS Code shadow embed, this root is the document scroller. */
+:host > .page-root {
+  height: 100%;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
 }
 
 *,
