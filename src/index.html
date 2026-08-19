@@ -500,6 +500,17 @@
       <sl-carousel-item>
         <div class="changelog-card changelog-card-landing">
           <div class="changelog-header">
+            <h4 class="changelog-version" id="v2681-pre-release"><span class="version-number">v26.8.1 <sl-badge variant="neutral" size="small">Preview</sl-badge></span></h4>
+          </div>
+          <div class="changelog-content text-sm">
+            <p>Fixed minor issues affecting stability and reliability. Includes various dependency and maintenance updates.</p>
+
+          </div>
+        </div>
+      </sl-carousel-item>
+      <sl-carousel-item>
+        <div class="changelog-card changelog-card-landing">
+          <div class="changelog-header">
             <h4 class="changelog-version" id="v2680"><span class="version-number">v26.8.0</span> <time class="version-date" datetime="2026-08-17">August 18, 2026</time></h4>
           </div>
           <div class="changelog-content text-sm">
@@ -571,40 +582,6 @@
             <ul>
 <li>Resolved visual artifacts that appeared during hover on fieldsets in certain themes</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> The &quot;Collapse All&quot; button for inlined foreign keys now collapses every expanded level</li>
-</ul>
-
-          </div>
-        </div>
-      </sl-carousel-item>
-      <sl-carousel-item>
-        <div class="changelog-card changelog-card-landing">
-          <div class="changelog-header">
-            <h4 class="changelog-version" id="v2622-pre-release"><span class="version-number">v26.2.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2026-02-19">February 20, 2026</time></h4>
-          </div>
-          <div class="changelog-content text-sm">
-            <h5 id="pro-inline-foreign-keys-in-row-detail"><sl-badge variant="primary" size="small">PRO</sl-badge> Inline Foreign Keys in Row Detail</h5><p>In the row detail modal (detail view), foreign key columns can now show the referenced row inline. You can expand or collapse each FK to see and edit the linked row without leaving the modal.</p>
-<ul>
-<li><strong>Nested references</strong> are supported: expanding an FK can reveal further FKs in that row, each with its own expand/collapse.</li>
-<li><strong>Editing</strong> works inline: you can change values in the referenced row and save; updates apply to the correct table.</li>
-</ul>
-<h5 id="additions">Additions</h5><ul>
-<li>Primary key tooltips now list every table that references this column via foreign key</li>
-<li>The left sidebar now supports the same keyboard selection behavior as the main table</li>
-<li>Double-clicking a table or view in the left sidebar now expands or collapses it</li>
-</ul>
-<h5 id="changes">Changes</h5><ul>
-<li>Changing focus in the main view no longer scrolls the corresponding value into view in the sidebar</li>
-<li>Fieldsets in the sidebar no longer display a visual active state</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Input field placeholders for columns with default values now display the default value or expression instead of <code>NULL</code></li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Input field placeholders for generated columns now display the generation expression</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Input fields for generated columns are now disabled</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> The file extension for hex files was renamed from <code>.hexblob</code> to <code>.hexdump</code></li>
-</ul>
-<h5 id="fixes">Fixes</h5><ul>
-<li>The right sidebar no longer loses its scroll position when it is (auto-)closed.</li>
-<li>No accept-drop state when dragging a column over another table (sidebar or header).</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Add Column now accepts column types that contain spaces (e.g. <code>TEXT MARKDOWN</code>).</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Various invalid foreign key/autoincrement/generated statements can no longer be created via the 'Add Column' UI</li>
 </ul>
 
           </div>
