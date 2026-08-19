@@ -1,4 +1,4 @@
-import { initializeLandingPageInteractions } from './landing-page-remote.js';
+import { initializeLandingPageInteractions } from './interactions.js';
 
 window.counterscale = { q: [['set', 'siteId', 'vscode.sqliteviewer.app'], ['trackPageview']] };
 

@@ -36,7 +36,7 @@ async function buildHtmlFiles() {
   // Kept separate from the normal page bundle: the extension fetches this
   // live, then executes it in its opaque sandbox against the async DOM API.
   const remoteResult = await Bun.build({
-    entrypoints: ['./src/landing-page-remote.js'],
+    entrypoints: ['./src/interactions.js'],
     outdir: './dist',
     naming: '[name].[ext]',
     minify: !isDev,
@@ -44,7 +44,7 @@ async function buildHtmlFiles() {
     target: 'browser',
   });
   if (!remoteResult.success) {
-    console.error('Landing-page sandbox build failed:', remoteResult.logs);
+    console.error('Landing-page interactions build failed:', remoteResult.logs);
     process.exit(1);
   }
 
