@@ -90,7 +90,12 @@ async function createCheckoutAndGetUrl(
   const tier = getPppDiscountTier(country);
   const pppDiscountId = tier >= 1 ? context.env[`PPP_DISCOUNT_ID_TIER_${tier}` as keyof Env] as string|undefined : undefined;
   const saleDiscountPercent = parseDiscountPercent(context.env.SALE_DISCOUNT_PERCENT);
-  const saleDiscountId = saleDiscountPercent > 0 ? context.env.SALE_DISCOUNT_ID : undefined;
+  // The sale discount only targets the one-time products. Polar rejects the
+  // entire checkout if a discount is attached to an ineligible subscription.
+  const supportsSaleDiscount = product === 'pro' || product === 'be';
+  const saleDiscountId = supportsSaleDiscount && saleDiscountPercent > 0
+    ? context.env.SALE_DISCOUNT_ID
+    : undefined;
   const discountId = saleDiscountId && saleDiscountPercent > pppDiscountPercent
     ? saleDiscountId
     : pppDiscountId ?? saleDiscountId;
