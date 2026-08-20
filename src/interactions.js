@@ -27,42 +27,45 @@ async function playVideo(video) {
   }
 }
 
-async function getViewportGeometry(window, root) {
-  const rect = await root.getBoundingClientRect();
-  const scrollY = await window.scrollY;
-  // The root moves upward as the synthetic viewport scrolls. Adding scrollY
-  // recovers the fixed viewport origin in the outer webview's coordinates.
-  return { pageTop: rect.top + scrollY, scrollY };
+async function getRootScrollPosition(root) {
+  const [rect, scrollTop] = await Promise.all([
+    root.getBoundingClientRect(),
+    root.scrollTop,
+  ]);
+  return { top: rect.top, scrollTop };
 }
 
-async function scrollToTarget(window, root, target, options = {}) {
-  const [rect, style, viewportHeight, viewport] = await Promise.all([
+export async function scrollToTarget(window, root, target, options = {}) {
+  const [rect, rootPosition, scrollTop, style, viewportHeight] = await Promise.all([
     target.getBoundingClientRect(),
+    getRootScrollPosition(root),
+    window.scrollY,
     window.getComputedStyle(target),
     window.innerHeight,
-    getViewportGeometry(window, root),
   ]);
   const [rawMarginTop, rawMarginBottom] = await Promise.all([
     style.scrollMarginTop,
     style.scrollMarginBottom,
   ]);
-  const rectBottom = rect.bottom - viewport.pageTop;
-  const rectTop = rect.top - viewport.pageTop;
+  const targetTop = rect.top - rootPosition.top + rootPosition.scrollTop;
+  const targetBottom = rect.bottom - rootPosition.top + rootPosition.scrollTop;
+  const visibleTop = targetTop - scrollTop;
+  const visibleBottom = targetBottom - scrollTop;
   const marginTop = Number.parseFloat(rawMarginTop) || 0;
   const marginBottom = Number.parseFloat(rawMarginBottom) || 0;
-  const start = viewport.scrollY + rectTop - marginTop;
-  const end = viewport.scrollY + rectBottom - viewportHeight + marginBottom;
+  const start = targetTop - marginTop;
+  const end = targetBottom - viewportHeight + marginBottom;
   const block = ['center', 'end', 'nearest', 'start'].includes(options.block) ? options.block : 'start';
   const top = block === 'end'
     ? end
     : block === 'center'
-      ? viewport.scrollY + rectTop + rect.height / 2 - viewportHeight / 2
+      ? targetTop + rect.height / 2 - viewportHeight / 2
       : block === 'nearest'
-        ? rectTop < 0
+        ? visibleTop < 0
           ? start
-          : rectBottom > viewportHeight
+          : visibleBottom > viewportHeight
             ? end
-            : viewport.scrollY
+            : scrollTop
         : start;
   await window.scrollTo({ top, behavior: options.behavior || 'smooth' });
 }
@@ -232,10 +235,13 @@ async function initializeNavigationObserver(window, document, root) {
 
   let initialLink;
   let minimumDistance = Infinity;
-  const viewport = await getViewportGeometry(window, root);
+  const [rootPosition, scrollTop] = await Promise.all([
+    getRootScrollPosition(root),
+    window.scrollY,
+  ]);
   for (const [section, link] of linksBySection) {
     const rect = await section.getBoundingClientRect();
-    const top = rect.top - viewport.pageTop;
+    const top = rect.top - rootPosition.top + rootPosition.scrollTop - scrollTop;
     const distance = Math.abs(top);
     if (distance < minimumDistance && top <= 100) {
       minimumDistance = distance;
