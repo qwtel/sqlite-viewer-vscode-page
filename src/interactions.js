@@ -1,9 +1,26 @@
 import { createAsyncAnime } from './async-anime.js';
 
+/**
+ * @typedef {import('../../sqlite-viewer-core/src/vendor/domlink/types').RemoteWindow} RemoteWindow
+ * @typedef {import('../../sqlite-viewer-core/src/vendor/domlink/types').Remote<Document>} RemoteDocument
+ * @typedef {import('../../sqlite-viewer-core/src/vendor/domlink/types').Remote<Element>} RemoteElement
+ * @typedef {import('../../sqlite-viewer-core/src/vendor/domlink/types').Remote<HTMLElement>} RemoteHTMLElement
+ * @typedef {import('../../sqlite-viewer-core/src/vendor/domlink/types').Remote<HTMLAnchorElement>} RemoteAnchor
+ * @typedef {import('../../sqlite-viewer-core/src/vendor/domlink/types').Remote<HTMLVideoElement>} RemoteVideo
+ * @typedef {{ enterLicenseKey(): void | Promise<void> }} LandingPageHost
+ * @typedef {{ behavior?: ScrollBehavior, block?: string }} ScrollToTargetOptions
+ */
+
+/** @param {unknown} error */
 function reportAsyncCallbackError(error) {
   console.error('Landing-page callback failed:', error);
 }
 
+/**
+ * @template {unknown[]} Args
+ * @param {(...args: Args) => unknown | Promise<unknown>} callback
+ * @returns {(...args: Args) => void}
+ */
 function asyncCallback(callback) {
   return (...args) => {
     Promise.resolve(callback(...args)).catch(reportAsyncCallbackError);
@@ -17,6 +34,7 @@ async function setProperty(target, property, value) {
   return true;
 }
 
+/** @param {RemoteVideo} video */
 async function playVideo(video) {
   try {
     await video.play();
@@ -27,6 +45,7 @@ async function playVideo(video) {
   }
 }
 
+/** @param {RemoteHTMLElement} root */
 async function getRootScrollPosition(root) {
   const [rect, scrollTop] = await Promise.all([
     root.getBoundingClientRect(),
@@ -35,6 +54,12 @@ async function getRootScrollPosition(root) {
   return { top: rect.top, scrollTop };
 }
 
+/**
+ * @param {RemoteWindow} window
+ * @param {RemoteHTMLElement} root
+ * @param {RemoteElement} target
+ * @param {ScrollToTargetOptions} [options]
+ */
 export async function scrollToTarget(window, root, target, options = {}) {
   const [rect, rootPosition, scrollTop, style, viewportHeight] = await Promise.all([
     target.getBoundingClientRect(),
@@ -70,6 +95,11 @@ export async function scrollToTarget(window, root, target, options = {}) {
   await window.scrollTo({ top, behavior: options.behavior || 'smooth' });
 }
 
+/**
+ * @param {RemoteWindow} window
+ * @param {RemoteDocument} document
+ * @param {RemoteHTMLElement} root
+ */
 async function initializeHashNavigation(window, document, root) {
   const links = await document.querySelectorAll('a[href^="#"]');
 
@@ -114,13 +144,20 @@ async function initializeHashNavigation(window, document, root) {
   )));
 }
 
+/**
+ * @param {RemoteDocument} document
+ * @param {RemoteHTMLElement} root
+ * @param {LandingPageHost | null} host
+ */
 async function initializeEmbeddedActions(document, root, host) {
   if (!host) return;
 
-  const [openInBrowser, licenseKey] = await Promise.all([
-    document.getElementById('open-in-browser'),
-    document.getElementById('license-key'),
-  ]);
+  const [openInBrowser, licenseKey] = /** @type {[RemoteAnchor|null, RemoteHTMLElement|null]} */(
+    await Promise.all([
+      document.getElementById('open-in-browser'),
+      document.getElementById('license-key'),
+    ])
+  );
 
   if (openInBrowser) {
     const href = await openInBrowser.href;
@@ -144,17 +181,22 @@ async function initializeEmbeddedActions(document, root, host) {
   }
 }
 
+/**
+ * @param {RemoteWindow} window
+ * @param {RemoteDocument} document
+ */
 async function initializeVideoPlayback(window, document) {
   const cards = await document.getElementById('cards');
   const cardVideos = cards ? await cards.querySelectorAll('video') : [];
-  const spies = await document.querySelectorAll('.spy');
+  const spies = /** @type {RemoteHTMLElement[]} */ (await document.querySelectorAll('.spy'));
   if (!cardVideos.length || !spies.length) return;
 
   await Promise.all(Array.from(cardVideos, (video) => setProperty(video, 'muted', true)));
 
+  /** @type {Map<RemoteElement, RemoteVideo | undefined>} */
   const videosByTarget = new Map(await Promise.all(Array.from(spies, async (target) => {
     const index = Number(await (await target.style).getPropertyValue('--index'));
-    return [target, cardVideos[index - 1]];
+    return /** @type {const} */ ([target, cardVideos[index - 1]]);
   })));
 
   const inObserver = await new window.IntersectionObserver(asyncCallback(async (entries) => {
@@ -196,6 +238,11 @@ async function initializeVideoPlayback(window, document) {
   ).flat());
 }
 
+/**
+ * @param {RemoteWindow} window
+ * @param {RemoteDocument} document
+ * @param {RemoteHTMLElement} root
+ */
 async function initializeNavigationObserver(window, document, root) {
   const navLinks = await document.querySelectorAll('.opacity-link[href^="#"]');
   const linksBySection = new Map();
@@ -208,13 +255,14 @@ async function initializeNavigationObserver(window, document, root) {
   }
   if (!linksBySection.size) return;
 
+  /** @type {RemoteHTMLElement | null} */
   let activeLink;
-  const setActiveLink = async (nextLink) => {
+  const setActiveLink = /** @type {(nextLink: RemoteHTMLElement|null) => Promise<void>} */ (async (nextLink) => {
     if (!nextLink || nextLink === activeLink) return;
     if (activeLink) await (await activeLink.classList).remove('active');
     await (await nextLink.classList).add('active');
     activeLink = nextLink;
-  };
+  });
 
   const observer = await new window.IntersectionObserver(asyncCallback(async (entries) => {
     let mostVisible;
@@ -251,6 +299,11 @@ async function initializeNavigationObserver(window, document, root) {
   if (initialLink) await setActiveLink(initialLink);
 }
 
+/**
+ * @param {RemoteWindow} window
+ * @param {RemoteDocument} document
+ * @param {RemoteHTMLElement} root
+ */
 async function initializeRevealAnimations(window, document, root) {
   if (!(await (await root.classList).contains('has-animations'))) return;
 
@@ -283,6 +336,10 @@ async function initializeRevealAnimations(window, document, root) {
   await Promise.all(Array.from(targets, (target) => observer.observe(target)));
 }
 
+/**
+ * @param {RemoteDocument} document
+ * @param {RemoteHTMLElement} root
+ */
 async function initializeHeroAnimations(document, root) {
   if (!(await (await root.classList).contains('has-animations'))) return;
 
@@ -336,8 +393,18 @@ async function initializeHeroAnimations(document, root) {
   await (await root.classList).add('anime-ready');
 }
 
-export async function initializeLandingPageInteractions(window = globalThis.window, host = null) {
-  const document = await window.document;
+/**
+ * The regular page is the synchronous provider for the same await-compatible
+ * contract exposed by Domlink in the sandbox.
+ *
+ * @param {RemoteWindow} [window]
+ * @param {LandingPageHost | null} [host]
+ */
+export async function initializeLandingPageInteractions(
+  window = /** @type {RemoteWindow} */ (/** @type {unknown} */ (globalThis.window)),
+  host = null,
+) {
+  const document = window.document;
   const root = await document.getElementById('page-root') || await document.documentElement;
   const classList = await root.classList;
   await classList.remove('no-js');
