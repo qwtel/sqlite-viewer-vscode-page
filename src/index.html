@@ -500,6 +500,22 @@
       <sl-carousel-item>
         <div class="changelog-card changelog-card-landing">
           <div class="changelog-header">
+            <h4 class="changelog-version" id="v2690"><span class="version-number">v26.9.0</span> <time class="version-date" datetime="2026-09-13">September 14, 2026</time></h4>
+          </div>
+          <div class="changelog-content text-sm">
+            <p>Bump the latest pre-release to the main channel.</p>
+<ul>
+<li>Updated SQLite and SQLite WASM to 3.53.4</li>
+<li>Fixed an issue where the right sidebar did not auto-hide when the table area became too narrow</li>
+<li><sl-badge variant="primary" size="small">PRO</sl-badge> &quot;Open in VS Code Tab to the Side&quot; now opens detected JSON cells with the correct JSON or JSONC language mode</li>
+</ul>
+
+          </div>
+        </div>
+      </sl-carousel-item>
+      <sl-carousel-item>
+        <div class="changelog-card changelog-card-landing">
+          <div class="changelog-header">
             <h4 class="changelog-version" id="v2682-pre-release"><span class="version-number">v26.8.2 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2026-08-26">August 27, 2026</time></h4>
           </div>
           <div class="changelog-content text-sm">
@@ -553,36 +569,6 @@
             <ul>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed an issue that prevented inline foreign key previews from resolving</li>
 <li><sl-badge variant="primary" size="small">PRO</sl-badge> Inline FK content no longer loads for collapsed items (only loads when expanded).</li>
-</ul>
-
-          </div>
-        </div>
-      </sl-carousel-item>
-      <sl-carousel-item>
-        <div class="changelog-card changelog-card-landing">
-          <div class="changelog-header">
-            <h4 class="changelog-version" id="v2624-pre-release"><span class="version-number">v26.2.4 <sl-badge variant="neutral" size="small">Preview</sl-badge></span> <time class="version-date" datetime="2026-02-22">February 23, 2026</time></h4>
-          </div>
-          <div class="changelog-content text-sm">
-            <h5 id="pro-markdown-preview"><sl-badge variant="primary" size="small">PRO</sl-badge> Markdown Preview</h5><p>Columns that store markdown can now be viewed with a rendered preview in the row detail modal. A switch lets you toggle between plain text and the rendered view; You can treat any <code>TEXT</code> column as markdown by cycling its type in the column header (same gesture as for date/datetime). Declared types such as <code>TEXT MARKDOWN</code> or <code>MDTEXT</code> are recognized by default.</p>
-<p>When you open a cell in a markdown column in VS Code, the file opens with a <code>.md</code> extension by default, so the editor uses markdown highlighting and tooling without relying on language detection.</p>
-<h5 id="additions">Additions</h5><ul>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Backspace now sets the focused column to NULL for all selected rows</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> In the row detail modal, date/time columns now show the same date display as in the table</li>
-</ul>
-<h5 id="changes">Changes</h5><ul>
-<li>Resized textarea heights are now remembered for the duration of the session</li>
-<li>Opening a DB now selects the first table (not the first item, which could be a view)</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> All buttons that cycle properties now reset to their default value on right-click</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Pragma Editor Optimize action now defaults to &quot;Dry Run&quot;</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Date/raw toggle in modal is now per column</li>
-</ul>
-<h5 id="fixes">Fixes</h5><ul>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Batch edit in row detail now updates all selected rows correctly</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Fixed an issue where editing a cell via &quot;Open in VS Code&quot; could leave the selection stuck on &quot;No row selected&quot;</li>
-<li>Ctrl+A (Cmd+A) in sidebar inputs selects all text in that input only</li>
-<li>View row counts in the explorer show &quot;∞&quot; (&quot;N/A&quot;) for unopened views instead of 0</li>
-<li><sl-badge variant="primary" size="small">PRO</sl-badge> Deprecated pragmas are no longer shown in the Pragma Editor</li>
 </ul>
 
           </div>
