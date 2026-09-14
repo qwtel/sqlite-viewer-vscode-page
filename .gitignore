@@ -171,6 +171,7 @@ $RECYCLE.BIN/
 .wrangler
 .dev.vars
 .env.local
+.agents/skills
 
 # Ignore generated files
 /index.html
