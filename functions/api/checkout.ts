@@ -17,7 +17,7 @@ const PRODUCT_MAP = {
   prosub: 'PRO_SUBSCRIBE_PRODUCT_ID',
 } as const;
 
-export type CheckoutProduct = keyof typeof PRODUCT_MAP | 'all';
+export type CheckoutProduct = keyof typeof PRODUCT_MAP | 'all' | 'one-time';
 
 export type CheckoutCurrency = 'local' | 'usd';
 
@@ -57,7 +57,7 @@ async function resolvePresentmentCurrency(
   const bcp47 = LocaleByPageLang[langKey as keyof typeof LocaleByPageLang] ?? 'en-US';
   const pricing = await getLocalizedPrices(env, country, bcp47);
   if (!pricing) return 'usd';
-  const productKey = (product === 'all' ? 'pro' : product) as ProductKey;
+  const productKey = (product === 'all' || product === 'one-time' ? 'pro' : product) as ProductKey;
   const local = pricing.local[productKey];
   return local?.hasPreferredCurrency ? pricing.preferredCurrency.toLowerCase() : 'usd';
 }
@@ -75,10 +75,10 @@ async function createCheckoutAndGetUrl(
 
   if (!context.env.POLAR_ACCESS_TOKEN) return null;
   const productIds: string[] = [];
-  if (!product || product === 'all') {
+  if (!product || product === 'all' || product === 'one-time') {
     if (context.env.PRO_PRODUCT_ID) productIds.push(context.env.PRO_PRODUCT_ID);
     if (context.env.BE_PRODUCT_ID) productIds.push(context.env.BE_PRODUCT_ID);
-    if (context.env.PRO_SUBSCRIBE_PRODUCT_ID) productIds.push(context.env.PRO_SUBSCRIBE_PRODUCT_ID);
+    if (product !== 'one-time' && context.env.PRO_SUBSCRIBE_PRODUCT_ID) productIds.push(context.env.PRO_SUBSCRIBE_PRODUCT_ID);
   } else {
     const productId = context.env[PRODUCT_MAP[product as keyof typeof PRODUCT_MAP]];
     if (!productId) return null;
@@ -92,7 +92,7 @@ async function createCheckoutAndGetUrl(
   const saleDiscountPercent = parseDiscountPercent(context.env.SALE_DISCOUNT_PERCENT);
   // The sale discount only targets the one-time products. Polar rejects the
   // entire checkout if a discount is attached to an ineligible subscription.
-  const supportsSaleDiscount = product === 'pro' || product === 'be';
+  const supportsSaleDiscount = product === 'pro' || product === 'be' || product === 'one-time';
   const saleDiscountId = supportsSaleDiscount && saleDiscountPercent > 0
     ? context.env.SALE_DISCOUNT_ID
     : undefined;
@@ -122,7 +122,7 @@ export const onRequestGet: PagesFunction<Env>[] = [corsMiddleware, async (contex
   const product = (productParam ?? 'all') as CheckoutProduct;
   const currencyParsed = parseCheckoutCurrency(url.searchParams.get('currency'));
   const locale = url.searchParams.get('locale')?.trim();
-  if (productParam && productParam !== 'all' && !PRODUCT_MAP[productParam as keyof typeof PRODUCT_MAP]) {
+  if (productParam && productParam !== 'all' && productParam !== 'one-time' && !PRODUCT_MAP[productParam as keyof typeof PRODUCT_MAP]) {
     return badRequest('Invalid product');
   }
   const checkoutUrl = await createCheckoutAndGetUrl(context, product, currencyParsed, locale);
@@ -147,7 +147,7 @@ export const onRequestPost: PagesFunction<Env>[] = [corsMiddleware, async (conte
   const currencyParsed = parseCheckoutCurrency(typeof body.currency === 'string' ? body.currency : undefined);
   const embedOrigin = typeof body.embed_origin === 'string' ? body.embed_origin.trim() : undefined;
   const locale = typeof body.locale === 'string' ? body.locale.trim() : undefined;
-  if (productParam && productParam !== 'all' && !PRODUCT_MAP[productParam as keyof typeof PRODUCT_MAP]) {
+  if (productParam && productParam !== 'all' && productParam !== 'one-time' && !PRODUCT_MAP[productParam as keyof typeof PRODUCT_MAP]) {
     return Response.json({ error: 'Invalid product' }, { status: 400 });
   }
   try {
