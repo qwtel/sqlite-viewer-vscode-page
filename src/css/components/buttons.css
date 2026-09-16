@@ -45,6 +45,22 @@
   height: 32px;
 }
 
+.button-lg {
+  align-items: center;
+  font-size: var(--font-size-eta);
+  height: 56px;
+  line-height: var(--line-height-eta);
+  padding: 16px 28px;
+}
+
+.button-xl {
+  align-items: center;
+  font-size: var(--font-size-epsilon);
+  height: 64px;
+  line-height: var(--line-height-eta);
+  padding: 20px 32px;
+}
+
 .button-primary {
   color: var(--x-button-color, #fff);
   background-color: var(--x-button-background);
