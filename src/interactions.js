@@ -34,6 +34,52 @@ async function setProperty(target, property, value) {
   return true;
 }
 
+/** @param {string} encoded */
+export function decodeCloudflareEmail(encoded) {
+  if (!/^(?:[\da-f]{2}){2,}$/i.test(encoded)) return null;
+  const key = Number.parseInt(encoded.slice(0, 2), 16);
+  const bytes = new Uint8Array((encoded.length - 2) / 2);
+  for (let index = 0; index < bytes.length; index++) {
+    bytes[index] = Number.parseInt(encoded.slice(index * 2 + 2, index * 2 + 4), 16) ^ key;
+  }
+  return new TextDecoder().decode(bytes);
+}
+
+/** @param {string | null} href */
+function getCloudflareEmailPayload(href) {
+  if (!href) return null;
+  try {
+    const url = new URL(href, 'https://email-protection.invalid');
+    return url.pathname.endsWith('/cdn-cgi/l/email-protection')
+      ? url.hash.slice(1)
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+/** @param {RemoteDocument} document */
+async function initializeCloudflareEmailProtection(document) {
+  const elements = await document.querySelectorAll(
+    '[data-cfemail], a[href*="/cdn-cgi/l/email-protection"]',
+  );
+  await Promise.all(Array.from(elements, async (element) => {
+    const [encoded, href, tagName] = await Promise.all([
+      element.getAttribute('data-cfemail'),
+      element.getAttribute('href'),
+      element.tagName,
+    ]);
+    const linkPayload = tagName === 'A' ? getCloudflareEmailPayload(href) : null;
+    const email = decodeCloudflareEmail(encoded || linkPayload || '');
+    if (!email) return;
+
+    const updates = [];
+    if (encoded) updates.push(setProperty(element, 'textContent', email));
+    if (linkPayload) updates.push(element.setAttribute('href', `mailto:${email}`));
+    await Promise.all(updates);
+  }));
+}
+
 /** @param {RemoteVideo} video */
 async function playVideo(video) {
   try {
@@ -411,6 +457,7 @@ export async function initializeLandingPageInteractions(
   await classList.add('js', 'sr');
 
   await Promise.all([
+    initializeCloudflareEmailProtection(document),
     initializeEmbeddedActions(document, root, host),
     initializeHashNavigation(window, document, root),
     initializeVideoPlayback(window, document),
