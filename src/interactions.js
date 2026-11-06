@@ -11,22 +11,6 @@ import { createAsyncAnime } from './async-anime.js';
  * @typedef {{ behavior?: ScrollBehavior, block?: string }} ScrollToTargetOptions
  */
 
-/** @param {unknown} error */
-function reportAsyncCallbackError(error) {
-  console.error('Landing-page callback failed:', error);
-}
-
-/**
- * @template {unknown[]} Args
- * @param {(...args: Args) => unknown | Promise<unknown>} callback
- * @returns {(...args: Args) => void}
- */
-function asyncCallback(callback) {
-  return (...args) => {
-    Promise.resolve(callback(...args)).catch(reportAsyncCallbackError);
-  };
-}
-
 async function setProperty(target, property, value) {
   const remoteSet = await target.$set;
   if (typeof remoteSet === 'function') return remoteSet(property, value);
@@ -151,7 +135,7 @@ async function initializeHashNavigation(window, document, root) {
 
   await Promise.all(Array.from(links, (link) => link.addEventListener(
     'click',
-    asyncCallback(async (event) => {
+    async (event) => {
       event.preventDefault();
       const [href, checkoutAction, id] = await Promise.all([
         link.getAttribute('href'),
@@ -185,7 +169,7 @@ async function initializeHashNavigation(window, document, root) {
         ? await link.getAttribute('data-scroll-block-compact')
         : 'start';
       await scrollToTarget(window, root, target, { block: block || 'start', behavior: 'smooth' });
-    }),
+    },
     { preventDefault: true },
   )));
 }
@@ -220,10 +204,10 @@ async function initializeEmbeddedActions(document, root, host) {
 
   if (licenseKey) {
     await (await licenseKey.style).setProperty('display', 'inline');
-    await licenseKey.addEventListener('click', asyncCallback(async (event) => {
+    await licenseKey.addEventListener('click', async (event) => {
       event.preventDefault();
       await host.enterLicenseKey();
-    }), { preventDefault: true });
+    }, { preventDefault: true });
   }
 }
 
@@ -241,8 +225,8 @@ async function initializeVideoPlayback(window, document) {
     const classList = await video.classList;
     await Promise.all([
       setProperty(video, 'muted', true),
-      video.addEventListener('playing', asyncCallback(() => classList.add('has-video-frame'))),
-      video.addEventListener('error', asyncCallback(() => classList.remove('has-video-frame'))),
+      video.addEventListener('playing', () => classList.add('has-video-frame')),
+      video.addEventListener('error', () => classList.remove('has-video-frame')),
     ]);
   }));
 
@@ -252,7 +236,7 @@ async function initializeVideoPlayback(window, document) {
     return /** @type {const} */ ([target, cardVideos[index - 1]]);
   })));
 
-  const inObserver = await new window.IntersectionObserver(asyncCallback(async (entries) => {
+  const inObserver = await new window.IntersectionObserver(async (entries) => {
     const windowHeight = (await window.innerHeight) - 96;
     const readings = entries.map((entry) => ({
       height: entry.boundingClientRect.height,
@@ -269,9 +253,9 @@ async function initializeVideoPlayback(window, document) {
         await video.pause();
       }
     }
-  }), { threshold: [0.01, 1] });
+  }, { threshold: [0.01, 1] });
 
-  const outObserver = await new window.IntersectionObserver(asyncCallback(async (entries) => {
+  const outObserver = await new window.IntersectionObserver(async (entries) => {
     const windowHeight = await window.innerHeight;
     const readings = entries.map((entry) => ({
       height: entry.boundingClientRect.height,
@@ -283,7 +267,7 @@ async function initializeVideoPlayback(window, document) {
         if (video) await video.pause();
       }
     }
-  }), { threshold: 0.8 });
+  }, { threshold: 0.8 });
 
   await Promise.all(Array.from(
     spies,
@@ -317,7 +301,7 @@ async function initializeNavigationObserver(window, document, root) {
     activeLink = nextLink;
   });
 
-  const observer = await new window.IntersectionObserver(asyncCallback(async (entries) => {
+  const observer = await new window.IntersectionObserver(async (entries) => {
     let mostVisible;
     for (const { intersectionRatio, isIntersecting, target } of entries) {
       if (isIntersecting && (!mostVisible || intersectionRatio > mostVisible.intersectionRatio)) {
@@ -327,7 +311,7 @@ async function initializeNavigationObserver(window, document, root) {
     if (!mostVisible) return;
 
     await setActiveLink(linksBySection.get(mostVisible.target));
-  }), {
+  }, {
     rootMargin: '-20% 0px -60% 0px',
     threshold: 0,
   });
@@ -364,7 +348,7 @@ async function initializeRevealAnimations(window, document, root) {
   if (!targets.length) return;
 
   let observer;
-  observer = await new window.IntersectionObserver(asyncCallback(async (entries) => {
+  observer = await new window.IntersectionObserver(async (entries) => {
     const updates = [];
     let visibleIndex = 0;
     for (const { isIntersecting, target } of entries) {
@@ -379,12 +363,12 @@ async function initializeRevealAnimations(window, document, root) {
           duration: 600,
           easing: 'cubic-bezier(0.5, -0.01, 0, 1.005)',
           fill: 'forwards',
-        })).catch(reportAsyncCallbackError),
+        })).catch((error) => console.error('Landing-page reveal animation failed:', error)),
         observer.unobserve(target),
       );
     }
     await Promise.all(updates);
-  }), { threshold: 0.25 });
+  }, { threshold: 0.25 });
 
   await Promise.all(Array.from(targets, (target) => observer.observe(target)));
 }
