@@ -3,7 +3,7 @@
 import languageParser from 'accept-language-parser';
 import { Polar } from "@polar-sh/sdk";
 
-import { Env, parseDiscountPercent } from "./api/#shared"
+import { Env, EnvEventContext, parseDiscountPercent } from "./api/#shared"
 import { CountryInfo, PPP } from './api/#data';
 import { formatPriceLocalized, getLocalizedPrices, html, LocaleByPageLang, type LocalizedPrice, type ProductKey } from './api/#pricing';
 
@@ -32,8 +32,15 @@ export const onRequestOptions: PagesFunction = async (context) => {
 const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
 
 const Ns = 'sqlite-viewer-vscode-page.8';
+const RecentPurchasesCacheKey = `${Ns}.recentPurchases.1`;
 const TtlDay = 60 * 60 * 24;
+const AvatarRetryTtl = 60 * 5;
 // const JapanDisplayTaxRate = 0.1;
+
+type RecentPurchases = {
+  count: number;
+  avatarUrls: string[];
+};
 
 const className = (base: string, extra?: string) => extra ? `${base} ${extra}` : base;
 
@@ -50,7 +57,13 @@ const discountHintHtml = (discountPercent: number, country: string, flag: string
   <span class="price-hint text-xxs nowrap">${discountPercent}% off for all visitors from ${country} ${flag}</span>
 `;
 
-const avatarStackItemHtml = (url: string) => html`<img class="avatar-stack-item" src="${url}">`;
+const avatarStackItemHtml = (url: string) => html`<img class="avatar-stack-item" src="${url.replaceAll('&', '&amp;').replaceAll('"', '&quot;')}" alt="">`;
+const devAvatarHtml = html`
+  <svg class="avatar-stack-item avatar-stack-placeholder" viewBox="0 0 32 32" fill="currentColor">
+    <circle cx="16" cy="12" r="4"/>
+    <path d="M8 25v-2a8 8 0 0 1 16 0v2z"/>
+  </svg>
+`;
 
 const currencyToggleHtml = (localLabel: string) => html`
   <div class="toggle-wrapper">
@@ -68,25 +81,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const url = new URL(context.request.url);
   const { searchParams } = url;
 
-  let [numPurchases, avatarUrls] = await Promise.all([
-    context.env.KV.get<number>(`${Ns}.numPurchases`, 'json'),
-    context.env.KV.get<string[]>(`${Ns}.avatarUrls`, 'json'),
-  ]);
-
-  if (numPurchases == null || avatarUrls == null) {
-    [numPurchases, avatarUrls] = await getRecentProductPurchases(context.env).catch((err) => {
-      console.error(err);
-      return [null, null];
-    });
-    if (numPurchases != null && avatarUrls != null) {
-      context.waitUntil((async () => {
-        await Promise.all([
-          context.env.KV.put(`${Ns}.numPurchases`, JSON.stringify(numPurchases), { expirationTtl: TtlDay }),
-          context.env.KV.put(`${Ns}.avatarUrls`, JSON.stringify(avatarUrls), { expirationTtl: TtlDay }),
-        ]);
-      })());
-    }
-  } 
+  const { count: numPurchases, avatarUrls } = await loadRecentPurchases(context);
 
   const headers = context.request.headers;
 
@@ -137,6 +132,11 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     });
   }
 
+  const selectedAvatars = [...avatarUrls].sort(() => Math.random() - 0.5).slice(0, 5);
+  const avatarStackHtml = selectedAvatars.length
+    ? selectedAvatars.map(avatarStackItemHtml).join('')
+    : DEV === '1' ? devAvatarHtml.repeat(3) : '';
+
   rewriter = rewriter
     .on('.checkout-link-local', {
       element(el) {
@@ -162,20 +162,25 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         el.removeAttribute('style');
       },
     })
+    .on('.purchase-proof', {
+      element(el) {
+        if (numPurchases || avatarStackHtml) el.removeAttribute('hidden');
+      }
+    })
     .on('.purchased-n-times', {
       element(el) {
         const content = el.getAttribute('content');
         if (content && numPurchases) {
           el.setInnerContent(content.replace('{n}', numPurchases.toString()), { html: true });
+        } else {
+          el.remove();
         }
       }
     })
     .on('.avatar-stack', {
       element(el) {
-        const selectedAvatars = [...avatarUrls ?? []].sort(() => Math.random() - 0.5).slice(0, 5);
-        if (selectedAvatars.length) {
-          el.setInnerContent(selectedAvatars.map(url => avatarStackItemHtml(url)).join(''), { html: true });
-        }
+        if (avatarStackHtml) el.setInnerContent(avatarStackHtml, { html: true });
+        else el.remove();
       }
     })
     .on('[data-price-product][data-price-field]', {
@@ -317,32 +322,58 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   return transformedResponse;
 }
 
-async function* genNonEmptyAvatarUrls(avatarUrls: string[]): AsyncGenerator<string, void, unknown> {
-  for (const url of avatarUrls) {
-    if (!url) {
-      continue;
-    }
+async function loadRecentPurchases(context: EnvEventContext): Promise<RecentPurchases> {
+  const { KV } = context.env;
+  const cached = await KV.get<RecentPurchases>(RecentPurchasesCacheKey, 'json').catch((err) => {
+    console.warn('Could not read recent purchases cache', err);
+    return null;
+  });
+  if (cached) return cached;
 
-    try {
-      const urlObj = new URL(url);
-      urlObj.searchParams.set('d', '404');
-      const testUrl = urlObj.toString();
-      
-      const response = await fetch(testUrl, { method: 'HEAD' });
-
-      if (response.status !== 404) {
-        yield url;
-      }
-    } catch (error) {
-      continue;
-    }
+  try {
+    const { purchases, avatarCheckIncomplete } = await getRecentProductPurchases(context.env);
+    context.waitUntil(KV.put(RecentPurchasesCacheKey, JSON.stringify(purchases), {
+      expirationTtl: avatarCheckIncomplete ? AvatarRetryTtl : TtlDay,
+    }).catch((err) => console.warn('Could not cache recent purchases', err)));
+    return purchases;
+  } catch (err) {
+    console.error('Could not refresh recent purchases', err);
+    // On the first deploy, the old count can still be useful if Polar is unavailable.
+    const count = await KV.get<number>(`${Ns}.numPurchases`, 'json').catch(() => null);
+    return { count: count ?? 0, avatarUrls: [] };
   }
 }
 
-async function getRecentProductPurchases(env: Env): Promise<[count: number, avatarUrls: string[]]> {
+async function checkAvatarUrls(candidates: Set<string>) {
+  const urls = [...candidates].filter(url => URL.canParse(url) && new URL(url).protocol === 'https:');
+  const avatarUrls: string[] = [];
+  const signal = AbortSignal.timeout(3000);
+  let avatarCheckIncomplete = false;
+
+  for (let i = 0; i < urls.length && avatarUrls.length < 40; i += 5) {
+    if (signal.aborted) {
+      avatarCheckIncomplete = true;
+      break;
+    }
+    const batch = urls.slice(i, i + 5);
+    // Polar supplies each provider's 404 fallback. Adding Gravatar's d=404 breaks Logo.dev HEAD requests.
+    const responses = await Promise.all(batch.map(url => fetch(url, { method: 'HEAD', signal }).catch(() => null)));
+    for (const [index, response] of responses.entries()) {
+      if (response?.ok && response.headers.get('content-type')?.startsWith('image/')) {
+        avatarUrls.push(batch[index]);
+      } else if (!response || response.status === 429 || response.status >= 500) {
+        avatarCheckIncomplete = true;
+      }
+    }
+  }
+  return { avatarUrls: avatarUrls.slice(0, 40), avatarCheckIncomplete };
+}
+
+async function getRecentProductPurchases(env: Env) {
   const polar = new Polar({
     accessToken: env.POLAR_ACCESS_TOKEN ?? "",
     server: env.POLAR_SERVER === "sandbox" ? "sandbox" : "production",
+    timeoutMs: 5000,
   });
 
   const productId = [env.PRO_PRODUCT_ID, env.BE_PRODUCT_ID];
@@ -358,24 +389,17 @@ async function getRecentProductPurchases(env: Env): Promise<[count: number, avat
     sorting: ['-created_at'],
   });
 
-  let purchaseCount = 0;
-  let avatarUrls: string[] = [];
+  let count = 0;
+  const candidates = new Set<string>();
 
   outer: for await (const page of result) {
     for (const order of page.result.items) {
       if (!env.DEV && order.createdAt < cutoffDate) break outer;
-      purchaseCount++;
-      avatarUrls.push(order.customer.avatarUrl);
+      count++;
+      if (order.customer.avatarUrl) candidates.add(order.customer.avatarUrl);
     }
   }
 
-  const validAvatarUrls: string[] = [];
-  const avatarGenerator = genNonEmptyAvatarUrls(avatarUrls);
-  
-  for await (const validUrl of avatarGenerator) {
-    validAvatarUrls.push(validUrl);
-    if (validAvatarUrls.length >= 40) break;
-  }
-
-  return [purchaseCount, validAvatarUrls];
+  const { avatarUrls, avatarCheckIncomplete } = await checkAvatarUrls(candidates);
+  return { purchases: { count, avatarUrls }, avatarCheckIncomplete };
 }
