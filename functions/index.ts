@@ -32,7 +32,7 @@ export const onRequestOptions: PagesFunction = async (context) => {
 const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
 
 const Ns = 'sqlite-viewer-vscode-page.8';
-const RecentPurchasesCacheKey = `${Ns}.recentPurchases.2`;
+const RecentPurchasesCacheKey = `${Ns}.recentPurchases.3`;
 const TtlDay = 60 * 60 * 24;
 const AvatarRetryTtl = 60 * 5;
 // const JapanDisplayTaxRate = 0.1;
@@ -65,7 +65,7 @@ function isAllowedAvatarUrl(url: string) {
   return protocol === 'https:' && !/(^|\.)logo\.dev\.?$/.test(hostname);
 }
 
-const devAvatarHtml = html`
+const avatarPlaceholderHtml = html`
   <svg class="avatar-stack-item avatar-stack-placeholder" viewBox="0 0 32 32" fill="currentColor">
     <circle cx="16" cy="12" r="4"/>
     <path d="M8 25v-2a8 8 0 0 1 16 0v2z"/>
@@ -139,10 +139,12 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     });
   }
 
-  const selectedAvatars = avatarUrls.filter(isAllowedAvatarUrl).sort(() => Math.random() - 0.5).slice(0, 5);
-  const avatarStackHtml = selectedAvatars.length
-    ? selectedAvatars.map(avatarStackItemHtml).join('')
-    : DEV === '1' ? devAvatarHtml.repeat(3) : '';
+  const avatarCount = Math.min(5, numPurchases);
+  const selectedAvatars = avatarCount
+    ? avatarUrls.filter(isAllowedAvatarUrl).sort(() => Math.random() - 0.5).slice(0, avatarCount)
+    : [];
+  const placeholderCount = avatarCount - selectedAvatars.length;
+  const avatarStackHtml = avatarPlaceholderHtml.repeat(placeholderCount) + selectedAvatars.map(avatarStackItemHtml).join('');
 
   rewriter = rewriter
     .on('.checkout-link-local', {
@@ -171,7 +173,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     })
     .on('.purchase-proof', {
       element(el) {
-        if (numPurchases || avatarStackHtml) el.removeAttribute('hidden');
+        if (numPurchases) el.removeAttribute('hidden');
+        else el.remove();
       }
     })
     .on('.purchased-n-times', {
@@ -386,9 +389,8 @@ async function getRecentProductPurchases(env: Env) {
   const productId = [env.PRO_PRODUCT_ID, env.BE_PRODUCT_ID];
   if (env.PRO_SUBSCRIBE_PRODUCT_ID) productId.push(env.PRO_SUBSCRIBE_PRODUCT_ID);
 
-  const thirtyDaysAgo = new Date();
-  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30.5);
-  const cutoffDate = thirtyDaysAgo
+  const purchaseCutoff = new Date();
+  purchaseCutoff.setDate(purchaseCutoff.getDate() - 30.5);
 
   const result = await polar.orders.list({
     productId,
@@ -402,7 +404,7 @@ async function getRecentProductPurchases(env: Env) {
 
   outer: for await (const page of result) {
     for (const order of page.result.items) {
-      if (!env.DEV && order.createdAt < cutoffDate) break outer;
+      if (!env.DEV && order.createdAt < purchaseCutoff) break outer;
       count++;
       if (order.customer.avatarUrl) candidates.add(order.customer.avatarUrl);
     }

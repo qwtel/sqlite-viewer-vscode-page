@@ -170,7 +170,7 @@ div:has(> .section-title)::after, .with-divider::after {
 }
 
 .avatar-stack-placeholder {
-  background: var(--color-bg-4);
+  background: var(--color-bg-2);
 }
 
 /* FAQ */
