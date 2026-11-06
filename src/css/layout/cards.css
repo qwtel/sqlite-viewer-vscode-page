@@ -157,15 +157,10 @@
   position: relative;
   width: 100%;
 
-  & > img, & > video, & > .card__poster > img {
+  & > img, & > video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-
-  & > .card__poster {
-    position: absolute;
-    inset: 0;
   }
 
   & > video.has-video-frame + .card__poster {
