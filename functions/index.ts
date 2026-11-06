@@ -127,13 +127,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const colorScheme = lightDark(searchParams.get('color-scheme'))
   const secFetchDest = headers.get('Sec-Fetch-Dest')?.toLowerCase();
   const legacyVscodeIframe = secFetchDest === 'iframe';
-  const ua = headers.get('User-Agent') ?? '';
-  const isSafari = /Safari/.test(ua) && !/Chrome|Chromium/.test(ua);
-  const removeWebm = legacyVscodeIframe || isSafari;
 
   let rewriter = new HTMLRewriter();
-  if (removeWebm) {
-    rewriter = rewriter.on('video source[src$=".webm"]', {
+  if (legacyVscodeIframe) {
+    rewriter = rewriter.on('video source[src$="-av1.mp4"]', {
       element(el) {
         el.remove();
       },
