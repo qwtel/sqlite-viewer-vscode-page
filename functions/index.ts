@@ -32,7 +32,7 @@ export const onRequestOptions: PagesFunction = async (context) => {
 const lightDark = (x?: string|null) => x === 'light' ? 'light' : x === 'dark' ? 'dark' : undefined;
 
 const Ns = 'sqlite-viewer-vscode-page.8';
-const RecentPurchasesCacheKey = `${Ns}.recentPurchases.1`;
+const RecentPurchasesCacheKey = `${Ns}.recentPurchases.2`;
 const TtlDay = 60 * 60 * 24;
 const AvatarRetryTtl = 60 * 5;
 // const JapanDisplayTaxRate = 0.1;
@@ -58,6 +58,13 @@ const discountHintHtml = (discountPercent: number, country: string, flag: string
 `;
 
 const avatarStackItemHtml = (url: string) => html`<img class="avatar-stack-item" src="${url.replaceAll('&', '&amp;').replaceAll('"', '&quot;')}" alt="">`;
+
+function isAllowedAvatarUrl(url: string) {
+  if (!URL.canParse(url)) return false;
+  const { protocol, hostname } = new URL(url);
+  return protocol === 'https:' && !/(^|\.)logo\.dev\.?$/.test(hostname);
+}
+
 const devAvatarHtml = html`
   <svg class="avatar-stack-item avatar-stack-placeholder" viewBox="0 0 32 32" fill="currentColor">
     <circle cx="16" cy="12" r="4"/>
@@ -132,7 +139,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     });
   }
 
-  const selectedAvatars = [...avatarUrls].sort(() => Math.random() - 0.5).slice(0, 5);
+  const selectedAvatars = avatarUrls.filter(isAllowedAvatarUrl).sort(() => Math.random() - 0.5).slice(0, 5);
   const avatarStackHtml = selectedAvatars.length
     ? selectedAvatars.map(avatarStackItemHtml).join('')
     : DEV === '1' ? devAvatarHtml.repeat(3) : '';
@@ -345,7 +352,7 @@ async function loadRecentPurchases(context: EnvEventContext): Promise<RecentPurc
 }
 
 async function checkAvatarUrls(candidates: Set<string>) {
-  const urls = [...candidates].filter(url => URL.canParse(url) && new URL(url).protocol === 'https:');
+  const urls = [...candidates].filter(isAllowedAvatarUrl);
   const avatarUrls: string[] = [];
   const signal = AbortSignal.timeout(3000);
   let avatarCheckIncomplete = false;
@@ -356,7 +363,7 @@ async function checkAvatarUrls(candidates: Set<string>) {
       break;
     }
     const batch = urls.slice(i, i + 5);
-    // Polar supplies each provider's 404 fallback. Adding Gravatar's d=404 breaks Logo.dev HEAD requests.
+    // Polar supplies each provider's 404 fallback.
     const responses = await Promise.all(batch.map(url => fetch(url, { method: 'HEAD', signal }).catch(() => null)));
     for (const [index, response] of responses.entries()) {
       if (response?.ok && response.headers.get('content-type')?.startsWith('image/')) {
@@ -377,6 +384,7 @@ async function getRecentProductPurchases(env: Env) {
   });
 
   const productId = [env.PRO_PRODUCT_ID, env.BE_PRODUCT_ID];
+  if (env.PRO_SUBSCRIBE_PRODUCT_ID) productId.push(env.PRO_SUBSCRIBE_PRODUCT_ID);
 
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30.5);
