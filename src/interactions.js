@@ -237,7 +237,14 @@ async function initializeVideoPlayback(window, document) {
   const spies = /** @type {RemoteHTMLElement[]} */ (await document.querySelectorAll('.spy'));
   if (!cardVideos.length || !spies.length) return;
 
-  await Promise.all(Array.from(cardVideos, (video) => setProperty(video, 'muted', true)));
+  await Promise.all(Array.from(cardVideos, async (video) => {
+    const classList = await video.classList;
+    await Promise.all([
+      setProperty(video, 'muted', true),
+      video.addEventListener('playing', asyncCallback(() => classList.add('has-video-frame'))),
+      video.addEventListener('error', asyncCallback(() => classList.remove('has-video-frame'))),
+    ]);
+  }));
 
   /** @type {Map<RemoteElement, RemoteVideo | undefined>} */
   const videosByTarget = new Map(await Promise.all(Array.from(spies, async (target) => {
